@@ -213,25 +213,74 @@
                                         </div>
                                     </div>
                                 </div>
-                                <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-                                    <div class="container"> <ul class="navbar-nav nav-left">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="index.html">Inicio</a>
-                                            </li>
-                                            </ul>
-                                
-                                        <a class="navbar-brand mx-auto" href="index.html">
-                                            <img src="assets/img/logo/logo-light.png" alt="Freddy's Logo" class="logo-img">
-                                        </a>
-                                
-                                        <ul class="navbar-nav nav-right">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="my-account.html">Mi Cuenta</a>
-                                            </li>
-                                            </ul>
-                                
+                                <div class="header-middle">
+                                    <div class="mean__menu-wrapper">
+                                        <div class="main-menu">
+                                            <nav id="mobile-menu">
+                                                <ul>
+                                                    <!-- Item(s) on the Left -->
+                                                    <li> <!-- Keep LI structure, remove has-dropdown if no submenu needed -->
+                                                        <a href="index.html">
+                                                            Inicio
+                                                            <!-- Remove the <i class="fa-regular fa-plus"></i> if no dropdown -->
+                                                        </a>
+                                                        <!-- Remove the entire submenu UL if not needed -->
+                                                        <!-- <ul class="submenu"> ... </ul> -->
+                                                    </li>
+                                                    <!-- Add more simple links here if needed for left balance -->
+                                                    <!-- <li><a href="about.html">Nosotros</a></li> -->
+                                            
+                                            
+                                                    <!-- Logo Item (Keep exactly as template had it, just change image src if needed) -->
+                                                    <li>
+                                                        <div class="logo-image d-none d-xl-block">
+                                                            <a href="index.html">
+                                                                 <!-- Use the user's desired logo -->
+                                                                <img src="assets/img/logo/logo-light.png" alt="Freddy's Logo">
+                                                                <!-- Original was: <img src="assets/img/logo/logo3.svg" alt="img"> -->
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                            
+                                            
+                                                    <!-- Item(s) on the Right -->
+                                                    <li> <!-- Keep LI structure, remove has-dropdown if no submenu needed -->
+                                                        <a href="my-account.html">
+                                                            Mi Cuenta
+                                                            <!-- Remove the <i class="fa-regular fa-plus"></i> if no dropdown -->
+                                                        </a>
+                                                        <!-- Remove the entire submenu UL if not needed -->
+                                                        <!-- <ul class="submenu"> ... </ul> -->
+                                                    </li>
+                                                    <!-- Add more simple links here if needed for right balance -->
+                                                    <!-- <li><a href="contact.html">Contacto</a></li> -->
+                                            
+                                                    <!-- IMPORTANT: Include the mobile-specific list items if they were there -->
+                                                    <!-- Check original template if there were items with d-xl-none -->
+                                                    <!-- Example: Replicating the mobile "Home" link structure -->
+                                                    <li class="active d-xl-none"> <!-- Use 'active' if Inicio is the current page -->
+                                                         <a href="index.html" class="border-none"> <!-- Check if border-none was needed -->
+                                                             Inicio
+                                                             <!-- Add <i class="fa-regular fa-plus"></i> ONLY if it should have a mobile submenu -->
+                                                         </a>
+                                                         <!-- Add <ul class="submenu"> ONLY if it should have a mobile submenu -->
+                                                         <!-- <li><a href="index.html">Sub item 1</a></li> -->
+                                                         <!-- </ul> -->
+                                                     </li>
+                                                     <!-- Example: Replicating a mobile "Mi Cuenta" link -->
+                                                      <li class="d-xl-none">
+                                                          <a href="my-account.html">
+                                                              Mi Cuenta
+                                                              <!-- Icon? -->
+                                                          </a>
+                                                          <!-- Submenu? -->
+                                                      </li>
+                                            
+                                                </ul>
+                                            </nav>
                                         </div>
-                                </nav>
+                                    </div>
+                                </div>
                                 <div class="header-right d-flex justify-content-end align-items-center">
                                     <a href="#0" class="search-trigger search-icon"><i class="fal fa-search"></i></a>
 
