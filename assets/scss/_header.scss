@@ -704,7 +704,7 @@
     }
 
 	.header-main {  
-	  padding: 10px 0 0 50px;
+	  padding: 0px 0 0 50px;
 		.main-menu {
 			ul {
 				li {
@@ -802,7 +802,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 10px 0;
+	padding: 0px 0;
 	
 	.main-menu {
 		ul {
@@ -1686,3 +1686,88 @@
 		margin-bottom: 30px;
 	}
 }
+/* ============================================= */
+/* == INICIO: AJUSTES PERSONALIZADOS FREDDYS == */
+/* ============================================= */
+
+// Aplica estos estilos solo en pantallas de escritorio (XL y más grandes)
+// Reemplaza 1200px con $breakpoint-xl si esa variable existe en _variables.scss
+@media (min-width: 1200px) {
+
+    // --- Ajuste Tamaño Logo y Alineación Vertical ---
+
+    // Contenedor del logo en header 3
+    .header-section-3 .main-header-wrapper .logo-image {
+        padding-top: 0px;     // <-- VALOR INICIAL (Ajustar con DevTools si es necesario)
+        padding-bottom: 0px;  // <-- VALOR INICIAL (Ajustar con DevTools si es necesario)
+        vertical-align: middle;
+        line-height: 0;
+
+        // Imagen del logo
+        img {
+            max-height: 90px;      // <--- TAMAÑO DEL LOGO (Puedes cambiar 70px)
+            width: auto !important;  // Asegura que el ancho sea automático
+            vertical-align: middle;
+        }
+    }
+
+    // Links del menú principal en header 3
+    .header-3 .header-main .main-menu ul li:not(.d-xl-none) > a {
+        padding-top: 0px;     // <-- VALOR INICIAL (Ajustar con DevTools para alinear con logo)
+        padding-bottom: 0px;  // <-- VALOR INICIAL (Ajustar con DevTools para alinear con logo)
+        line-height: 1;      // Ayuda a controlar altura con padding
+        vertical-align: middle;
+    }
+
+    // --- Ajuste Centrado Horizontal ---
+
+    // Asegurar centrado del UL y alineación vertical de LIs
+     .header-3 .header-main .main-menu ul {
+         text-align: center;
+     }
+     .header-3 .header-main .main-menu ul li {
+         vertical-align: middle;
+     }
+
+    // Padding horizontal EXTRA para el PRIMER link ("Inicio")
+    // Ajusta este valor con DevTools hasta que el logo se vea centrado
+    .header-3 .header-main .main-menu ul li:not(.d-xl-none):first-of-type > a {
+        padding-left: 150px;  // <-- VALOR INICIAL (AJUSTAR CON DEVTOOLS)
+        padding-right: 0px; // <-- VALOR INICIAL (AJUSTAR CON DEVTOOLS)
+    }
+
+    // Padding horizontal EXTRA para el ÚLTIMO link ("Mi Cuenta")
+    // Normalmente solo necesitas ajustar uno de los lados (el más estrecho).
+    // Si "Mi Cuenta" también necesita ajuste, descomenta y ajusta estas líneas.
+    /*
+    .header-3 .header-main .main-menu ul li:not(.d-xl-none):last-of-type > a {
+        padding-left: 50px;  // <--- AJUSTA ESTE VALOR
+        padding-right: 50px; // <--- AJUSTA ESTE VALOR (igual al izquierdo)
+    }
+    */
+
+
+    // --- Asegurar Tamaño Logo en Estado Sticky ---
+    // Revisa si tu <header> obtiene la clase .header-3 junto con .sticky
+    .sticky.header-3 .main-header-wrapper .logo-image img {
+         max-height: 90px;         // <--- MISMO TAMAÑO DE LOGO
+         width: auto !important;   // Anula el width: 70% que estaba en .sticky
+    }
+
+} // Fin de @media (min-width: 1200px)
+
+
+// --- Asegurar Color Texto en Scroll (Verificación) ---
+// Esta regla debería existir ya, pero la ponemos para asegurar.
+// Verifica que $title-color sea oscuro en _variables.scss o cambia a #000
+.sticky .header-main .main-menu ul li a {
+    color: $title-color; // O cambia directamente a #000 o #333 si $title-color no es oscuro
+}
+.sticky.header-3 .header-main .main-menu ul li a { // Más específico para header 3 si es necesario
+     color: $title-color; // O cambia directamente a #000 o #333
+}
+
+
+/* =========================================== */
+/* == FIN: AJUSTES PERSONALIZADOS FREDDYS == */
+/* =========================================== */
