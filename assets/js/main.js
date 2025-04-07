@@ -145,9 +145,9 @@ JS TABLE OF CONTENTS
                 loop: true,
                 slidesPerView: 1,
                 effect: "fade",
-                speed: 4000,
+                speed: 2000,
                 autoplay: {
-                    delay: 5000,
+                    delay: 10000,
                     disableOnInteraction: false,
                 },
                 navigation: {

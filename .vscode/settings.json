@@ -1,0 +1,27 @@
+// Archivo: c:\xampp\htdocs\ProyectoF2.0IA\.vscode\settings.json
+{
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": "/assets/css" // Ruta de salida correcta
+    }
+    // Puedes añadir formato comprimido si lo necesitas
+    // ,{
+    //   "format": "compressed",
+    //   "extensionName": ".min.css",
+    //   "savePath": "/assets/css"
+    // }
+  ],
+  "liveSassCompile.settings.generateMap": true,
+  "liveSassCompile.settings.includeItems": [
+     "/assets/scss/main.scss" // Asegúrate que esta ruta es correcta y empieza con /
+     // O usa "/assets/scss/" si prefieres vigilar toda la carpeta
+  ],
+  // --- CORRECCIÓN AQUÍ ---
+  "liveSassCompile.settings.excludeList": [
+      "/node_modules/**",  // Añadida barra '/' al inicio
+      "/.vscode/**"       // Añadida barra '/' al inicio
+  ]
+  // --- FIN CORRECCIÓN ---
+}

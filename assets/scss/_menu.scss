@@ -342,3 +342,226 @@
         }
     }
 }
+/* ============================================= */
+/* == INICIO: AJUSTES FREDDYS - MENÚ/TARJETAS V5 FINAL == */
+/* (Añadir/Reemplazar en _menu.scss o _products.scss) */
+/* ============================================= */
+
+// --- Reducir espacio sobre el menú ---
+.menu-display-section.section-padding {
+    // El padding por defecto de section-padding suele ser grande (ej. 120px 0)
+    padding-top: 60px !important; // <-- Reduce (Prueba 50px, 60px, 70px con DevTools)
+    // padding-bottom: 90px; // Ajusta el inferior si quieres menos espacio antes del footer
+}
+
+// --- Estilos para Filtros de Categoría ---
+.menu-filter-nav {
+    button.filter-btn {
+        background-color: transparent;
+        border: none;
+        // Estilo similar a títulos (AHORA BLANCO/CLARO)
+        color: rgba($white, 0.85); // <-- Color base claro para dark mode
+        font-family: $title-font;
+        font-size: 24px;          // <-- AJUSTA (ej. 24px, 28px) para igualar H2 si quieres
+        font-weight: 700;         // <-- AJUSTA (ej. 600, 700)
+        text-transform: capitalize;
+        padding: 5px 10px;
+        margin: 0 15px 15px 15px;
+        cursor: pointer;
+        transition: color 0.3s ease, border-color 0.3s ease;
+        position: relative;
+        border-bottom: 3px solid transparent;
+
+        &:hover {
+            color: $white; // Blanco más brillante al pasar
+        }
+
+        &.active { // Estilo del filtro activo
+            color: $theme-color; // Color principal de la plantilla
+            border-bottom-color: $theme-color; // Línea inferior visible
+        }
+    }
+    @include breakpoint(max-sm) { // Ajuste filtros en móvil
+       button.filter-btn {
+            font-size: 18px;
+            margin: 0 5px 10px 5px;
+            padding: 5px;
+       }
+    }
+} // Fin .menu-filter-nav
+
+// --- Estilos para Tarjetas, Modificadores y Cantidad ---
+.dishes-card { // Aplica a todas las tarjetas de plato/pizza
+
+    // Contenedor de modificadores
+    .product-modifiers {
+        border-top: 1px dashed rgba(255, 255, 255, 0.15);
+        padding-top: 12px;
+        margin-top: 12px;
+        margin-bottom: 15px;
+        text-align: left;
+
+        label { // Estilo general etiquetas dentro de modificadores
+            font-size: 14px;
+            color: inherit;
+            font-weight: 400;
+            display: inline-block;
+            margin-left: 5px;
+            vertical-align: middle;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            &:hover { color: $theme-color; }
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            margin-right: 4px;
+            vertical-align: middle;
+            cursor: pointer;
+            accent-color: $theme-color; // Color del check/radio mismo
+        }
+
+        .modifier-group {
+             &:not(:last-child) { margin-bottom: 10px; } // Espacio entre grupos
+
+             // Etiqueta principal del grupo (ej: "Cocción:", "Cebolla:")
+             > label.group-label {
+                 display: block;
+                 margin-bottom: 6px;
+                 font-weight: 500;
+                 font-size: 14px;
+                 color: inherit;
+                 line-height: 1.3; // Asegura espacio si hay dos líneas
+             }
+        } // Fin .modifier-group
+
+         // Grupo de Radios (Cocción, Cebolla) - Estilo Etiquetas Clicables
+         .modifier-radio-group {
+             input.modifier-radio { // Ocultar radio real
+                 opacity: 0; position: absolute; width: 0; height: 0;
+
+                 + label.modifier-radio-label { // Etiqueta clicable
+                     margin-right: 8px; padding: 5px 12px; // Un poco más de padding
+                     border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 4px;
+                     cursor: pointer; transition: all 0.3s ease;
+                     &:hover { border-color: $theme-color; color: $theme-color; }
+                 }
+                 // Estilo seleccionado
+                 &:checked + label.modifier-radio-label {
+                     background-color: $theme-color; border-color: $theme-color;
+                     color: $white !important;
+                 }
+             }
+         } // Fin .modifier-radio-group
+
+         // Estilo para los Select de Mitad y Mitad
+         select.form-select {
+             font-size: 14px; padding: 8px 12px; display: block; width: 100%;
+             border-radius: 4px;
+             // Estilos Dark Mode para select (SOBREESCRIBE BOOTSTRAP)
+             background-color: #3a3a3a !important; // <-- Color estático oscuro CORREGIDO
+             color: rgba($white, 0.85) !important;
+             border: 1px solid rgba($white, 0.2) !important;
+             // Flecha dropdown (Bootstrap usa SVG como background-image)
+             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23cccccc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important; // Flecha clara
+
+             // Si usas NiceSelect JS (clase .single-select), necesitarás estilizar .nice-select y sus .option en lugar de esto.
+         } // Fin select.form-select
+
+         // Texto pequeño de nota Mitad y Mitad
+         small {
+            color: inherit;
+            opacity: 0.7;
+         }
+
+    } // Fin .product-modifiers
+
+    // Estilos para Selector de Cantidad
+    .quantity-selector {
+        gap: 5px; // Espacio entre botones e input
+
+        .qty-input {
+            max-width: 45px; text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2); // Borde tenue
+            background-color: rgba(255, 255, 255, 0.05); // Fondo ligero
+            color: inherit; // Hereda color texto
+            border-radius: 4px; padding: 4px; font-size: 14px;
+            -moz-appearance: textfield;
+             &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+                 -webkit-appearance: none; margin: 0;
+             }
+        }
+
+        .qty-btn {
+            background-color: #3a3a3a; // <-- Color estático oscuro CORREGIDO
+            color: rgba($white, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 30px; height: 30px; line-height: 28px; text-align: center;
+            border-radius: 4px; padding: 0; cursor: pointer; transition: all 0.3s ease;
+
+            &:hover { background-color: $theme-color; color: $white; }
+            i { font-size: 0.8em; }
+        }
+    } // Fin .quantity-selector
+
+    // Estilo Botón Añadir
+    .add-to-cart-btn {
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 15px;
+        margin-top: 15px;
+    }
+} // Fin .dishes-card
+
+
+// --- AJUSTES DARK MODE GENERALES PARA TARJETAS (CORREGIDO) ---
+.dark-mood {
+    // Filtros ya ajustados arriba
+
+    .dishes-card.style2 {
+        // ¡CORREGIDO! Usar color estático
+        background-color: #2b2b2b; // <-- Fondo tarjeta oscuro (AJUSTA ESTE HEX)
+
+        .dishes-content {
+            // Asegurar color claro para todos estos elementos
+            h3, .text, h6, label, .modifier-group > label.group-label, small {
+                color: rgba($white, 0.85);
+            }
+             a h3 { color: $white; &:hover { color: $theme-color; } } // Título más brillante
+             h6 { color: $theme-color; // Precio destacado
+                .product-price { color: $theme-color;}
+             }
+        }
+         .product-modifiers {
+             border-top-color: rgba($white, 0.2);
+             // Select en Dark Mode (asegurar)
+             select.form-select {
+                  background-color: #3a3a3a !important;
+                  color: rgba($white, 0.85) !important;
+                  border-color: rgba($white, 0.2) !important;
+                  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23cccccc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+             }
+         }
+         .quantity-selector { // Estilos cantidad en dark mode (asegurar)
+              .qty-input {
+                  border-color: rgba(255, 255, 255, 0.2);
+                  background-color: rgba(255, 255, 255, 0.05);
+                  color: rgba($white, 0.85);
+              }
+              .qty-btn {
+                   background-color: #3a3a3a; // Color estático
+                   color: rgba($white, 0.8);
+                   border-color: rgba(255, 255, 255, 0.2);
+                    &:hover { background-color: $theme-color; color: $white; }
+              }
+         }
+    }
+} // Fin .dark-mood
+
+/* =========================================== */
+/* == FIN: AJUSTES FREDDYS - MENÚ Y TARJETAS V5 == */
+/* =========================================== */
+    /* Ajuste Padding Superior Sección Menú */
+    .menu-display-section.section-padding {
+        padding-top: 40px !important; // <-- Reduce este valor (prueba 40px, 50px, 60px con DevTools)
+    }
