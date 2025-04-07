@@ -7723,7 +7723,7 @@ input.main-search-input::placeholder {
 }
 
 /* ============================================= */
-/* == INICIO: AJUSTES FREDDYS - MENÚ/TARJETAS V5 FINAL == */
+/* == INICIO: AJUSTES FREDDYS - MENÚ/TARJETAS V8 == */
 /* (Añadir/Reemplazar en _menu.scss o _products.scss) */
 /* ============================================= */
 .menu-display-section.section-padding {
@@ -7733,7 +7733,7 @@ input.main-search-input::placeholder {
 .menu-filter-nav button.filter-btn {
   background-color: transparent;
   border: none;
-  color: rgba(var(--white), 0.85);
+  color: #ffffff;
   font-family: var(--title-font);
   font-size: 24px;
   font-weight: 700;
@@ -7746,7 +7746,7 @@ input.main-search-input::placeholder {
   border-bottom: 3px solid transparent;
 }
 .menu-filter-nav button.filter-btn:hover {
-  color: var(--white);
+  color: #e0e0e0;
 }
 .menu-filter-nav button.filter-btn.active {
   color: var(--theme);
@@ -7767,7 +7767,7 @@ input.main-search-input::placeholder {
   margin-bottom: 15px;
   text-align: left;
 }
-.dishes-card .product-modifiers label {
+.dishes-card .product-modifiers label.modifier-label {
   font-size: 14px;
   color: inherit;
   font-weight: 400;
@@ -7777,20 +7777,16 @@ input.main-search-input::placeholder {
   cursor: pointer;
   transition: color 0.3s ease;
 }
-.dishes-card .product-modifiers label:hover {
+.dishes-card .product-modifiers label.modifier-label:hover {
   color: var(--theme);
 }
-.dishes-card .product-modifiers input[type=checkbox],
-.dishes-card .product-modifiers input[type=radio] {
+.dishes-card .product-modifiers input.modifier-checkbox {
   margin-right: 4px;
   vertical-align: middle;
   cursor: pointer;
   accent-color: var(--theme);
 }
-.dishes-card .product-modifiers .modifier-group:not(:last-child) {
-  margin-bottom: 10px;
-}
-.dishes-card .product-modifiers .modifier-group > label.group-label {
+.dishes-card .product-modifiers .modifier-radio-group label.group-label {
   display: block;
   margin-bottom: 6px;
   font-weight: 500;
@@ -7819,18 +7815,49 @@ input.main-search-input::placeholder {
 .dishes-card .product-modifiers .modifier-radio-group input.modifier-radio:checked + label.modifier-radio-label {
   background-color: var(--theme);
   border-color: var(--theme);
-  color: var(--white) !important;
+  color: #ffffff !important;
 }
-.dishes-card .product-modifiers select.form-select {
-  font-size: 14px;
-  padding: 8px 12px;
-  display: block;
-  width: 100%;
+.dishes-card .product-modifiers .nice-select {
+  background-color: #3a3a3a;
+  border-color: rgba(255, 255, 255, 0.2);
   border-radius: 4px;
-  background-color: #3a3a3a !important;
-  color: rgba(var(--white), 0.85) !important;
-  border: 1px solid rgba(var(--white), 0.2) !important;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23cccccc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+  padding: 6px 10px;
+  line-height: 1.5;
+  height: auto;
+  width: 100%;
+  margin-top: 5px;
+}
+.dishes-card .product-modifiers .nice-select span.current {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+}
+.dishes-card .product-modifiers .nice-select::after {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+  border-right: 2px solid rgba(255, 255, 255, 0.7);
+  height: 8px;
+  width: 8px;
+  right: 12px;
+}
+.dishes-card .product-modifiers .nice-select .list {
+  background-color: #3a3a3a;
+  border-radius: 4px;
+  margin-top: 2px;
+  width: 100%;
+}
+.dishes-card .product-modifiers .nice-select .option {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  padding: 5px 10px;
+}
+.dishes-card .product-modifiers .nice-select .option:hover, .dishes-card .product-modifiers .nice-select .option.focus, .dishes-card .product-modifiers .nice-select .option.selected.focus {
+  background-color: #474747;
+}
+.dishes-card .product-modifiers .nice-select .option.selected {
+  color: var(--theme);
+  font-weight: 600;
+}
+.dishes-card .product-modifiers .modifier-group:not(:last-child) {
+  margin-bottom: 10px;
 }
 .dishes-card .product-modifiers small {
   color: inherit;
@@ -7844,7 +7871,7 @@ input.main-search-input::placeholder {
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background-color: rgba(255, 255, 255, 0.05);
-  color: inherit;
+  color: rgba(255, 255, 255, 0.9);
   border-radius: 4px;
   padding: 4px;
   font-size: 14px;
@@ -7856,7 +7883,7 @@ input.main-search-input::placeholder {
 }
 .dishes-card .quantity-selector .qty-btn {
   background-color: #3a3a3a;
-  color: rgba(var(--white), 0.8);
+  color: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.2);
   width: 30px;
   height: 30px;
@@ -7869,7 +7896,7 @@ input.main-search-input::placeholder {
 }
 .dishes-card .quantity-selector .qty-btn:hover {
   background-color: var(--theme);
-  color: var(--white);
+  color: #fff;
 }
 .dishes-card .quantity-selector .qty-btn i {
   font-size: 0.8em;
@@ -7885,10 +7912,10 @@ input.main-search-input::placeholder {
   background-color: #2b2b2b;
 }
 .dark-mood .dishes-card.style2 .dishes-content h3, .dark-mood .dishes-card.style2 .dishes-content .text, .dark-mood .dishes-card.style2 .dishes-content h6, .dark-mood .dishes-card.style2 .dishes-content label, .dark-mood .dishes-card.style2 .dishes-content .modifier-group > label.group-label, .dark-mood .dishes-card.style2 .dishes-content small {
-  color: rgba(var(--white), 0.85);
+  color: rgba(255, 255, 255, 0.9);
 }
 .dark-mood .dishes-card.style2 .dishes-content a h3 {
-  color: var(--white);
+  color: #ffffff;
 }
 .dark-mood .dishes-card.style2 .dishes-content a h3:hover {
   color: var(--theme);
@@ -7900,31 +7927,109 @@ input.main-search-input::placeholder {
   color: var(--theme);
 }
 .dark-mood .dishes-card.style2 .product-modifiers {
-  border-top-color: rgba(var(--white), 0.2);
+  border-top-color: rgba(255, 255, 255, 0.2);
 }
-.dark-mood .dishes-card.style2 .product-modifiers select.form-select {
-  background-color: #3a3a3a !important;
-  color: rgba(var(--white), 0.85) !important;
-  border-color: rgba(var(--white), 0.2) !important;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23cccccc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+.dark-mood .dishes-card.style2 .product-modifiers label.modifier-label {
+  color: rgba(255, 255, 255, 0.9);
 }
-.dark-mood .dishes-card.style2 .quantity-selector .qty-input {
-  border-color: rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.05);
-  color: rgba(var(--white), 0.85);
+.dark-mood .dishes-card.style2 .product-modifiers input.modifier-radio + label.modifier-radio-label {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
 }
-.dark-mood .dishes-card.style2 .quantity-selector .qty-btn {
-  background-color: #3a3a3a;
-  color: rgba(var(--white), 0.8);
-  border-color: rgba(255, 255, 255, 0.2);
+.dark-mood .dishes-card.style2 .product-modifiers input.modifier-radio + label.modifier-radio-label:hover {
+  border-color: var(--theme);
+  color: var(--theme);
 }
-.dark-mood .dishes-card.style2 .quantity-selector .qty-btn:hover {
+.dark-mood .dishes-card.style2 .product-modifiers input.modifier-radio:checked + label.modifier-radio-label {
   background-color: var(--theme);
-  color: var(--white);
+  border-color: var(--theme);
+  color: #ffffff !important;
+}
+/* Contenedor de cada grupo para dar espacio */
+.modifier-group {
+  position: relative;
+  z-index: 5; /* Base para evitar conflictos */
+  margin-bottom: 50px; /* Más espacio entre grupos */
+  min-height: 80px; /* Altura mínima para evitar colapso */
+  padding-bottom: 10px; /* Espacio adicional para el contenido */
+}
+
+/* Estilos base para Nice Select */
+.nice-select {
+  position: relative;
+  z-index: 10; /* Base para estado cerrado */
+  pointer-events: auto; /* Asegurar interactividad */
+  display: inline-block; /* Respetar el ancho natural */
+  width: 100%; /* Ocupar el ancho del contenedor */
+  height: 40px; /* Altura fija para consistencia */
+  line-height: 40px; /* Centrar el texto verticalmente */
+  padding: 0 30px 0 10px; /* Espacio interno para el texto y la flecha */
+  box-sizing: border-box; /* Incluir padding en las dimensiones */
+  background-color: #3a3a3a; /* Mantener el fondo oscuro */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Borde consistente */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+/* Lista desplegable */
+.nice-select .list {
+  position: absolute;
+  top: 100%; /* Debajo del selector */
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Siempre encima */
+  background-color: #3a3a3a; /* Fondo oscuro consistente */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+  max-height: 200px; /* Limitar altura */
+  overflow-y: auto; /* Scroll si es necesario */
+  margin-top: 5px; /* Separación adicional */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+/* Opciones dentro de la lista */
+.nice-select .option {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  padding: 5px 10px;
+}
+.nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus {
+  background-color: #474747;
+}
+.nice-select .option.selected {
+  color: var(--theme);
+  font-weight: 600;
+}
+
+/* Selector abierto */
+.nice-select.open {
+  z-index: 1001; /* Prioridad cuando está abierto */
+}
+
+/* Flecha del selector */
+.nice-select::after {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+  border-right: 2px solid rgba(255, 255, 255, 0.7);
+  height: 8px;
+  width: 8px;
+  right: 12px;
+}
+
+/* Texto de precio */
+.modifier-group small {
+  position: relative;
+  z-index: 1; /* Debajo de los desplegables */
+  display: block;
+  margin-top: 10px; /* Más espacio arriba */
+  padding-bottom: 15px; /* Espacio adicional debajo */
+  color: rgba(255, 255, 255, 0.7); /* Color claro para visibilidad */
+}
+
+/* Contenedor con un desplegable abierto */
+.modifier-group:has(.nice-select.open) {
+  z-index: 1002; /* Prioridad para el grupo con un desplegable abierto */
 }
 
 /* =========================================== */
-/* == FIN: AJUSTES FREDDYS - MENÚ Y TARJETAS V5 == */
+/* == FIN: AJUSTES FREDDYS - MENÚ/TARJETAS V8 == */
 /* =========================================== */
 /* Ajuste Padding Superior Sección Menú */
 .menu-display-section.section-padding {

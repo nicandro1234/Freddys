@@ -555,45 +555,45 @@ JS TABLE OF CONTENTS
         });
 
 
+/*-----------------------------------
+    20. Mouse Cursor    
+-----------------------------------*/
+function mousecursor() {
+    const e = document.querySelector(".cursor-inner");
+    const t = document.querySelector(".cursor-outer");
+    
+    // Verificar si los elementos existen antes de continuar
+    if (!e || !t) {
+        console.log('Error: .cursor-inner o .cursor-outer no encontrados en el DOM');
+        return;
+    }
 
-        /*-----------------------------------
-            20. Mouse Cursor    
-        -----------------------------------*/
-        function mousecursor() {
-            if ($("body")) {
-                const e = document.querySelector(".cursor-inner"),
-                    t = document.querySelector(".cursor-outer");
-                let n,
-                    i = 0,
-                    o = !1;
-                (window.onmousemove = function (s) {
-                    o ||
-                        (t.style.transform =
-                            "translate(" + s.clientX + "px, " + s.clientY + "px)"),
-                        (e.style.transform =
-                            "translate(" + s.clientX + "px, " + s.clientY + "px)"),
-                        (n = s.clientY),
-                        (i = s.clientX);
-                }),
-                    $("body").on("mouseenter", "a, .cursor-pointer", function () {
-                        e.classList.add("cursor-hover");
-                        t.classList.add("cursor-hover");
-                    }),
-                    $("body").on("mouseleave", "a, .cursor-pointer", function () {
-                        ($(this).is("a") && $(this).closest(".cursor-pointer").length) ||
-                            (e.classList.remove("cursor-hover"),
-                                t.classList.remove("cursor-hover"));
-                    }),
-                    (e.style.visibility = "visible"),
-                    (t.style.visibility = "visible");
-            }
+    let n, i = 0, o = !1;
+    window.onmousemove = function (s) {
+        if (!o) {
+            t.style.transform = "translate(" + s.clientX + "px, " + s.clientY + "px)";
+            e.style.transform = "translate(" + s.clientX + "px, " + s.clientY + "px)";
+            n = s.clientY;
+            i = s.clientX;
         }
-        $(function () {
-            mousecursor();
-        });
+    };
+    $("body").on("mouseenter", "a, .cursor-pointer", function () {
+        e.classList.add("cursor-hover");
+        t.classList.add("cursor-hover");
+    });
+    $("body").on("mouseleave", "a, .cursor-pointer", function () {
+        if (!($(this).is("a") && $(this).closest(".cursor-pointer").length)) {
+            e.classList.remove("cursor-hover");
+            t.classList.remove("cursor-hover");
+        }
+    });
+    e.style.visibility = "visible";
+    t.style.visibility = "visible";
+}
 
-
-
+$(function () {
+    mousecursor();
+});
 
         /*-----------------------------------
             21. Time Countdown  
@@ -760,15 +760,28 @@ JS TABLE OF CONTENTS
             });
         });
 
-
-        /*--------------------------------------------------
-          23. Select onput
-      ---------------------------------------------------*/
-        if ($('.single-select').length) {
-            $('.single-select').niceSelect();
+/*--------------------------------------------------
+  23. Select input
+---------------------------------------------------*/
+if ($('.single-select').length) {
+    console.log('Inicializando Nice Select para', $('.single-select').length, 'elementos');
+    $('.single-select').each(function () {
+        var $select = $(this);
+        console.log('Procesando select con ID:', $select.attr('id'));
+        $select.niceSelect();
+        var $niceSelect = $select.next('.nice-select');
+        if ($niceSelect.length) {
+            console.log('Nice Select generado para', $select.attr('id'));
+            $niceSelect.css({
+                'display': 'block',
+                'visibility': 'visible',
+                'opacity': 1
+            });
+        } else {
+            console.log('Error: Nice Select no generado para', $select.attr('id'));
         }
-
-
+    });
+}
 
         /*--------------------------------------------------
           24. Quantity Plus Minus
@@ -846,6 +859,38 @@ JS TABLE OF CONTENTS
 
     loader();
 
+/*--------------------------------------------------
+  27. Mitad y Mitad Price Update
+---------------------------------------------------*/
+$('.single-select').on('change', function () {
+    var $this = $(this);
+    var productId = $this.data('product-id');
+    var $mitad1Select = $('#mitad1-' + productId);
+    var $mitad2Select = $('#mitad2-' + productId);
+    var $priceElement = $this.closest('.dishes-content').find('.product-price');
 
+    console.log('Cambio en selector:', $this.attr('id')); // Depuración
+    console.log('Mitad 1 valor:', $mitad1Select.val());
+    console.log('Mitad 2 valor:', $mitad2Select.val());
+
+    var basePrice = 129.00;
+    var extraPrice = 0;
+
+    var mitad1Value = $mitad1Select.val();
+    if (mitad1Value) {
+        var mitad1Price = parseFloat($mitad1Select.find('option[value="' + mitad1Value + '"]').data('base-price'));
+        extraPrice += Math.max(0, mitad1Price - basePrice);
+    }
+
+    var mitad2Value = $mitad2Select.val();
+    if (mitad2Value) {
+        var mitad2Price = parseFloat($mitad2Select.find('option[value="' + mitad2Value + '"]').data('base-price'));
+        extraPrice += Math.max(0, mitad2Price - basePrice);
+    }
+
+    var totalPrice = basePrice + extraPrice;
+    $priceElement.text(totalPrice.toFixed(2));
+    console.log('Precio total actualizado:', totalPrice);
+});
 })(jQuery); // End jQuery
 

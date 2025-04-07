@@ -403,380 +403,399 @@
     <section class="menu-display-section section-padding fix">
         <div class="container">
     
-            <div class="title-area text-center mb-4 wow fadeInUp" data-wow-delay=".3s">
-                <div class="sub-title">
-                    <img class="me-1" src="assets/img/icon/titleIcon.svg" alt="icon">Nuestro Menú<img class="ms-1" src="assets/img/icon/titleIcon.svg" alt="icon">
+            <div class="container">
+                <!-- Títulos y filtros sin cambios -->
+                <div class="title-area text-center mb-4 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="sub-title">
+                        <img class="me-1" src="assets/img/icon/titleIcon.svg" alt="icon">Nuestro Menú<img class="ms-1" src="assets/img/icon/titleIcon.svg" alt="icon">
+                    </div>
                 </div>
+                <div class="menu-filter-nav text-center mb-5 wow fadeInUp" data-wow-delay=".5s">
+                    <button class="filter-btn active" data-filter="pizzas">Pizzas</button>
+                    <button class="filter-btn" data-filter="orilla">Orilla Rellena</button>
+                    <button class="filter-btn" data-filter="complementos">Complementos</button>
                 </div>
-    
-            <div class="menu-filter-nav text-center mb-5 wow fadeInUp" data-wow-delay=".5s">
-                <button class="filter-btn active" data-filter="pizzas">Pizzas</button>
-                <button class="filter-btn" data-filter="orilla">Orilla Rellena</button>
-                <button class="filter-btn" data-filter="complementos">Complementos</button>
-                </div>
-            <div class="menu-items-container">
-    
-                <div class="category-block menu-category-pizzas mb-5">
-                     <div class="dishes-card-wrap style2"> <div class="dishes-card style2 product-item" data-category="pizzas">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/mamalona.png" alt="La Mamalona">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>La Mamalona</h3></a>
-                                 <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-1" name="extra-queso-pizza-1" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-pizza-1">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-pizza-1" name="coccion-pizza-1" value="suave" checked>
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-1">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-1" name="coccion-pizza-1" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-1">Crujiente</label>
-                                    </div>
+                <div class="menu-items-container">
+                    <div class="category-block menu-category-pizzas mb-5">
+                        <div class="dishes-card-wrap style2">
+                            <!-- La Mamalona -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/mamalona.png" alt="La Mamalona">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
                                 </div>
-                                <h6>$<span class="product-price">149.00</span></h6>
-                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-1" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>La Mamalona</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-1" name="extra-queso-pizza-1" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-1">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-1" name="coccion-pizza-1" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-1">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-1" name="coccion-pizza-1" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-1">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    <h6>$<span class="product-price">149.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-1" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                                 </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                             </div>
-                        </div>
-                        <div class="dishes-card style2 product-item" data-category="pizzas">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/champisconatun.png" alt="Champiñones con Atun">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Champiñones con Atun</h3></a>
-                                 <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-2" name="extra-queso-pizza-2" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-pizza-2">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-pizza-2" name="coccion-pizza-2" value="suave" checked>
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-2">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-2" name="coccion-pizza-2" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-2">Crujiente</label>
-                                    </div>
+                            <!-- Champiñones con Atun -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/champisconatun.png" alt="Champiñones con Atun">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
                                 </div>
-                                <h6>$<span class="product-price">139.00</span></h6>
-                                 <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-2" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Champiñones con Atun</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-2" name="extra-queso-pizza-2" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-2">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-2" name="coccion-pizza-2" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-2">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-2" name="coccion-pizza-2" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-2">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    <h6>$<span class="product-price">139.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-2" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                                 </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                             </div>
-                        </div>
-                        <div class="dishes-card style2 product-item" data-category="pizzas">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/pepperoni.png" alt="Pizza Pepperoni">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Pepperoni</h3></a>
-                                <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-3" name="extra-queso-pizza-3" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-pizza-3">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-pizza-3" name="coccion-pizza-3" value="suave" checked>
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-3">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-3" name="coccion-pizza-3" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-3">Crujiente</label>
-                                    </div>
+                            <!-- Pepperoni -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/pepperoni.png" alt="Pizza Pepperoni">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
                                 </div>
-                                <h6>$<span class="product-price">129.00</span></h6>
-                                 <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-3" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Pepperoni</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-3" name="extra-queso-pizza-3" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-3">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-3" name="coccion-pizza-3" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-3">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-3" name="coccion-pizza-3" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-3">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-3" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                                 </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                             </div>
-                        </div>
-                        <div class="dishes-card style2 product-item" data-category="pizzas">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/hawaiana.png" alt="Pizza Hawaiana">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Hawaiana</h3></a>
-                                 <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-4" name="extra-queso-pizza-4" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-pizza-4">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-pizza-4" name="coccion-pizza-4" value="suave" checked>
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-4">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-4" name="coccion-pizza-4" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-4">Crujiente</label>
-                                    </div>
+                            <!-- Hawaiana -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/hawaiana.png" alt="Pizza Hawaiana">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
                                 </div>
-                                <h6>$<span class="product-price">129.00</span></h6>
-                                 <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-4" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Hawaiana</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-4" name="extra-queso-pizza-4" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-4">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-4" name="coccion-pizza-4" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-4">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-4" name="coccion-pizza-4" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-4">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-4" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                                 </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                             </div>
-                        </div>
-                        <div class="dishes-card style2 product-item" data-category="pizzas">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/mitadymitad.png" alt="Pizza Mitad y Mitad">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Mitad y Mitad</h3></a>
-                                 <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-5" name="extra-queso-pizza-5" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-pizza-5">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group mb-2">
-                                        <label class="group-label">Cocción:</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-pizza-5" name="coccion-pizza-5" value="suave" checked>
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-5">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-5" name="coccion-pizza-5" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-5">Crujiente</label>
-                                    </div>
-                                    <div class="modifier-group mt-2">
-                                        <label for="mitad1-pizza-5" class="group-label">Primera Mitad:</label>
-                                        <select name="mitad1-pizza-5" id="mitad1-pizza-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="pizza-5">
-                                            <option value="">Selecciona...</option>
-                                            <option value="pepperoni" data-base-price="129">Pepperoni</option>
-                                            <option value="hawaiana" data-base-price="129">Hawaiana</option>
-                                            <option value="mamalona" data-base-price="149">La Mamalona (+15)</option>
-                                            <option value="carnesfrias" data-base-price="129">Carnes Frias</option>
-                                            <option value="cuatroquesos" data-base-price="129">4 Quesos</option>
-                                            <option value="champisconatun" data-base-price="139">Champiñones c/ Atun (+10)</option>
-                                            <option value="champisconpepp" data-base-price="129">Champiñones c/ Pepp.</option>
-                                            <option value="chorizo" data-base-price="129">Chorizo</option>
-                                            <option value="salamiconcarne" data-base-price="139">Salami c/ Carne M. (+10)</option>
+                            <!-- Mitad y Mitad -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/mitadymitad.png" alt="Pizza Mitad y Mitad">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Mitad y Mitad</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-5" name="extra-queso-pizza-5" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-5">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group mb-2">
+                                            <label class="group-label">Cocción:</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-5" name="coccion-pizza-5" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-5">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-5" name="coccion-pizza-5" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-5">Crujiente</label>
+                                        </div>
+                                        <div class="modifier-group mt-2">
+                                            <label for="mitad1-pizza-5" class="group-label">Primera Mitad:</label>
+                                            <select name="mitad1-pizza-5" id="mitad1-pizza-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="pizza-5">
+                                                <option value="">Selecciona...</option>
+                                                <option value="pepperoni" data-base-price="129">Pepperoni</option>
+                                                <option value="hawaiana" data-base-price="129">Hawaiana</option>
+                                                <option value="mamalona" data-base-price="149">La Mamalona (+15)</option>
+                                                <option value="carnesfrias" data-base-price="129">Carnes Frias</option>
+                                                <option value="cuatroquesos" data-base-price="129">4 Quesos</option>
+                                                <option value="champisconatun" data-base-price="139">Champiñones c/ Atun (+10)</option>
+                                                <option value="champisconpepp" data-base-price="129">Champiñones c/ Pepp.</option>
+                                                <option value="chorizo" data-base-price="129">Chorizo</option>
+                                                <option value="salamiconcarne" data-base-price="139">Salami c/ Carne M. (+10)</option>
                                             </select>
+                                        </div>
+                                        <div class="modifier-group mt-2">
+                                            <label for="mitad2-pizza-5" class="group-label">Segunda Mitad:</label>
+                                            <select name="mitad2-pizza-5" id="mitad2-pizza-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="pizza-5">
+                                                <option value="">Selecciona...</option>
+                                                <option value="pepperoni" data-base-price="129">Pepperoni</option>
+                                                <option value="hawaiana" data-base-price="129">Hawaiana</option>
+                                                <option value="mamalona" data-base-price="149">La Mamalona (+15)</option>
+                                                <option value="carnesfrias" data-base-price="129">Carnes Frias</option>
+                                                <option value="cuatroquesos" data-base-price="129">4 Quesos</option>
+                                                <option value="champisconatun" data-base-price="139">Champiñones c/ Atun (+10)</option>
+                                                <option value="champisconpepp" data-base-price="129">Champiñones c/ Pepp.</option>
+                                                <option value="chorizo" data-base-price="129">Chorizo</option>
+                                                <option value="salamiconcarne" data-base-price="139">Salami c/ Carne M. (+10)</option>
+                                            </select>
+                                            <small style="display: block; margin-top: 5px; font-size: 0.8em; opacity: 0.7;">*Precio base $129. Mitades especiales +$15 (aprox).</small>
+                                        </div>
                                     </div>
-                                    <div class="modifier-group mt-2">
-                                        <label for="mitad2-pizza-5" class="group-label">Segunda Mitad:</label>
-                                        <select name="mitad2-pizza-5" id="mitad2-pizza-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="pizza-5">
-                                             <option value="">Selecciona...</option>
-                                             <option value="pepperoni" data-base-price="129">Pepperoni</option>
-                                             <option value="hawaiana" data-base-price="129">Hawaiana</option>
-                                             <option value="mamalona" data-base-price="149">La Mamalona (+15)</option>
-                                             <option value="carnesfrias" data-base-price="129">Carnes Frias</option>
-                                             <option value="cuatroquesos" data-base-price="129">4 Quesos</option>
-                                             <option value="champisconatun" data-base-price="139">Champiñones c/ Atun (+10)</option>
-                                             <option value="champisconpepp" data-base-price="129">Champiñones c/ Pepp.</option>
-                                             <option value="chorizo" data-base-price="129">Chorizo</option>
-                                             <option value="salamiconcarne" data-base-price="139">Salami c/ Carne M. (+10)</option>
-                                             </select>
-                                        <small style="display: block; margin-top: 5px; font-size: 0.8em; opacity: 0.7;">*Precio base $129. Mitades especiales +$15 (aprox).</small>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-5" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
                                     </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                                 </div>
-                                <h6>$<span class="product-price">129.00</span></h6> <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-5" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                            <!-- Carnes Frías -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/carnesfrias.png" alt="Pizza Carnes Frias">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
                                 </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Carnes Frias</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-6" name="extra-queso-pizza-6" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-6">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-6" name="coccion-pizza-6" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-6">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-6" name="coccion-pizza-6" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-6">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-6" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- 4 Quesos -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/cuatroquesos.png" alt="Pizza 4 Quesos">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>4 Quesos</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-7" name="extra-queso-pizza-7" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-7">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-7" name="coccion-pizza-7" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-7">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-7" name="coccion-pizza-7" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-7">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-7" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- Champiñones con Pepperoni -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/champisconpepperoni.png" alt="Pizza Champiñones con Pepperoni">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Champiñones con Pepperoni</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-8" name="extra-queso-pizza-8" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-8">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-8" name="coccion-pizza-8" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-8">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-8" name="coccion-pizza-8" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-8">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-8" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- Chorizo -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/chorizo.png" alt="Pizza Chorizo">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Chorizo</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-9" name="extra-queso-pizza-9" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-9">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group mb-2">
+                                            <label class="group-label">Cocción:</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-9" name="coccion-pizza-9" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-9">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-9" name="coccion-pizza-9" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-9">Crujiente</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cebolla: <span style="color:red">*</span></label>
+                                            <input class="modifier-radio" type="radio" id="cebolla-con-pizza-9" name="cebolla-pizza-9" value="con" required>
+                                            <label class="modifier-label modifier-radio-label" for="cebolla-con-pizza-9">Con Cebolla</label>
+                                            <input class="modifier-radio" type="radio" id="cebolla-sin-pizza-9" name="cebolla-pizza-9" value="sin" required>
+                                            <label class="modifier-label modifier-radio-label" for="cebolla-sin-pizza-9">Sin Cebolla</label>
+                                        </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-9" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- Salami con Carne Molida -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/salamiconcarne.png" alt="Pizza Salami con Carne Molida">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Salami con Carne Molida</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-10" name="extra-queso-pizza-10" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-10">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-10" name="coccion-pizza-10" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-10">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-10" name="coccion-pizza-10" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-10">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    <h6>$<span class="product-price">139.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-10" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
                             </div>
                         </div>
-                        <div class="dishes-card style2 product-item" data-category="pizzas">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/carnesfrias.png" alt="Pizza Carnes Frias">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                 <a href="#"><h3>Carnes Frias</h3></a>
-                                 <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-6" name="extra-queso-pizza-6" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-pizza-6">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-pizza-6" name="coccion-pizza-6" value="suave" checked>
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-6">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-6" name="coccion-pizza-6" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-6">Crujiente</label>
-                                    </div>
+                    </div>
+                    <!-- Orilla Rellena -->
+                    <div class="category-block menu-category-orilla mb-5" style="display: none;">
+                        <div class="title-area text-center mb-4 wow fadeInUp" data-wow-delay=".3s">
+                            <h2 class="title">Orilla Rellena</h2>
+                        </div>
+                        <div class="dishes-card-wrap style2">
+                            <div class="dishes-card style2 product-item" data-category="orilla">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/mamalona-orilla.png" alt="La Mamalona Orilla Rellena">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
                                 </div>
-                                <h6>$<span class="product-price">129.00</span></h6>
-                                 <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-6" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>La Mamalona Orilla Rellena</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-1" name="extra-queso-orilla-1" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-orilla-1">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-orilla-1" name="coccion-orilla-1" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-1">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-1" name="coccion-orilla-1" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-1">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    <h6>$<span class="product-price">179.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-1" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                                 </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                             </div>
                         </div>
-                        <div class="dishes-card style2 product-item" data-category="pizzas">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/cuatroquesos.png" alt="Pizza 4 Quesos">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                 <a href="#"><h3>4 Quesos</h3></a>
-                                 <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-7" name="extra-queso-pizza-7" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-pizza-7">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-pizza-7" name="coccion-pizza-7" value="suave" checked>
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-7">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-7" name="coccion-pizza-7" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-7">Crujiente</label>
-                                    </div>
-                                </div>
-                                <h6>$<span class="product-price">129.00</span></h6>
-                                 <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-7" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        <div class="dishes-card style2 product-item" data-category="pizzas">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/champisconpepperoni.png" alt="Pizza Champiñones con Pepperoni">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                 <a href="#"><h3>Champiñones con Pepperoni</h3></a>
-                                 <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-8" name="extra-queso-pizza-8" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-pizza-8">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-pizza-8" name="coccion-pizza-8" value="suave" checked>
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-8">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-8" name="coccion-pizza-8" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-8">Crujiente</label>
-                                    </div>
-                                </div>
-                                <h6>$<span class="product-price">129.00</span></h6>
-                                 <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-8" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        <div class="dishes-card style2 product-item" data-category="pizzas">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/chorizo.png" alt="Pizza Chorizo">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Chorizo</h3></a>
-                                 <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-9" name="extra-queso-pizza-9" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-pizza-9">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group mb-2">
-                                        <label class="group-label">Cocción:</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-pizza-9" name="coccion-pizza-9" value="suave" checked>
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-9">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-9" name="coccion-pizza-9" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-9">Crujiente</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cebolla: <span style="color:red">*</span></label>
-                                        <input class="modifier-radio" type="radio" id="cebolla-con-pizza-9" name="cebolla-pizza-9" value="con" required>
-                                        <label class="modifier-label modifier-radio-label" for="cebolla-con-pizza-9">Con Cebolla</label>
-                                        <input class="modifier-radio" type="radio" id="cebolla-sin-pizza-9" name="cebolla-pizza-9" value="sin" required>
-                                        <label class="modifier-label modifier-radio-label" for="cebolla-sin-pizza-9">Sin Cebolla</label>
-                                    </div>
-                                </div>
-                                <h6>$<span class="product-price">129.00</span></h6>
-                                 <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-9" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        <div class="dishes-card style2 product-item" data-category="pizzas">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/salamiconcarne.png" alt="Pizza Salami con Carne Molida">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                 <a href="#"><h3>Salami con Carne Molida</h3></a>
-                                 <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-10" name="extra-queso-pizza-10" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-pizza-10">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-pizza-10" name="coccion-pizza-10" value="suave" checked>
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-10">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-10" name="coccion-pizza-10" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-10">Crujiente</label>
-                                    </div>
-                                </div>
-                                <h6>$<span class="product-price">139.00</span></h6>
-                                 <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-10" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        </div> </div> <div class="category-block menu-category-orilla mb-5" style="display: none;"> <div class="title-area text-center mb-4 wow fadeInUp" data-wow-delay=".3s">
-                          <h2 class="title">Orilla Rellena</h2>
-                     </div>
-                     <div class="dishes-card-wrap style2">
-                         <div class="dishes-card style2 product-item" data-category="orilla">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/mamalona-orilla.png" alt="La Mamalona Orilla Rellena"> <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>La Mamalona Orilla Rellena</h3></a>
-                                 <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-1" name="extra-queso-orilla-1" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-orilla-1">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-1" name="coccion-orilla-1" value="suave" checked>
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-1">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-1" name="coccion-orilla-1" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-1">Crujiente</label>
-                                    </div>
-                                </div>
-                                <h6>$<span class="product-price">179.00</span></h6> <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-1" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        </div>
-                </div> <div class="category-block menu-category-complementos">
+                    </div>
+                    <div class="category-block menu-category-complementos">
                       <div class="title-area text-center mb-4 wow fadeInUp" data-wow-delay=".3s">
                            <h2 class="title">Complementos</h2>
                       </div>
