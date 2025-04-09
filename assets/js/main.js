@@ -30,19 +30,360 @@ JS TABLE OF CONTENTS
         19. Progress Bar Animation 
         20. Mouse Cursor  
         21. Time Countdown  
-        22. Range sliger 
-        23. Select onput
+        22. Range slider 
+        23. Select input
         24. Quantity Plus Minus
         25. Search Popup
         26. Preloader   
+        27. Mitad y Mitad Price Update
+        28. Cart Functionality
 
 ------------------------------------------------------------------*/
+let cart = []; // Inicializa vacío SÓLO como fallback
+try {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+        cart = JSON.parse(storedCart);
+        if (!Array.isArray(cart)) { // Validar si es un array
+             console.error("Error: El carrito recuperado NO es un array. Reseteando.");
+             cart = [];
+        }
+    }
+} catch (e) {
+    console.error("Error al parsear carrito desde localStorage. Reseteando.", e);
+    cart = []; // Resetear en caso de error
+}
+function updateCartDisplay() {
+    const $cartItemsDiv = $("#cartItems");
+    const $cartCountLink = $("#cart-icon-link"); // Target link for data-count
+    const $cartTotal = $("#cartTotal");
+    $cartItemsDiv.empty(); // Limpiar antes de repoblar
+    let total = 0;
+    let itemCount = 0;
 
+    // Asegurarse que 'cart' sea un array (accede a la variable global)
+    if (!Array.isArray(cart)) {
+         cart = [];
+         console.error("Carrito reseteado porque no era un array.");
+    }
+
+    cart.forEach((item, index) => {
+         // Validar item básico
+         if (typeof item !== 'object' || item === null || typeof item.price !== 'number' || typeof item.quantity !== 'number' || typeof item.name !== 'string') {
+             console.error("Item inválido en el carrito detectado:", item);
+             // Opcional: remover item inválido
+             // cart.splice(index, 1);
+             // updateCartDisplay(); // Llamada recursiva podría ser peligrosa, mejor solo loguear y saltar
+             return; // Saltar este item
+         }
+
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        itemCount += item.quantity;
+
+        // Descripción más clara en el carrito
+        let description = `${item.name} (${item.quantity} x $${item.price.toFixed(2)}) = $${itemTotal.toFixed(2)}`;
+
+        const $cartItem = $('<div class="cart-item"></div>')
+            .append($('<span>').text(description)) // Usar .text() para seguridad
+            .append('<button class="remove-item-btn" data-index="' + index + '" title="Eliminar Item"><i class="fas fa-times"></i></button>'); // Icono y tooltip
+        $cartItemsDiv.append($cartItem);
+    });
+
+    // Actualizar contador en el header
+    $cartCountLink.attr('data-count', itemCount);
+
+    // Actualizar total
+    $cartTotal.text('Total: $' + total.toFixed(2));
+
+    // Guardar en localStorage
+    try {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    } catch (e) {
+        console.error("Error al guardar carrito en localStorage:", e);
+    }
+
+
+    // Re-bind (volver a asignar) evento click para botones de eliminar CADA VEZ que se actualiza
+    // Es crucial porque los elementos se recrean
+    $(".remove-item-btn").off("click").on("click", function () {
+        const index = $(this).data("index");
+        // Verificar que el índice es válido antes de eliminar
+        if (typeof index === 'number' && index >= 0 && index < cart.length) {
+             cart.splice(index, 1); // Eliminar del array 'cart' global
+             updateCartDisplay(); // Actualizar la vista
+        } else {
+             console.error("Índice inválido para eliminar:", index);
+        }
+    });
+
+    // Actualizar estado de botones/proceso de pago (opcional pero recomendado)
+    const customerName = $("#customerName").val().trim();
+    const customerAddress = $("#customerAddress").val().trim();
+    const customerPhone = $("#customerPhone").val().trim();
+    const paymentMethod = $("#paymentMethod").val();
+    // Habilita proceder solo si hay items, datos del cliente y método de pago
+    const canProceed = cart.length > 0 && customerName && customerAddress && customerPhone && paymentMethod;
+
+    // Ejemplo: Podrías habilitar/deshabilitar un botón general de "Proceder al Pago"
+    // $('#genericProceedButton').prop('disabled', !canProceed);
+
+}
+/**
+ * Actualiza el precio mostrado en la tarjeta de producto para Mitad y Mitad
+ * cuando se cambian las selecciones.
+ */
+function updateMitadDisplayPrice($productItem) {
+    const $priceElement = $productItem.find('.product-price');
+    // Lee el precio base del atributo data, con fallback por si no existe
+    const productBasePrice = parseFloat($productItem.data('base-price')) || 0;
+
+    const $mitad1Select = $productItem.find('select[name^="mitad1"]');
+    const $mitad2Select = $productItem.find('select[name^="mitad2"]');
+
+    let extraPrice = 0;
+    let mitad1Selected = false;
+    let mitad2Selected = false;
+
+    const mitad1Value = $mitad1Select.val();
+    if (mitad1Value) {
+        mitad1Selected = true;
+        // Lee el precio de la opción seleccionada
+        const mitad1OptionPrice = parseFloat($mitad1Select.find('option[value="' + mitad1Value + '"]').data('base-price'));
+         if (!isNaN(mitad1OptionPrice)) {
+             // Calcula y suma solo el costo extra relativo al base
+             extraPrice += Math.max(0, mitad1OptionPrice - productBasePrice);
+         }
+    }
+
+    const mitad2Value = $mitad2Select.val();
+    if (mitad2Value) {
+         mitad2Selected = true;
+        const mitad2OptionPrice = parseFloat($mitad2Select.find('option[value="' + mitad2Value + '"]').data('base-price'));
+         if (!isNaN(mitad2OptionPrice)) {
+             extraPrice += Math.max(0, mitad2OptionPrice - basePrice);
+         }
+    }
+
+     // Solo actualiza el display si AMBAS mitades están seleccionadas
+     // O ajusta esta regla si quieres que cambie con una sola mitad seleccionada
+     if (mitad1Selected && mitad2Selected) {
+        const totalPrice = productBasePrice + extraPrice;
+        // Actualiza el texto del span con el precio calculado
+        $priceElement.text(totalPrice.toFixed(2));
+     } else if (productBasePrice > 0) { // Si no, vuelve al precio base si existe
+         $priceElement.text(productBasePrice.toFixed(2));
+     }
+}
 (function ($) {
     "use strict";
 
-    $(document).ready(function () {
 
+// Inicialización MP (la variable mp debe ser accesible donde se usa)
+// Es mejor inicializarla dentro de ready() después de que el SDK cargue
+// const mp = new MercadoPago('TU_PUBLIC_KEY_AQUI', { locale: 'es-MX' });
+
+function createMercadoPagoPreference() {
+    console.log("Intentando crear preferencia MP...");
+   // Validar campos y carrito aquí primero
+   const phone = $("#customerPhone").val().trim();
+   const address = $("#customerAddress").val().trim();
+   const name = $("#customerName").val().trim();
+
+   if (!name || !phone || !address || !Array.isArray(cart) || cart.length === 0 || $("#paymentMethod").val() !== 'mercadopago' ) {
+       alert('Completa tu información, asegúrate de tener productos en el carrito y selecciona Mercado Pago.');
+       return;
+   }
+
+   // Muestra algún feedback al usuario
+   $("#wallet_container").html('<p>Procesando pago con Mercado Pago...</p>').show();
+
+   // >>>>> PARTE QUE REQUIERE TU BACKEND <<<<<
+   // Simulación - DEBES REEMPLAZAR ESTO CON TU LLAMADA AJAX REAL
+   console.warn("Simulando llamada a backend para crear preferencia MP. Debes implementar '/order/createPreference'.");
+   setTimeout(() => { // Simula retraso de red
+       // alert("La integración con Mercado Pago requiere un servidor (backend) para crear la preferencia de pago.");
+        $("#wallet_container").html('<p style="color: orange;">Integración MP pendiente (backend). No se puede proceder.</p>').show();
+
+        // SI LA LLAMADA AJAX FUNCIONARA:
+        /*
+        const preferenceIdDelBackend = "ID_RECIBIDO_DEL_BACKEND"; // Ejemplo
+        if (preferenceIdDelBackend) {
+            $("#wallet_container").empty(); // Limpia el contenedor
+            try {
+                const mp = new MercadoPago('TEST-6283082187716828-031815-84bd184b6202d8827274cdaf7c90688b-440393429', { locale: 'es-MX' }); // Asegúrate que mp esté inicializado
+                mp.bricks().create('wallet', 'wallet_container', {
+                    initialization: { preferenceId: preferenceIdDelBackend },
+                    // callbacks de MP si necesitas manejar éxito/error aquí
+                });
+            } catch (e) {
+                 console.error("Error al renderizar MP Brick:", e);
+                 $("#wallet_container").html('<p style="color: red;">Error al mostrar botón de Mercado Pago.</p>');
+            }
+        } else {
+            alert('Error al crear preferencia de Mercado Pago desde el backend.');
+            $("#wallet_container").html('<p style="color: red;">Error al crear preferencia MP.</p>');
+        }
+        */
+   }, 1500);
+   // >>>>> FIN PARTE BACKEND <<<<<
+}
+
+// Función para renderizar botón PayPal
+function renderPayPalButton() {
+    const containerId = '#paypal-button-container';
+    $(containerId).empty().show(); // Limpiar y mostrar contenedor
+
+    // Verificar que el SDK de PayPal esté cargado
+    if (typeof paypal === 'undefined' || typeof paypal.Buttons === 'undefined') {
+        console.error("PayPal SDK no está listo o no se cargó correctamente.");
+        $(containerId).html('<p style="color:red;">Error al cargar PayPal.</p>');
+        return;
+    }
+
+    try {
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                console.log("Creando orden PayPal...");
+                // Validaciones ANTES de crear la orden
+                const phone = $("#customerPhone").val().trim();
+                const address = $("#customerAddress").val().trim();
+                const name = $("#customerName").val().trim();
+
+                if (!name || !phone || !address || !Array.isArray(cart) || cart.length === 0 || $("#paymentMethod").val() !== 'paypal') {
+                    alert('Verifica tu información, carrito y que PayPal esté seleccionado.');
+                    // Es crucial rechazar la creación si falla la validación
+                    return actions.reject();
+                }
+
+                let total = cart.reduce((sum, item) => {
+                     // Validación extra del item dentro del reduce
+                     if (item && typeof item.price === 'number' && typeof item.quantity === 'number') {
+                         return sum + item.price * item.quantity;
+                     }
+                     return sum;
+                }, 0);
+
+                if (total <= 0) {
+                    alert('El total del carrito debe ser mayor a cero.');
+                    return actions.reject();
+                }
+
+                console.log("Total para PayPal:", total.toFixed(2));
+
+                // Crear la orden con los detalles
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: total.toFixed(2),
+                            currency_code: 'MXN', // Confirma tu moneda
+                            breakdown: { // Detalle es opcional pero recomendado
+                                item_total: {
+                                    value: total.toFixed(2),
+                                    currency_code: 'MXN'
+                                }
+                                // Podrías añadir shipping, tax, etc. si aplica
+                            }
+                        },
+                        description: 'Tu pedido de Freddy\'s Pizza',
+                        items: cart.map(item => ({
+                             name: (item.name || 'Producto').substring(0, 127), // Límite PayPal y fallback
+                             unit_amount: {
+                                  value: (item.price || 0).toFixed(2), // Fallback
+                                  currency_code: 'MXN'
+                             },
+                             quantity: (item.quantity || 1).toString() // Fallback y string
+                        })),
+                        // Datos de envío (opcional pero recomendado si los tienes)
+                        shipping: {
+                            name: { full_name: name || 'Cliente Freddy\'s' },
+                            address: {
+                                address_line_1: address || 'Dirección no proporcionada',
+                                // address_line_2: '', // Opcional
+                                // admin_area_2: '', // Ciudad
+                                // admin_area_1: '', // Estado
+                                // postal_code: '',
+                                country_code: 'MX'
+                            }
+                        }
+                    }]
+                }).catch(err => {
+                     console.error("Error en actions.order.create:", err);
+                     alert("Hubo un problema al iniciar la orden con PayPal. Intenta de nuevo.");
+                     return actions.reject(); // Rechaza si falla la creación
+                });
+            },
+            onApprove: function (data, actions) {
+                console.log("PayPal onApprove data:", data);
+                return actions.order.capture().then(function (details) {
+                    console.log("PayPal Capture Details:", details);
+                    let transactionId = details.id;
+                    let payerName = details.payer && details.payer.name ? details.payer.name.given_name : 'Cliente';
+
+                    alert(`¡Pago con PayPal exitoso, ${payerName}!\nID Transacción: ${transactionId}`);
+
+                    // >>>>> AQUÍ DEBERÍAS ENVIAR INFO AL BACKEND PARA REGISTRAR EL PEDIDO CONFIRMADO <<<<<
+                    // Ejemplo: sendOrderToServer('paypal', details);
+
+                    // Limpiar estado del frontend
+                    cart = []; // Limpia array global
+                    updateCartDisplay(); // Actualiza vista y localStorage
+                    $("#cartPanel").removeClass("open"); // Cierra panel
+                    $('#customerName, #customerAddress, #customerPhone, #paymentMethod').val(''); // Limpia formulario
+                    $(containerId).hide().empty(); // Oculta botón PayPal
+
+                }).catch(function (err) {
+                     console.error('Error en PayPal Capture:', err);
+                     alert('Hubo un problema al finalizar tu pago con PayPal. Contacta soporte si el cobro fue realizado.');
+                     // Podrías intentar mostrar un mensaje más específico basado en 'err'
+                });
+            },
+            onError: function (err) {
+                console.error('Error General Botón PayPal:', err);
+                alert('Error al procesar con PayPal. Por favor, verifica tus datos o intenta otro método.');
+                // Podrías ofrecer recargar la página o intentar de nuevo
+                $(containerId).html('<p style="color:red;">Error PayPal. <a href="#" onclick="renderPayPalButton(); return false;">Reintentar</a></p>');
+            },
+             onCancel: function (data) {
+                 console.log('Pago PayPal cancelado:', data);
+                 alert('Has cancelado el pago con PayPal.');
+                 // No limpiar el carrito, permitir al usuario reintentar o cambiar método
+             }
+        }).render(containerId).catch(function (err) { // Captura errores de renderizado
+             console.error('Error fatal al renderizar botones de PayPal:', err);
+             $(containerId).html('<p style="color:red;">No se pudieron cargar los botones de PayPal.</p>');
+        });
+    } catch (e) {
+        console.error("Excepción al inicializar PayPal Buttons:", e);
+        $(containerId).html('<p style="color:red;">Error crítico al cargar PayPal.</p>');
+    }
+} // Fin renderPayPalButton
+    $(document).ready(function () {
+        updateCartDisplay();
+   // ... (otras inicializaciones y listeners) ...
+
+   // Inicializar Mercado Pago (solo la variable, el brick se crea después)
+   // Asegúrate que el SDK de MP ya esté cargado
+   try {
+        if (typeof MercadoPago !== 'undefined') {
+           // La variable 'mp' podría definirse globalmente o aquí si solo se usa en 'createMercadoPagoPreference'
+           // const mp = new MercadoPago('TEST-6283082187716828-031815-84bd184b6202d8827274cdaf7c90688b-440393429', { locale: 'es-MX' });
+           console.log("MP SDK listo.");
+        } else {
+           console.error("Mercado Pago SDK no cargado.");
+        }
+   } catch(e) {
+       console.error("Error inicializando MP:", e);
+   }
+
+   // Inicializar PayPal (el renderizado se hace bajo demanda con renderPayPalButton)
+    if (typeof paypal === 'undefined') {
+        console.error("PayPal SDK no cargado.");
+    } else {
+        console.log("PayPal SDK listo.");
+    }
+
+    // Llamada inicial para mostrar el carrito guardado
 
         /*-----------------------------------
           01. Mobile Menu  
@@ -52,8 +393,6 @@ JS TABLE OF CONTENTS
             meanScreenWidth: "1199",
             meanExpand: ['<i class="far fa-plus"></i>'],
         });
-
-
 
         /*-----------------------------------
           02. Sidebar Toggle  
@@ -67,8 +406,6 @@ JS TABLE OF CONTENTS
             $(".offcanvas__overlay").addClass("overlay-open");
         });
 
-
-
         /*-----------------------------------
           03. Body Overlay 
         -----------------------------------*/
@@ -77,8 +414,6 @@ JS TABLE OF CONTENTS
             $(".df-search-area").removeClass("opened");;
             $(".body-overlay").removeClass("opened");
         });
-
-
 
         /*-----------------------------------
           04. Sticky Header 
@@ -91,8 +426,6 @@ JS TABLE OF CONTENTS
             }
         });
 
-
-
         /*-----------------------------------
           05. Counterup 
         -----------------------------------*/
@@ -101,14 +434,10 @@ JS TABLE OF CONTENTS
             time: 1000,
         });
 
-
-
         /*-----------------------------------
           06. Wow Animation 
         -----------------------------------*/
         new WOW().init();
-
-
 
         /*-----------------------------------
           07. Set Background Image & Mask   
@@ -120,7 +449,6 @@ JS TABLE OF CONTENTS
                 $(this).removeAttr("data-bg-src").addClass("background-image");
             });
         }
-
 
         if ($('[data-mask-src]').length > 0) {
             $('[data-mask-src]').each(function () {
@@ -134,12 +462,9 @@ JS TABLE OF CONTENTS
             });
         };
 
-
-
         /*-----------------------------------
            08. Banner Slider
         -----------------------------------*/
-        // Function to initialize Swiper with animation
         function initializeSlider(sliderClass, nextBtnClass, prevBtnClass, paginationClass) {
             const sliderInit = new Swiper(sliderClass, {
                 loop: true,
@@ -155,7 +480,7 @@ JS TABLE OF CONTENTS
                     prevEl: prevBtnClass,
                 },
                 pagination: {
-                    el: paginationClass, // Use the passed paginationClass
+                    el: paginationClass,
                     clickable: true,
                     renderBullet: function (index, className) {
                         return '<span class="' + className + '">' + (index + 1) + '</span>';
@@ -193,12 +518,9 @@ JS TABLE OF CONTENTS
             animated_swiper(sliderClass, sliderInit);
         }
 
-        // Initialize multiple sliders
         initializeSlider(".banner-slider", ".arrow-prev", ".arrow-next", ".pagination-class");
         initializeSlider(".banner2-slider", ".arrow-prev2", ".arrow-next2", ".pagination-class2");
         initializeSlider(".banner3-slider", ".arrow-prev3", ".arrow-next3", ".pagination-class3");
-
-
 
         /*-----------------------------------
             09. Best food items Slider     
@@ -213,38 +535,22 @@ JS TABLE OF CONTENTS
                     disableOnInteraction: false,
                 },
                 breakpoints: {
-                    1499: {
-                        slidesPerView: 4,
-                    },
-                    1399: {
-                        slidesPerView: 4,
-                    },
-                    1199: {
-                        slidesPerView: 4,
-                    },
-                    991: {
-                        slidesPerView: 4,
-                    },
-                    767: {
-                        slidesPerView: 3,
-                    },
-                    575: {
-                        slidesPerView: 1,
-                    },
-                    0: {
-                        slidesPerView: 1,
-                    },
+                    1499: { slidesPerView: 4 },
+                    1399: { slidesPerView: 4 },
+                    1199: { slidesPerView: 4 },
+                    991: { slidesPerView: 4 },
+                    767: { slidesPerView: 3 },
+                    575: { slidesPerView: 1 },
+                    0: { slidesPerView: 1 },
                 },
                 pagination: {
                     el: '.bestFoodItems-pagination',
                     clickable: true,
-                    bulletClass: 'swiper-pagination-bullet', // Bullet class
-                    bulletActiveClass: 'swiper-pagination-bullet-active', // Active bullet class
+                    bulletClass: 'swiper-pagination-bullet',
+                    bulletActiveClass: 'swiper-pagination-bullet-active',
                 },
             });
         }
-
-
 
         /*-----------------------------------
             10. Testimonial Slider     
@@ -263,12 +569,8 @@ JS TABLE OF CONTENTS
                     prevEl: ".arrow-prev",
                 },
                 breakpoints: {
-                    575: {
-                        slidesPerView: 1,
-                    },
-                    0: {
-                        slidesPerView: 1,
-                    },
+                    575: { slidesPerView: 1 },
+                    0: { slidesPerView: 1 },
                 },
             });
         }
@@ -287,12 +589,8 @@ JS TABLE OF CONTENTS
                     prevEl: ".arrow-prev",
                 },
                 breakpoints: {
-                    575: {
-                        slidesPerView: 1,
-                    },
-                    0: {
-                        slidesPerView: 1,
-                    },
+                    575: { slidesPerView: 1 },
+                    0: { slidesPerView: 1 },
                 },
             });
         }
@@ -311,20 +609,12 @@ JS TABLE OF CONTENTS
                     prevEl: ".arrow-prev",
                 },
                 breakpoints: {
-                    767: {
-                        slidesPerView: 2,
-                    },
-                    575: {
-                        slidesPerView: 1,
-                    },
-                    0: {
-                        slidesPerView: 1,
-                    },
+                    767: { slidesPerView: 2 },
+                    575: { slidesPerView: 1 },
+                    0: { slidesPerView: 1 },
                 },
             });
         }
-
-
 
         /*-----------------------------------
             11. Blog Slider     
@@ -343,23 +633,13 @@ JS TABLE OF CONTENTS
                     prevEl: ".arrow-prev",
                 },
                 breakpoints: {
-                    1199: {
-                        slidesPerView: 3,
-                    },
-                    767: {
-                        slidesPerView: 2,
-                    },
-                    575: {
-                        slidesPerView: 1,
-                    },
-                    0: {
-                        slidesPerView: 1,
-                    },
+                    1199: { slidesPerView: 3 },
+                    767: { slidesPerView: 2 },
+                    575: { slidesPerView: 1 },
+                    0: { slidesPerView: 1 },
                 },
             });
         }
-
-
 
         /*-----------------------------------
            12. Gallery Slider     
@@ -375,23 +655,13 @@ JS TABLE OF CONTENTS
                     disableOnInteraction: false,
                 },
                 breakpoints: {
-                    992: {
-                        slidesPerView: 4,
-                    },
-                    767: {
-                        slidesPerView: 3,
-                    },
-                    575: {
-                        slidesPerView: 2,
-                    },
-                    0: {
-                        slidesPerView: 1,
-                    },
+                    992: { slidesPerView: 4 },
+                    767: { slidesPerView: 3 },
+                    575: { slidesPerView: 2 },
+                    0: { slidesPerView: 1 },
                 },
             });
         }
-
-
 
         /*-----------------------------------
             13. Popular Dishes Slider     
@@ -407,22 +677,13 @@ JS TABLE OF CONTENTS
                     disableOnInteraction: false,
                 },
                 breakpoints: {
-                    992: {
-                        slidesPerView: 3,
-                    },
-                    767: {
-                        slidesPerView: 3,
-                    },
-                    575: {
-                        slidesPerView: 2,
-                    },
-                    0: {
-                        slidesPerView: 1,
-                    },
+                    992: { slidesPerView: 3 },
+                    767: { slidesPerView: 3 },
+                    575: { slidesPerView: 2 },
+                    0: { slidesPerView: 1 },
                 },
             });
         }
-
 
         /*-----------------------------------
             14. Faq Slider     
@@ -444,13 +705,11 @@ JS TABLE OF CONTENTS
             });
         }
 
-
-
         /*-----------------------------------
             15. Client Slider     
         -----------------------------------*/
         if ($('.clientSliderOne').length > 0) {
-            const popularDishesSliderOne = new Swiper(".clientSliderOne", {
+            const clientSliderOne = new Swiper(".clientSliderOne", {
                 spaceBetween: 30,
                 speed: 2000,
                 loop: true,
@@ -460,47 +719,30 @@ JS TABLE OF CONTENTS
                     disableOnInteraction: false,
                 },
                 breakpoints: {
-                    992: {
-                        slidesPerView: 6,
-                    },
-                    767: {
-                        slidesPerView: 5,
-                    },
-                    575: {
-                        slidesPerView: 3,
-                    },
-                    0: {
-                        slidesPerView: 1,
-                    },
+                    992: { slidesPerView: 6 },
+                    767: { slidesPerView: 5 },
+                    575: { slidesPerView: 3 },
+                    0: { slidesPerView: 1 },
                 },
             });
         }
 
-
-
         /*-----------------------------------
             16. Popular Dishes Tab       
         -----------------------------------*/
-        $(document).ready(function () {
-            // Function to deactivate all tabs
-            function deactivateAllTabs() {
-                $('.nav-link').removeClass('active').attr('aria-selected', 'false');
-                $('.tab-pane').removeClass('active show');
+        function deactivateAllTabs() {
+            $('.nav-link').removeClass('active').attr('aria-selected', 'false');
+            $('.tab-pane').removeClass('active show');
+        }
+
+        $('.nav-link').on('click', function () {
+            deactivateAllTabs();
+            $(this).addClass('active').attr('aria-selected', 'true');
+            const target = $(this).data('bs-target');
+            if (target) {
+                $(target).addClass('active show');
             }
-
-            // Add event listeners to all tabs
-            $('.nav-link').on('click', function () {
-                deactivateAllTabs(); // Deactivate all tabs
-                $(this).addClass('active').attr('aria-selected', 'true'); // Activate the clicked tab
-
-                const target = $(this).data('bs-target');
-                if (target) {
-                    $(target).addClass('active show'); // Show the corresponding tab content
-                }
-            });
         });
-
-
 
         /*-----------------------------------
             17. MagnificPopup  view    
@@ -513,13 +755,8 @@ JS TABLE OF CONTENTS
 
         $(".img-popup").magnificPopup({
             type: "image",
-            gallery: {
-                enabled: true,
-            },
+            gallery: { enabled: true },
         });
-
-
-
 
         /*-----------------------------------
            18. Back to top    
@@ -536,15 +773,12 @@ JS TABLE OF CONTENTS
             return false;
         });
 
-
-
         /*-----------------------------------
             19. Progress Bar Animation 
         -----------------------------------*/
         $('.progress-bar').each(function () {
             var $this = $(this);
             var progressWidth = $this.attr('style').match(/width:\s*(\d+)%/)[1] + '%';
-
             $this.waypoint(function () {
                 $this.css({
                     '--progress-width': progressWidth,
@@ -554,83 +788,60 @@ JS TABLE OF CONTENTS
             }, { offset: '75%' });
         });
 
-
-/*-----------------------------------
-    20. Mouse Cursor    
------------------------------------*/
-function mousecursor() {
-    const e = document.querySelector(".cursor-inner");
-    const t = document.querySelector(".cursor-outer");
-    
-    // Verificar si los elementos existen antes de continuar
-    if (!e || !t) {
-        console.log('Error: .cursor-inner o .cursor-outer no encontrados en el DOM');
-        return;
-    }
-
-    let n, i = 0, o = !1;
-    window.onmousemove = function (s) {
-        if (!o) {
-            t.style.transform = "translate(" + s.clientX + "px, " + s.clientY + "px)";
-            e.style.transform = "translate(" + s.clientX + "px, " + s.clientY + "px)";
-            n = s.clientY;
-            i = s.clientX;
+        /*-----------------------------------
+            20. Mouse Cursor    
+        -----------------------------------*/
+        function mousecursor() {
+            const e = document.querySelector(".cursor-inner");
+            const t = document.querySelector(".cursor-outer");
+            if (!e || !t) {
+                console.log('Error: .cursor-inner o .cursor-outer no encontrados en el DOM');
+                return;
+            }
+            let n, i = 0, o = !1;
+            window.onmousemove = function (s) {
+                if (!o) {
+                    t.style.transform = "translate(" + s.clientX + "px, " + s.clientY + "px)";
+                    e.style.transform = "translate(" + s.clientX + "px, " + s.clientY + "px)";
+                    n = s.clientY;
+                    i = s.clientX;
+                }
+            };
+            $("body").on("mouseenter", "a, .cursor-pointer", function () {
+                e.classList.add("cursor-hover");
+                t.classList.add("cursor-hover");
+            });
+            $("body").on("mouseleave", "a, .cursor-pointer", function () {
+                if (!($(this).is("a") && $(this).closest(".cursor-pointer").length)) {
+                    e.classList.remove("cursor-hover");
+                    t.classList.remove("cursor-hover");
+                }
+            });
+            e.style.visibility = "visible";
+            t.style.visibility = "visible";
         }
-    };
-    $("body").on("mouseenter", "a, .cursor-pointer", function () {
-        e.classList.add("cursor-hover");
-        t.classList.add("cursor-hover");
-    });
-    $("body").on("mouseleave", "a, .cursor-pointer", function () {
-        if (!($(this).is("a") && $(this).closest(".cursor-pointer").length)) {
-            e.classList.remove("cursor-hover");
-            t.classList.remove("cursor-hover");
-        }
-    });
-    e.style.visibility = "visible";
-    t.style.visibility = "visible";
-}
-
-$(function () {
-    mousecursor();
-});
+        mousecursor();
 
         /*-----------------------------------
             21. Time Countdown  
         -----------------------------------*/
-        // Set the end date and time for the countdown
         var countdownDate = new Date("2025-12-31T23:59:59").getTime();
-
-        // Update the countdown every second
         var countdownFunction = setInterval(function () {
-
-            // Get current date and time
             var now = new Date().getTime();
-
-            // Calculate the remaining time
             var distance = countdownDate - now;
-
-            // Calculate days, hours, minutes, and seconds
             var days = Math.floor(distance / (1000 * 60 * 60 * 24));
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            // Display the result in the elements with corresponding IDs
             $('#days').text(days < 10 ? '0' + days : days);
             $('#hours').text(hours < 10 ? '0' + hours : hours);
             $('#minutes').text(minutes < 10 ? '0' + minutes : minutes);
             $('#seconds').text(seconds < 10 ? '0' + seconds : seconds);
-
-            // If the countdown is over, clear the interval and display "EXPIRED"
             if (distance < 0) {
                 clearInterval(countdownFunction);
                 $(".clock-wrapper").html("EXPIRED");
             }
-
         }, 1000);
-
-
 
         /*-----------------------------------
             22. Range slider 
@@ -645,147 +856,42 @@ $(function () {
                 slide2 = slide1;
                 slide1 = tmp;
             }
-
             let displayElement = parent.getElementsByClassName("rangeValues")[0];
             displayElement.innerHTML = "$" + slide1 + " - $" + slide2;
         }
 
-        window.onload = function () {
-            let sliderSections = document.getElementsByClassName("range-slider");
-            for (let x = 0; x < sliderSections.length; x++) {
-                let sliders = sliderSections[x].getElementsByTagName("input");
-                for (let y = 0; y < sliders.length; y++) {
-                    if (sliders[y].type === "range") {
-                        sliders[y].oninput = getVals;
-                        sliders[y].oninput();
-                    }
+        let sliderSections = document.getElementsByClassName("range-slider");
+        for (let x = 0; x < sliderSections.length; x++) {
+            let sliders = sliderSections[x].getElementsByTagName("input");
+            for (let y = 0; y < sliders.length; y++) {
+                if (sliders[y].type === "range") {
+                    sliders[y].oninput = getVals;
+                    sliders[y].oninput();
                 }
             }
         }
 
-        progressBar: () => {
-            const pline = document.querySelectorAll(".progressbar.line");
-            const pcircle = document.querySelectorAll(".progressbar.semi-circle");
-            pline.forEach(e => {
-                const line = new ProgressBar.Line(e, {
-                    strokeWidth: 6,
-                    trailWidth: 6,
-                    duration: 3000,
-                    easing: 'easeInOut',
-                    text: {
-                        style: {
-                            color: 'inherit',
-                            position: 'absolute',
-                            right: '0',
-                            top: '-30px',
-                            padding: 0,
-                            margin: 0,
-                            transform: null
-                        },
-                        autoStyleContainer: false
-                    },
-                    step: (state, line) => {
-                        line.setText(Math.round(line.value() * 100) + ' %');
-                    }
-                });
-                let value = e.getAttribute('data-value') / 100;
-                new Waypoint({
-                    element: e,
-                    handler: function () {
-                        line.animate(value);
-                    },
-                    offset: 'bottom-in-view',
-                })
-            });
-            pcircle.forEach(e => {
-                const circle = new ProgressBar.SemiCircle(e, {
-                    strokeWidth: 6,
-                    trailWidth: 6,
-                    duration: 2000,
-                    easing: 'easeInOut',
-                    step: (state, circle) => {
-                        circle.setText(Math.round(circle.value() * 100));
-                    }
-                });
-                let value = e.getAttribute('data-value') / 100;
-                new Waypoint({
-                    element: e,
-                    handler: function () {
-                        circle.animate(value);
-                    },
-                    offset: 'bottom-in-view',
-                })
-            });
-        }
-
-        const rangeInput = document.querySelectorAll(".range-input input"),
-            priceInput = document.querySelectorAll(".price-input input"),
-            range = document.querySelector(".slider .progress");
-        let priceGap = 1000;
-
-        priceInput.forEach((input) => {
-            input.addEventListener("input", (e) => {
-                let minPrice = parseInt(priceInput[0].value),
-                    maxPrice = parseInt(priceInput[1].value);
-
-                if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
-                    if (e.target.className === "input-min") {
-                        rangeInput[0].value = minPrice;
-                        range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
-                    } else {
-                        rangeInput[1].value = maxPrice;
-                        range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-                    }
+        /*--------------------------------------------------
+          23. Select input
+        ---------------------------------------------------*/
+        if ($('.single-select').length) {
+            $('.single-select').each(function () {
+                var $select = $(this);
+                $select.niceSelect();
+                var $niceSelect = $select.next('.nice-select');
+                if ($niceSelect.length) {
+                    $niceSelect.css({
+                        'display': 'block',
+                        'visibility': 'visible',
+                        'opacity': 1
+                    });
                 }
             });
-        });
-
-        rangeInput.forEach((input) => {
-            input.addEventListener("input", (e) => {
-                let minVal = parseInt(rangeInput[0].value),
-                    maxVal = parseInt(rangeInput[1].value);
-
-                if (maxVal - minVal < priceGap) {
-                    if (e.target.className === "range-min") {
-                        rangeInput[0].value = maxVal - priceGap;
-                    } else {
-                        rangeInput[1].value = minVal + priceGap;
-                    }
-                } else {
-                    priceInput[0].value = minVal;
-                    priceInput[1].value = maxVal;
-                    range.style.left = (minVal / rangeInput[0].max) * 100 + "%";
-                    range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
-                }
-            });
-        });
-
-/*--------------------------------------------------
-  23. Select input
----------------------------------------------------*/
-if ($('.single-select').length) {
-    console.log('Inicializando Nice Select para', $('.single-select').length, 'elementos');
-    $('.single-select').each(function () {
-        var $select = $(this);
-        console.log('Procesando select con ID:', $select.attr('id'));
-        $select.niceSelect();
-        var $niceSelect = $select.next('.nice-select');
-        if ($niceSelect.length) {
-            console.log('Nice Select generado para', $select.attr('id'));
-            $niceSelect.css({
-                'display': 'block',
-                'visibility': 'visible',
-                'opacity': 1
-            });
-        } else {
-            console.log('Error: Nice Select no generado para', $select.attr('id'));
         }
-    });
-}
 
         /*--------------------------------------------------
           24. Quantity Plus Minus
-      ---------------------------------------------------*/
+        ---------------------------------------------------*/
         $(".quantity-plus").each(function () {
             $(this).on("click", function (e) {
                 e.preventDefault();
@@ -808,11 +914,9 @@ if ($('.single-select').length) {
             });
         });
 
-
-
         /*--------------------------------------------------
           25. Search Popup
-      ---------------------------------------------------*/
+        ---------------------------------------------------*/
         const $searchWrap = $(".search-wrap");
         const $navSearch = $(".nav-search");
         const $searchClose = $("#search-close");
@@ -841,56 +945,248 @@ if ($('.single-select').length) {
         $(".search-trigger, .main-search-input").on("click", function (e) {
             e.stopPropagation();
         });
+        /*24.
+        Cart Panel */
 
-    }); // End Document Ready Function
+// Abrir el panel del carrito
+$("#cart-icon-link").on("click", function (e) {
+    e.preventDefault();
+    $("#cartPanel").toggleClass("open");
+});
+
+// Cerrar el panel del carrito
+$("#cartCloseBtn").on("click", function () {
+    $("#cartPanel").removeClass("open");
+});
+
+// Añadir al carrito desde el menú
+$(".add-to-cart-btn").on("click", function () {
+    const $productItem = $(this).closest('.product-item');
+    const productId = $productItem.data('product-id');
+    const name = $productItem.find('h3').text();
+    const basePrice = parseFloat($productItem.data('base-price')); // Leer base price del atributo
+    const quantity = parseInt($productItem.find('.qty-input').val());
+
+    // Validaciones básicas
+    if (isNaN(basePrice) || isNaN(quantity) || quantity <= 0) {
+        alert("Error al obtener datos del producto.");
+        return;
+    }
+
+    let finalPrice = basePrice; // Precio final a calcular
+    let modifierDescriptions = []; // Para construir el nombre detallado
+
+    // --- Modificadores ---
+    const $extraCheese = $productItem.find('.modifier-checkbox[id^="extra-queso"]');
+    const $cooking = $productItem.find('input[name^="coccion"]:checked');
+    const $onion = $productItem.find('input[name^="cebolla"]:checked');
+    const $mitad1Select = $productItem.find('select[name^="mitad1"]');
+    const $mitad2Select = $productItem.find('select[name^="mitad2"]');
+
+    // 1. Extra Queso
+    if ($extraCheese.is(':checked')) {
+        const cheesePriceChange = parseFloat($extraCheese.data('price-change')) || 0;
+        if (!isNaN(cheesePriceChange)) {
+             finalPrice += cheesePriceChange;
+             modifierDescriptions.push("Extra Queso");
+        }
+    }
+
+    // 2. Mitad y Mitad
+    if ($mitad1Select.length && $mitad2Select.length) { // Solo si es pizza M/M
+        let extraPriceMitades = 0;
+        const mitad1Value = $mitad1Select.val();
+        const mitad2Value = $mitad2Select.val();
+
+        // Validar que ambas mitades estén seleccionadas
+        if (!mitad1Value || !mitad2Value) {
+             alert("Por favor, selecciona ambas mitades para la pizza Mitad y Mitad.");
+             return; // Detener si no están seleccionadas ambas mitades
+        }
+
+        const mitad1OptionPrice = parseFloat($mitad1Select.find('option[value="' + mitad1Value + '"]').data('base-price'));
+        const mitad2OptionPrice = parseFloat($mitad2Select.find('option[value="' + mitad2Value + '"]').data('base-price'));
+
+        let desc1 = "Mitad 1: Desconocida";
+        let desc2 = "Mitad 2: Desconocida";
+
+        if (!isNaN(mitad1OptionPrice)) {
+             extraPriceMitades += Math.max(0, mitad1OptionPrice - basePrice);
+             desc1 = `Mitad 1: ${$mitad1Select.find('option:selected').text().replace(/\(\s?\+\d+\s?\)/, '').trim()}`; // Limpia el (+XX)
+        }
+         if (!isNaN(mitad2OptionPrice)) {
+             extraPriceMitades += Math.max(0, mitad2OptionPrice - basePrice);
+             desc2 = `Mitad 2: ${$mitad2Select.find('option:selected').text().replace(/\(\s?\+\d+\s?\)/, '').trim()}`; // Limpia el (+XX)
+        }
+        finalPrice += extraPriceMitades;
+        modifierDescriptions.push(desc1); // Añadir descripciones
+        modifierDescriptions.push(desc2);
+    }
+
+     // 3. Pizza de Chorizo - Validar selección de Cebolla
+     const currentProductId = $productItem.data('product-id') || '';
+     if (currentProductId === 'chorizo' || currentProductId === 'chorizo-orilla') { // Asegúrate que los product-id sean correctos
+         if (!$onion.length || !$onion.val()) { // Si no existe el input o no tiene valor
+             alert("Por favor, indica si quieres la pizza de chorizo CON o SIN cebolla.");
+             return; // Detener si no se ha seleccionado
+         }
+     }
+
+    // --- Nombre Detallado ---
+    let detailedName = name;
+    if (modifierDescriptions.length > 0) {
+        detailedName += ` (${modifierDescriptions.join(', ')})`;
+    }
+    // Añadir otras opciones seleccionadas que no afectan precio pero sí el nombre
+    if ($cooking.length && $cooking.val()) {
+        detailedName += `, Cocción: ${$cooking.val()}`;
+    }
+     if ($onion.length && $onion.val()) { // Solo añadir si tiene valor (relevante para chorizo)
+        detailedName += `, Cebolla: ${$onion.val()}`;
+     }
 
 
-    /*-----------------------------------
-        26. Preloader   
-    -----------------------------------*/
+    // --- Añadir al Carrito (Agrupando items idénticos) ---
+    // Busca si ya existe un item con el MISMO nombre detallado exacto
+    const existingCartItemIndex = cart.findIndex(item => item.name === detailedName);
+
+    if (existingCartItemIndex > -1) {
+        // Item ya existe, solo aumenta la cantidad
+        cart[existingCartItemIndex].quantity += quantity;
+    } else {
+        // Item nuevo: añade al array 'cart' global
+        cart.push({
+            // id: productId + '-' + Date.now(), // ID único si necesitas diferenciar configuraciones iguales añadidas en momentos distintos
+            originalId: productId, // Guardar ID original por si acaso
+            name: detailedName,    // Clave principal para agrupar
+            price: finalPrice,     // Precio calculado
+            quantity: quantity
+        });
+    }
+    const $cartIcon = $("#cart-icon-link");
+    if ($cartIcon.length) {
+        // Elige una animación de Animate.css, por ejemplo 'animate__tada' o 'animate__shakeX'
+        // Asegúrate de incluir 'animate__animated'
+        const animationClass = 'animate__tada';
+    
+        // Añade la clase para iniciar la animación
+        $cartIcon.addClass(animationClass);
+    
+        // IMPORTANTE: Elimina la clase cuando la animación termine
+        // para que pueda volver a ejecutarse la próxima vez.
+        $cartIcon.one('animationend', function() {
+            $(this).removeClass(animationClass);
+        });
+    
+        /* Opcional: Añadir una clase de "resaltado" temporalmente */
+        /* const highlightClass = 'cart-item-added-highlight'; // Necesitas definir esta clase en tu CSS
+           $cartIcon.addClass(highlightClass);
+           setTimeout(() => { $cartIcon.removeClass(highlightClass); }, 600); // Quitar después de 600ms
+        */
+        }
+        updateCartDisplay(); // Actualizar vista del carrito y localStorage
+        const mobileBreakpoint = 992;
+        if ($(window).width() >= mobileBreakpoint) {    
+            $("#cartPanel").addClass("open"); // Abrir panel para feedback visual
+        }
+    });
+    $('.mitad-selector').on('change', function () {
+        const $productItem = $(this).closest('.product-item');
+        updateMitadDisplayPrice($productItem); // Llama a la función auxiliar
+    });
+    
+    // Listeners para formularios y pago (añadir o reemplazar si ya tenías algo similar)
+    
+    // Mostrar/ocultar botones de pago según selección
+    $("#paymentMethod").on('change', function() {
+       const selectedMethod = $(this).val();
+       // Oculta y limpia todos los contenedores de pago primero
+       $("#paypal-button-container").hide().empty();
+       $("#wallet_container").hide().empty();
+       // $("#cashPaymentBtn").hide(); // Si tienes botón de efectivo
+    
+       if (selectedMethod === 'paypal') {
+           $("#paypal-button-container").show();
+           if (typeof renderPayPalButton === "function") {
+                renderPayPalButton(); // Llama a la función que renderiza el botón PP
+           } else { console.error("Función renderPayPalButton no definida");}
+       } else if (selectedMethod === 'mercadopago') {
+            $("#wallet_container").show();
+             // IMPORTANTE: El renderizado del botón de MP se hará DESPUÉS de crear
+             // la preferencia en el backend, usualmente al hacer clic en un botón
+             // intermedio como "Pagar con Mercado Pago".
+             // Por ahora, solo mostramos el contenedor. Podrías añadir un botón aquí.
+             if (typeof createMercadoPagoPreference !== "function") {
+                console.error("Función createMercadoPagoPreference no definida");
+                $("#wallet_container").html('<p style="color:red;">Error: falta función MP</p>');
+             } else {
+                // Podrías añadir un botón que llame a createMercadoPagoPreference()
+                // Ejemplo: $('<button class="theme-btn">Pagar con Mercado Pago</button>').appendTo('#wallet_container').on('click', createMercadoPagoPreference);
+                // O simplemente mostrar un texto indicativo
+                $("#wallet_container").html('<p>Haz clic en "Pagar con MP" (botón no implementado) para continuar.</p>'); // Placeholder
+             }
+    
+       } else if (selectedMethod === 'cash') {
+            // $("#cashPaymentBtn").show(); // Muestra botón de efectivo si existe
+       }
+       if (typeof updateCartDisplay === "function") updateCartDisplay(); // Re-evaluar estado del pago
+    });
+    
+    // Validar campos del cliente al cambiar
+    $('#customerName, #customerAddress, #customerPhone').on('input', function() {
+        if (typeof updateCartDisplay === "function") updateCartDisplay(); // Re-evaluar estado del pago
+    });
+    // Inicialización de Mercado Pago
+    const mp = new MercadoPago('TEST-6283082187716828-031815-84bd184b6202d8827274cdaf7c90688b-440393429', {
+        locale: 'es-MX'
+    });
+    
+    // Pago con Mercado Pago
+    $("#proceedToMercadoPago").on("click", function () {
+        const phone = $("#customerPhone").val().trim();
+        const address = $("#customerAddress").val().trim();
+        const name = $("#customerName").val().trim();
+    
+        if (!name || !phone || !address || cart.length === 0) {
+            alert('Por favor, completa todos los campos y añade productos al carrito.');
+            return;
+        }
+    
+        $.ajax({
+            url: '/order/createPreference',
+            method: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: $.param({
+                cart: JSON.stringify(cart),
+                phone: phone,
+                address: address,
+                name: name
+            }),
+            success: function (data) {
+                if (data.preferenceId) {
+                    $("#wallet_container").empty();
+                    mp.bricks().create('wallet', 'wallet_container', {
+                        initialization: { preferenceId: data.preferenceId }
+                    });
+                } else {
+                    alert('Error al procesar el pago con Mercado Pago.');
+                }
+            },
+            error: function (error) {
+                console.error('Error:', error);
+                alert('Error al procesar el pago con Mercado Pago.');
+            }
+        });
+    });
+    });
+        
 
     function loader() {
         $(window).on('load', function () {
-            // Animate loader off screen
             $(".preloader").addClass('loaded');
             $(".preloader").delay(600).fadeOut();
         });
     }
-
     loader();
 
-/*--------------------------------------------------
-  27. Mitad y Mitad Price Update
----------------------------------------------------*/
-$('.single-select').on('change', function () {
-    var $this = $(this);
-    var productId = $this.data('product-id');
-    var $mitad1Select = $('#mitad1-' + productId);
-    var $mitad2Select = $('#mitad2-' + productId);
-    var $priceElement = $this.closest('.dishes-content').find('.product-price');
-
-    console.log('Cambio en selector:', $this.attr('id')); // Depuración
-    console.log('Mitad 1 valor:', $mitad1Select.val());
-    console.log('Mitad 2 valor:', $mitad2Select.val());
-
-    var basePrice = 129.00;
-    var extraPrice = 0;
-
-    var mitad1Value = $mitad1Select.val();
-    if (mitad1Value) {
-        var mitad1Price = parseFloat($mitad1Select.find('option[value="' + mitad1Value + '"]').data('base-price'));
-        extraPrice += Math.max(0, mitad1Price - basePrice);
-    }
-
-    var mitad2Value = $mitad2Select.val();
-    if (mitad2Value) {
-        var mitad2Price = parseFloat($mitad2Select.find('option[value="' + mitad2Value + '"]').data('base-price'));
-        extraPrice += Math.max(0, mitad2Price - basePrice);
-    }
-
-    var totalPrice = basePrice + extraPrice;
-    $priceElement.text(totalPrice.toFixed(2));
-    console.log('Precio total actualizado:', totalPrice);
-});
 })(jQuery); // End jQuery
-

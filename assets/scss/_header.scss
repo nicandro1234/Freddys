@@ -1117,7 +1117,7 @@
                     width: 15px;
                     height: 15px;
                     padding: 0 4px;
-                    content: "3";
+                    content: attr(data-count);
                     text-align: center;
                     border-radius: 100%;
                     background: $theme-color-2;

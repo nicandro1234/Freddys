@@ -64,7 +64,7 @@
             right: 0;
         }
     }
-    
+
     &.style4 {
         position: relative;
 
@@ -154,8 +154,6 @@
         -moz-transition: all 0.4s;
         -ms-transition: all 0.4s;
         -o-transition: all 0.4s;
- 
-
 
         .dishes-thumb {
             margin-bottom: 30px;
@@ -224,59 +222,77 @@
                     -moz-transform: translateY(10%);
                     -ms-transform: translateY(10%);
                     -o-transform: translateY(10%);
-        }
+                }
             }
         }
     }
 
     &.style2 {
         padding: 26px 25px;
-        margin-top: 140px;
-        border-radius: 16px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, #FFF 63.33%);
-        text-align: center;
+        margin-top: 140px; // Espacio para el thumb con margen negativo
         border-radius: 16px;
         background: $white;
         box-shadow: 0px 4px 54px 0px rgba(0, 0, 0, 0.08);
+        position: relative; // Contexto de apilamiento
+        text-align: center;
 
         .dishes-thumb {
             position: relative;
-            margin-top: -120px; 
-            border-radius: 50%;
-            -webkit-border-radius: 50%;
-            -moz-border-radius: 50%;
-            -ms-border-radius: 50%;
-            -o-border-radius: 50%;
+            margin-top: -120px; // Mantiene el diseño original
+            // --- VOLVER A TAMAÑO FIJO ---
+            width: 220px;      // Tamaño fijo deseado (ajusta si es necesario)
+            height: 220px;     // Tamaño fijo deseado (igual al width)
+            display: inline-block; // Para centrado y comportamiento predecible
+            vertical-align: middle;
+            // overflow: hidden; // QUITADO: Para permitir que el shape escalado se vea
+            border-radius: 0; // El redondeo lo hará la imagen ahora
+
+            // --- AJUSTE Z-INDEX GENERAL ---
+            z-index: 10;      // Asegura que thumb esté sobre content
+
             img {
-                position: relative;
-                z-index: 2;
-                border-radius: 50%;
+                // position: relative; // No es estrictamente necesario aquí
+                z-index: 1;         // Imagen debajo del circle-shape
+
+                // --- AJUSTES PARA LLENAR Y REDONDEAR ---
+                display: block;
+                width: 100%;      // Llena el width del .dishes-thumb (220px)
+                height: 100%;     // Llena el height del .dishes-thumb (220px)
+                object-fit: cover; // Cubre el espacio, recorta si es necesario
+                border-radius: 50%; // REDONDEA LA IMAGEN DIRECTAMENTE
                 -webkit-border-radius: 50%;
                 -moz-border-radius: 50%;
                 -ms-border-radius: 50%;
                 -o-border-radius: 50%;
-}
+            }
 
             .circle-shape {
                 position: absolute;
-                top: -7px;
-                left: 50%;
-                width: 100%;
-                transform: translateX(-50%);
-                z-index: 1;
-                -webkit-transform: translateX(-50%);
-                -moz-transform: translateX(-50%);
-                -ms-transform: translateX(-50%);
-                -o-transform: translateX(-50%);
+                // --- AJUSTES PARA ESPACIO VISUAL CON SCALE ---
+                width: 100%;      // Base 100% del .dishes-thumb (220px)
+                height: 100%;     // Base 100% del .dishes-thumb (220px)
+                top: 0;           // Alinear con el contenedor
+                left: 0;          // Alinear con el contenedor
+                transform: scale(1.08); // Escala al 108% (ajusta para más/menos espacio)
+                z-index: 2;       // circle-shape encima de la imagen
+                border-radius: 50%; // Asegura redondez del shape mismo
+                pointer-events: none; // Evita que interfiera con clics en la imagen
+
+                // -webkit-transform: scale(1.08); // Prefijos opcionales
+                // -moz-transform: scale(1.08);
+                // -ms-transform: scale(1.08);
+                // -o-transform: scale(1.08);
             }
         }
 
         .dishes-content {
-            margin-top: 24px;
+            margin-top: 24px; // Espacio estándar
+            position: relative; // Contexto de apilamiento
+            z-index: 1;         // Debajo del thumb (z-index: 10)
 
             h3 {
                 color: $title-color;
-                font-family: $title-color;
+                font-family: $title-font;
                 font-size: 20px;
                 font-style: normal;
                 font-weight: 700;
@@ -300,7 +316,7 @@
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 400;
-                line-height: 1;
+                line-height: 1.5; // Ajustar si texto se corta
                 text-transform: capitalize;
                 margin-bottom: 16px;
                 margin-top: 3px;
@@ -334,6 +350,10 @@
                 position: relative;
                 width: 100%;
                 transition: all 0.4s;
+                 display: block;
+                 height: auto;
+                 border-radius: 0;
+                 object-fit: cover;
                 -webkit-transition: all 0.4s;
                 -moz-transition: all 0.4s;
                 -ms-transition: all 0.4s;
@@ -415,18 +435,19 @@
         &:hover {
             .dishes-thumb {
                 overflow: hidden;
-                border-radius: 100px;
-                -webkit-border-radius: 100px;
-                -moz-border-radius: 100px;
-                -ms-border-radius: 100px;
-                -o-border-radius: 100px;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
 
                 img {
-                    border-radius: 100px;
-                    -webkit-border-radius: 100px;
-                    -moz-border-radius: 100px;
-                    -ms-border-radius: 100px;
-                    -o-border-radius: 100px;
+                    border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    -ms-border-radius: 50%;
+                    -o-border-radius: 50%;
+                     transform: scale(1.1); // Efecto zoom opcional
                 }
 
                 .view-more {
@@ -446,18 +467,22 @@
         gap: 30px;
         padding: 5px 30px 20px 35px;
         border-radius: 16px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, #FFF 63.33%);
-        text-align: left;
-        border-radius: 16px;
         background: $white;
         box-shadow: 0px 4px 54px 0px rgba(0, 0, 0, 0.08);
+        text-align: left;
+
 
         .dishes-thumb {
             position: relative;
+            flex-shrink: 0;
 
             img {
                 position: relative;
                 z-index: 2;
+                 display: block;
+                 max-width: 100px; // Ajusta tamaño
+                 height: auto;
+                 border-radius: 50%;
             }
 
             .circle-shape {
@@ -466,24 +491,22 @@
                 left: 50%;
                 transform: translateX(-50%);
                 z-index: 1;
-                -webkit-transform: translateX(-50%);
-                -moz-transform: translateX(-50%);
-                -ms-transform: translateX(-50%);
-                -o-transform: translateX(-50%);
+                // ...
             }
         }
 
         .dishes-content {
-            margin-top: 24px;
+            margin-top: 0;
+            flex-grow: 1;
 
             a {
                 h3 {
                     color: $title-color;
-                    font-family: $title-color;
+                    font-family: $title-font;
                     font-size: 20px;
                     font-style: normal;
                     font-weight: 700;
-                    line-height: 1;
+                    line-height: 1.2;
                     text-transform: capitalize;
                     margin-bottom: 5px;
                     transition: all 0.4s;
@@ -540,9 +563,9 @@
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 400;
-                line-height: 26px;
+                line-height: 1.6;
                 margin-top: 10px;
-                margin-bottom: 20px;
+                margin-bottom: 15px;
             }
 
             h6 {
@@ -553,81 +576,82 @@
                 font-weight: 700;
                 line-height: 1;
                 text-transform: capitalize;
-                margin-bottom: 24px;
+                margin-bottom: 0;
             }
         }
 
         @include breakpoint (max-md) {
-            display: flex;
-            flex-direction: column; 
-            padding: 35px 30px 20px 35px;
+            flex-direction: column;
+            padding: 25px;
+             text-align: center;
+            .dishes-thumb {
+                 margin-bottom: 15px;
+            }
+             .dishes-content {
+                 margin-top: 0;
+                 h6 { margin-bottom: 15px; }
+             }
         }
     }
 
     &.style5 {
         position: relative;
         display: flex;
-        align-items: center; 
-        border-radius: 16px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, #FFF 63.33%);
-        text-align: left;
+        align-items: stretch;
         border-radius: 16px;
         background: $white;
         box-shadow: 0px 4px 54px 0px rgba(0, 0, 0, 0.08);
         margin-bottom: 40px;
+        overflow: hidden;
 
-        @include breakpoint (max-xl) { 
-           margin-bottom: 0;
+        @include breakpoint (max-xl) {
+            margin-bottom: 30px;
         }
 
         .dishes-thumb {
-            position: relative; 
-            margin-bottom: -200px;
-            margin-top: -165px;
-            margin-left: -2px;
-            border-radius: 20px 0px 20px 20px; 
+            position: relative;
+            flex-shrink: 0;
+            width: 250px; // Ajusta
+            border-radius: 0;
 
-            @include breakpoint (max-xl) { 
-                margin-bottom: 0px;
-                margin-top: 0px; 
-                height: 100%;
+            @include breakpoint (max-xl) {
+                 width: 200px;
+                 height: auto;
             }
+             @include breakpoint (max-lg) {
+                 width: 180px;
+             }
 
             img {
-                position: relative;
-                z-index: 2;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
                 height: 100%;
-                border-radius: 20px 0px 20px 20px; 
-            } 
+                z-index: 1;
+                object-fit: cover;
+                border-radius: 0;
+            }
         }
 
-        .dishes-content { 
-            padding: 25px 15px;
+        .dishes-content {
+            padding: 25px;
+            flex-grow: 1;
+            position: relative;
+            z-index: 2;
 
-            @include breakpoint (max-xl4) {  
-              padding: 25px 8px;
-            }
-
-            @include breakpoint (max-xl) { 
-                padding: 15px 3px 15px 25px;
-            }
-
-            @include breakpoint (max-lg) { 
-                padding: 15px 3px 15px 7px;
-            }
-
-            @include breakpoint (max-md) { 
-                padding: 15px 15px 15px 20px;
+            @include breakpoint (max-xl4) {
+                padding: 20px;
             }
 
             a {
                 h3 {
                     color: $title-color;
-                    font-family: $title-color;
+                    font-family: $title-font;
                     font-size: 20px;
                     font-style: normal;
                     font-weight: 700;
-                    line-height: 1;
+                    line-height: 1.2;
                     text-transform: capitalize;
                     margin-bottom: 10px;
                     transition: all 0.4s;
@@ -647,35 +671,8 @@
                 top: 15px;
                 right: 15px;
                 width: 35px;
-
-                a {
-                    transition: all 0.4s;
-                    -webkit-transition: all 0.4s;
-                    -moz-transition: all 0.4s;
-                    -ms-transition: all 0.4s;
-                    -o-transition: all 0.4s;
-
-                    i {
-                        width: 30px;
-                        height: 30px;
-                        line-height: 30px;
-                        text-align: center;
-                        background: $theme-color-2;
-                        color: $white;
-                        margin-bottom: 5px;
-                        border-radius: 50%;
-                        -webkit-border-radius: 50%;
-                        -moz-border-radius: 50%;
-                        -ms-border-radius: 50%;
-                        -o-border-radius: 50%;
-                    }
-
-                    &:hover {
-                        i {
-                            background: $theme-color;
-                        }
-                    }
-                }
+                 z-index: 3;
+                 a { /* ... */ i { /* ... */ } &:hover i { /* ... */ } }
             }
 
             .text {
@@ -684,9 +681,9 @@
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 400;
-                line-height: 26px;
+                line-height: 1.6;
                 margin-top: 0px;
-                margin-bottom: 10px;
+                margin-bottom: 15px;
             }
 
             h6 {
@@ -697,122 +694,52 @@
                 font-weight: 700;
                 line-height: 1;
                 text-transform: capitalize;
-                margin-bottom: 24px;
+                margin-bottom: 20px;
             }
 
             .theme-btn.style6 {
-                padding: 13px 15px; 
+                padding: 10px 20px;
+                 font-size: 14px;
             }
         }
 
-        
+
         @include breakpoint (max-md) {
             flex-direction: column;
-            padding: 25px;
-            .dishes-thumb { 
-                width: 100%; 
-                border-radius: 10px;
-                -webkit-border-radius: 10px;
-                -moz-border-radius: 10px;
-                -ms-border-radius: 10px;
-                -o-border-radius: 10px;
-
+            align-items: stretch;
+            .dishes-thumb {
+                width: 100%;
+                height: 200px; // Ajusta
                 img {
-                    height: 300px;
-                    width: 100%;
-                    border-radius: 10px;
-                    -webkit-border-radius: 10px;
-                    -moz-border-radius: 10px;
-                    -ms-border-radius: 10px;
-                    -o-border-radius: 10px;
-} 
+                     position: relative;
+                     height: 100%;
+                }
             }
 
-            .dishes-content { 
+            .dishes-content {
                 text-align: center;
-                padding: 25px 15px 0;  
-                a {
-                    h3 { 
-                        font-size: 25px;  
-                    }
-                }
-    
-                .icon {
-                    position: absolute;
-                    top: 15px;
-                    right: 15px;
-                    width: 35px;
-    
-                    a {
-                        transition: all 0.4s;
-                        -webkit-transition: all 0.4s;
-                        -moz-transition: all 0.4s;
-                        -ms-transition: all 0.4s;
-                        -o-transition: all 0.4s;
-    
-                        i {
-                            width: 30px;
-                            height: 30px;
-                            line-height: 30px;
-                            text-align: center;
-                            background: $theme-color-2;
-                            color: $white;
-                            margin-bottom: 5px;
-                            border-radius: 50%;
-                            -webkit-border-radius: 50%;
-                            -moz-border-radius: 50%;
-                            -ms-border-radius: 50%;
-                            -o-border-radius: 50%;
-                        }
-    
-                        &:hover {
-                            i {
-                                background: $theme-color;
-                            }
-                        }
-                    }
-                }
-    
-                .text {
-                    color: $text-color;
-                    font-family: $body-font;
-                    font-size: 16px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: 26px;
-                    margin-top: 0px;
-                    margin-bottom: 10px;
-                }
-    
-                h6 {
-                    color: $theme-color;
-                    font-family: $title-font;
-                    font-size: 18px;
-                    font-style: normal;
-                    font-weight: 700;
-                    line-height: 1;
-                    text-transform: capitalize;
-                    margin-bottom: 24px;
-                }
-    
-                .theme-btn.style6 {
-                    padding: 13px 15px; 
-                }
+                padding: 20px;
+                h6 { margin-bottom: 15px; }
+                 .theme-btn.style6 { display: inline-block; width: auto; }
             }
         }
     }
 }
 
+// Regla general para .dishes-thumb (si se usa fuera de los estilos específicos)
 .dishes-thumb {
     position: relative;
     text-align: center;
 
     img {
         position: relative;
-        z-index: 2;  
+        z-index: 2;
+        max-width: 100%;
+        height: auto;
+        display: block;
 
         @include breakpoint (max-xs) {
-            max-width: 100%;
+            // max-width ya es 100%
         }
     }
 
@@ -822,6 +749,10 @@
         left: 50%;
         transform: translateX(-50%);
         z-index: 1;
+        width: 100%;
+        height: auto;
+        max-width: calc(100% + 10px); // Ejemplo
+
         -webkit-transform: translateX(-50%);
         -moz-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
@@ -829,4 +760,293 @@
     }
 }
 
+/* ============================================= */
+/* == INICIO: AJUSTES FREDDYS - MENÚ/TARJETAS V8 == */
+/* (Añadir/Reemplazar en _menu.scss o _products.scss) */
+/* ============================================= */
 
+// --- Reducir espacio sobre el menú ---
+.menu-display-section.section-padding {
+    padding-top: 60px !important; // <-- Reduce (Prueba con DevTools)
+    // padding-bottom: 90px;
+}
+
+// --- Estilos para Filtros de Categoría (Texto Blanco CORREGIDO) ---
+.menu-filter-nav {
+    button.filter-btn {
+        background-color: transparent;
+        border: none;
+        color: #ffffff; // <-- Blanco estático base
+        font-family: $title-font;
+        font-size: 24px;         // <-- AJUSTA
+        font-weight: 700;        // <-- AJUSTA
+        text-transform: capitalize;
+        padding: 5px 10px;
+        margin: 0 15px 15px 15px;
+        cursor: pointer;
+        transition: color 0.3s ease, border-color 0.3s ease;
+        position: relative;
+        border-bottom: 3px solid transparent;
+
+        &:hover {
+            color: #e0e0e0; // <-- REEMPLAZO: Gris muy claro estático para hover
+        }
+
+        &.active { // Estilo del filtro activo
+            color: $theme-color;
+            border-bottom-color: $theme-color;
+        }
+    }
+    @include breakpoint(max-sm) {
+       button.filter-btn {
+           font-size: 18px; margin: 0 5px 10px 5px; padding: 5px;
+       }
+    }
+} // Fin .menu-filter-nav
+
+// --- Estilos para Tarjetas, Modificadores y Cantidad ---
+.dishes-card {
+    .product-modifiers {
+        border-top: 1px dashed rgba(255, 255, 255, 0.15); // Ajustar color en dark mode
+        padding-top: 12px; margin-top: 12px; margin-bottom: 15px; text-align: left;
+
+        label.modifier-label {
+            font-size: 14px; color: inherit; font-weight: 400; display: inline-block;
+            margin-left: 5px; vertical-align: middle; cursor: pointer;
+            transition: color 0.3s ease;
+            &:hover { color: $theme-color; }
+        }
+
+        input.modifier-checkbox {
+            margin-right: 4px; vertical-align: middle; cursor: pointer;
+            accent-color: $theme-color;
+        }
+
+         .modifier-radio-group {
+             label.group-label {
+                 display: block; margin-bottom: 6px; font-weight: 500;
+                 font-size: 14px; color: inherit; line-height: 1.3;
+             }
+             input.modifier-radio {
+                 opacity: 0; position: absolute; width: 0; height: 0;
+                 + label.modifier-radio-label {
+                     margin-right: 8px; padding: 5px 12px;
+                     border: 1px solid rgba(255, 255, 255, 0.3); // Ajustar color en dark mode
+                     border-radius: 4px;
+                     cursor: pointer; transition: all 0.3s ease;
+                     font-size: 13px;
+                     line-height: 1.4;
+                     display: inline-block;
+                     margin-bottom: 5px;
+                     &:hover { border-color: $theme-color; color: $theme-color; }
+                 }
+                 &:checked + label.modifier-radio-label {
+                     background-color: $theme-color; border-color: $theme-color;
+                     color: #ffffff !important;
+                 }
+             }
+         }
+
+         .nice-select {
+             background-color: #3a3a3a; border-color: rgba(255, 255, 255, 0.2);
+             border-radius: 4px; padding: 6px 10px; line-height: 1.5; height: auto;
+             width: 100%; margin-top: 5px;
+             font-size: 14px;
+             span.current { color: rgba(255, 255, 255, 0.85); font-size: inherit; }
+             &::after { border-bottom: 2px solid rgba(255, 255, 255, 0.7); border-right: 2px solid rgba(255, 255, 255, 0.7); height: 8px; width: 8px; right: 12px; margin-top: -5px; }
+             .list { background-color: #3a3a3a; border-radius: 4px; margin-top: 2px; width: 100%; padding: 5px 0; }
+             .option {
+                 color: rgba(255, 255, 255, 0.85); font-size: inherit; padding: 5px 10px; min-height: auto; line-height: 1.6;
+                 &:hover, &.focus, &.selected.focus { background-color: lighten(#3a3a3a, 5%); }
+                 &.selected { color: $theme-color; font-weight: 600; background-color: lighten(#3a3a3a, 8%); }
+             }
+         }
+
+        .modifier-group { &:not(:last-child) { margin-bottom: 10px; } }
+        small { // Estilo para precio (+ S/. X.XX)
+            color: inherit; // Hereda color (se ajustará en dark mode)
+            opacity: 0.8; // Ligeramente atenuado
+            font-size: 12px;
+            display: inline; // Fluir con el texto
+            margin-left: 5px;
+         }
+
+    } // Fin .product-modifiers
+
+    .quantity-selector {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        .qty-input {
+            max-width: 45px; text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2); // Ajustar en dark mode
+            background-color: rgba(255, 255, 255, 0.05); // Ajustar en dark mode
+            color: rgba(255, 255, 255, 0.9); // Ajustar en dark mode
+            border-radius: 4px; padding: 4px 6px; font-size: 14px;
+            height: 30px;
+            line-height: 1.5;
+            box-sizing: border-box;
+            -moz-appearance: textfield;
+             &::-webkit-outer-spin-button, &::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        }
+        .qty-btn {
+            background-color: #3a3a3a; // Ajustar en dark mode
+            color: rgba(255, 255, 255, 0.8); // Ajustar en dark mode
+            border: 1px solid rgba(255, 255, 255, 0.2); // Ajustar en dark mode
+            width: 30px; height: 30px; line-height: 28px; text-align: center;
+            border-radius: 4px; padding: 0; cursor: pointer; transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            &:hover { background-color: $theme-color; color: #fff; border-color: $theme-color; }
+            i { font-size: 0.8em; line-height: 1; }
+        }
+    } // Fin .quantity-selector
+
+    .add-to-cart-btn { width: 100%; padding: 10px 15px; font-size: 15px; margin-top: 15px; }
+
+} // Fin .dishes-card (ajustes generales Freddy's)
+
+
+// --- AJUSTES DARK MODE GENERALES ---
+.dark-mood {
+    .menu-filter-nav button.filter-btn {
+       // No necesita cambios aquí si ya son blancos
+    }
+
+    .dishes-card {
+         background-color: #2b2b2b !important;
+         box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.2);
+
+         // Ajustes generales para texto
+         h3, .text, h6, label, .modifier-group > label.group-label, p { // Añadir 'p'
+             color: rgba(255, 255, 255, 0.9) !important;
+         }
+          a h3 { color: #ffffff !important; &:hover { color: $theme-color !important; } }
+          h6 { color: $theme-color !important; // Precio principal
+              .product-price { color: $theme-color !important;}
+          }
+          p { color: rgba(255, 255, 255, 0.8) !important; }
+
+           // Modificadores en dark mode
+          .product-modifiers {
+              border-top-color: rgba(255, 255, 255, 0.2);
+              label.modifier-label { color: rgba(255, 255, 255, 0.9) !important; }
+              input.modifier-radio + label.modifier-radio-label {
+                  border-color: rgba(255, 255, 255, 0.4);
+                  color: rgba(255, 255, 255, 0.9) !important;
+                   background-color: rgba(255,255,255,0.1);
+                   &:hover { border-color: $theme-color; color: $theme-color !important; background-color: rgba(255,255,255,0.15); }
+              }
+              input.modifier-radio:checked + label.modifier-radio-label {
+                  background-color: $theme-color !important; border-color: $theme-color !important;
+                  color: #ffffff !important;
+              }
+              .nice-select {
+                   background-color: #444 !important;
+                   border-color: rgba(255, 255, 255, 0.3) !important;
+                   span.current { color: rgba(255, 255, 255, 0.9) !important; }
+                   &::after { border-bottom-color: rgba(255, 255, 255, 0.8) !important; border-right-color: rgba(255, 255, 255, 0.8) !important; }
+                   .list { background-color: #444 !important; }
+                   .option {
+                       color: rgba(255, 255, 255, 0.9) !important;
+                       &:hover, &.focus, &.selected.focus { background-color: lighten(#444, 5%) !important; }
+                       &.selected { color: $theme-color !important; background-color: lighten(#444, 8%) !important; }
+                   }
+              }
+               small { color: rgba(255, 255, 255, 0.7) !important; } // Precio modif.
+          }
+           // Cantidad en dark mode
+          .quantity-selector {
+              .qty-input {
+                   border-color: rgba(255, 255, 255, 0.3) !important;
+                   background-color: rgba(255, 255, 255, 0.1) !important;
+                   color: rgba(255, 255, 255, 0.95) !important;
+              }
+              .qty-btn {
+                   background-color: #444 !important;
+                   color: rgba(255, 255, 255, 0.85) !important;
+                   border-color: rgba(255, 255, 255, 0.3) !important;
+                   &:hover { background-color: $theme-color !important; color: #fff !important; border-color: $theme-color !important; }
+              }
+          }
+           // Botón Añadir en dark mode
+           .add-to-cart-btn {
+               // Ajustar si es necesario, dependiendo de los estilos base de .theme-btn
+           }
+
+         // Casos especiales por estilo en dark mode
+         &.style4 {
+              background-color: #2b2b2b !important;
+         }
+          &.style5 {
+               background-color: #2b2b2b !important;
+               box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.3);
+               .dishes-thumb img {
+                   // filter: brightness(0.9); // Opcional
+               }
+          }
+    } // Fin .dishes-card en .dark-mood
+} // Fin .dark-mood
+
+/* Contenedor de cada grupo para dar espacio */
+.modifier-group {
+    position: relative;
+    z-index: auto;
+    margin-bottom: 15px;
+     &:last-child {
+         margin-bottom: 0;
+     }
+}
+
+/* Estilos base para Nice Select */
+.nice-select {
+    position: relative;
+    z-index: 10;
+    // ...
+}
+
+/* Lista desplegable */
+.nice-select .list {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    // ...
+}
+
+/* Opciones dentro de la lista */
+.nice-select .option {
+   // ...
+}
+
+/* Selector abierto */
+.nice-select.open {
+    z-index: 11;
+}
+
+/* Flecha del selector */
+.nice-select::after {
+    // ...
+}
+
+/* Texto de precio */
+.modifier-group small {
+    display: inline;
+    margin-left: 5px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7); // Ajustar color base si es necesario
+}
+
+/* Contenedor con un desplegable abierto */
+.modifier-group:has(.nice-select.open) {
+     // No necesario
+}
+/* =========================================== */
+/* == FIN: AJUSTES FREDDYS - MENÚ/TARJETAS V8 == */
+/* =========================================== */
+    /* Ajuste Padding Superior Sección Menú */
+    .menu-display-section.section-padding {
+        padding-top: 40px !important; // <-- Reduce este valor (prueba 40px, 50px, 60px con DevTools)
+    }
