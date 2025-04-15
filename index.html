@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="es">
 <!--<< Header Area >>-->
 
 <head>
@@ -29,6 +29,13 @@
     <link rel="stylesheet" href="assets/css/nice-select.css">
     <!--<< Main.css >>-->
     <link rel="stylesheet" href="assets/css/main.css">
+     <!-- Mercado Pago SDK -->
+     <script src="https://sdk.mercadopago.com/js/v2"></script>
+     <!-- PayPal SDK (reemplaza YOUR_PAYPAL_CLIENT_ID) -->
+     <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=MXN"></script>
+     <!-- Google Maps para autocompletado (reemplaza YOUR_GOOGLE_MAPS_API_KEY) -->
+     <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&loading=async"></script>
+ </head>
 </head>
 
 <body class="dark-mood">
@@ -184,64 +191,59 @@
                                         <div class="main-menu">
                                             <nav id="mobile-menu">
                                                 <ul>
-                                                    <!-- Item(s) on the Left -->
-                                                    <li> <!-- Keep LI structure, remove has-dropdown if no submenu needed -->
-                                                        <a href="index.html">
-                                                            Inicio
-                                                            <!-- Remove the <i class="fa-regular fa-plus"></i> if no dropdown -->
-                                                        </a>
-                                                        <!-- Remove the entire submenu UL if not needed -->
-                                                        <!-- <ul class="submenu"> ... </ul> -->
+                                                    <!-- Desktop Inicio: Hide below XL -->
+                                                    <li class="d-none d-xl-inline-block">
+                                                        <a href="index.html">Inicio</a>
                                                     </li>
-                                                    <!-- Add more simple links here if needed for left balance -->
-                                                    <!-- <li><a href="about.html">Nosotros</a></li> -->
-                                            
-                                            
-                                                    <!-- Logo Item (Keep exactly as template had it, just change image src if needed) -->
+                                                    <!-- Desktop Logo: Already hidden below XL -->
                                                     <li>
                                                         <div class="logo-image d-none d-xl-block">
-                                                            <a href="index.html">
-                                                                 <!-- Use the user's desired logo -->
-                                                                <img src="assets/img/logo/logo-light.png" alt="Freddy's Logo">
-                                                                <!-- Original was: <img src="assets/img/logo/logo3.svg" alt="img"> -->
-                                                            </a>
+                                                            <a href="index.html"><img src="assets/img/logo/logo-light.png" alt="Freddy's Logo"></a>
                                                         </div>
                                                     </li>
-                                            
-                                            
-                                                    <!-- Item(s) on the Right -->
-                                                    <li> <!-- Keep LI structure, remove has-dropdown if no submenu needed -->
-                                                        <a href="my-account.html">
-                                                            Mi Cuenta
-                                                            <!-- Remove the <i class="fa-regular fa-plus"></i> if no dropdown -->
-                                                        </a>
-                                                        <!-- Remove the entire submenu UL if not needed -->
-                                                        <!-- <ul class="submenu"> ... </ul> -->
+                                                    <!-- Desktop Google Sign-In: Hide below XL -->
+                                                    <li class="d-none d-xl-inline-block">
+                                                        <div id="google-signin-container-desktop" class="google-signin-container">
+                                                            <div id="g_id_onload_desktop"
+                                                                 data-client_id="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"
+                                                                 data-callback="handleCredentialResponse"
+                                                                 data-auto_prompt="false">
+                                                            </div>
+                                                            <div class="g_id_signin" 
+                                                                 data-type="standard" 
+                                                                 data-size="large" 
+                                                                 data-theme="outline" 
+                                                                 data-text="sign_in_with" 
+                                                                 data-shape="rectangular" 
+                                                                 data-logo_alignment="left">
+                                                            </div>
+                                                            <span id="user-info-desktop" style="display: none;"></span>
+                                                        </div>
                                                     </li>
-                                                    <!-- Add more simple links here if needed for right balance -->
-                                                    <!-- <li><a href="contact.html">Contacto</a></li> -->
-                                            
-                                                    <!-- IMPORTANT: Include the mobile-specific list items if they were there -->
-                                                    <!-- Check original template if there were items with d-xl-none -->
-                                                    <!-- Example: Replicating the mobile "Home" link structure -->
-                                                    <li class="active d-xl-none"> <!-- Use 'active' if Inicio is the current page -->
-                                                         <a href="index.html" class="border-none"> <!-- Check if border-none was needed -->
-                                                             Inicio
-                                                             <!-- Add <i class="fa-regular fa-plus"></i> ONLY if it should have a mobile submenu -->
-                                                         </a>
-                                                         <!-- Add <ul class="submenu"> ONLY if it should have a mobile submenu -->
-                                                         <!-- <li><a href="index.html">Sub item 1</a></li> -->
-                                                         <!-- </ul> -->
-                                                     </li>
-                                                     <!-- Example: Replicating a mobile "Mi Cuenta" link -->
-                                                      <li class="d-xl-none">
-                                                          <a href="my-account.html">
-                                                              Mi Cuenta
-                                                              <!-- Icon? -->
-                                                          </a>
-                                                          <!-- Submenu? -->
-                                                      </li>
-                                            
+                                                
+                                                    <!-- Mobile Inicio: Hide ON/ABOVE XL -->
+                                                    <li class="active d-xl-none">
+                                                        <a href="index.html" class="border-none">Inicio</a>
+                                                    </li>
+                                                    <!-- Mobile Google Sign-In: Hide ON/ABOVE XL -->
+                                                    <li class="d-xl-none">
+                                                        <div id="google-signin-container-mobile" class="google-signin-container">
+                                                            <div id="g_id_onload_mobile"
+                                                                 data-client_id="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"
+                                                                 data-callback="handleCredentialResponse"
+                                                                 data-auto_prompt="false">
+                                                            </div>
+                                                            <div class="g_id_signin" 
+                                                                 data-type="standard" 
+                                                                 data-size="medium" 
+                                                                 data-theme="outline" 
+                                                                 data-text="sign_in_with" 
+                                                                 data-shape="rectangular" 
+                                                                 data-logo_alignment="left">
+                                                            </div>
+                                                            <span id="user-info-mobile" style="display: none;"></span>
+                                                        </div>
+                                                    </li>
                                                 </ul>
                                             </nav>
                                         </div>
@@ -251,81 +253,13 @@
                                     <!-- <a href="#0" class="search-trigger search-icon"><i class="fal fa-search"></i></a> -->
 
                                     <div class="header__cart">
-                                        <a href="#"> <i class="fa-sharp fa-regular fa-cart-shopping"></i> </a>
-                                        <div class="header__right__dropdown__wrapper">
-                                            <div class="header__right__dropdown__inner">
-                                                <div class="single__header__right__dropdown">
-
-                                                    <div class="header__right__dropdown__img">
-                                                        <a href="#">
-                                                            <img loading="lazy"
-                                                                src="assets/img/blog/blogRecentThumb3_1.png"
-                                                                alt="photo">
-                                                        </a>
-                                                    </div>
-                                                    <div class="header__right__dropdown__content">
-
-                                                        <a href="shop.html">Fried Chicken</a>
-                                                        <p>1 x <span class="price">$ 80.00</span></p>
-
-                                                    </div>
-                                                    <div class="header__right__dropdown__close">
-                                                        <a href="#"><i class="icofont-close-line"></i></a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="single__header__right__dropdown">
-
-                                                    <div class="header__right__dropdown__img">
-                                                        <a href="#">
-                                                            <img loading="lazy"
-                                                                src="assets/img/blog/blogRecentThumb3_2.png"
-                                                                alt="photo">
-                                                        </a>
-                                                    </div>
-                                                    <div class="header__right__dropdown__content">
-
-                                                        <a href="shop.html">Fried Noodles</a>
-                                                        <p>1 x <span class="price">$ 60.00</span></p>
-
-                                                    </div>
-                                                    <div class="header__right__dropdown__close">
-                                                        <a href="#"><i class="icofont-close-line"></i></a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="single__header__right__dropdown">
-
-                                                    <div class="header__right__dropdown__img">
-                                                        <a href="#">
-                                                            <img loading="lazy"
-                                                                src="assets/img/blog/blogRecentThumb3_3.png"
-                                                                alt="photo">
-                                                        </a>
-                                                    </div>
-                                                    <div class="header__right__dropdown__content">
-
-                                                        <a href="shop.html">Special Pasta</a>
-                                                        <p>1 x <span class="price">$ 70.00</span></p>
-
-                                                    </div>
-                                                    <div class="header__right__dropdown__close">
-                                                        <a href="#"><i class="icofont-close-line"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <p class="dropdown__price">Total: <span>$1,100.00</span>
-                                            </p>
-                                            <div class="header__right__dropdown__button">
-                                                <a href="cart.html" class="theme-btn mb-2">View Cart</a>
-                                                <a href="checkout.html" class="theme-btn style3">Checkout</a>
-                                            </div>
-                                        </div>
+                                        <a href="#" id="cart-icon-link">
+                                            <i class="fa-sharp fa-regular fa-cart-shopping"></i>
+                                        </a>
                                     </div>
 
-                                    <a class="theme-btn style4 pe-2 ps-0 rounded-5" href="menu.html"> <i
-                                            class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                                    <!-- <a class="theme-btn style4 pe-2 ps-0 rounded-5" href="menu.html"> <i
+                                            class="fa-sharp fa-regular fa-arrow-right"></i></a> -->
                                 </div>
                             </div>
                         </div>
@@ -343,21 +277,11 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="banner-wrapper style3 bg-img">
-                            <div class="shape1  d-none d-xxl-block" data-animation="slideInLeft" data-duration="2s"
-                                data-delay=".3s">
+                            <div class="shape1 d-none d-xxl-block" data-animation="slideInLeft" data-duration="2s" data-delay=".3s">
                                 <img class="float-bob-y" src="assets/img/shape/bannerShape3_1.svg" alt="shape">
                             </div>
-                            <div class="shape2  d-none d-xxl-block" data-animation="slideInLeft" data-duration="2s"
-                                data-delay=".5s">
-                                <img class="float-bob-x" src="assets/img/shape/bannerShape3_2.svg" alt="shape">
-                            </div>
-                            <div class="shape3 d-none d-xxl-block" data-tilt data-tilt-max="4"
-                                data-animation="slideInLeft" data-duration="2s" data-delay=".8s">
+                            <div class="shape3 d-none d-xxl-block" data-tilt data-tilt-max="4" data-animation="slideInLeft" data-duration="2s" data-delay=".8s">
                                 <img src="assets/img/shape/bannerShape3_3.png" alt="shape">
-                            </div>
-                            <div class="shape4 d-none d-xxl-block" data-animation="slideInLeft" data-duration="2s"
-                                data-delay="1s">
-                                <img src="assets/img/shape/bannerShape3_4.svg" alt="shape">
                             </div>
                             <div class="shape2"></div>
                             <div class="overlay"></div>
@@ -365,39 +289,15 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="banner-style3">
-                                            <div class="subtitle" data-animation="slideInRight" data-duration="2s"
-                                                data-delay=".3s">signature</div>
-                                            <h1 class="title" data-animation="slideInRight" data-duration="2s"
-                                                data-delay=".7s">
-                                                <span>SEA</span> FOODS
+                                            <div class="subtitle" data-animation="slideInRight" data-duration="2s" data-delay=".3s">Signature</div>
+                                            <h1 class="title" data-animation="slideInRight" data-duration="2s" data-delay=".7s">
+                                                <span>Crazy</span> Pepperoni
                                             </h1>
-                                            <p data-animation="slideInRight" data-duration="2s" data-delay="2s">Every
-                                                dish is not just prepared it's a crafted with a savor the a utmost
-                                                precision and a deep understanding sdf of flavor Every dish is not just
-                                                prepared it's a crafted with a savor</p>
+                                            <p data-animation="slideInRight" data-duration="2s" data-delay="2s">Para
+                                                los verdaderos amantes del pepperoni, disfruta de su triple queso y
+                                                cubierta total de pepperoni madurado importado preparada con
+                                                suprema atencion al detalle y buscando el mejor sabor</p>
                                         </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="banner-bottom  z-3 position-relative">
-                                <div class="container-fluid  d-flex align-items-center justify-content-between">
-                                    <div class="fancy-item">
-                                        <i class="fa-solid fa-location-dot text-theme-color2"></i> <span
-                                            class=" text-white">Rd. Santa Ana, Illinois 85486, United States</span>
-                                    </div>
-                                    <div class="social-meta d-flex  flex-column flex-md-row align-items-center gap-2">
-                                        <p class="text-white">Follow Us:</p>
-                                        <ul class="d-flex align-items-center gap-2">
-                                            <li><a href="https://www.facebook.com"><i
-                                                        class="fa-brands fa-facebook text-white"></i></a></li>
-                                            <li><a href="https://www.twitter.com"><i
-                                                        class="fa-brands fa-twitter text-white"></i></a></li>
-                                            <li><a href="https://www.linkedin.com"><i
-                                                        class="fa-brands fa-linkedin-in text-white"></i></a></li>
-                                            <li><a href="https://www.youtube.com"><i
-                                                        class="fa-brands fa-youtube text-white"></i></a></li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -405,21 +305,11 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="banner-wrapper style3 bg-img">
-                            <div class="shape1  d-none d-xxl-block" data-animation="slideInLeft" data-duration="2s"
-                                data-delay=".3s">
+                            <div class="shape1 d-none d-xxl-block" data-animation="slideInLeft" data-duration="5s" data-delay=".3s">
                                 <img class="float-bob-y" src="assets/img/shape/bannerShape3_1.svg" alt="shape">
                             </div>
-                            <div class="shape2  d-none d-xxl-block" data-animation="slideInLeft" data-duration="2s"
-                                data-delay=".5s">
-                                <img class="float-bob-x" src="assets/img/shape/bannerShape3_2.svg" alt="shape">
-                            </div>
-                            <div class="shape3 d-none d-xxl-block" data-tilt data-tilt-max="4"
-                                data-animation="slideInLeft" data-duration="2s" data-delay=".8s">
+                            <div class="shape3 d-none d-xxl-block" data-tilt data-tilt-max="4" data-animation="slideInLeft" data-duration="2s" data-delay=".8s">
                                 <img src="assets/img/shape/bannerShape3_3.png" alt="shape">
-                            </div>
-                            <div class="shape4 d-none d-xxl-block" data-animation="slideInLeft" data-duration="2s"
-                                data-delay="1s">
-                                <img src="assets/img/shape/bannerShape3_4.svg" alt="shape">
                             </div>
                             <div class="shape2"></div>
                             <div class="overlay"></div>
@@ -427,39 +317,15 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="banner-style3">
-                                            <div class="subtitle" data-animation="slideInRight" data-duration="2s"
-                                                data-delay=".3s">signature</div>
-                                            <h1 class="title" data-animation="slideInRight" data-duration="2s"
-                                                data-delay=".7s">
-                                                <span>SEA</span> FOODS
+                                            <div class="subtitle" data-animation="slideInRight" data-duration="2s" data-delay=".3s">Signature</div>
+                                            <h1 class="title" data-animation="slideInRight" data-duration="2s" data-delay=".7s">
+                                                <span>Crazy</span> Pepperoni
                                             </h1>
-                                            <p data-animation="slideInLeft" data-duration="2s" data-delay="1s">Every
-                                                dish is not just prepared it's a crafted with a savor the a utmost
-                                                precision and a deep understanding sdf of flavor Every dish is not just
-                                                prepared it's a crafted with a savor</p>
+                                            <p data-animation="slideInRight" data-duration="2s" data-delay="2s">Para
+                                                los verdaderos amantes del pepperoni, disfruta de su triple queso y
+                                                cubierta total de pepperoni madurado importado preparada con
+                                                suprema atencion al detalle y buscando el mejor sabor</p>
                                         </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="banner-bottom  z-3 position-relative">
-                                <div class="container-fluid  d-flex align-items-center justify-content-between">
-                                    <div class="fancy-item">
-                                        <i class="fa-solid fa-location-dot text-theme-color2"></i> <span
-                                            class=" text-white">Rd. Santa Ana, Illinois 85486, United States</span>
-                                    </div>
-                                    <div class="social-meta d-flex  flex-column flex-md-row align-items-center gap-2">
-                                        <p class="text-white">Follow Us:</p>
-                                        <ul class="d-flex align-items-center gap-2">
-                                            <li><a href="https://www.facebook.com"><i
-                                                        class="fa-brands fa-facebook text-white"></i></a></li>
-                                            <li><a href="https://www.twitter.com"><i
-                                                        class="fa-brands fa-twitter text-white"></i></a></li>
-                                            <li><a href="https://www.linkedin.com"><i
-                                                        class="fa-brands fa-linkedin-in text-white"></i></a></li>
-                                            <li><a href="https://www.youtube.com"><i
-                                                        class="fa-brands fa-youtube text-white"></i></a></li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -467,21 +333,11 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="banner-wrapper style3 bg-img">
-                            <div class="shape1  d-none d-xxl-block" data-animation="slideInLeft" data-duration="2s"
-                                data-delay=".3s">
+                            <div class="shape1 d-none d-xxl-block" data-animation="slideInLeft" data-duration="2s" data-delay=".3s">
                                 <img class="float-bob-y" src="assets/img/shape/bannerShape3_1.svg" alt="shape">
                             </div>
-                            <div class="shape2  d-none d-xxl-block" data-animation="slideInLeft" data-duration="2s"
-                                data-delay=".5s">
-                                <img class="float-bob-x" src="assets/img/shape/bannerShape3_2.svg" alt="shape">
-                            </div>
-                            <div class="shape3 d-none d-xxl-block" data-tilt data-tilt-max="4"
-                                data-animation="slideInLeft" data-duration="2s" data-delay=".8s">
+                            <div class="shape3 d-none d-xxl-block" data-tilt data-tilt-max="4" data-animation="slideInLeft" data-duration="2s" data-delay=".8s">
                                 <img src="assets/img/shape/bannerShape3_3.png" alt="shape">
-                            </div>
-                            <div class="shape4 d-none d-xxl-block" data-animation="slideInLeft" data-duration="2s"
-                                data-delay="1s">
-                                <img src="assets/img/shape/bannerShape3_4.svg" alt="shape">
                             </div>
                             <div class="shape2"></div>
                             <div class="overlay"></div>
@@ -489,46 +345,22 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="banner-style3">
-                                            <div class="subtitle" data-animation="slideInRight" data-duration="2s"
-                                                data-delay=".3s">signature</div>
-                                            <h1 class="title" data-animation="slideInRight" data-duration="2s"
-                                                data-delay=".7s">
-                                                <span>SEA</span> FOODS
+                                            <div class="subtitle" data-animation="slideInRight" data-duration="2s" data-delay=".3s">Signature</div>
+                                            <h1 class="title" data-animation="slideInRight" data-duration="2s" data-delay=".7s">
+                                                <span>Crazy</span> Pepperoni
                                             </h1>
-                                            <p data-animation="slideInRight" data-duration="2s" data-delay="2s">Every
-                                                dish is not just prepared it's a crafted with a savor the a utmost
-                                                precision and a deep understanding sdf of flavor Every dish is not just
-                                                prepared it's a crafted with a savor</p>
+                                            <p data-animation="slideInRight" data-duration="2s" data-delay="2s">Para
+                                                los verdaderos amantes del pepperoni, disfruta de su triple queso y
+                                                cubierta total de pepperoni madurado importado preparada con
+                                                suprema atencion al detalle y buscando el mejor sabor</p>
                                         </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="banner-bottom  z-3 position-relative">
-                                <div class="container-fluid  d-flex align-items-center justify-content-between">
-                                    <div class="fancy-item">
-                                        <i class="fa-solid fa-location-dot text-theme-color2"></i> <span
-                                            class=" text-white">Rd. Santa Ana, Illinois 85486, United States</span>
-                                    </div>
-                                    <div class="social-meta d-flex  flex-column flex-md-row align-items-center gap-2">
-                                        <p class="text-white">Follow Us:</p>
-                                        <ul class="d-flex align-items-center gap-2">
-                                            <li><a href="https://www.facebook.com"><i
-                                                        class="fa-brands fa-facebook text-white"></i></a></li>
-                                            <li><a href="https://www.twitter.com"><i
-                                                        class="fa-brands fa-twitter text-white"></i></a></li>
-                                            <li><a href="https://www.linkedin.com"><i
-                                                        class="fa-brands fa-linkedin-in text-white"></i></a></li>
-                                            <li><a href="https://www.youtube.com"><i
-                                                        class="fa-brands fa-youtube text-white"></i></a></li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
+    
                 <div class="arrow-prev3"><img src="assets/img/icon/arrowPrev.svg" alt="Icon"></div>
                 <div class="arrow-next3"><img src="assets/img/icon/arrowNext.svg" alt="Icon"></div>
                 <div class="pagination-class3 swiper-pagination"></div>
@@ -536,119 +368,805 @@
         </div>
     </section>
 
-
-    <!-- Blog Section    S T A R T -->
-    <!-- <section class="blog-section section-padding fix">
-        <div class="blog-wrapper style2">
-            <div class="shape1"><img src="assets/img/shape/blogShape3_1.png" alt="shape"></div>
+    <!-- Menu Section   S T A R T -->
+    <section class="menu-display-section section-padding fix">
+        <div class="container">
+    
             <div class="container">
-                <div class="blog-card-wrap style2">
-                    <div class="title-area">
-                        <div class="sub-title text-center wow fadeInUp" data-wow-delay="0.5s">
-                            <img class="me-1" src="assets/img/icon/titleIcon.svg" alt="icon">LATEST BLOG<img
-                                class="ms-1" src="assets/img/icon/titleIcon.svg" alt="icon">
-                        </div>
-                        <h2 class="title wow fadeInUp" data-wow-delay="0.7s">
-                            Latest News & Articles
-                        </h2>
+                <!-- Títulos y filtros sin cambios -->
+                <div class="title-area text-center mb-4 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="sub-title">
+                        <img class="me-1" src="assets/img/icon/titleIcon.svg" alt="icon">Nuestro Menú<img class="ms-1" src="assets/img/icon/titleIcon.svg" alt="icon">
                     </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="blog-card style2 wow fadeInUp" data-wow-delay="0.2s">
-                                <div class="blog-thumb">
-                                    <img src="assets/img/blog/blogThumb4_1.jpg" alt="thumb">
+                </div>
+                <div class="menu-filter-nav text-center mb-5 wow fadeInUp" data-wow-delay=".5s">
+                    <button class="filter-btn active" data-filter="pizzas">Pizzas</button>
+                    <button class="filter-btn" data-filter="orilla">Orilla Rellena</button>
+                    <button class="filter-btn" data-filter="complementos">Complementos</button>
+                </div>
+                <div class="menu-items-container" style="position: relative; overflow: hidden; min-height: 500px";>
+                    <div class="category-block menu-category-pizzas mb-5">
+                        <div class="dishes-card-wrap style2">
+                            <!-- La Mamalona -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="mamalona" data-base-price="149.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/mamalona.png" alt="La Mamalona">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
                                 </div>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <div class="item1">
-                                            <h6>15</h6>
-                                            <p>August</p>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>La Mamalona</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-1" name="extra-queso-pizza-1" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-1">Extra Queso (+$25.00)</label>
                                         </div>
-                                        <div class="items-wrap">
-                                            <div class="item2">
-                                                <div class="icon"><i class="fa-light fa-user"></i> <span>By Admin</span>
-                                                </div>
-                                            </div>
-                                            <div class="item3">
-                                                <div class="icon"><i
-                                                        class="fa-light fa-comments"></i><span>Comments(5)</span></div>
-                                            </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                        <div class="radio-container">
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-1" name="coccion-pizza-1" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-1">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-1" name="coccion-pizza-1" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-1">Crujiente</label>
                                         </div>
                                     </div>
-                                    <a href="blog-details.html">
-                                        <h3>Top 10 Must-Try Dishes at Our Restaurant</h3>
-                                    </a>
-                                    <p>Get to know the top 10 dishes you must try our fast savor when you visit our
-                                        restaurant, Savor fast food from appetizers to desserts...</p>
-                                    <a href="blog-details.html" class="link-btn">
-                                        <span>Read More</span> <i class="fa-solid fa-arrow-right-long"></i>
-                                    </a>
+                                </div>
+                                    <h6>$<span class="product-price">149.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-1" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- Champiñones con Atun -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="champisconatun" data-base-price="139.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/champisconatun.png" alt="Champiñones con Atun">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Champiñones con Atun</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-2" name="extra-queso-pizza-2" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-2">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                        <div class="radio-container">    
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-2" name="coccion-pizza-2" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-2">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-2" name="coccion-pizza-2" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-2">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <h6>$<span class="product-price">139.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-2" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- Pepperoni -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="pepperoni" data-base-price="129.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/pepperoni.png" alt="Pizza Pepperoni">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Pepperoni</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-3" name="extra-queso-pizza-3" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-3">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <div class="radio-container">
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-3" name="coccion-pizza-3" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-3">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-3" name="coccion-pizza-3" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-3">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-3" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- Hawaiana -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="hawaiana" data-base-price="129.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/hawaiana.png" alt="Pizza Hawaiana">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Hawaiana</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-4" name="extra-queso-pizza-4" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-4">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <div class="radio-container">
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-4" name="coccion-pizza-4" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-4">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-4" name="coccion-pizza-4" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-4">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-4" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- Mitad y Mitad -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="mitadymitad" data-base-price="129.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/mitadymitad.png" alt="Pizza Mitad y Mitad">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Mitad y Mitad</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-5" name="extra-queso-pizza-5" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-5">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group mb-2">
+                                            <label class="group-label">Cocción:</label>
+                                            <div class="radio-container">
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-5" name="coccion-pizza-5" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-5">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-5" name="coccion-pizza-5" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-5">Crujiente</label>
+                                        </div>
+                                        </div>
+                                        <div class="modifier-group mt-2">
+                                            <label for="mitad1-pizza-5" class="group-label">Primera Mitad:</label>
+                                            <select name="mitad1-pizza-5" id="mitad1-pizza-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="pizza-5">
+                                                <option value="">Selecciona...</option>
+                                                <option value="pepperoni" data-base-price="129">Pepperoni</option>
+                                                <option value="hawaiana" data-base-price="129">Hawaiana</option>
+                                                <option value="mamalona" data-base-price="149">La Mamalona (+20)</option>
+                                                <option value="carnesfrias" data-base-price="129">Carnes Frias</option>
+                                                <option value="cuatroquesos" data-base-price="129">4 Quesos</option>
+                                                <option value="champisconatun" data-base-price="139">Champiñones c/ Atun (+10)</option>
+                                                <option value="champisconpepp" data-base-price="129">Champiñones c/ Pepp.</option>
+                                                <option value="chorizo" data-base-price="129">Chorizo</option>
+                                                <option value="salamiconcarne" data-base-price="139">Salami c/ Carne M. (+10)</option>
+                                            </select>
+                                        </div>
+                                        <div class="modifier-group mt-2">
+                                            <label for="mitad2-pizza-5" class="group-label">Segunda Mitad:</label>
+                                            <select name="mitad2-pizza-5" id="mitad2-pizza-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="pizza-5">
+                                                <option value="">Selecciona...</option>
+                                                <option value="pepperoni" data-base-price="129">Pepperoni</option>
+                                                <option value="hawaiana" data-base-price="129">Hawaiana</option>
+                                                <option value="mamalona" data-base-price="149">La Mamalona (+20)</option>
+                                                <option value="carnesfrias" data-base-price="129">Carnes Frias</option>
+                                                <option value="cuatroquesos" data-base-price="129">4 Quesos</option>
+                                                <option value="champisconatun" data-base-price="139">Champiñones c/ Atun (+10)</option>
+                                                <option value="champisconpepp" data-base-price="129">Champiñones c/ Pepp.</option>
+                                                <option value="chorizo" data-base-price="129">Chorizo</option>
+                                                <option value="salamiconcarne" data-base-price="139">Salami c/ Carne M. (+10)</option>
+                                            </select>
+                                            <small style="display: block; margin-top: 5px; font-size: 0.8em; opacity: 0.7;">*Precio base $129. Mitades especiales +$15 (aprox).</small>
+                                        </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-5" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- Carnes Frías -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="carnesfrias" data-base-price="129.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/carnesfrias.png" alt="Pizza Carnes Frias">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Carnes Frias</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-6" name="extra-queso-pizza-6" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-6">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <div class="radio-container">
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-6" name="coccion-pizza-6" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-6">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-6" name="coccion-pizza-6" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-6">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-6" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- 4 Quesos -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="cuatroquesos" data-base-price="129.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/cuatroquesos.png" alt="Pizza 4 Quesos">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>4 Quesos</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-7" name="extra-queso-pizza-7" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-7">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <div class="radio-container">
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-7" name="coccion-pizza-7" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-7">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-7" name="coccion-pizza-7" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-7">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-7" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- Champiñones con Pepperoni -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="champisconpepperoni" data-base-price="129.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/champisconpepperoni.png" alt="Pizza Champiñones con Pepperoni">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Champiñones con Pepperoni</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-8" name="extra-queso-pizza-8" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-8">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <div class="radio-container">
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-8" name="coccion-pizza-8" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-8">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-8" name="coccion-pizza-8" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-8">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-8" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- Chorizo -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="chorizo" data-base-price="129.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/chorizo.png" alt="Pizza Chorizo">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Chorizo</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-9" name="extra-queso-pizza-9" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-9">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group mb-2">
+                                            <label class="group-label">Cocción:</label>
+                                            <div class="radio-container">
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-9" name="coccion-pizza-9" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-9">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-9" name="coccion-pizza-9" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-9">Crujiente</label>
+                                        </div>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group mb-2">
+                                            <div class="radio-container">
+                                            <label class="group-label">Cebolla: <span style="color:red">*</span></label>
+                                            <input class="modifier-radio" type="radio" id="cebolla-con-pizza-9" name="cebolla-pizza-9" value="con" required>
+                                            <label class="modifier-label modifier-radio-label" for="cebolla-con-pizza-9">Con Cebolla</label>
+                                            <input class="modifier-radio" type="radio" id="cebolla-sin-pizza-9" name="cebolla-pizza-9" value="sin" required>
+                                            <label class="modifier-label modifier-radio-label" for="cebolla-sin-pizza-9">Sin Cebolla</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-9" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                            <!-- Salami con Carne Molida -->
+                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="salamiconcarne" data-base-price="139.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/salamiconcarne.png" alt="Pizza Salami con Carne Molida">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Salami con Carne Molida</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-10" name="extra-queso-pizza-10" value="1" data-price-change="25.00">
+                                            <label class="modifier-label" for="extra-queso-pizza-10">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocción:</label>
+                                            <div class="radio-container">
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-10" name="coccion-pizza-10" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-10">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-10" name="coccion-pizza-10" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-10">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <h6>$<span class="product-price">139.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-10" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="blog-card style2 wow fadeInUp" data-wow-delay="0.4s">
-                                <div class="blog-thumb">
-                                    <img src="assets/img/blog/blogThumb4_2.jpg" alt="thumb">
-                                </div>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <div class="item1">
-                                            <h6>25</h6>
-                                            <p>August</p>
-                                        </div>
-                                        <div class="items-wrap">
-                                            <div class="item2">
-                                                <div class="icon"><i class="fa-light fa-user"></i> <span>By Admin</span>
-                                                </div>
-                                            </div>
-                                            <div class="item3">
-                                                <div class="icon"><i
-                                                        class="fa-light fa-comments"></i><span>Comments(15)</span></div>
-                                            </div>
-                                        </div>
+                    </div>
+                    <!-- Orilla Rellena -->
+                <div class="category-block menu-category-orilla mb-5" style="display: none;">
+                    <div class="dishes-card-wrap style2">
+                        <!-- La Mamalona Orilla Rellena -->
+                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="mamalona-orilla" data-base-price="179.00">
+                            <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/mamalona-orilla.png" alt="La Mamalona Orilla Rellena">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
+                                <a href="#"><h3>La Mamalona Orilla Rellena</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-1" name="extra-queso-orilla-1" value="1" data-price-change="25.00">
+                                        <label class="modifier-label" for="extra-queso-orilla-1">Extra Queso (+$25.00)</label>
                                     </div>
-                                    <a href="blog-details.html">
-                                        <h3>Take a behind-the-scenes look at a typical day</h3>
-                                    </a>
-                                    <p>Get to know the top 10 dishes you must try our fast savor when you visit our
-                                        restaurant, Savor fast food from appetizers to desserts...</p>
-                                    <a href="blog-details.html" class="link-btn">
-                                        <span>Read More</span> <i class="fa-solid fa-arrow-right-long"></i>
-                                    </a>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocción:</label>
+                                        <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-1" name="coccion-orilla-1" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-1">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-1" name="coccion-orilla-1" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-1">Crujiente</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <h6>$<span class="product-price">179.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-1" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                        </div>
+                        <!-- Champiñones con Atun Orilla Rellena -->
+                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="champisconatun-orilla" data-base-price="169.00">
+                            <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/champisconatun-orilla.png" alt="Champiñones con Atun Orilla Rellena">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
+                                <a href="#"><h3>Champiñones con Atun Orilla Rellena</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-2" name="extra-queso-orilla-2" value="1" data-price-change="25.00">
+                                        <label class="modifier-label" for="extra-queso-orilla-2">Extra Queso (+$25.00)</label>
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocción:</label>
+                                        <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-2" name="coccion-orilla-2" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-2">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-2" name="coccion-orilla-2" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-2">Crujiente</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <h6>$<span class="product-price">169.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-2" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                        </div>
+                        <!-- Pepperoni Orilla Rellena -->
+                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="pepperoni-orilla" data-base-price="159.00">
+                            <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/pepperoni-orilla.png" alt="Pepperoni Orilla Rellena">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
+                                <a href="#"><h3>Pepperoni Orilla Rellena</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-3" name="extra-queso-orilla-3" value="1" data-price-change="25.00">
+                                        <label class="modifier-label" for="extra-queso-orilla-3">Extra Queso (+$25.00)</label>
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocción:</label>
+                                        <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-3" name="coccion-orilla-3" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-3">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-3" name="coccion-orilla-3" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-3">Crujiente</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-3" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                        </div>
+                        <!-- Hawaiana Orilla Rellena -->
+                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="hawaiana-orilla" data-base-price="159.00">
+                            <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/hawaiana-orilla.png" alt="Hawaiana Orilla Rellena">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
+                                <a href="#"><h3>Hawaiana Orilla Rellena</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-4" name="extra-queso-orilla-4" value="1" data-price-change="25.00">
+                                        <label class="modifier-label" for="extra-queso-orilla-4">Extra Queso (+$25.00)</label>
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocción:</label>
+                                        <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-4" name="coccion-orilla-4" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-4">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-4" name="coccion-orilla-4" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-4">Crujiente</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-4" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                        </div>
+                        <!-- Mitad y Mitad Orilla Rellena -->
+                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="mitadymitad-orilla" data-base-price="159.00">
+                            <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/mitadymitad-orilla.png" alt="Mitad y Mitad Orilla Rellena">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
+                                <a href="#"><h3>Mitad y Mitad Orilla Rellena</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-5" name="extra-queso-orilla-5" value="1" data-price-change="25.00">
+                                        <label class="modifier-label" for="extra-queso-orilla-5">Extra Queso (+$25.00)</label>
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group mb-2">
+                                        <label class="group-label">Cocción:</label>
+                                        <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-5" name="coccion-orilla-5" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-5">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-5" name="coccion-orilla-5" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-5">Crujiente</label>
+                                    </div>
+                                    </div>
+                                    <div class="modifier-group mt-2">
+                                        <label for="mitad1-orilla-5" class="group-label">Primera Mitad:</label>
+                                        <select name="mitad1-orilla-5" id="mitad1-orilla-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="orilla-5">
+                                            <option value="">Selecciona...</option>
+                                            <option value="pepperoni" data-base-price="159">Pepperoni</option>
+                                            <option value="hawaiana" data-base-price="159">Hawaiana</option>
+                                            <option value="mamalona" data-base-price="179">La Mamalona (+20)</option>
+                                            <option value="carnesfrias" data-base-price="159">Carnes Frias</option>
+                                            <option value="cuatroquesos" data-base-price="159">4 Quesos</option>
+                                            <option value="champisconatun" data-base-price="169">Champiñones c/ Atun (+10)</option>
+                                            <option value="champisconpepp" data-base-price="159">Champiñones c/ Pepp.</option>
+                                            <option value="chorizo" data-base-price="159">Chorizo</option>
+                                            <option value="salamiconcarne" data-base-price="169">Salami c/ Carne M. (+10)</option>
+                                        </select>
+                                    </div>
+                                    <div class="modifier-group mt-2">
+                                        <label for="mitad2-orilla-5" class="group-label">Segunda Mitad:</label>
+                                        <select name="mitad2-orilla-5" id="mitad2-orilla-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="orilla-5">
+                                            <option value="">Selecciona...</option>
+                                            <option value="pepperoni" data-base-price="159">Pepperoni</option>
+                                            <option value="hawaiana" data-base-price="159">Hawaiana</option>
+                                            <option value="mamalona" data-base-price="179">La Mamalona (+20)</option>
+                                            <option value="carnesfrias" data-base-price="159">Carnes Frias</option>
+                                            <option value="cuatroquesos" data-base-price="159">4 Quesos</option>
+                                            <option value="champisconatun" data-base-price="169">Champiñones c/ Atun (+10)</option>
+                                            <option value="champisconpepp" data-base-price="159">Champiñones c/ Pepp.</option>
+                                            <option value="chorizo" data-base-price="159">Chorizo</option>
+                                            <option value="salamiconcarne" data-base-price="169">Salami c/ Carne M. (+10)</option>
+                                        </select>
+                                        <small style="display: block; margin-top: 5px; font-size: 0.8em; opacity: 0.7;">*Precio base $159. Mitades especiales +$15 (aprox).</small>
+                                    </div>
+                                </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-5" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                        </div>
+                        <!-- Carnes Frías Orilla Rellena -->
+                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="carnesfrias-orilla" data-base-price="159.00">
+                            <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/carnesfrias-orilla.png" alt="Carnes Frias Orilla Rellena">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
+                                <a href="#"><h3>Carnes Frias Orilla Rellena</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-6" name="extra-queso-orilla-6" value="1" data-price-change="25.00">
+                                        <label class="modifier-label" for="extra-queso-orilla-6">Extra Queso (+$25.00)</label>
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocción:</label>
+                                        <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-6" name="coccion-orilla-6" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-6">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-6" name="coccion-orilla-6" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-6">Crujiente</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-6" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                        </div>
+                        <!-- 4 Quesos Orilla Rellena -->
+                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="cuatroquesos-orilla" data-base-price="159.00">
+                            <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/cuatroquesos-orilla.png" alt="4 Quesos Orilla Rellena">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
+                                <a href="#"><h3>4 Quesos Orilla Rellena</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-7" name="extra-queso-orilla-7" value="1" data-price-change="25.00">
+                                        <label class="modifier-label" for="extra-queso-orilla-7">Extra Queso (+$25.00)</label>
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocción:</label>
+                                        <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-7" name="coccion-orilla-7" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-7">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-7" name="coccion-orilla-7" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-7">Crujiente</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-7" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                        </div>
+                        <!-- Champiñones con Pepperoni Orilla Rellena -->
+                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="champisconpepperoni-orilla" data-base-price="159.00">
+                            <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/champisconpepperoni-orilla.png" alt="Champiñones con Pepperoni Orilla Rellena">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
+                                <a href="#"><h3>Champiñones con Pepperoni Orilla Rellena</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-8" name="extra-queso-orilla-8" value="1" data-price-change="25.00">
+                                        <label class="modifier-label" for="extra-queso-orilla-8">Extra Queso (+$25.00)</label>
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocción:</label>
+                                        <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-8" name="coccion-orilla-8" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-8">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-8" name="coccion-orilla-8" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-8">Crujiente</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-8" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                        </div>
+                        <!-- Chorizo Orilla Rellena -->
+                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="chorizo-orilla" data-base-price="159.00">
+                            <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/chorizo-orilla.png" alt="Chorizo Orilla Rellena">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
+                                <a href="#"><h3>Chorizo Orilla Rellena</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-9" name="extra-queso-orilla-9" value="1" data-price-change="25.00">
+                                        <label class="modifier-label" for="extra-queso-orilla-9">Extra Queso (+$25.00)</label>
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group mb-2">
+                                        <label class="group-label">Cocción:</label>
+                                        <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-9" name="coccion-orilla-9" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-9">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-9" name="coccion-orilla-9" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-9">Crujiente</label>
+                                    </div>
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group mb-2">
+                                        <div class="radio-container">
+                                        <label class="group-label">Cebolla: <span style="color:red">*</span></label>
+                                        <input class="modifier-radio" type="radio" id="cebolla-con-orilla-9" name="cebolla-orilla-9" value="con" required>
+                                        <label class="modifier-label modifier-radio-label" for="cebolla-con-orilla-9">Con Cebolla</label>
+                                        <input class="modifier-radio" type="radio" id="cebolla-sin-orilla-9" name="cebolla-orilla-9" value="sin" required>
+                                        <label class="modifier-label modifier-radio-label" for="cebolla-sin-orilla-9">Sin Cebolla</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-9" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                        </div>
+                        <!-- Salami con Carne Molida Orilla Rellena -->
+                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="salamiconcarne-orilla" data-base-price="169.00">
+                            <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/salamiconcarne-orilla.png" alt="Salami con Carne Molida Orilla Rellena">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
+                                <a href="#"><h3>Salami con Carne Molida Orilla Rellena</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-10" name="extra-queso-orilla-10" value="1" data-price-change="25.00">
+                                        <label class="modifier-label" for="extra-queso-orilla-10">Extra Queso (+$25.00)</label>
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocción:</label>
+                                        <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-10" name="coccion-orilla-10" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-10">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-10" name="coccion-orilla-10" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-10">Crujiente</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <h6>$<span class="product-price">169.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-10" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-block menu-category-complementos">
+                    <div class="row g-4">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="dishes-card style2 product-item" data-category="complementos" data-product-id="dedos-queso" data-base-price="59.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/complementos/dedos-queso.png" alt="Dedos de Queso">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Dedos de Queso</h3></a>
+                                    <h6>$<span class="product-price">59.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-1" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="blog-card style2 wow fadeInUp" data-wow-delay="0.6s">
-                                <div class="blog-thumb">
-                                    <img src="assets/img/blog/blogThumb4_3.jpg" alt="thumb">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="dishes-card style2 product-item" data-category="complementos" data-product-id="brownies" data-base-price="29.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/complementos/brownies.png" alt="Brownies">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
                                 </div>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <div class="item1">
-                                            <h6>12</h6>
-                                            <p>August</p>
-                                        </div>
-                                        <div class="items-wrap">
-                                            <div class="item2">
-                                                <div class="icon"><i class="fa-light fa-user"></i> <span>By Admin</span>
-                                                </div>
-                                            </div>
-                                            <div class="item3">
-                                                <div class="icon"><i
-                                                        class="fa-light fa-comments"></i><span>Comments(15)</span></div>
-                                            </div>
-                                        </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Brownies</h3></a>
+                                    <h6>$<span class="product-price">29.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-2" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
                                     </div>
-                                    <a href="blog-details.html">
-                                        <h3>Learn the secrets to making perfect pasta</h3>
-                                    </a>
-                                    <p>Get to know the top 10 dishes you must try our fast savor when you visit our
-                                        restaurant, Savor fast food from appetizers to desserts...</p>
-                                    <a href="blog-details.html" class="link-btn">
-                                        <span>Read More</span> <i class="fa-solid fa-arrow-right-long"></i>
-                                    </a>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="dishes-card style2 product-item" data-category="complementos" data-product-id="chimichurri" data-base-price="15.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/complementos/chimichurri.png" alt="Extra Chimichurri">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Extra Chimichurri</h3></a>
+                                    <h6>$<span class="product-price">15.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-3" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -656,7 +1174,10 @@
                 </div>
             </div>
         </div>
-    </section> -->
+    </div>
+</section>
+
+
     <!-- Faq Section    S T A R T -->
     <div class="faq-section section-padding pb-0 fix">
         <div class="container">
@@ -790,199 +1311,59 @@
 
     <!-- Footer Section    S T A R T -->
     <footer class="footer-section bg-title fix">
-        <!-- <div class="footer-widgets-wrapper"> -->
-            <!-- <div class="shape1 float-bob-y d-none d-xxl-block"><img src="assets/img/shape/footerShape1_1.png"
-                    alt="shape"></div>
-            <div class="shape2 d-none d-xxl-block"><img src="assets/img/shape/footerShape1_2.png" alt="shape"></div>
-            <div class="shape3 d-none d-xxl-block"><img src="assets/img/shape/footerShape1_3.png" alt="shape"></div>
-            <div class="shape4  d-none d-xxl-block"><img src="assets/img/shape/footerShape1_4.png" alt="shape"></div>
-            <div class="container">
-                <div class="footer-top">
-                    <div class="row gy-4">
-                        <div class="col-lg-4">
-                            <div class="fancy-box">
-                                <div class="item1"><i class="fa-solid fa-location-dot"></i></div>
-                                <div class="item2">
-                                    <h6>address</h6>
-                                    <p>4648 Rocky Road Philadelphia </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 d-flex justify-content-start justify-content-lg-end">
-                            <div class="fancy-box">
-                                <div class="item1"><i class="fa-solid fa-envelope"></i></div>
-                                <div class="item2">
-                                    <h6>send email</h6>
-                                    <p>info@exmple.com</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 d-flex justify-content-start justify-content-lg-end">
-                            <div class="fancy-box">
-                                <div class="item1"><i class="fa-regular fa-phone-volume"></i></div>
-                                <div class="item2">
-                                    <h6>call emergency</h6>
-                                    <p>+88 0123 654 99</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".2s">
-                        <div class="single-footer-widget">
-                            <div class="widget-head">
-                                <a href="index.html">
-                                    <img src="assets/img/logo/logoWhite.svg" alt="logo-img">
-                                </a>
-                            </div>
-                            <div class="footer-content">
-                                <p>
-                                    Phasellus ultricies aliquam volutpat ullamcorper laoreet neque, a lacinia
-                                    curabitur
-                                    lacinia mollis
-                                </p>
-                                <div class="social-icon d-flex align-items-center">
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 ps-xl-5 wow fadeInUp" data-wow-delay=".4s">
-                        <div class="single-footer-widget">
-                            <div class="widget-head">
-                                <h3>Quick Links</h3>
-                            </div>
-                            <ul class="list-area">
-                                <li>
-                                    <a href="about.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        About Us
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="gallery.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Our Gallery
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Our Blogs
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="faq.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        FAQ’S
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="contact.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Contact Us
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> -->
-                    <!-- <div class="col-xl-3 col-lg-4 col-md-6 ps-xl-5 wow fadeInUp" data-wow-delay=".4s">
-                        <div class="single-footer-widget">
-                            <div class="widget-head">
-                                <h3>Our Menu</h3>
-                            </div>
-                            <ul class="list-area">
-                                <li>
-                                    <a href="menu.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Burger King
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="menu.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Pizza king
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="menu.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Fresh Food
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="menu.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Vegetable
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="menu.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Desserts
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 ps-xl-5 wow fadeInUp" data-wow-delay=".4s">
-                        <div class="single-footer-widget">
-                            <div class="widget-head">
-                                <h3>Contact Us</h3>
-                            </div>
-                            <ul class="list-area">
-                                <li class="mb-2">
-                                    Monday – Friday: <span class="text-theme-color2"> 8am – 4pm </span>
-                                </li>
-                                <li>
-                                    Saturday: <span class="text-theme-color2"> 8am – 12am </span>
-                                </li>
-                            </ul> -->
-                            <!-- <form action="#" class="mt-4">
-                                <div class="form-control">
-                                    <input class="email" type="email" placeholder="Your email address">
-                                    <button type="submit" class="submit-btn"><i
-                                            class="fa-solid fa-arrow-right-long"></i></button>
-                                </div>
-                                <div class="form-control style2 mt-3">
-                                    <input id="checkbox" name="checkbox" type="checkbox">
-                                    <label for="checkbox">I agree to the <a href="contact.html">Privacy Policy.
-                                        </a></label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="footer-bottom">
             <div class="container">
                 <div class="footer-wrapper d-flex align-items-center justify-content-between">
                     <p class="wow fadeInLeft" data-wow-delay=".3s">
                         © Gracias por Comprar en <a href="index.html">Freddy's Pizza</a>
                     </p>
-                    <!-- <ul class="brand-logo wow fadeInRight" data-wow-delay=".5s">
-                        <li>
-                            <a class="text-white" href="contact.html">
-                                Terms & Condition
-                            </a>
-                        </li>
-                        <li>
-                            <a class="text-white" href="contact.html">
-                                Privacy Policy
-                            </a>
-                        </li> -->
                     </ul>
                 </div>
             </div>
         </div>
     </footer>
-
+    
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-header">
+            <h3>Tu Carrito</h3>
+            <button class="cart-close-btn" id="cartCloseBtn">X</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Los ítems se añadirán dinámicamente con JavaScript -->
+        </div>
+        <div class="cart-total" id="cartTotal">Total: $0.00</div>
+        <form class="cart-form mt-4">
+            <div class="mb-3">
+                <label for="customerName" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="customerName" required>
+            </div>
+            <div class="mb-3">
+                <label for="customerAddress" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="customerAddress" required>
+                <button type="button" class="add-address-btn" id="addAddressBtn" style="display: none;">Añadir otra dirección</button>
+                <input type="hidden" id="latitude">
+                <input type="hidden" id="longitude">
+            </div>
+            <div class="mb-3">
+                <label for="customerPhone" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="customerPhone" required>
+            </div>
+            <div class="payment-options">
+                <label for="paymentMethod" class="form-label">Método de Pago</label>
+                <select class="payment-method-select" id="paymentMethod">
+                    <option value="">Seleccionar método de pago</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="mercadopago">Mercado Pago</option>
+                </select>
+            </div>
+        </div> <div id="paypal-button-container" class="mt-3" style="display: none;">
+        </div>
+    <div id="wallet_container" class="mt-3" style="display: none;">
+        </div>
+     </form> </div> ```
+        </form>
+        <div id="wallet_container"></div>
+    </div>
 
 
 

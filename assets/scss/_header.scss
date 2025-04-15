@@ -1117,7 +1117,7 @@
                     width: 15px;
                     height: 15px;
                     padding: 0 4px;
-                    content: "3";
+                    content: attr(data-count);
                     text-align: center;
                     border-radius: 100%;
                     background: $theme-color-2;
@@ -1732,7 +1732,7 @@
     // Padding horizontal EXTRA para el PRIMER link ("Inicio")
     // Ajusta este valor con DevTools hasta que el logo se vea centrado
     .header-3 .header-main .main-menu ul li:not(.d-xl-none):first-of-type > a {
-        padding-left: 150px;  // <-- VALOR INICIAL (AJUSTAR CON DEVTOOLS)
+        padding-left:50px;  // <-- VALOR INICIAL (AJUSTAR CON DEVTOOLS)
         padding-right: 0px; // <-- VALOR INICIAL (AJUSTAR CON DEVTOOLS)
     }
 

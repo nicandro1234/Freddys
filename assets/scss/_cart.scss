@@ -1,3 +1,6 @@
+// Importar las variables
+@import 'variables';
+
 .woocommerce-cart-form {
   text-align: center;
 }
@@ -55,9 +58,7 @@
       position: relative;
       top: -2px;
     }
-
   }
-
 
   .cart-productname { 
     font-family: $title-font;
@@ -84,7 +85,7 @@
   }
 
   .qty-btn {
-    border: 1px solid$border-color-2 !important;
+    border: 1px solid $border-color-2 !important;
     background-color: transparent;
     color: #b8c6d0;
     padding: 0;
@@ -103,7 +104,7 @@
 
   .qty-input {
     vertical-align: middle;
-    border: 1px solid$border-color-2;
+    border: 1px solid $border-color-2;
     width: 70px;
     height: 30px;
     font-size: 14px;
@@ -124,7 +125,6 @@
       margin: 0;
     }
 
-    /* Firefox */
     &[type=number] {
       -moz-appearance: textfield;
     }
@@ -134,7 +134,7 @@
     text-align: right;
     vertical-align: middle;
 
-    >.th-btn {
+    > .th-btn {
       font-size: 16px;
       padding: 20px 28px;
       margin-right: 15px;
@@ -157,14 +157,12 @@
       margin-right: 10px;
     }
 
-
     .th-btn {
       font-size: 16px;
       padding: 20px 25px;
       width: max-content;
     }
   }
-
 }
 
 .cart_totals {
@@ -228,12 +226,258 @@
       color: $theme-color;
     }
   }
-
 }
 
-@include breakpoint (max-lg) {
-  .cart_table {
+// Estilo para el botón del carrito en el header
+.header__cart {
+  padding: 0 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  @include breakpoint (max-lg) {
+      padding: 0px 10px;
+  }
+  &:hover {
+      >a {
+          color: $theme-color-2;
+      }
+      .header__right__dropdown__wrapper {
+          visibility: visible;
+          opacity: 1;
+          top: 100%;
+          transition: .3s;
+      }
+  }
+  >a {
+      font-size: 18px;
+      color: $text-color;
+      padding: 15px 0;
+      position: relative;
+      &::before {
+          font-size: 10px;
+          font-weight: 500;
+          line-height: 15px;
+          position: absolute;
+          top: 0;
+          right: -10px;
+          width: 15px;
+          height: 15px;
+          padding: 0 4px;
+          content: attr(data-count);
+          text-align: center;
+          border-radius: 100%;
+          background: #EB0029;
+          color: $white;
+          @include breakpoint (max-lg) {
+              top: 7px;
+              right: 11px;
+          }
+          [data-count="0"] & {
+            display: none;
+        }
+      }
+  }
+}
 
+// Cambiar el color del ícono del carrito cuando el header es sticky
+.header-sticky.sticky {
+  .header__cart {
+      >a {
+          color: #000000; // Negro cuando el header es sticky
+
+          &:hover {
+              color: $theme-color-2;
+          }
+
+          &::before {
+              color: $white; // Mantener el texto del contador blanco para que contraste con el fondo rojo
+          }
+      }
+  }
+}
+
+// Estilos para el carrito desplegable
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 350px;
+  height: 100%;
+  background-color: $bg-color-2; // Fondo crema claro ajustado al tema
+  color: $title-color; // Texto marrón oscuro
+  padding: 30px 20px;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+  transition: right 0.3s ease;
+  z-index: 999;
+  overflow-y: auto;
+  font-family: $title-font;
+
+  &.open {
+    right: 0;
+  }
+
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid $border-color-2;
+    padding-bottom: 15px;
+
+    h3 {
+      margin: 0;
+      font-family: $title-font;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: $title-color;
+      text-transform: uppercase;
+    }
+
+    .cart-close-btn {
+      background-color: $theme-color;
+      color: $white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: $title-font;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($theme-color, 10%);
+      }
+    }
+  }
+
+  .cart-items {
+    min-height: 100px;
+    margin-bottom: 20px;
+  }
+
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid $border-color-2;
+
+    span {
+      font-family: $title-font;
+      font-size: 1rem;
+      color: $title-color;
+      line-height: 1.5;
+    }
+
+    .remove-item-btn {
+      background-color: $theme-color;
+      color: $white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      font-family: $title-font;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($theme-color, 10%);
+      }
+    }
+  }
+
+  .cart-total {
+    margin-top: 20px;
+    font-weight: 700;
+    text-align: right;
+    font-size: 1.3rem;
+    color: $title-color;
+    border-top: 1px solid $border-color-2;
+    padding-top: 15px;
+  }
+
+  .cart-form {
+    margin-top: 20px;
+
+    .form-label {
+      font-family: $title-font;
+      color: $title-color;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .form-control {
+      background-color: $white;
+      color: $title-color;
+      border: 1px solid $border-color-2;
+      border-radius: 5px;
+      font-family: $title-font;
+      font-size: 0.9rem;
+      padding: 10px;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: $theme-color;
+        box-shadow: 0 0 5px rgba($theme-color, 0.3);
+      }
+    }
+
+    .add-address-btn {
+      background-color: transparent;
+      border: none;
+      color: $theme-color;
+      font-family: $title-font;
+      font-size: 0.9rem;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-top: 5px;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: darken($theme-color, 10%);
+      }
+    }
+  }
+
+  .payment-options {
+    margin-top: 20px;
+
+    .form-label {
+      font-family: $title-font;
+      color: $title-color;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .payment-method-select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid $border-color-2;
+      border-radius: 5px;
+      font-family: $title-font;
+      font-size: 0.9rem;
+      color: $title-color;
+      background-color: $white;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: $theme-color;
+        outline: none;
+      }
+    }
+  }
+
+  #wallet_container {
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+@include breakpoint(max-lg) {
+  .cart_table {
     th {
       padding: 23px 8px;
       font-size: 14px;
@@ -243,24 +487,19 @@
       font-size: 14px;
     }
 
-
     .th-cart-coupon {
       width: 100%;
       margin-bottom: 20px;
       justify-content: center;
     }
 
-
     .actions {
       text-align: center;
-
-
     }
-
   }
 }
 
-@include  breakpoint (max-md)  {
+@include breakpoint(max-md) {
   .cart_table {
     text-align: left;
     min-width: auto;
@@ -293,7 +532,7 @@
         padding-left: 15px;
         text-align: center;
 
-        >.th-btn {
+        > .th-btn {
           margin-top: 10px;
           margin-right: 0;
           display: block;
@@ -324,7 +563,6 @@
   }
 
   .cart_totals {
-
     th,
     td {
       padding: 15px 10px;
@@ -333,6 +571,15 @@
         width: 17%;
         line-height: 1.4;
       }
+    }
+  }
+
+  .cart-panel {
+    width: 100%;
+    right: -100%;
+
+    &.open {
+      right: 0;
     }
   }
 }

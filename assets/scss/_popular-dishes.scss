@@ -64,7 +64,7 @@
             right: 0;
         }
     }
-    
+
     &.style4 {
         position: relative;
 
@@ -142,677 +142,582 @@
 }
 
 .dishes-card {
-    &.style1 {
-        position: relative;
-        padding: 25px;
-        border-radius: 16px;
-        margin-top: 30px;
-        background: $white;
-        text-align: center;
-        transition: all 0.4s;
-        -webkit-transition: all 0.4s;
-        -moz-transition: all 0.4s;
-        -ms-transition: all 0.4s;
-        -o-transition: all 0.4s;
- 
-
-
-        .dishes-thumb {
-            margin-bottom: 30px;
-            margin-top: 20px;
-        }
-
-        h3 {
-            color: $title-color;
-            font-family: $title-font;
-            font-size: 20px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 1;
-            text-transform: capitalize;
-            margin-bottom: 18px;
-        }
-
-        p {
-            color: $text-color;
-            text-align: center;
-            font-family: $body-font;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 1;
-            text-transform: capitalize;
-            margin-bottom: 16px;
-        }
-
-        h6 {
-            color: $theme-color;
-            text-align: center;
-            font-family: $title-font;
-            font-size: 18px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 1;
-            text-transform: capitalize;
-        }
-
-        &:hover {
-            background-image: url(../../assets/img/bg/dishesThumbBG.png);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: 1;
-
-            h3 {
-                color: $white;
-            }
-
-            p {
-                color: $white;
-            }
-
-            h6 {
-                color: $white;
-            }
-
-            .social-profile {
-                ul {
-                    transform: translateY(10%);
-                    opacity: 1;
-                    visibility: visible;
-                    -webkit-transform: translateY(10%);
-                    -moz-transform: translateY(10%);
-                    -ms-transform: translateY(10%);
-                    -o-transform: translateY(10%);
-        }
-            }
-        }
-    }
-
     &.style2 {
         padding: 26px 25px;
         margin-top: 140px;
         border-radius: 16px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, #FFF 63.33%);
-        text-align: center;
-        border-radius: 16px;
         background: $white;
         box-shadow: 0px 4px 54px 0px rgba(0, 0, 0, 0.08);
+        position: relative;
+        text-align: center;
+        min-height: 580px;
+        display: flex;
+        flex-direction: column;
 
         .dishes-thumb {
             position: relative;
-            margin-top: -120px; 
-            border-radius: 50%;
-            -webkit-border-radius: 50%;
-            -moz-border-radius: 50%;
-            -ms-border-radius: 50%;
-            -o-border-radius: 50%;
+            margin-top: -120px;
+            width: 220px !important;
+            height: 220px !important;
+            margin-left: auto;
+            margin-right: auto;
+            z-index: 10;
+
             img {
-                position: relative;
-                z-index: 2;
-                border-radius: 50%;
-                -webkit-border-radius: 50%;
-                -moz-border-radius: 50%;
-                -ms-border-radius: 50%;
-                -o-border-radius: 50%;
-}
+                display: block;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover;
+                border-radius: 50% !important;
+            }
 
             .circle-shape {
                 position: absolute;
-                top: -7px;
-                left: 50%;
                 width: 100%;
-                transform: translateX(-50%);
-                z-index: 1;
-                -webkit-transform: translateX(-50%);
-                -moz-transform: translateX(-50%);
-                -ms-transform: translateX(-50%);
-                -o-transform: translateX(-50%);
+                height: 100%;
+                top: 0;
+                left: 0;
+                transform: scale(1.08);
+                z-index: 2;
+                border-radius: 50%;
+                pointer-events: none;
             }
         }
 
         .dishes-content {
             margin-top: 24px;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 300px;
+            justify-content: flex-start;
 
             h3 {
                 color: $title-color;
-                font-family: $title-color;
+                font-family: $title-font;
                 font-size: 20px;
-                font-style: normal;
                 font-weight: 700;
                 line-height: 1;
                 text-transform: capitalize;
-                margin-bottom: 1px;
+                margin-bottom: 5px;
                 transition: all 0.4s;
-                -webkit-transition: all 0.4s;
-                -moz-transition: all 0.4s;
-                -ms-transition: all 0.4s;
-                -o-transition: all 0.4s;
 
                 &:hover {
                     color: $theme-color;
                 }
             }
 
-            .text {
-                color: $text-color;
-                font-family: $body-font;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 1;
-                text-transform: capitalize;
-                margin-bottom: 16px;
-                margin-top: 3px;
-            }
-
             h6 {
                 color: $theme-color;
                 font-family: $title-font;
                 font-size: 18px;
-                font-style: normal;
                 font-weight: 700;
                 line-height: 1;
                 text-transform: capitalize;
-                margin-bottom: 24px;
-            }
-        }
-    }
-
-    &.style3 {
-        margin-top: 40px;
-
-        .dishes-thumb {
-            position: relative;
-            transition: all 0.4s;
-            -webkit-transition: all 0.4s;
-            -moz-transition: all 0.4s;
-            -ms-transition: all 0.4s;
-            -o-transition: all 0.4s;
-
-            img {
-                position: relative;
-                width: 100%;
-                transition: all 0.4s;
-                -webkit-transition: all 0.4s;
-                -moz-transition: all 0.4s;
-                -ms-transition: all 0.4s;
-                -o-transition: all 0.4s;
-            }
-
-            .view-more {
-                opacity: 0;
-                visibility: hidden;
-                text-align: center;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                -webkit-transform: translate(-50%, -50%);
-                -moz-transform: translate(-50%, -50%);
-                -ms-transform: translate(-50%, -50%);
-                -o-transform: translate(-50%, -50%);
-                transition: all 0.4s;
-                -webkit-transition: all 0.4s;
-                -moz-transition: all 0.4s;
-                -ms-transition: all 0.4s;
-                -o-transition: all 0.4s;
-
-                a {
-                    display: inline-block;
-
-                    h3 {
-                        padding: 35px 15px;
-                        text-align: center;
-                        background: $theme-color-2;
-                        color: $white;
-                        font-family: $title-font;
-                        font-size: 12px;
-                        font-style: normal;
-                        font-weight: 700;
-                        line-height: 30px;
-                        text-transform: capitalize;
-                        border-radius: 50%;
-                        -webkit-border-radius: 50%;
-                        -moz-border-radius: 50%;
-                        -ms-border-radius: 50%;
-                        -o-border-radius: 50%;
-                    }
-
-                }
-            }
-        }
-
-        .dishes-content {
-            text-align: center;
-
-            a {
-                h3 {
-                    color: $title-color;
-                    font-family: $title-font;
-                    font-size: 24px;
-                    font-style: normal;
-                    font-weight: 700;
-                    line-height: 30px;
-                    text-transform: capitalize;
-                    margin-top: 30px;
-                    margin-bottom: -0.3em;
-                }
-            }
-
-            p {
-                color: $text-color;
-                text-align: center;
-                font-family: $body-font;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 50px;
-                text-transform: capitalize;
-            }
-        }
-
-        &:hover {
-            .dishes-thumb {
-                overflow: hidden;
-                border-radius: 100px;
-                -webkit-border-radius: 100px;
-                -moz-border-radius: 100px;
-                -ms-border-radius: 100px;
-                -o-border-radius: 100px;
-
-                img {
-                    border-radius: 100px;
-                    -webkit-border-radius: 100px;
-                    -moz-border-radius: 100px;
-                    -ms-border-radius: 100px;
-                    -o-border-radius: 100px;
-                }
-
-                .view-more {
-                    position: absolute;
-                    opacity: 1;
-                    visibility: visible;
-                    z-index: 9;
-                }
-            }
-        }
-    }
-
-    &.style4 {
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: 30px;
-        padding: 5px 30px 20px 35px;
-        border-radius: 16px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, #FFF 63.33%);
-        text-align: left;
-        border-radius: 16px;
-        background: $white;
-        box-shadow: 0px 4px 54px 0px rgba(0, 0, 0, 0.08);
-
-        .dishes-thumb {
-            position: relative;
-
-            img {
-                position: relative;
-                z-index: 2;
-            }
-
-            .circle-shape {
-                position: absolute;
-                top: -7px;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 1;
-                -webkit-transform: translateX(-50%);
-                -moz-transform: translateX(-50%);
-                -ms-transform: translateX(-50%);
-                -o-transform: translateX(-50%);
-            }
-        }
-
-        .dishes-content {
-            margin-top: 24px;
-
-            a {
-                h3 {
-                    color: $title-color;
-                    font-family: $title-color;
-                    font-size: 20px;
-                    font-style: normal;
-                    font-weight: 700;
-                    line-height: 1;
-                    text-transform: capitalize;
-                    margin-bottom: 5px;
-                    transition: all 0.4s;
-                    -webkit-transition: all 0.4s;
-                    -moz-transition: all 0.4s;
-                    -ms-transition: all 0.4s;
-                    -o-transition: all 0.4s;
-
-                    &:hover {
-                        color: $theme-color;
-                    }
-                }
-            }
-
-            .icon {
-                position: absolute;
-                top: 15px;
-                right: 15px;
-                width: 35px;
-
-                a {
-                    transition: all 0.4s;
-                    -webkit-transition: all 0.4s;
-                    -moz-transition: all 0.4s;
-                    -ms-transition: all 0.4s;
-                    -o-transition: all 0.4s;
-
-                    i {
-                        width: 30px;
-                        height: 30px;
-                        line-height: 30px;
-                        text-align: center;
-                        background: $theme-color-2;
-                        color: $white;
-                        margin-bottom: 5px;
-                        border-radius: 50%;
-                        -webkit-border-radius: 50%;
-                        -moz-border-radius: 50%;
-                        -ms-border-radius: 50%;
-                        -o-border-radius: 50%;
-                    }
-
-                    &:hover {
-                        i {
-                            background: $theme-color;
-                        }
-                    }
-                }
-            }
-
-            .text {
-                color: $text-color;
-                font-family: $body-font;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 26px;
-                margin-top: 10px;
-                margin-bottom: 20px;
-            }
-
-            h6 {
-                color: $theme-color;
-                font-family: $title-font;
-                font-size: 18px;
-                font-style: normal;
-                font-weight: 700;
-                line-height: 1;
-                text-transform: capitalize;
-                margin-bottom: 24px;
-            }
-        }
-
-        @include breakpoint (max-md) {
-            display: flex;
-            flex-direction: column; 
-            padding: 35px 30px 20px 35px;
-        }
-    }
-
-    &.style5 {
-        position: relative;
-        display: flex;
-        align-items: center; 
-        border-radius: 16px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, #FFF 63.33%);
-        text-align: left;
-        border-radius: 16px;
-        background: $white;
-        box-shadow: 0px 4px 54px 0px rgba(0, 0, 0, 0.08);
-        margin-bottom: 40px;
-
-        @include breakpoint (max-xl) { 
-           margin-bottom: 0;
-        }
-
-        .dishes-thumb {
-            position: relative; 
-            margin-bottom: -200px;
-            margin-top: -165px;
-            margin-left: -2px;
-            border-radius: 20px 0px 20px 20px; 
-
-            @include breakpoint (max-xl) { 
-                margin-bottom: 0px;
-                margin-top: 0px; 
-                height: 100%;
-            }
-
-            img {
-                position: relative;
-                z-index: 2;
-                height: 100%;
-                border-radius: 20px 0px 20px 20px; 
-            } 
-        }
-
-        .dishes-content { 
-            padding: 25px 15px;
-
-            @include breakpoint (max-xl4) {  
-              padding: 25px 8px;
-            }
-
-            @include breakpoint (max-xl) { 
-                padding: 15px 3px 15px 25px;
-            }
-
-            @include breakpoint (max-lg) { 
-                padding: 15px 3px 15px 7px;
-            }
-
-            @include breakpoint (max-md) { 
-                padding: 15px 15px 15px 20px;
-            }
-
-            a {
-                h3 {
-                    color: $title-color;
-                    font-family: $title-color;
-                    font-size: 20px;
-                    font-style: normal;
-                    font-weight: 700;
-                    line-height: 1;
-                    text-transform: capitalize;
-                    margin-bottom: 10px;
-                    transition: all 0.4s;
-                    -webkit-transition: all 0.4s;
-                    -moz-transition: all 0.4s;
-                    -ms-transition: all 0.4s;
-                    -o-transition: all 0.4s;
-
-                    &:hover {
-                        color: $theme-color;
-                    }
-                }
-            }
-
-            .icon {
-                position: absolute;
-                top: 15px;
-                right: 15px;
-                width: 35px;
-
-                a {
-                    transition: all 0.4s;
-                    -webkit-transition: all 0.4s;
-                    -moz-transition: all 0.4s;
-                    -ms-transition: all 0.4s;
-                    -o-transition: all 0.4s;
-
-                    i {
-                        width: 30px;
-                        height: 30px;
-                        line-height: 30px;
-                        text-align: center;
-                        background: $theme-color-2;
-                        color: $white;
-                        margin-bottom: 5px;
-                        border-radius: 50%;
-                        -webkit-border-radius: 50%;
-                        -moz-border-radius: 50%;
-                        -ms-border-radius: 50%;
-                        -o-border-radius: 50%;
-                    }
-
-                    &:hover {
-                        i {
-                            background: $theme-color;
-                        }
-                    }
-                }
-            }
-
-            .text {
-                color: $text-color;
-                font-family: $body-font;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 26px;
-                margin-top: 0px;
                 margin-bottom: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .product-price {
+                    margin-left: 5px;
+                }
             }
 
-            h6 {
-                color: $theme-color;
-                font-family: $title-font;
-                font-size: 18px;
-                font-style: normal;
-                font-weight: 700;
-                line-height: 1;
-                text-transform: capitalize;
-                margin-bottom: 24px;
+            .product-modifiers {
+                margin-bottom: 10px;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+
+                .nice-select {
+                    margin-bottom: 8px;
+                    padding: 5px 10px;
+                }
+
+                .modifier-label {
+                    margin-bottom: 8px;
+                    display: flex;
+                    align-items: center;
+                    font-size: 14px;
+
+                    input[type="checkbox"],
+                    input[type="radio"] {
+                        margin-right: 8px;
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+
+                .modifier-radio-group {
+                    margin-bottom: 10px;
+
+                    .group-label {
+                        display: block;
+                        font-size: 14px;
+                        font-weight: 600;
+                        margin-bottom: 6px;
+                        color: $title-color;
+                    }
+
+                    .radio-container {
+                        display: flex;
+                        justify-content: flex-start;
+                        gap: 10px;
+                        align-items: center;
+                    }
+
+                    .modifier-radio-label {
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        position: static;
+                        margin-top: 6px;
+
+                        input[type="radio"] {
+                            display: none; // Ocultar el radio
+                        }
+
+                        span {
+                            font-size: 14px;
+                            color: $title-color;
+                            line-height: 1;
+                            padding: 6px 12px;
+                            border: 1px solid rgba(0, 0, 0, 0.2);
+                            border-radius: 4px;
+                            transition: all 0.3s ease;
+                        }
+
+                        input[type="radio"]:checked + span {
+                            background-color: $theme-color;
+                            color: $white;
+                            border-color: $theme-color;
+                        }
+                    }
+                }
             }
 
-            .theme-btn.style6 {
-                padding: 13px 15px; 
+            .quantity-selector {
+                margin-bottom: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .qty-btn {
+                    height: 25px;
+                    width: 25px;
+                    line-height: 25px;
+                }
+
+                .qty-input {
+                    height: 25px;
+                    padding: 0 5px;
+                    text-align: center;
+                    width: 50px;
+                }
+            }
+
+            .add-to-cart-btn {
+                margin-top: auto;
+                width: 100%;
+                padding: 10px 20px;
             }
         }
 
-        
-        @include breakpoint (max-md) {
-            flex-direction: column;
-            padding: 25px;
-            .dishes-thumb { 
-                width: 100%; 
-                border-radius: 10px;
-                -webkit-border-radius: 10px;
-                -moz-border-radius: 10px;
-                -ms-border-radius: 10px;
-                -o-border-radius: 10px;
+        // Ajustes para mobile
+        @include breakpoint(max-md) {
+            padding: 15px;
+            margin-top: 100px;
+            min-height: 450px;
 
-                img {
-                    height: 300px;
-                    width: 100%;
-                    border-radius: 10px;
-                    -webkit-border-radius: 10px;
-                    -moz-border-radius: 10px;
-                    -ms-border-radius: 10px;
-                    -o-border-radius: 10px;
-} 
+            .dishes-thumb {
+                margin-top: -80px;
+                width: 180px !important;
+                height: 180px !important;
             }
 
-            .dishes-content { 
-                text-align: center;
-                padding: 25px 15px 0;  
-                a {
-                    h3 { 
-                        font-size: 25px;  
-                    }
+            .dishes-content {
+                margin-top: 15px;
+                min-height: 250px;
+
+                h3 {
+                    font-size: 18px;
+                    margin-bottom: 4px;
                 }
-    
-                .icon {
-                    position: absolute;
-                    top: 15px;
-                    right: 15px;
-                    width: 35px;
-    
-                    a {
-                        transition: all 0.4s;
-                        -webkit-transition: all 0.4s;
-                        -moz-transition: all 0.4s;
-                        -ms-transition: all 0.4s;
-                        -o-transition: all 0.4s;
-    
-                        i {
-                            width: 30px;
-                            height: 30px;
-                            line-height: 30px;
-                            text-align: center;
-                            background: $theme-color-2;
-                            color: $white;
-                            margin-bottom: 5px;
-                            border-radius: 50%;
-                            -webkit-border-radius: 50%;
-                            -moz-border-radius: 50%;
-                            -ms-border-radius: 50%;
-                            -o-border-radius: 50%;
+
+                h6 {
+                    font-size: 16px;
+                    margin-bottom: 8px;
+                }
+
+                .product-modifiers {
+                    margin-bottom: 8px;
+
+                    .nice-select {
+                        margin-bottom: 6px;
+                        padding: 4px 8px;
+                        font-size: 14px;
+                    }
+
+                    .modifier-label {
+                        margin-bottom: 6px;
+                        font-size: 13px;
+
+                        input[type="checkbox"],
+                        input[type="radio"] {
+                            margin-right: 6px;
+                            width: 14px;
+                            height: 14px;
                         }
-    
-                        &:hover {
-                            i {
-                                background: $theme-color;
+                    }
+
+                    .modifier-radio-group {
+                        margin-bottom: 8px;
+
+                        .group-label {
+                            font-size: 13px;
+                            margin-bottom: 5px;
+                        }
+
+                        .radio-container {
+                            gap: 15px;
+                        }
+
+                        .modifier-radio-label {
+                            span {
+                                font-size: 13px;
+                                padding: 5px 10px;
                             }
                         }
                     }
                 }
-    
-                .text {
-                    color: $text-color;
-                    font-family: $body-font;
+
+                .quantity-selector {
+                    margin-bottom: 8px;
+
+                    .qty-btn {
+                        height: 20px;
+                        width: 20px;
+                        line-height: 20px;
+                    }
+
+                    .qty-input {
+                        height: 20px;
+                        padding: 0 4px;
+                        font-size: 14px;
+                        width: 40px;
+                    }
+                }
+
+                .add-to-cart-btn {
+                    padding: 12px 25px;
                     font-size: 16px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: 26px;
-                    margin-top: 0px;
-                    margin-bottom: 10px;
                 }
-    
-                h6 {
-                    color: $theme-color;
-                    font-family: $title-font;
-                    font-size: 18px;
-                    font-style: normal;
-                    font-weight: 700;
-                    line-height: 1;
-                    text-transform: capitalize;
-                    margin-bottom: 24px;
+            }
+        }
+
+        // Ajustes para dark mode
+        &.dark-mood {
+            background: #1a1a1a;
+            .dishes-content {
+                h3, h6, .text, label, .modifier-group > label.group-label, small {
+                    color: rgba(255, 255, 255, 0.9) !important;
                 }
-    
-                .theme-btn.style6 {
-                    padding: 13px 15px; 
+            }
+            .product-modifiers {
+                .modifier-radio-group {
+                    .group-label {
+                        color: rgba(255, 255, 255, 0.9);
+                    }
+                    .modifier-radio-label {
+                        span {
+                            color: rgba(255, 255, 255, 0.9);
+                            border-color: rgba(255, 255, 255, 0.3);
+                            background-color: rgba(255, 255, 255, 0.1);
+                        }
+                        input[type="radio"]:checked + span {
+                            background-color: $theme-color;
+                            color: $white;
+                            border-color: $theme-color;
+                        }
+                    }
                 }
             }
         }
     }
 }
 
+// Ajustes de columnas
+.category-block {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        justify-content: center;
+    }
+
+    .col-lg-4.col-md-6 {
+        padding: 0 15px;
+        max-width: 33.333333%;
+        flex: 0 0 33.333333%;
+        @include breakpoint(max-lg) {
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+        @include breakpoint(max-md) {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+    }
+}
+
+// Ajustes de columnas
+.category-block {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        justify-content: center;
+    }
+
+    .col-lg-4.col-md-6 {
+        padding: 0 15px;
+        max-width: 33.333333%;
+        flex: 0 0 33.333333%;
+        @include breakpoint(max-lg) {
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+        @include breakpoint(max-md) {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+    }
+}
+
+// Ajustes de columnas
+.category-block {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        justify-content: center;
+    }
+
+    .col-lg-4.col-md-6 {
+        padding: 0 15px;
+        max-width: 33.333333%;
+        flex: 0 0 33.333333%;
+        @include breakpoint(max-lg) {
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+        @include breakpoint(max-md) {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+    }
+}
+
+// Ajustes de columnas
+.category-block {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        justify-content: center;
+    }
+
+    .col-lg-4.col-md-6 {
+        padding: 0 15px;
+        max-width: 33.333333%;
+        flex: 0 0 33.333333%;
+        @include breakpoint(max-lg) {
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+        @include breakpoint(max-md) {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+    }
+}
+
+// Ajustes de columnas
+.category-block {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        justify-content: center;
+    }
+
+    .col-lg-4.col-md-6 {
+        padding: 0 15px;
+        max-width: 33.333333%;
+        flex: 0 0 33.333333%;
+        @include breakpoint(max-lg) {
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+        @include breakpoint(max-md) {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+    }
+}
+
+// Ajustes de columnas
+.category-block {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        justify-content: center;
+    }
+
+    .col-lg-4.col-md-6 {
+        padding: 0 15px;
+        max-width: 33.333333%;
+        flex: 0 0 33.333333%;
+        @include breakpoint(max-lg) {
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+        @include breakpoint(max-md) {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+    }
+}
+
+// Ajustes de columnas
+.category-block {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        justify-content: center;
+    }
+
+    .col-lg-4.col-md-6 {
+        padding: 0 15px;
+        max-width: 33.333333%;
+        flex: 0 0 33.333333%;
+        @include breakpoint(max-lg) {
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+        @include breakpoint(max-md) {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+    }
+}
+
+// Ajustes de columnas
+.category-block {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        justify-content: center;
+    }
+
+    .col-lg-4.col-md-6 {
+        padding: 0 15px;
+        max-width: 33.333333%;
+        flex: 0 0 33.333333%;
+        @include breakpoint(max-lg) {
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+        @include breakpoint(max-md) {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+    }
+}
+
+// Ajustes de columnas
+.category-block {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        justify-content: center;
+    }
+
+    .col-lg-4.col-md-6 {
+        padding: 0 15px;
+        max-width: 33.333333%;
+        flex: 0 0 33.333333%;
+        @include breakpoint(max-lg) {
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+        @include breakpoint(max-md) {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+    }
+
+    .col-lg-8.col-md-6 {
+        padding: 0 15px;
+        max-width: 66.666667%;
+        flex: 0 0 66.666667%;
+        @include breakpoint(max-lg) {
+            max-width: 100%; // Ajustar en pantallas medianas
+            flex: 0 0 100%;
+        }
+        @include breakpoint(max-md) {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+    }
+}
+
+// Asegurar centrado y columnas consistentes
+.category-block {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        justify-content: center;
+    }
+
+    .col-lg-4.col-md-6 {
+        padding: 0 15px;
+        max-width: 33.333333%;
+        flex: 0 0 33.333333%;
+        @include breakpoint(max-lg) {
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+        @include breakpoint(max-md) {
+            max-width: 100%; // Una columna en mobile
+            flex: 0 0 100%;
+        }
+    }
+}
+
+// Regla general para .dishes-thumb (si se usa fuera de los estilos específicos)
 .dishes-thumb {
     position: relative;
     text-align: center;
 
     img {
         position: relative;
-        z-index: 2;  
+        z-index: 2;
+        max-width: 100%;
+        height: auto;
+        display: block;
 
         @include breakpoint (max-xs) {
-            max-width: 100%;
+            // max-width ya es 100%
         }
     }
 
@@ -822,6 +727,10 @@
         left: 50%;
         transform: translateX(-50%);
         z-index: 1;
+        width: 100%;
+        height: auto;
+        max-width: calc(100% + 10px); // Ejemplo
+
         -webkit-transform: translateX(-50%);
         -moz-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
@@ -829,4 +738,293 @@
     }
 }
 
+/* ============================================= */
+/* == INICIO: AJUSTES FREDDYS - MENÚ/TARJETAS V8 == */
+/* (Añadir/Reemplazar en _menu.scss o _products.scss) */
+/* ============================================= */
 
+// --- Reducir espacio sobre el menú ---
+.menu-display-section.section-padding {
+    padding-top: 60px !important; // <-- Reduce (Prueba con DevTools)
+    // padding-bottom: 90px;
+}
+
+// --- Estilos para Filtros de Categoría (Texto Blanco CORREGIDO) ---
+.menu-filter-nav {
+    button.filter-btn {
+        background-color: transparent;
+        border: none;
+        color: #ffffff; // <-- Blanco estático base
+        font-family: $title-font;
+        font-size: 24px;         // <-- AJUSTA
+        font-weight: 700;        // <-- AJUSTA
+        text-transform: capitalize;
+        padding: 5px 10px;
+        margin: 0 15px 15px 15px;
+        cursor: pointer;
+        transition: color 0.3s ease, border-color 0.3s ease;
+        position: relative;
+        border-bottom: 3px solid transparent;
+
+        &:hover {
+            color: #e0e0e0; // <-- REEMPLAZO: Gris muy claro estático para hover
+        }
+
+        &.active { // Estilo del filtro activo
+            color: $theme-color;
+            border-bottom-color: $theme-color;
+        }
+    }
+    @include breakpoint(max-sm) {
+       button.filter-btn {
+           font-size: 18px; margin: 0 5px 10px 5px; padding: 5px;
+       }
+    }
+} // Fin .menu-filter-nav
+
+// --- Estilos para Tarjetas, Modificadores y Cantidad ---
+.dishes-card {
+    .product-modifiers {
+        border-top: 1px dashed rgba(255, 255, 255, 0.15); // Ajustar color en dark mode
+        padding-top: 12px; margin-top: 12px; margin-bottom: 15px; text-align: left;
+
+        label.modifier-label {
+            font-size: 14px; color: inherit; font-weight: 400; display: inline-block;
+            margin-left: 5px; vertical-align: middle; cursor: pointer;
+            transition: color 0.3s ease;
+            &:hover { color: $theme-color; }
+        }
+
+        input.modifier-checkbox {
+            margin-right: 4px; vertical-align: middle; cursor: pointer;
+            accent-color: $theme-color;
+        }
+
+         .modifier-radio-group {
+             label.group-label {
+                 display: block; margin-bottom: 6px; font-weight: 500;
+                 font-size: 14px; color: inherit; line-height: 1.3;
+             }
+             input.modifier-radio {
+                 opacity: 0; position: absolute; width: 0; height: 0;
+                 + label.modifier-radio-label {
+                     margin-right: 8px; padding: 5px 12px;
+                     border: 1px solid rgba(255, 255, 255, 0.3); // Ajustar color en dark mode
+                     border-radius: 4px;
+                     cursor: pointer; transition: all 0.3s ease;
+                     font-size: 13px;
+                     line-height: 1.4;
+                     display: inline-block;
+                     margin-bottom: 5px;
+                     &:hover { border-color: $theme-color; color: $theme-color; }
+                 }
+                 &:checked + label.modifier-radio-label {
+                     background-color: $theme-color; border-color: $theme-color;
+                     color: #ffffff !important;
+                 }
+             }
+         }
+
+         .nice-select {
+             background-color: #3a3a3a; border-color: rgba(255, 255, 255, 0.2);
+             border-radius: 4px; padding: 6px 10px; line-height: 1.5; height: auto;
+             width: 100%; margin-top: 5px;
+             font-size: 14px;
+             span.current { color: rgba(255, 255, 255, 0.85); font-size: inherit; }
+             &::after { border-bottom: 2px solid rgba(255, 255, 255, 0.7); border-right: 2px solid rgba(255, 255, 255, 0.7); height: 8px; width: 8px; right: 12px; margin-top: -5px; }
+             .list { background-color: #3a3a3a; border-radius: 4px; margin-top: 2px; width: 100%; padding: 5px 0; }
+             .option {
+                 color: rgba(255, 255, 255, 0.85); font-size: inherit; padding: 5px 10px; min-height: auto; line-height: 1.6;
+                 &:hover, &.focus, &.selected.focus { background-color: lighten(#3a3a3a, 5%); }
+                 &.selected { color: $theme-color; font-weight: 600; background-color: lighten(#3a3a3a, 8%); }
+             }
+         }
+
+        .modifier-group { &:not(:last-child) { margin-bottom: 10px; } }
+        small { // Estilo para precio (+ S/. X.XX)
+            color: inherit; // Hereda color (se ajustará en dark mode)
+            opacity: 0.8; // Ligeramente atenuado
+            font-size: 12px;
+            display: inline; // Fluir con el texto
+            margin-left: 5px;
+         }
+
+    } // Fin .product-modifiers
+
+    .quantity-selector {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        .qty-input {
+            max-width: 45px; text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2); // Ajustar en dark mode
+            background-color: rgba(255, 255, 255, 0.05); // Ajustar en dark mode
+            color: rgba(255, 255, 255, 0.9); // Ajustar en dark mode
+            border-radius: 4px; padding: 4px 6px; font-size: 14px;
+            height: 30px;
+            line-height: 1.5;
+            box-sizing: border-box;
+            -moz-appearance: textfield;
+             &::-webkit-outer-spin-button, &::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        }
+        .qty-btn {
+            background-color: #3a3a3a; // Ajustar en dark mode
+            color: rgba(255, 255, 255, 0.8); // Ajustar en dark mode
+            border: 1px solid rgba(255, 255, 255, 0.2); // Ajustar en dark mode
+            width: 30px; height: 30px; line-height: 28px; text-align: center;
+            border-radius: 4px; padding: 0; cursor: pointer; transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            &:hover { background-color: $theme-color; color: #fff; border-color: $theme-color; }
+            i { font-size: 0.8em; line-height: 1; }
+        }
+    } // Fin .quantity-selector
+
+    .add-to-cart-btn { width: 100%; padding: 10px 15px; font-size: 15px; margin-top: 15px; }
+
+} // Fin .dishes-card (ajustes generales Freddy's)
+
+
+// --- AJUSTES DARK MODE GENERALES ---
+.dark-mood {
+    .menu-filter-nav button.filter-btn {
+       // No necesita cambios aquí si ya son blancos
+    }
+
+    .dishes-card {
+         background-color: #2b2b2b !important;
+         box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.2);
+
+         // Ajustes generales para texto
+         h3, .text, h6, label, .modifier-group > label.group-label, p { // Añadir 'p'
+             color: rgba(255, 255, 255, 0.9) !important;
+         }
+          a h3 { color: #ffffff !important; &:hover { color: $theme-color !important; } }
+          h6 { color: $theme-color !important; // Precio principal
+              .product-price { color: $theme-color !important;}
+          }
+          p { color: rgba(255, 255, 255, 0.8) !important; }
+
+           // Modificadores en dark mode
+          .product-modifiers {
+              border-top-color: rgba(255, 255, 255, 0.2);
+              label.modifier-label { color: rgba(255, 255, 255, 0.9) !important; }
+              input.modifier-radio + label.modifier-radio-label {
+                  border-color: rgba(255, 255, 255, 0.4);
+                  color: rgba(255, 255, 255, 0.9) !important;
+                   background-color: rgba(255,255,255,0.1);
+                   &:hover { border-color: $theme-color; color: $theme-color !important; background-color: rgba(255,255,255,0.15); }
+              }
+              input.modifier-radio:checked + label.modifier-radio-label {
+                  background-color: $theme-color !important; border-color: $theme-color !important;
+                  color: #ffffff !important;
+              }
+              .nice-select {
+                   background-color: #444 !important;
+                   border-color: rgba(255, 255, 255, 0.3) !important;
+                   span.current { color: rgba(255, 255, 255, 0.9) !important; }
+                   &::after { border-bottom-color: rgba(255, 255, 255, 0.8) !important; border-right-color: rgba(255, 255, 255, 0.8) !important; }
+                   .list { background-color: #444 !important; }
+                   .option {
+                       color: rgba(255, 255, 255, 0.9) !important;
+                       &:hover, &.focus, &.selected.focus { background-color: lighten(#444, 5%) !important; }
+                       &.selected { color: $theme-color !important; background-color: lighten(#444, 8%) !important; }
+                   }
+              }
+               small { color: rgba(255, 255, 255, 0.7) !important; } // Precio modif.
+          }
+           // Cantidad en dark mode
+          .quantity-selector {
+              .qty-input {
+                   border-color: rgba(255, 255, 255, 0.3) !important;
+                   background-color: rgba(255, 255, 255, 0.1) !important;
+                   color: rgba(255, 255, 255, 0.95) !important;
+              }
+              .qty-btn {
+                   background-color: #444 !important;
+                   color: rgba(255, 255, 255, 0.85) !important;
+                   border-color: rgba(255, 255, 255, 0.3) !important;
+                   &:hover { background-color: $theme-color !important; color: #fff !important; border-color: $theme-color !important; }
+              }
+          }
+           // Botón Añadir en dark mode
+           .add-to-cart-btn {
+               // Ajustar si es necesario, dependiendo de los estilos base de .theme-btn
+           }
+
+         // Casos especiales por estilo en dark mode
+         &.style4 {
+              background-color: #2b2b2b !important;
+         }
+          &.style5 {
+               background-color: #2b2b2b !important;
+               box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.3);
+               .dishes-thumb img {
+                   // filter: brightness(0.9); // Opcional
+               }
+          }
+    } // Fin .dishes-card en .dark-mood
+} // Fin .dark-mood
+
+/* Contenedor de cada grupo para dar espacio */
+.modifier-group {
+    position: relative;
+    z-index: auto;
+    margin-bottom: 15px;
+     &:last-child {
+         margin-bottom: 0;
+     }
+}
+
+/* Estilos base para Nice Select */
+.nice-select {
+    position: relative;
+    z-index: 10;
+    // ...
+}
+
+/* Lista desplegable */
+.nice-select .list {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    // ...
+}
+
+/* Opciones dentro de la lista */
+.nice-select .option {
+   // ...
+}
+
+/* Selector abierto */
+.nice-select.open {
+    z-index: 11;
+}
+
+/* Flecha del selector */
+.nice-select::after {
+    // ...
+}
+
+/* Texto de precio */
+.modifier-group small {
+    display: inline;
+    margin-left: 5px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7); // Ajustar color base si es necesario
+}
+
+/* Contenedor con un desplegable abierto */
+.modifier-group:has(.nice-select.open) {
+     // No necesario
+}
+/* =========================================== */
+/* == FIN: AJUSTES FREDDYS - MENÚ/TARJETAS V8 == */
+/* =========================================== */
+    /* Ajuste Padding Superior Sección Menú */
+    .menu-display-section.section-padding {
+        padding-top: 40px !important; // <-- Reduce este valor (prueba 40px, 50px, 60px con DevTools)
+    }

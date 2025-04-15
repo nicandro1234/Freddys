@@ -342,3 +342,288 @@
         }
     }
 }
+/* ============================================= */
+/* == INICIO: AJUSTES FREDDYS - MENÚ/TARJETAS V8 == */
+/* (Añadir/Reemplazar en _menu.scss o _products.scss) */
+/* ============================================= */
+
+// --- Reducir espacio sobre el menú ---
+.menu-display-section.section-padding {
+    padding-top: 60px !important; // <-- Reduce (Prueba con DevTools)
+    // padding-bottom: 90px;
+}
+
+.menu-items-container {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+    height: auto;
+    min-height: 100%; // Asegurar que cubra todo el contenido
+}
+
+.category-block {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: left 0.5s ease-in-out, opacity 0.3s ease-in-out;
+
+    &.visible {
+        left: 0;
+        opacity: 1;
+    }
+
+    &.hidden {
+        left: -100%;
+        opacity: 0;
+    }
+}
+
+// --- Estilos para Filtros de Categoría (Texto Blanco CORREGIDO) ---
+.menu-filter-nav {
+    button.filter-btn {
+        background-color: transparent;
+        border: none;
+        color: #ffffff; // <-- Blanco estático base
+        font-family: $title-font;
+        font-size: 24px;          // <-- AJUSTA
+        font-weight: 700;         // <-- AJUSTA
+        text-transform: capitalize;
+        padding: 5px 10px;
+        margin: 0 15px 15px 15px;
+        cursor: pointer;
+        transition: color 0.3s ease, border-color 0.3s ease;
+        position: relative;
+        border-bottom: 3px solid transparent;
+
+        &:hover {
+            // color: darken($white, 10%); // <-- LÍNEA INCORRECTA ANTERIOR
+            color: #e0e0e0; // <-- REEMPLAZO: Gris muy claro estático para hover
+        }
+
+        &.active { // Estilo del filtro activo
+            color: $theme-color;
+            border-bottom-color: $theme-color;
+        }
+    }
+    @include breakpoint(max-sm) {
+       button.filter-btn {
+            font-size: 18px; margin: 0 5px 10px 5px; padding: 5px;
+       }
+    }
+} // Fin .menu-filter-nav
+
+// --- Estilos para Tarjetas, Modificadores y Cantidad (Sin cambios respecto a V7 aquí) ---
+.dishes-card {
+    .product-modifiers {
+        border-top: 1px dashed rgba(255, 255, 255, 0.15);
+        padding-top: 12px; margin-top: 12px; margin-bottom: 15px; text-align: left;
+
+        label.modifier-label {
+            font-size: 14px; color: inherit; font-weight: 400; display: inline-block;
+            margin-left: 5px; vertical-align: middle; cursor: pointer;
+            transition: color 0.3s ease;
+            &:hover { color: $theme-color; }
+        }
+
+        input.modifier-checkbox {
+            margin-right: 4px; vertical-align: middle; cursor: pointer;
+            accent-color: $theme-color;
+        }
+
+         .modifier-radio-group {
+             label.group-label {
+                 display: block; margin-bottom: 6px; font-weight: 500;
+                 font-size: 14px; color: inherit; line-height: 1.3;
+             }
+             input.modifier-radio {
+                 opacity: 0; position: absolute; width: 0; height: 0;
+                 + label.modifier-radio-label {
+                     margin-right: 8px; padding: 5px 12px;
+                     border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 4px;
+                     cursor: pointer; transition: all 0.3s ease;
+                     &:hover { border-color: $theme-color; color: $theme-color; }
+                 }
+                 &:checked + label.modifier-radio-label {
+                     background-color: $theme-color; border-color: $theme-color;
+                     color: #ffffff !important; // Blanco estático
+                 }
+             }
+         } // Fin .modifier-radio-group
+
+         // Estilos para Nice Select (Mitad y Mitad)
+         .nice-select {
+             background-color: #3a3a3a; border-color: rgba(255, 255, 255, 0.2);
+             border-radius: 4px; padding: 6px 10px; line-height: 1.5; height: auto;
+             width: 100%; margin-top: 5px;
+             span.current { color: rgba(255, 255, 255, 0.85); font-size: 14px; }
+             &::after { border-bottom: 2px solid rgba(255, 255, 255, 0.7); border-right: 2px solid rgba(255, 255, 255, 0.7); height: 8px; width: 8px; right: 12px; }
+             .list { background-color: #3a3a3a; border-radius: 4px; margin-top: 2px; width: 100%; }
+             .option {
+                 color: rgba(255, 255, 255, 0.85); font-size: 14px; padding: 5px 10px;
+                 &:hover, &.focus, &.selected.focus { background-color: lighten(#3a3a3a, 5%); } // lighten aquí SÍ funciona porque #3a3a3a es estático
+                 &.selected { color: $theme-color; font-weight: 600; }
+             }
+         } // Fin .nice-select
+
+        .modifier-group { &:not(:last-child) { margin-bottom: 10px; } }
+        small { color: inherit; opacity: 0.7; }
+
+    } // Fin .product-modifiers
+
+    // Estilos para Selector de Cantidad
+    .quantity-selector {
+        gap: 5px;
+        .qty-input {
+            max-width: 45px; text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.9);
+            border-radius: 4px; padding: 4px; font-size: 14px;
+            -moz-appearance: textfield;
+             &::-webkit-outer-spin-button, &::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        }
+        .qty-btn {
+            background-color: #3a3a3a; // Color estático oscuro
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 30px; height: 30px; line-height: 28px; text-align: center;
+            border-radius: 4px; padding: 0; cursor: pointer; transition: all 0.3s ease;
+            &:hover { background-color: $theme-color; color: #fff; }
+            i { font-size: 0.8em; }
+        }
+    } // Fin .quantity-selector
+
+    // Estilo Botón Añadir
+    .add-to-cart-btn { width: 100%; padding: 10px 15px; font-size: 15px; margin-top: 15px; }
+
+} // Fin .dishes-card
+
+
+// --- AJUSTES DARK MODE GENERALES (Revisado sin lighten/rgba($white,...)) ---
+.dark-mood {
+    .menu-filter-nav button.filter-btn { // Filtros ya blancos/claros arriba
+    }
+
+    .dishes-card.style2 {
+        background-color: #2b2b2b; // Fondo tarjeta oscuro
+
+        .dishes-content {
+            h3, .text, h6, label, .modifier-group > label.group-label, small {
+                color: rgba(255, 255, 255, 0.9); // Texto general claro (RGBA estático)
+            }
+             a h3 { color: #ffffff; &:hover { color: $theme-color; } } // Título blanco estático
+             h6 { color: $theme-color;
+                .product-price { color: $theme-color;}
+             }
+        }
+         .product-modifiers {
+             border-top-color: rgba(255, 255, 255, 0.2);
+             label.modifier-label { color: rgba(255, 255, 255, 0.9); }
+             input.modifier-radio + label.modifier-radio-label {
+                 border-color: rgba(255, 255, 255, 0.3);
+                 color: rgba(255, 255, 255, 0.9);
+                  &:hover { border-color: $theme-color; color: $theme-color; }
+             }
+             input.modifier-radio:checked + label.modifier-radio-label {
+                 background-color: $theme-color; border-color: $theme-color;
+                 color: #ffffff !important; // Blanco estático
+             }
+             // NiceSelect ya tiene estilos dark mode arriba
+         }
+         .quantity-selector { // Estilos cantidad ya definidos arriba con colores estáticos
+         }
+    }
+} // Fin .dark-mood
+/* Contenedor de cada grupo para dar espacio */
+.modifier-group {
+    position: relative;
+    z-index: 5; /* Base para evitar conflictos */
+    margin-bottom: 50px; /* Más espacio entre grupos */
+    min-height: 80px; /* Altura mínima para evitar colapso */
+    padding-bottom: 10px; /* Espacio adicional para el contenido */
+}
+
+/* Estilos base para Nice Select */
+.nice-select {
+    position: relative;
+    z-index: 10; /* Base para estado cerrado */
+    pointer-events: auto; /* Asegurar interactividad */
+    display: inline-block; /* Respetar el ancho natural */
+    width: 100%; /* Ocupar el ancho del contenedor */
+    height: 40px; /* Altura fija para consistencia */
+    line-height: 40px; /* Centrar el texto verticalmente */
+    padding: 0 30px 0 10px; /* Espacio interno para el texto y la flecha */
+    box-sizing: border-box; /* Incluir padding en las dimensiones */
+    background-color: #3a3a3a; /* Mantener el fondo oscuro */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde consistente */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+/* Lista desplegable */
+.nice-select .list {
+    position: absolute;
+    top: 100%; /* Debajo del selector */
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Siempre encima */
+    background-color: #3a3a3a; /* Fondo oscuro consistente */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+    max-height: 200px; /* Limitar altura */
+    overflow-y: auto; /* Scroll si es necesario */
+    margin-top: 5px; /* Separación adicional */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+/* Opciones dentro de la lista */
+.nice-select .option {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 14px;
+    padding: 5px 10px;
+    &:hover,
+    &.focus,
+    &.selected.focus {
+        background-color: lighten(#3a3a3a, 5%);
+    }
+    &.selected {
+        color: $theme-color;
+        font-weight: 600;
+    }
+}
+
+/* Selector abierto */
+.nice-select.open {
+    z-index: 1001; /* Prioridad cuando está abierto */
+}
+
+/* Flecha del selector */
+.nice-select::after {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+    border-right: 2px solid rgba(255, 255, 255, 0.7);
+    height: 8px;
+    width: 8px;
+    right: 12px;
+}
+
+/* Texto de precio */
+.modifier-group small {
+    position: relative;
+    z-index: 1; /* Debajo de los desplegables */
+    display: block;
+    margin-top: 10px; /* Más espacio arriba */
+    padding-bottom: 15px; /* Espacio adicional debajo */
+    color: rgba(255, 255, 255, 0.7); /* Color claro para visibilidad */
+}
+
+/* Contenedor con un desplegable abierto */
+.modifier-group:has(.nice-select.open) {
+    z-index: 1002; /* Prioridad para el grupo con un desplegable abierto */
+}
+/* =========================================== */
+/* == FIN: AJUSTES FREDDYS - MENÚ/TARJETAS V8 == */
+/* =========================================== */
+    /* Ajuste Padding Superior Sección Menú */
+    .menu-display-section.section-padding {
+        padding-top: 40px !important; // <-- Reduce este valor (prueba 40px, 50px, 60px con DevTools)
+    }

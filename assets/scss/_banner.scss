@@ -87,20 +87,17 @@
                             color: $white;
                         }
                     }
-
-
                 }
 
-                @include breakpoint (max-lg) {
+                @include breakpoint(max-lg) {
                     right: 22%;
                 }
 
-                @include breakpoint (max-md) {
+                @include breakpoint(max-md) {
                     top: 18%;
                     right: 24%;
                 }
             }
-
         }
     }
 
@@ -192,80 +189,30 @@
                             color: $white;
                         }
                     }
-
-
                 }
 
-                @include breakpoint (max-lg) {
+                @include breakpoint(max-lg) {
                     right: 22%;
                 }
 
-                @include breakpoint (max-md) {
+                @include breakpoint(max-md) {
                     top: 18%;
                     right: 24%;
                 }
             }
-
         }
     }
 
     &.style3 {
         position: relative;
         background-image: url(../img/bg/bannerBG3_1.jpg);
-
-        .shape1 {
-            position: absolute;
-            bottom: 135px;
-            left: 26px;
-            z-index: 4;
-        }
-
-        .shape2 {
-            position: absolute;
-            top: 100px;
-            right: 140px;
-            z-index: 4;
-        }
-
-        .shape3 {
-            position: absolute;
-            bottom: 100px;
-            left: 36%;
-            z-index: 3;
-
-            @include breakpoint (max-xxl){
-                width: 450px;
-                bottom: initial;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%,-50%);
-
-                img {
-                    @include imgw;
-                }
-            }
-
-            @include breakpoint (max-lg){
-                width: 350px;
-            }
-
-            @include breakpoint (max-md){
-                width: 200px;
-            }
-        }
-
-        .shape4 {
-            position: absolute;
-            top: -70px;
-            left: 40%;
-            z-index: 2;
-            transform: translateX(-40%);
-            -webkit-transform: translateX(-40%);
-            -moz-transform: translateX(-40%);
-            -ms-transform: translateX(-40%);
-            -o-transform: translateX(-40%);
-        }
-
+        background-repeat: no-repeat;
+        overflow: hidden;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        background-size: cover;
+        background-position: center center;
 
         .overlay {
             position: absolute;
@@ -274,11 +221,106 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(180deg, #010F1C 0%, rgba(1, 15, 28, 0.75) 100%);
-            z-index: 1;
+            z-index: 0;
+        }
+
+        .shape1 { // Crazy Pepperoni
+            position: absolute;
+            bottom: 20px;
+            left: 15px;
+            z-index: 2;
+            transform: scale(0.7);
+        }
+
+        .shape2 {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            z-index: 2;
+            transform: scale(0.7);
+        }
+
+        .shape3 { // Pizza
+            position: absolute;
+            top: 20%; // Centrado verticalmente entre Signature y Crazy Pepperoni
+            left: 70%; // Ajustado para alinear con la primera "E" de "Pepperoni"
+            z-index: 1; // Encima del overlay, debajo del texto
+
+            @include breakpoint(max-xxl) {
+                width: 200px;
+                transform: translate(-50%, -50%) scale(0.3);
+                img {
+                    @include imgw;
+                }
+            }
+
+            @include breakpoint(max-lg) {
+                width: 150px;
+            }
+
+            @include breakpoint(max-md) {
+                width: 80px;
+            }
+        }
+
+        .shape4 { // Signature
+            position: absolute;
+            top: 80px;
+            left: 40%;
+            z-index: 2;
+            transform: translateX(-40%) scale(0.7);
+        }
+
+        .banner-style3 {
+            padding-top: 80px !important; // Mantengo la posición que te gustaba
+            padding-bottom: 40px !important;
+            width: 100%;
+            z-index: 3;
+            text-align: center;
+
+            .subtitle {
+                font-size: 80px !important;
+                margin-bottom: 20px !important;
+            }
+
+            h1.title {
+                font-size: 80px !important;
+                line-height: 1.1 !important;
+                margin-bottom: 20px !important;
+            }
+        }
+
+        @include breakpoint(max-md) {
+            min-height: 150px;
+            .banner-style3 {
+                padding-top: 60px !important;
+                padding-bottom: 20px !important;
+                .subtitle {
+                    font-size: 60px !important;
+                    margin-bottom: 10px !important;
+                }
+                h1.title {
+                    font-size: 60px !important;
+                    margin-bottom: 10px !important;
+                }
+            }
+            .shape1 {
+                transform: scale(0.5);
+            }
+            .shape2 {
+                top: 40px;
+                transform: scale(0.5);
+            }
+            .shape3 {
+                transform: translate(-50%, -50%) scale(0.2); // Más pequeña en móvil
+            }
+            .shape4 {
+                top: 50px;
+                transform: translateX(-40%) scale(0.5);
+            }
         }
     }
 }
-
 
 .banner-title-area {
     position: relative;
@@ -310,7 +352,7 @@
         }
     }
 
-    @include breakpoint (max-md) {
+    @include breakpoint(max-md) {
         padding: 20px 0 75px;
     }
 }
@@ -320,7 +362,7 @@
     padding: 200px 0 235px;
     z-index: 3;
 
-    @include breakpoint (max-md) {
+    @include breakpoint(max-md) {
         padding: 150px 0 80px;
     }
     
@@ -338,16 +380,15 @@
         margin-bottom: 100px;
         z-index: 5;
 
-        @include breakpoint (max-xxl) {
+        @include breakpoint(max-xxl) {
             font-size: 100px;
         }
 
-        @include breakpoint (max-md) {
+        @include breakpoint(max-md) {
             font-size: 85px;
             margin-bottom: 50px;
         }
     }
-
 
     .title {
         position: relative;
@@ -362,11 +403,11 @@
         z-index: 5;
         margin-bottom: 40px;
 
-        @include breakpoint (max-xxl) {
+        @include breakpoint(max-xxl) {
             font-size: 120px;
         }
 
-        @include breakpoint (max-md) {
+        @include breakpoint(max-md) {
             font-size: 85px;
         }
     }
@@ -391,7 +432,7 @@
         left: 4%;
         z-index: 99;
 
-        @include breakpoint (max-xxxl) {
+        @include breakpoint(max-xxxl) {
             display: none;
         }
     }
@@ -402,7 +443,7 @@
         left: 4%;
         z-index: 99;
 
-        @include breakpoint (max-xxxl) {
+        @include breakpoint(max-xxxl) {
             display: none;
         }
     }
@@ -453,7 +494,7 @@
         left: 4%;
         z-index: 99;
 
-        @include breakpoint (max-xxxl) {
+        @include breakpoint(max-xxxl) {
             display: none;
         }
     }
@@ -464,7 +505,7 @@
         left: 4%;
         z-index: 99;
 
-        @include breakpoint (max-xxxl) {
+        @include breakpoint(max-xxxl) {
             display: none;
         }
     }
@@ -520,7 +561,7 @@
         -ms-transform: rotate(90deg);
         -o-transform: rotate(90deg);
 
-        @include breakpoint (max-xxxl) {
+        @include breakpoint(max-xxxl) {
             display: none;
         }
     }
@@ -536,7 +577,7 @@
         -ms-transform: rotate(90deg);
         -o-transform: rotate(90deg);
 
-        @include breakpoint (max-xxxl) {
+        @include breakpoint(max-xxxl) {
             display: none;
         }
     }
@@ -546,7 +587,7 @@
         top: 94%;
         left: 26%;
         z-index: 1;
-        @include breakpoint (max-xxxl) {
+        @include breakpoint(max-xxxl) {
             display: none;
         }
     }
@@ -582,7 +623,6 @@
         width: 50%;
     }
 }
-
 
 .banner-bottom {
     padding: 30px 0;

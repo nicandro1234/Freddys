@@ -826,6 +826,7 @@ input[type=radio]~label {
 	display: inline-block;
 	font-weight: 600;
 	margin-bottom: 0;
+	display:none;
 }
 
 input[type=radio]~label::before {
@@ -851,12 +852,14 @@ input[type=radio]~label::before {
 	-o-transition: all 0.2s ease;
 	-moz-transition: all 0.2s ease;
 	transition: all 0.2s ease;
+	display:none;
 }
 
 input[type=radio]:checked~label::before {
 	border-color: $theme-color;
 	background-color: $theme-color;
 	color: $white;
+	display:none;
 }
 
 
