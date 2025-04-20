@@ -11,8 +11,12 @@
     <meta name="description" content="Freddys Pizza, La Mejor Pizza Artesanal de Leon, Guanajuato.">
     <!-- ======== Page title ============ -->
     <title>Freddys Pizza</title>
-    <!--<< Favcion >>-->
+    <!--<< Favicon >>-->
     <link rel="shortcut icon" href="assets/img/favicon.png">
+    <!-- Google Sign in -->
+    <script src="https://accounts.google.com/gsi/client" async></script>
+     <!-- Google Maps para autocompletado (reemplaza YOUR_GOOGLE_MAPS_API_KEY) -->
+     <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&loading=async"></script>
     <!--<< Bootstrap min.css >>-->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!--<< All Min Css >>-->
@@ -33,8 +37,31 @@
      <script src="https://sdk.mercadopago.com/js/v2"></script>
      <!-- PayPal SDK (reemplaza YOUR_PAYPAL_CLIENT_ID) -->
      <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=MXN"></script>
-     <!-- Google Maps para autocompletado (reemplaza YOUR_GOOGLE_MAPS_API_KEY) -->
-     <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&loading=async"></script>
+
+         <!--<< All JS Plugins >>-->
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <!--<< Bootstrap Js >>-->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <!--<< Waypoints Js >>-->
+    <script src="assets/js/jquery.waypoints.js"></script>
+    <!--<< Counterup Js >>-->
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    <!--<< Viewport Js >>-->
+    <script src="assets/js/viewport.jquery.js"></script>
+    <!--<< Magnific popup Js >>-->
+    <script src="assets/js/magnific-popup.min.js"></script>
+    <!--<< Tilt Js >>-->
+    <script src="assets/js/tilt.min.js"></script>
+    <!--<< Swiper Slider Js >>-->
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <!--<< MeanMenu Js >>-->
+    <script src="assets/js/jquery.meanmenu.min.js"></script>
+    <!--<< Wow Animation Js >>-->
+    <script src="assets/js/wow.min.js"></script>
+    <!--<< Nice Select Js >>-->
+    <script src="assets/js/nice-select.min.js"></script>
+    <!--<< Main.js >>-->
+    <script src="assets/js/main.js"></script>
  </head>
 </head>
 
@@ -110,6 +137,13 @@
                             </button>
                         </div>
                     </div>
+                    <div class="offcanvas__custom-menu d-xl-none">
+                        <a href="index.html" class="offcanvas__menu-btn">Inicio</a>
+                        <a href="my-account.html" class="offcanvas__menu-btn">Mi Cuenta</a>
+                    </div>
+                    <div class="offcanvas__navigation">
+                        <div class="mobile-menu fix mb-3"></div>
+                    </div>
                     <p class="text d-none d-lg-block">
                         Somos Freddy's Pizza, una pizzería familiar con la mejor calidad artesanal, donde nuestra prioridad es ofrecer el mejor sabor al mejor precio. Carnes Importadas, Queso Mozzarella 100% Leche de Vaca y nuestra inigualable pizza de orilla rellena con dedos de queso mozzarella con un barniz a la mantequilla y especias son nuestra especialidad.
                     </p>
@@ -117,7 +151,6 @@
                         <div class="offcanvas-gallery-items">
                         </div>
                     </div>
-                    <div class="mobile-menu fix mb-3"></div>
                     <div class="offcanvas__contact">
                         <h4>Contact Info</h4>
                         <ul>
@@ -134,8 +167,7 @@
                                     <i class="fal fa-envelope"></i>
                                 </div>
                                 <div class="offcanvas__contact-text">
-                                    <a href="tel:+013-003-003-9993"><span
-                                            class="mailto:info@enofik.com">freddyspizzaoficial@gmail.com</span></a>
+                                    <a href="tel:+4775780426"><span>freddyspizzaoficial@gmail.com</span></a>
                                 </div>
                             </li>
                             <li class="d-flex align-items-center">
@@ -158,8 +190,7 @@
                         <div class="header-button mt-4">
                             <a href="shop.html" class="theme-btn">
                                 <span class="button-content-wrapper d-flex align-items-center justify-content-center">
-                                    <span class="button-icon"><i
-                                            class="fa-sharp fa-regular fa-cart-shopping bg-transparent text-white me-2"></i></span>
+                                    <span class="button-icon"><i class="fa-sharp fa-regular fa-cart-shopping bg-transparent text-white me-2"></i></span>
                                     <span class="button-text">ORDENE AHORA!</span>
                                 </span>
                             </a>
@@ -172,94 +203,55 @@
     <div class="offcanvas__overlay"></div>
 
     <!-- Header Section Start -->
-    <header class="header-section-3">
-        <div class="container-fluid">
-            <div class="main-header-wrapper">
-                <div class="main-header-items">
-                    <div id="header-sticky" class="header-3">
-                        <div class="mega-menu-wrapper">
-                            <div class="header-main">
-                                <div class="header-left">
-                                    <div class="header__hamburger d-xl-block my-auto">
-                                        <div class="sidebar__toggle">
-                                            <i class="fas fa-bars"></i>
-                                        </div>
+<!-- Header Section Start -->
+<header class="header-section-3">
+    <div class="container-fluid">
+        <div class="main-header-wrapper">
+            <div class="main-header-items">
+                <div id="header-sticky" class="header-3">
+                    <div class="mega-menu-wrapper">
+                        <div class="header-main">
+                            <div class="header-left">
+                                <div class="header__hamburger d-xl-block my-auto">
+                                    <div class="sidebar__toggle">
+                                        <i class="fas fa-bars"></i>
                                     </div>
                                 </div>
-                                <div class="header-middle">
-                                    <div class="mean__menu-wrapper">
-                                        <div class="main-menu">
-                                            <nav id="mobile-menu">
-                                                <ul>
-                                                    <!-- Desktop Inicio: Hide below XL -->
-                                                    <li class="d-none d-xl-inline-block">
-                                                        <a href="index.html">Inicio</a>
-                                                    </li>
-                                                    <!-- Desktop Logo: Already hidden below XL -->
-                                                    <li>
-                                                        <div class="logo-image d-none d-xl-block">
-                                                            <a href="index.html"><img src="assets/img/logo/logo-light.png" alt="Freddy's Logo"></a>
-                                                        </div>
-                                                    </li>
-                                                    <!-- Desktop Google Sign-In: Hide below XL -->
-                                                    <li class="d-none d-xl-inline-block">
-                                                        <div id="google-signin-container-desktop" class="google-signin-container">
-                                                            <div id="g_id_onload_desktop"
-                                                                 data-client_id="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"
-                                                                 data-callback="handleCredentialResponse"
-                                                                 data-auto_prompt="false">
-                                                            </div>
-                                                            <div class="g_id_signin" 
-                                                                 data-type="standard" 
-                                                                 data-size="large" 
-                                                                 data-theme="outline" 
-                                                                 data-text="sign_in_with" 
-                                                                 data-shape="rectangular" 
-                                                                 data-logo_alignment="left">
-                                                            </div>
-                                                            <span id="user-info-desktop" style="display: none;"></span>
-                                                        </div>
-                                                    </li>
-                                                
-                                                    <!-- Mobile Inicio: Hide ON/ABOVE XL -->
-                                                    <li class="active d-xl-none">
-                                                        <a href="index.html" class="border-none">Inicio</a>
-                                                    </li>
-                                                    <!-- Mobile Google Sign-In: Hide ON/ABOVE XL -->
-                                                    <li class="d-xl-none">
-                                                        <div id="google-signin-container-mobile" class="google-signin-container">
-                                                            <div id="g_id_onload_mobile"
-                                                                 data-client_id="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"
-                                                                 data-callback="handleCredentialResponse"
-                                                                 data-auto_prompt="false">
-                                                            </div>
-                                                            <div class="g_id_signin" 
-                                                                 data-type="standard" 
-                                                                 data-size="medium" 
-                                                                 data-theme="outline" 
-                                                                 data-text="sign_in_with" 
-                                                                 data-shape="rectangular" 
-                                                                 data-logo_alignment="left">
-                                                            </div>
-                                                            <span id="user-info-mobile" style="display: none;"></span>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>
+                            </div>
+                            <div class="header-middle">
+                                <div class="mean__menu-wrapper">
+                                    <div class="main-menu">
+                                        <nav id="mobile-menu">
+                                            <ul>
+                                                <li class="main-nav-item d-xl-block d-none">
+                                                    <a href="index.html">Inicio</a>
+                                                </li>
+                                                <li class="logo-item d-none d-xl-block">
+                                                    <div class="logo-image">
+                                                        <a href="index.html"><img src="assets/img/logo/logo-light.png" alt="Freddy's Logo"></a>
+                                                    </div>
+                                                </li>
+                                                <li class="main-nav-item d-xl-block d-none">
+                                                    <a href="my-account.html">Mi Cuenta</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
-                                <div class="header-right d-flex justify-content-end align-items-center">
-                                    <!-- <a href="#0" class="search-trigger search-icon"><i class="fal fa-search"></i></a> -->
-
-                                    <div class="header__cart">
-                                        <a href="#" id="cart-icon-link">
-                                            <i class="fa-sharp fa-regular fa-cart-shopping"></i>
-                                        </a>
-                                    </div>
-
-                                    <!-- <a class="theme-btn style4 pe-2 ps-0 rounded-5" href="menu.html"> <i
-                                            class="fa-sharp fa-regular fa-arrow-right"></i></a> -->
+                            </div>
+                            <div class="header-right d-flex justify-content-end align-items-center">
+                                <!-- Google Sign-In -->
+                                <div id="google-signin-container" class="google-signin-container">
+                                    <button class="custom-google-btn" onclick="window.location.href='/auth/google'">
+                                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                                        <span>Acceder con Google</span>
+                                    </button>
+                                </div>
+                                <!-- Carrito -->
+                                <div class="header__cart">
+                                    <a href="#" id="cart-icon-link">
+                                        <i class="fa-sharp fa-regular fa-cart-shopping"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -267,7 +259,8 @@
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
 
     <!-- Banner Section   S T A R T -->
@@ -1176,138 +1169,47 @@
         </div>
     </div>
 </section>
-
-
-    <!-- Faq Section    S T A R T -->
-    <div class="faq-section section-padding pb-0 fix">
-        <div class="container">
-            <div class="faq-wrapper-4">
-                <div class="row gy-5 gx-60">
-                    <div class="col-xl-6">
-                        <div class="title-area mb-45">
-                            <div class="sub-title text-start wow fadeInUp" data-wow-delay="0.5s">
-                                <img class="me-1" src="assets/img/icon/titleIcon.svg" alt="icon">Enjoy Our Dishes<img
-                                    class="ms-1" src="assets/img/icon/titleIcon.svg" alt="icon">
-                            </div>
-                            <div class="title text-white text-start wow fadeInUp" data-wow-delay="0.7s">
-                                We serve and deliver delectable food.
-                            </div>
-                        </div>
-                        <div class="faq-content-3">
-                            <div class="faq-accordion">
-                                <div class="accordion" id="accordion">
-                                    <div class="accordion-item wow fadeInUp" data-wow-delay=".2s">
-                                        <h4 class="accordion-header">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
-                                                What Are The Restaurant’s Operating Hours?
-                                            </button>
-                                        </h4>
-                                        <div id="faq1" class="accordion-collapse collapse show"
-                                            data-bs-parent="#accordion">
-                                            <div class="accordion-body">
-                                                It is a long established fact that a reader will be distracted lorem the
-                                                readable content of a page when looking
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-item wow fadeInUp" data-wow-delay=".4s">
-                                        <h4 class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false"
-                                                aria-controls="faq2">
-                                                Do You Offer Vegetarian / Vegans Options?
-                                            </button>
-                                        </h4>
-                                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                                            <div class="accordion-body">
-                                                It is a long established fact that a reader will be distracted lorem the
-                                                readable content of a page when looking
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-item wow fadeInUp" data-wow-delay=".6s">
-                                        <h4 class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false"
-                                                aria-controls="faq3">
-                                                Are Kids Allowed in Restaurant?
-                                            </button>
-                                        </h4>
-                                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                                            <div class="accordion-body">
-                                                It is a long established fact that a reader will be distracted lorem the
-                                                readable content of a page when looking
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-item wow fadeInUp" data-wow-delay=".8s">
-                                        <h4 class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false"
-                                                aria-controls="faq4">
-                                                What Are The Restaurant’s Operating Hours?
-                                            </button>
-                                        </h4>
-                                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                                            <div class="accordion-body">
-                                                It is a long established fact that a reader will be distracted lorem the
-                                                readable content of a page when looking
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="faq-image-area">
-                            <div class="swiper faq-slider">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="faq-img">
-                                            <img src="assets/img/faq/01.jpg" alt="img">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="faq-img">
-                                            <img src="assets/img/faq/01.jpg" alt="img">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="btn-wrap">
-                                    <div class="arrow-prev"><i class="fa-regular fa-arrow-left"></i></div>
-                                    <div class="arrow-next"><i class="fa-regular fa-arrow-right"></i></div>
-                                </div>
-                            </div>
-                            <div class="clock-wrapper-area">
-                                <h3>Get 30% Discount Every Item</h3>
-                                <div class="clock-wrapper">
-                                    <div class="clock">
-                                        <div class="number" id="days">20</div>
-                                        <div class="text">days</div>
-                                    </div>
-                                    <div class="clock">
-                                        <div class="number" id="hours">48</div>
-                                        <div class="text">hrs</div>
-                                    </div>
-                                    <div class="clock">
-                                        <div class="number" id="minutes">16</div>
-                                        <div class="text">mins</div>
-                                    </div>
-                                    <div class="clock">
-                                        <div class="number" id="seconds">38</div>
-                                        <div class="text">secs</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+<div class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+        <h3>Tu Carrito</h3>
+        <button class="cart-close-btn" id="cartCloseBtn">X</button>
     </div>
+    <div class="cart-items" id="cartItems">
+        <!-- Los ítems se añadirán dinámicamente con JavaScript -->
+    </div>
+    <div class="cart-total" id="cartTotal">Total: $0.00</div>
+    <form class="cart-form mt-4">
+        <div class="mb-3">
+            <label for="customerName" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="customerName" required>
+        </div>
+        <div class="mb-3">
+            <label for="customerAddress" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="customerAddress" required>
+            <button type="button" class="add-address-btn" id="addAddressBtn" style="display: none;">Añadir otra dirección</button>
+            <input type="hidden" id="latitude">
+            <input type="hidden" id="longitude">
+        </div>
+        <div class="mb-3">
+            <label for="customerPhone" class="form-label">Teléfono</label>
+            <input type="tel" class="form-control" id="customerPhone" required>
+        </div>
+        <div class="payment-options">
+            <label for="paymentMethod" class="form-label">Método de Pago</label>
+            <select class="payment-method-select" id="paymentMethod">
+                <option value="">Seleccionar método de pago</option>
+                <option value="paypal">PayPal</option>
+                <option value="mercadopago">Mercado Pago</option>
+            </select>
+        </div>
+    </div> <div id="paypal-button-container" class="mt-3" style="display: none;">
+    </div>
+<div id="wallet_container" class="mt-3" style="display: none;">
+    </div>
+ </form> </div> ```
+    </form>
+    <div id="wallet_container"></div>
+</div>
 
     <!-- Footer Section    S T A R T -->
     <footer class="footer-section bg-title fix">
@@ -1322,75 +1224,5 @@
             </div>
         </div>
     </footer>
-    
-    <div class="cart-panel" id="cartPanel">
-        <div class="cart-header">
-            <h3>Tu Carrito</h3>
-            <button class="cart-close-btn" id="cartCloseBtn">X</button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <!-- Los ítems se añadirán dinámicamente con JavaScript -->
-        </div>
-        <div class="cart-total" id="cartTotal">Total: $0.00</div>
-        <form class="cart-form mt-4">
-            <div class="mb-3">
-                <label for="customerName" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="customerName" required>
-            </div>
-            <div class="mb-3">
-                <label for="customerAddress" class="form-label">Dirección</label>
-                <input type="text" class="form-control" id="customerAddress" required>
-                <button type="button" class="add-address-btn" id="addAddressBtn" style="display: none;">Añadir otra dirección</button>
-                <input type="hidden" id="latitude">
-                <input type="hidden" id="longitude">
-            </div>
-            <div class="mb-3">
-                <label for="customerPhone" class="form-label">Teléfono</label>
-                <input type="tel" class="form-control" id="customerPhone" required>
-            </div>
-            <div class="payment-options">
-                <label for="paymentMethod" class="form-label">Método de Pago</label>
-                <select class="payment-method-select" id="paymentMethod">
-                    <option value="">Seleccionar método de pago</option>
-                    <option value="paypal">PayPal</option>
-                    <option value="mercadopago">Mercado Pago</option>
-                </select>
-            </div>
-        </div> <div id="paypal-button-container" class="mt-3" style="display: none;">
-        </div>
-    <div id="wallet_container" class="mt-3" style="display: none;">
-        </div>
-     </form> </div> ```
-        </form>
-        <div id="wallet_container"></div>
-    </div>
-
-
-
-    <!--<< All JS Plugins >>-->
-    <script src="assets/js/jquery-3.7.1.min.js"></script>
-    <!--<< Bootstrap Js >>-->
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <!--<< Waypoints Js >>-->
-    <script src="assets/js/jquery.waypoints.js"></script>
-    <!--<< Counterup Js >>-->
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <!--<< Viewport Js >>-->
-    <script src="assets/js/viewport.jquery.js"></script>
-    <!--<< Magnific popup Js >>-->
-    <script src="assets/js/magnific-popup.min.js"></script>
-    <!--<< Tilt Js >>-->
-    <script src="assets/js/tilt.min.js"></script>
-    <!--<< Swiper Slider Js >>-->
-    <script src="assets/js/swiper-bundle.min.js"></script>
-    <!--<< MeanMenu Js >>-->
-    <script src="assets/js/jquery.meanmenu.min.js"></script>
-    <!--<< Wow Animation Js >>-->
-    <script src="assets/js/wow.min.js"></script>
-    <!--<< Nice Select Js >>-->
-    <script src="assets/js/nice-select.min.js"></script>
-    <!--<< Main.js >>-->
-    <script src="assets/js/main.js"></script>
 </body>
-
 </html>

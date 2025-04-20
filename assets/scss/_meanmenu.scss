@@ -183,3 +183,14 @@
 	border-top: 0;
 	margin-bottom: 20px;
   }
+  @media (max-width: 1199px) {
+    .mean-container .mean-bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 998; /* Justo debajo del .sidebar__toggle */
+        padding: 0;
+        background: transparent; /* Mantén la transparencia */
+    }
+}

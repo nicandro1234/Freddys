@@ -213,6 +213,9 @@
         align-items: center;
         background-size: cover;
         background-position: center center;
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
 
         .overlay {
             position: absolute;
@@ -222,52 +225,38 @@
             height: 100%;
             background: linear-gradient(180deg, #010F1C 0%, rgba(1, 15, 28, 0.75) 100%);
             z-index: 0;
+            will-change: opacity;
         }
 
-        .shape1 { // Crazy Pepperoni
+        .shape1, .shape2, .shape3, .shape4 {
             position: absolute;
+            z-index: 2;
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .shape1 {
             bottom: 20px;
             left: 15px;
-            z-index: 2;
             transform: scale(0.7);
         }
 
         .shape2 {
-            position: absolute;
             top: 60px;
             right: 20px;
-            z-index: 2;
             transform: scale(0.7);
         }
 
-        .shape3 { // Pizza
-            position: absolute;
-            top: 20%; // Centrado verticalmente entre Signature y Crazy Pepperoni
-            left: 70%; // Ajustado para alinear con la primera "E" de "Pepperoni"
-            z-index: 1; // Encima del overlay, debajo del texto
-
-            @include breakpoint(max-xxl) {
-                width: 200px;
-                transform: translate(-50%, -50%) scale(0.3);
-                img {
-                    @include imgw;
-                }
-            }
-
-            @include breakpoint(max-lg) {
-                width: 150px;
-            }
-
-            @include breakpoint(max-md) {
-                width: 80px;
-            }
+        .shape3 {
+            top: 20%;
+            left: 70%;
+            z-index: 1;
         }
 
-        .shape4 { // Signature
-            position: absolute;
+        .shape4 {
             top: 80px;
             left: 40%;
-            z-index: 2;
             transform: translateX(-40%) scale(0.7);
         }
 
@@ -425,27 +414,43 @@
 
 .banner-slider {
     position: relative;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    .arrow-prev {
+    .arrow-prev, .arrow-next {
         position: absolute;
-        top: 58%;
-        left: 4%;
         z-index: 99;
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            transform: scale(1.05) translateZ(0);
+            -webkit-transform: scale(1.05) translateZ(0);
+        }
 
         @include breakpoint(max-xxxl) {
             display: none;
         }
     }
 
+    .arrow-prev {
+        top: 58%;
+        left: 4%;
+    }
+
     .arrow-next {
-        position: absolute;
         top: 45%;
         left: 4%;
-        z-index: 99;
-
-        @include breakpoint(max-xxxl) {
-            display: none;
-        }
     }
 
     .swiper-pagination {
@@ -453,11 +458,11 @@
         top: 10%;
         left: 21%;
         z-index: 1;
-        transform: rotate(-90deg);
-        -webkit-transform: rotate(-90deg);
-        -moz-transform: rotate(-90deg);
-        -ms-transform: rotate(-90deg);
-        -o-transform: rotate(-90deg);
+        transform: rotate(-90deg) translateZ(0);
+        -webkit-transform: rotate(-90deg) translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
     }
 
     .swiper-pagination-bullet {
@@ -470,6 +475,17 @@
         text-transform: uppercase;
         margin: 20px;
         opacity: 0.3;
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            opacity: 0.6;
+        }
     }
 
     .swiper-pagination-bullet-active {
@@ -482,17 +498,41 @@
         text-transform: uppercase;
         background: transparent;
         opacity: 1;
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
     }
 }
 
 .banner2-slider {
     position: relative;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     .arrow-prev2 {
         position: absolute;
         top: 58%;
         left: 4%;
         z-index: 99;
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            transform: scale(1.05) translateZ(0);
+            -webkit-transform: scale(1.05) translateZ(0);
+        }
 
         @include breakpoint(max-xxxl) {
             display: none;
@@ -504,6 +544,18 @@
         top: 45%;
         left: 4%;
         z-index: 99;
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            transform: scale(1.05) translateZ(0);
+            -webkit-transform: scale(1.05) translateZ(0);
+        }
 
         @include breakpoint(max-xxxl) {
             display: none;
@@ -515,11 +567,11 @@
         top: 10%;
         left: 21%;
         z-index: 1;
-        transform: rotate(-90deg);
-        -webkit-transform: rotate(-90deg);
-        -moz-transform: rotate(-90deg);
-        -ms-transform: rotate(-90deg);
-        -o-transform: rotate(-90deg);
+        transform: rotate(-90deg) translateZ(0);
+        -webkit-transform: rotate(-90deg) translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
     }
 
     .swiper-pagination-bullet {
@@ -532,6 +584,17 @@
         text-transform: uppercase;
         margin: 20px;
         opacity: 0.3;
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            opacity: 0.6;
+        }
     }
 
     .swiper-pagination-bullet-active {
@@ -544,22 +607,41 @@
         text-transform: uppercase;
         background: transparent;
         opacity: 1;
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
     }
 }
 
 .banner3-slider {
     position: relative;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     .arrow-prev3 {
         position: absolute;
         top: 93%;
         left: 45%;
         z-index: 99;
-        transform: rotate(90deg);
-        -webkit-transform: rotate(90deg);
-        -moz-transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
-        -o-transform: rotate(90deg);
+        transform: rotate(90deg) translateZ(0);
+        -webkit-transform: rotate(90deg) translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            transform: rotate(90deg) scale(1.05) translateZ(0);
+            -webkit-transform: rotate(90deg) scale(1.05) translateZ(0);
+        }
 
         @include breakpoint(max-xxxl) {
             display: none;
@@ -571,11 +653,18 @@
         top: 93%;
         left: 55%;
         z-index: 99;
-        transform: rotate(90deg);
-        -webkit-transform: rotate(90deg);
-        -moz-transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
-        -o-transform: rotate(90deg);
+        transform: rotate(90deg) translateZ(0);
+        -webkit-transform: rotate(90deg) translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            transform: rotate(90deg) scale(1.05) translateZ(0);
+            -webkit-transform: rotate(90deg) scale(1.05) translateZ(0);
+        }
 
         @include breakpoint(max-xxxl) {
             display: none;
@@ -587,6 +676,10 @@
         top: 94%;
         left: 26%;
         z-index: 1;
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        
         @include breakpoint(max-xxxl) {
             display: none;
         }
@@ -602,6 +695,17 @@
         text-transform: uppercase;
         margin: 0px 10px !important;
         opacity: 0.3;
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            opacity: 0.6;
+        }
     }
 
     .swiper-pagination-bullet-active {
@@ -614,6 +718,11 @@
         text-transform: uppercase;
         background: transparent;
         opacity: 1;
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
     }
 
     .swiper-horizontal>.swiper-pagination-bullets,
@@ -634,4 +743,29 @@
 .swiper-pagination-custom,
 .swiper-pagination-fraction {
     width: 3%;
+}
+
+// Asegurar que las animaciones funcionen en modo sticky
+.sticky {
+    .banner-slider,
+    .banner2-slider,
+    .banner3-slider {
+        .arrow-prev,
+        .arrow-next,
+        .arrow-prev2,
+        .arrow-next2,
+        .arrow-prev3,
+        .arrow-next3 {
+            &:hover {
+                transform: scale(1.05) translateZ(0);
+                -webkit-transform: scale(1.05) translateZ(0);
+            }
+        }
+
+        .swiper-pagination-bullet {
+            &:hover {
+                opacity: 0.6;
+            }
+        }
+    }
 }

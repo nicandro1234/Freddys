@@ -1,9 +1,8 @@
 /*-----------------------------------------------------------------
-Theme Name: Fresheat
-Author: Gramentheme
-Author URI: https://themeforest.net/user/gramentheme 
+Theme Name: Freddy's Pizza
+Author: Freddy's Pizza
 Version: 1.0.0 
-Description: Fresheat food & Restaurant Html Template  <
+Description: Freddy's Pizza - La Mejor Pizza Artesanal de León, Guanajuato
 
 -------------------------------------------------------------------
 JS TABLE OF CONTENTS
@@ -344,7 +343,7 @@ function renderPayPalButton() {
           01. Mobile Menu  
         -----------------------------------*/
         $('#mobile-menu').meanmenu({
-            meanMenuContainer: '.mobile-menu',
+            meanMenuContainer: '.offcanvas__navigation', // Cambiar a .offcanvas__navigation
             meanScreenWidth: "1199",
             meanExpand: ['<i class="far fa-plus"></i>'],
         });
@@ -473,9 +472,9 @@ function renderPayPalButton() {
             animated_swiper(sliderClass, sliderInit);
         }
 
-        initializeSlider(".banner-slider", ".arrow-prev", ".arrow-next", ".pagination-class");
-        initializeSlider(".banner2-slider", ".arrow-prev2", ".arrow-next2", ".pagination-class2");
-        initializeSlider(".banner3-slider", ".arrow-prev3", ".arrow-next3", ".pagination-class3");
+        initializeSlider(".banner-slider", ".arrow-next", ".arrow-prev", ".pagination-class");
+        initializeSlider(".banner2-slider", ".arrow-next2", ".arrow-prev2", ".pagination-class2");
+        initializeSlider(".banner3-slider", ".arrow-next3", ".arrow-prev3", ".pagination-class3");
 
         /*-----------------------------------
             09. Best food items Slider     

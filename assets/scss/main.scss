@@ -1,12 +1,11 @@
 /*-----------------------------------------------------------------
-Theme Name: Fresheat
-Author: Gramentheme
-Author URI: https://themeforest.net/user/gramentheme 
+Theme Name: Freddy's Pizza
+Author: Freddy's Pizza
 Version: 1.0.0 
-Description: Fresheat food & Restaurant Html Template  <
- 
+Description: Freddy's Pizza - La Mejor Pizza Artesanal de León, Guanajuato
+
 -------------------------------------------------------------------
- CSS TABLE OF CONTENTS
+SCSS TABLE OF CONTENTS
 -------------------------------------------------------------------
 
 01.Mixins
@@ -52,7 +51,6 @@ Description: Fresheat food & Restaurant Html Template  <
 
 ------------------------------------------------------------------*/
 
-
 //>> Basic Start <<//
 
 /* 01.Mixins */
@@ -77,68 +75,27 @@ Description: Fresheat food & Restaurant Html Template  <
 @import "_preloader";
 //>> Basic End <<//	
 
-
 //>> Template Section Style Start <<//  
 
-/* 11.Title */
-@import "_title";
 /* 12.Common */
 @import "_common";
 /* 13.Header */
 @import "_header"; 
-/* 14.Footer */
-@import "_footer"; 
-/* 15.Contact */
-@import "_contact"; 
 /* 16.Banner */
 @import "_banner";    
-/* 17.Breadcumb */
-@import "_breadcumb";
-/* 18.Marquee */
-@import "_marquee";
-/* 19.Gallery */
-@import "_gallery";
-/* 20.Testimonial */
-@import "_testimonial";
-/* 21.Chefe */
-@import "_chefe"; 
-/* 22.History */
-@import "_history";
-/* 23.Timer */
-@import "_timer";
 /* 24.Menu */
 @import "_menu";
-/* 25.Cta */
-@import "_cta";
 /* 26.Popular Dishes */
-@import "_popular-dishes.scss";
-/* 27.About */
-@import "_about";
-/* 28.Services */
-@import "_services";
-/* 29.Offer */  
-@import "_offer"; 
+@import "_popular-dishes";
 /* 30.Food Items */  
 @import "_food-items";
-/* 31.Faq */  
-@import "_faq";
-/* 32.Wcu */  
-@import "_wcu";
-/* 33.Blog */
-@import "_blog";
-/* 34.Blog Extra */
-@import "_blog-extra";
 /* 35.Sidebar */
 @import "_sidebar"; 
-/* 36.Shop */
-@import "_shop"; 
 /* 37.Cart */
 @import "_cart"; 
 /* 38.Checkout */
-@import "_checkout"; 
-/* 39.Wishlist */
-@import "_wishlist"; 
-/* 40.Woocommerce */
-@import "_woocommerce"; 
+@import "_checkout";
+@import "_title"; 
+@import "_account"; 
 //>> Template Section Style End <<//
 

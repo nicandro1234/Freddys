@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="zxx">
-<!--<< Header Area >>-->
-
+<html lang="es">
 <head>
     <!-- ========== Meta Tags ========== -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="gramentheme">
-    <meta name="description" content="Fresheat food & Restaurant Html Template">
+    <meta name="author" content="NicVG">
+    <meta name="description" content="Freddys Pizza, La Mejor Pizza Artesanal de Leon, Guanajuato.">
     <!-- ======== Page title ============ -->
-    <title>Fresheat food & Restaurant Html Template</title>
-    <!--<< Favcion >>-->
+    <title>Mi Cuenta - Freddys Pizza</title>
+    <!--<< Favicon >>-->
     <link rel="shortcut icon" href="assets/img/favicon.png">
+    <!-- Google Sign in -->
+    <script src="https://accounts.google.com/gsi/client" async></script>
     <!--<< Bootstrap min.css >>-->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!--<< All Min Css >>-->
@@ -29,64 +29,27 @@
     <link rel="stylesheet" href="assets/css/nice-select.css">
     <!--<< Main.css >>-->
     <link rel="stylesheet" href="assets/css/main.css">
+    <!--<< Custom Account CSS >>-->
+    <link rel="stylesheet" href="assets/css/account.css">
 </head>
 
-<body class="bg-color2">
-
+<body class="dark-mood" style="background-color: #2b2b2b; color: #FFFFFF;">
     <!-- Preloader Start -->
     <div id="preloader" class="preloader">
         <div class="animation-preloader">
-            <div class="spinner">
-            </div>
+            <div class="spinner"></div>
             <div class="txt-loading">
-                <span data-text-preloader="F" class="letters-loading">
-                    F
-                </span>
-                <span data-text-preloader="R" class="letters-loading">
-                    R
-                </span>
-                <span data-text-preloader="E" class="letters-loading">
-                    E
-                </span>
-                <span data-text-preloader="S" class="letters-loading">
-                    S
-                </span>
-                <span data-text-preloader="H" class="letters-loading">
-                    H
-                </span>
-                <span data-text-preloader="E" class="letters-loading">
-                    E
-                </span>
-                <span data-text-preloader="A" class="letters-loading">
-                    A
-                </span>
-                <span data-text-preloader="T" class="letters-loading">
-                    T
-                </span>
+                <span data-text-preloader="F" class="letters-loading">F</span>
+                <span data-text-preloader="R" class="letters-loading">R</span>
+                <span data-text-preloader="E" class="letters-loading">E</span>
+                <span data-text-preloader="D" class="letters-loading">D</span>
+                <span data-text-preloader="D" class="letters-loading">D</span>
+                <span data-text-preloader="Y" class="letters-loading">Y</span>
+                <span data-text-preloader="S" class="letters-loading">S</span>
             </div>
-            <p class="text-center">Loading</p>
-        </div>
-        <div class="loader">
-            <div class="row">
-                <div class="col-3 loader-section section-left">
-                    <div class="bg"></div>
-                </div>
-                <div class="col-3 loader-section section-left">
-                    <div class="bg"></div>
-                </div>
-                <div class="col-3 loader-section section-right">
-                    <div class="bg"></div>
-                </div>
-                <div class="col-3 loader-section section-right">
-                    <div class="bg"></div>
-                </div>
-            </div>
+            <p class="text-center">Cargando</p>
         </div>
     </div>
-
-    <!--<< Mouse Cursor Start >>-->
-    <div class="mouse-cursor cursor-outer"></div>
-    <div class="mouse-cursor cursor-inner"></div>
 
     <!-- Back To Top Start -->
     <button id="back-top" class="back-to-top">
@@ -101,43 +64,25 @@
                     <div class="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
                         <div class="offcanvas__logo">
                             <a href="index.html">
-                            <img src="assets/img/logo/logo.svg" alt="logo-img">
+                                <img src="assets/img/logo/logo.svg" alt="logo-img">
                             </a>
                         </div>
                         <div class="offcanvas__close">
                             <button>
-                            <i class="fas fa-times"></i>
+                                <i class="fas fa-times"></i>
                             </button>
                         </div>
                     </div>
-                    <p class="text d-none d-lg-block">
-                        This involves interactions between a business and its customers. It's about meeting customers' needs and resolving their problems. Effective customer service is crucial.
-                    </p>
-                    <div class="offcanvas-gallery-area d-none d-xl-block">
-                        <div class="offcanvas-gallery-items">
-                            <a href="assets/img/header/01.jpg" class="offcanvas-image img-popup">
-                            <img src="assets/img/header/01.jpg" alt="gallery-img">
-                            </a>
-                            <a href="assets/img/header/02.jpg" class="offcanvas-image img-popup">
-                            <img src="assets/img/header/02.jpg" alt="gallery-img">
-                            </a>
-                            <a href="assets/img/header/03.jpg" class="offcanvas-image img-popup">
-                            <img src="assets/img/header/03.jpg" alt="gallery-img">
-                            </a>
-                        </div>
-                        <div class="offcanvas-gallery-items">
-                            <a href="assets/img/header/04.jpg" class="offcanvas-image img-popup">
-                            <img src="assets/img/header/04.jpg" alt="gallery-img">
-                            </a>
-                            <a href="assets/img/header/05.jpg" class="offcanvas-image img-popup">
-                            <img src="assets/img/header/05.jpg" alt="gallery-img">
-                            </a>
-                            <a href="assets/img/header/06.jpg" class="offcanvas-image img-popup">
-                            <img src="assets/img/header/06.jpg" alt="gallery-img">
-                            </a>
-                        </div>
+                    <div class="offcanvas__custom-menu d-xl-none">
+                        <a href="index.html" class="offcanvas__menu-btn">Inicio</a>
+                        <a href="my-account.html" class="offcanvas__menu-btn">Mi Cuenta</a>
                     </div>
-                    <div class="mobile-menu fix mb-3"></div>
+                    <div class="offcanvas__navigation">
+                        <div class="mobile-menu fix mb-3"></div>
+                    </div>
+                    <p class="text d-none d-lg-block">
+                        Somos Freddy's Pizza, una pizzería familiar con la mejor calidad artesanal, donde nuestra prioridad es ofrecer el mejor sabor al mejor precio.
+                    </p>
                     <div class="offcanvas__contact">
                         <h4>Contact Info</h4>
                         <ul>
@@ -146,7 +91,7 @@
                                     <i class="fal fa-map-marker-alt"></i>
                                 </div>
                                 <div class="offcanvas__contact-text">
-                                    <a target="_blank" href="#">Main Street, Melbourne, Australia</a>
+                                    <a target="_blank" href="#">Fray Daniel Mireles 2514, Leon, Guanajuato, Mexico</a>
                                 </div>
                             </li>
                             <li class="d-flex align-items-center">
@@ -154,7 +99,7 @@
                                     <i class="fal fa-envelope"></i>
                                 </div>
                                 <div class="offcanvas__contact-text">
-                                    <a href="tel:+013-003-003-9993"><span class="mailto:info@enofik.com">info@fresheat.com</span></a>
+                                    <a href="tel:+4775780426"><span>freddyspizzaoficial@gmail.com</span></a>
                                 </div>
                             </li>
                             <li class="d-flex align-items-center">
@@ -162,7 +107,7 @@
                                     <i class="fal fa-clock"></i>
                                 </div>
                                 <div class="offcanvas__contact-text">
-                                    <a target="_blank" href="#">Mod-friday, 09am -05pm</a>
+                                    <a target="_blank" href="#">Martes a Viernes 2PM - 9PM <br> Sabado y Domingo 1PM a 11:50PM</a>
                                 </div>
                             </li>
                             <li class="d-flex align-items-center">
@@ -170,23 +115,17 @@
                                     <i class="far fa-phone"></i>
                                 </div>
                                 <div class="offcanvas__contact-text">
-                                    <a href="tel:+11002345909">+11002345909</a>
+                                    <a href="tel:+11002345909">4775780426</a>
                                 </div>
                             </li>
                         </ul>
                         <div class="header-button mt-4">
                             <a href="shop.html" class="theme-btn">
-                            <span class="button-content-wrapper d-flex align-items-center justify-content-center">
-                            <span class="button-icon"><i class="fa-sharp fa-regular fa-cart-shopping bg-transparent text-white me-2"></i></span>
-                            <span class="button-text">ORDER NOW</span>
-                            </span>
+                                <span class="button-content-wrapper d-flex align-items-center justify-content-center">
+                                    <span class="button-icon"><i class="fa-sharp fa-regular fa-cart-shopping bg-transparent text-white me-2"></i></span>
+                                    <span class="button-text">ORDENE AHORA!</span>
+                                </span>
                             </a>
-                        </div>
-                        <div class="social-icon d-flex align-items-center">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>
@@ -196,237 +135,36 @@
     <div class="offcanvas__overlay"></div>
 
     <!-- Header Section Start -->
-    <header class="header-section">
-        <div class="black-bg"></div>
-        <div class="red-bg"></div>
-        <div class="container-fluid">
+    <header class="header-section-3 dark-mood" style="background-image: url('assets/img/bg/bannerBG3_1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+        <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, #010F1C 0%, rgba(1, 15, 28, 0.75) 100%); z-index: 0;"></div>
+        <div class="container-fluid" style="position: relative; z-index: 1;">
             <div class="main-header-wrapper">
-                <div class="logo-image">
-                    <a href="index.html">
-                        <img src="assets/img/logo/logo.svg" alt="img">
-                    </a>
-                </div>
                 <div class="main-header-items">
-                    <div class="header-top-wrapper">
-                        <span><i class="fa-regular fa-clock"></i> 09:00 am - 06:00 pm</span>
-                        <div class="social-icon d-flex align-items-center">
-                            <span>Follow Us:</span>
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div id="header-sticky" class="header-1">
+                    <div id="header-sticky" class="header-3">
                         <div class="mega-menu-wrapper">
                             <div class="header-main">
-                                <div class="logo">
-                                    <a href="index.html" class="header-logo">
-                                        <img src="assets/img/logo/logo.svg" alt="logo-img">
-                                    </a>
-                                </div>
                                 <div class="header-left">
+                                    <div class="header__hamburger d-xl-block my-auto">
+                                        <div class="sidebar__toggle">
+                                            <i class="fas fa-bars"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="header-middle">
                                     <div class="mean__menu-wrapper">
                                         <div class="main-menu">
                                             <nav id="mobile-menu">
                                                 <ul>
-                                                    <li class="has-dropdown active menu-thumb">
-                                                        <a href="index.html">
-                                                            Home
-                                                            <i class="fa-regular fa-plus"></i>
-                                                        </a>
-                                                        <ul class="submenu has-homemenu">
-                                                            <li>
-                                                                <div class="homemenu-items">
-                                                                    <div class="homemenu">
-                                                                        <div class="homemenu-thumb">
-                                                                            <img src="assets/img/header/home1.jpg"
-                                                                                alt="img">
-                                                                            <div class="demo-button">
-                                                                                <a href="index.html" class="theme-btn">
-                                                                                    Multi Page
-                                                                                </a>
-                                                                                <a href="index-one-page.html"
-                                                                                    class="theme-btn">
-                                                                                    One Page
-                                                                                </a>
-                                                                                <a href="index-dark.html"
-                                                                                    class="theme-btn">
-                                                                                    Dark Page
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="homemenu-content text-center">
-                                                                            <h4 class="homemenu-title">
-                                                                                Home 01
-                                                                            </h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="homemenu">
-                                                                        <div class="homemenu-thumb mb-15">
-                                                                            <img src="assets/img/header/home2.jpg"
-                                                                                alt="img">
-                                                                            <div class="demo-button">
-                                                                                <a href="index-2.html"
-                                                                                    class="theme-btn">
-                                                                                    Multi Page
-                                                                                </a>
-                                                                                <a href="index-two-page.html"
-                                                                                    class="theme-btn">
-                                                                                    One Page
-                                                                                </a>
-                                                                                <a href="index-2-dark.html"
-                                                                                    class="theme-btn">
-                                                                                    Dark Page
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="homemenu-content text-center">
-                                                                            <h4 class="homemenu-title">
-                                                                                Home 02
-                                                                            </h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="homemenu">
-                                                                        <div class="homemenu-thumb mb-15">
-                                                                            <img src="assets/img/header/home3.jpg"
-                                                                                alt="img">
-                                                                            <div class="demo-button">
-                                                                                <a href="index-3.html"
-                                                                                    class="theme-btn">
-                                                                                    Multi Page
-                                                                                </a>
-                                                                                <a href="index-three-page.html"
-                                                                                    class="theme-btn">
-                                                                                    One Page
-                                                                                </a>
-                                                                                <a href="index-3-dark.html"
-                                                                                    class="theme-btn">
-                                                                                    Dark Page
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="homemenu-content text-center">
-                                                                            <h4 class="homemenu-title">
-                                                                                Home 03
-                                                                            </h4>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
+                                                    <li class="main-nav-item d-xl-block d-none">
+                                                        <a href="index.html">Inicio</a>
                                                     </li>
-                                                    <li class="has-dropdown active d-xl-none">
-                                                        <a href="index.html" class="border-none">
-                                                            Home
-                                                            <i class="fa-regular fa-plus"></i>
-                                                        </a>
-                                                        <ul class="submenu">
-                                                            <li><a href="index.html">Home 01</a></li>
-                                                            <li><a href="index-2.html">Home 02</a></li>
-                                                            <li><a href="index-3.html">Home 03</a></li>
-                                                        </ul>
+                                                    <li class="logo-item d-none d-xl-block">
+                                                        <div class="logo-image">
+                                                            <a href="index.html"><img src="assets/img/logo/logo-light.png" alt="Freddy's Logo"></a>
+                                                        </div>
                                                     </li>
-                                                    <li class="has-dropdown">
-                                                        <a href="about.html">
-                                                            About Us
-                                                            <i class="fa-regular fa-plus"></i>
-                                                        </a>
-                                                        <ul class="submenu">
-                                                            <li><a href="about.html">About Us 01</a></li>
-                                                            <li><a href="about-2.html">About Us 02</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <a href="shop.html">
-                                                            Shop
-                                                            <i class="fa-regular fa-plus"></i>
-                                                        </a>
-                                                        <ul class="submenu">
-                                                            <li><a href="shop.html">Shop</a></li>
-                                                            <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a>
-                                                            </li>
-                                                            <li><a href="shop-list.html">Shop List</a></li>
-                                                            <li><a href="shop-list-right-sidebar.html">Shop List Right
-                                                                    Sidebar</a></li>
-                                                            <li><a href="shop-details.html">Shop Details</a></li>
-                                                            <li><a href="cart.html">Cart List</a></li>
-                                                            <li><a href="checkout.html">Checkout</a></li>
-                                                            <li><a href="wishlist.html">Wishlist</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="has-dropdown">
-                                                        <a href="#">
-                                                            Pages
-                                                            <i class="fa-regular fa-plus"></i>
-                                                        </a>
-                                                        <ul class="submenu">
-                                                            <li class="has-dropdown">
-                                                                <a href="chef.html">
-                                                                    Chef
-                                                                    <i class="fas fa-angle-down"></i>
-                                                                </a>
-                                                                <ul class="submenu">
-                                                                    <li><a href="chef.html">Chef</a></li>
-                                                                    <li><a href="chef-details.html">Chef Details 01</a>
-                                                                    </li>
-                                                                    <li><a href="chef-details2.html">Chef Details 02</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="has-dropdown">
-                                                                <a href="menu.html">
-                                                                    Food Menu
-                                                                    <i class="fas fa-angle-down"></i>
-                                                                </a>
-                                                                <ul class="submenu">
-                                                                    <li><a href="menu.html">Food Menu 01</a></li>
-                                                                    <li><a href="menu2.html">Food Menu 02</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li><a href="gallery.html">Gallery</a></li>
-                                                            <li class="has-dropdown">
-                                                                <a href="services.html">
-                                                                    Services
-                                                                    <i class="fas fa-angle-down"></i>
-                                                                </a>
-                                                                <ul class="submenu">
-                                                                    <li><a href="services.html">Services</a> </li>
-                                                                    <li><a href="service-details.html">Service  Details</a></li>
-                                                                </ul>
-                                                            </li>
-
-                                                            <li><a href="testimonials.html">Testimonials</a></li>
-                                                            <li><a href="reservation.html">Reservation</a></li> 
-                                                            <li><a href="faq.html">Faq's</a></li>
-                                                            <li><a href="account.html">My Account</a></li>
-                                                            <li><a href="404.html">404 Page</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <a href="blog.html">
-                                                            Blog
-                                                            <i class="fa-regular fa-plus"></i>
-                                                        </a>
-                                                        <ul class="submenu">
-                                                            <li><a href="blog.html">Blog</a></li>
-                                                            <li><a href="blog-standard.html">Blog Standard</a></li>
-                                                            <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a>
-                                                            </li>
-                                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <a href="contact.html">
-                                                            Contact Us
-                                                            <i class="fa-regular fa-plus"></i>
-                                                        </a>
-                                                        <ul class="submenu">
-                                                            <li><a href="contact.html">Contact Us 01</a></li>
-                                                            <li><a href="contact2.html">Contact Us 02</a></li>
-                                                        </ul>
+                                                    <li class="main-nav-item d-xl-block d-none">
+                                                        <a href="my-account.html">Mi Cuenta</a>
                                                     </li>
                                                 </ul>
                                             </nav>
@@ -434,82 +172,18 @@
                                     </div>
                                 </div>
                                 <div class="header-right d-flex justify-content-end align-items-center">
-                                    <a href="#0" class="search-trigger search-icon"><i class="fal fa-search"></i></a>
-
-                                    <div class="header__cart">
-                                        <a href="#"> <i class="fa-sharp fa-regular fa-cart-shopping"></i> </a>
-                                        <div class="header__right__dropdown__wrapper">
-                                            <div class="header__right__dropdown__inner">
-                                                <div class="single__header__right__dropdown">
-    
-                                                    <div class="header__right__dropdown__img">
-                                                        <a href="#">
-                                                            <img loading="lazy" src="assets/img/blog/blogRecentThumb3_1.png" alt="photo">
-                                                        </a>
-                                                    </div>
-                                                    <div class="header__right__dropdown__content">
-    
-                                                        <a href="shop.html">Fried Chicken</a>
-                                                        <p>1 x <span class="price">$ 80.00</span></p>
-    
-                                                    </div>
-                                                    <div class="header__right__dropdown__close">
-                                                        <a href="#"><i class="icofont-close-line"></i></a>
-                                                    </div>
-                                                </div>
-    
-                                                <div class="single__header__right__dropdown">
-    
-                                                    <div class="header__right__dropdown__img">
-                                                        <a href="#">
-                                                            <img loading="lazy" src="assets/img/blog/blogRecentThumb3_2.png" alt="photo">
-                                                        </a>
-                                                    </div>
-                                                    <div class="header__right__dropdown__content">
-    
-                                                        <a href="shop.html">Fried Noodles</a>
-                                                        <p>1 x <span class="price">$ 60.00</span></p>
-    
-                                                    </div>
-                                                    <div class="header__right__dropdown__close">
-                                                        <a href="#"><i class="icofont-close-line"></i></a>
-                                                    </div>
-                                                </div>
-    
-                                                <div class="single__header__right__dropdown">
-    
-                                                    <div class="header__right__dropdown__img">
-                                                        <a href="#">
-                                                            <img loading="lazy" src="assets/img/blog/blogRecentThumb3_3.png" alt="photo">
-                                                        </a>
-                                                    </div>
-                                                    <div class="header__right__dropdown__content">
-    
-                                                        <a href="shop.html">Special Pasta</a>
-                                                        <p>1 x <span class="price">$ 70.00</span></p>
-    
-                                                    </div>
-                                                    <div class="header__right__dropdown__close">
-                                                        <a href="#"><i class="icofont-close-line"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-    
-                                            <p class="dropdown__price">Total: <span>$1,100.00</span>
-                                            </p>
-                                            <div class="header__right__dropdown__button">
-                                                <a href="cart.html" class="theme-btn mb-2">View Cart</a>
-                                                <a href="checkout.html" class="theme-btn style3">Checkout</a>
-                                            </div>
-                                        </div>
+                                    <!-- Google Sign-In -->
+                                    <div id="google-signin-container" class="google-signin-container">
+                                        <button class="custom-google-btn" onclick="window.location.href='/auth/google'">
+                                            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                                            <span>Acceder con Google</span>
+                                        </button>
                                     </div>
-
-                                    <a class="theme-btn" href="menu.html">ORDER NOW <i
-                                            class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                                    <div class="header__hamburger d-xl-block my-auto">
-                                        <div class="sidebar__toggle">
-                                            <i class="fas fa-bars"></i>
-                                        </div>
+                                    <!-- Carrito -->
+                                    <div class="header__cart">
+                                        <a href="#" id="cart-icon-link">
+                                            <i class="fa-sharp fa-regular fa-cart-shopping"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -520,323 +194,238 @@
         </div>
     </header>
 
-
-    <!-- Search Area Start -->
-    <div class="search-wrap">
-        <div class="search-inner">
-            <i class="fas fa-times search-close" id="search-close"></i>
-            <div class="search-cell">
-                <form method="get">
-                    <div class="search-field-holder">
-                        <input type="search" class="main-search-input" placeholder="Search...">
-                    </div>
-                </form>
-            </div>
+    <!-- Cart Panel -->
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-header">
+            <h3>Tu Carrito</h3>
+            <button class="cart-close-btn" id="cartCloseBtn">X</button>
         </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Los ítems se añadirán dinámicamente con JavaScript -->
+        </div>
+        <div class="cart-total" id="cartTotal">Total: $0.00</div>
+        <form class="cart-form mt-4">
+            <div class="mb-3">
+                <label for="customerName" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="customerName" required>
+            </div>
+            <div class="mb-3">
+                <label for="customerAddress" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="customerAddress" required>
+                <button type="button" class="add-address-btn" id="addAddressBtn" style="display: none;">Añadir otra dirección</button>
+                <input type="hidden" id="latitude">
+                <input type="hidden" id="longitude">
+            </div>
+            <div class="mb-3">
+                <label for="customerPhone" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="customerPhone" required>
+            </div>
+            <div class="payment-options">
+                <label for="paymentMethod" class="form-label">Método de Pago</label>
+                <select class="payment-method-select" id="paymentMethod">
+                    <option value="">Seleccionar método de pago</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="mercadopago">Mercado Pago</option>
+                </select>
+            </div>
+            <div id="paypal-button-container" class="mt-3" style="display: none;"></div>
+            <div id="wallet_container" class="mt-3" style="display: none;"></div>
+        </form>
     </div>
 
-    <!-- Breadcumb Section   S T A R T -->
-    <div class="breadcumb-section">
-        <div class="breadcumb-wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="breadcumb-content">
-                            <h1 class="breadcumb-title">My Account</h1>
-                            <ul class="breadcumb-menu">
-                                <li><a href="index.html">Home</a></li>
-                                <li class="text-white">/</li>
-                                <li class="active">My Account</li>
-                            </ul>
+    <!-- Account Section Start -->
+    <section class="account-section section-padding" style="background-color: #5C6574; color: #FFFFFF;">
+        <div class="container" style="background-color: #5C6574; padding: 20px; border-radius: 10px; border: 2px solid #373737;">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Not Logged In State -->
+                    <div id="notLoggedIn" class="account-not-logged text-center" style="background-color: #5C6574; padding: 20px; border-radius: 10px; border: 2px solid #373737;">
+                        <div class="account-not-logged-content">
+                            <i class="fas fa-user-lock mb-4" style="font-size: 4rem; color: #5C6574;"></i>
+                            <h2 class="mb-3" style="color: #FFFFFF;">Acceso Requerido</h2>
+                            <p class="mb-4" style="color: #CCCCCC;">Para acceder a tu cuenta y ver tu historial de pedidos, direcciones y telefonos, por favor inicia sesion con Google.</p>
+                            <button class="custom-google-btn" onclick="window.location.href='/auth/google'" style="background-color: #5C6574; color: #FFFFFF; padding: 10px 20px; border: 2px solid #373737; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: bold;">
+                                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="margin-right: 10px; width: 20px;">
+                                <span>Iniciar Sesión con Google</span>
+                            </button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-
-
-
-    <!-- Account Section    S T A R T -->
-    <div class="account-section section-padding fix">
-        <div class="container">
-            <div class="account-wrapper bg-white p-1 p-sm-4">
-                <div class="row gx-40 gy-5 gy-md-0">
-                    <div class="col-lg-6">
-                        <div class="account-card bg-color2 p-3 p-sm-5">
-                            <div class="logo text-center">
-                                <img src="assets/img/logo/accountLogo.png" alt="logo">
-                            </div>
-                            <h3>Welcome Back</h3>
-                            <p>Please Enter Your Details</p>
-                            <div class="contact-form style2 bg-color2 p-0">
-                                <form class="row" action="#">
-                                    <div class="col-12">
-                                        <input type="email" placeholder="Email">
+                    <!-- Logged In State -->
+                    <div id="loggedIn" class="account-content" style="display: none;">
+                        <div class="row">
+                            <!-- Sidebar Navigation -->
+                            <div class="col-lg-3">
+                                <div class="account-sidebar">
+                                    <div class="account-user-info mb-4">
+                                        <div class="user-avatar">
+                                            <img id="userAvatar" src="" alt="User Avatar">
+                                        </div>
+                                        <h3 id="userName" class="mt-3"></h3>
+                                        <p id="userEmail"></p>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-ctl">
-                                            <input type="password" placeholder="Password">
-                                            <div class="icon"><i class="fa-sharp fa-solid fa-eye-slash"></i></div>
+                                    <ul class="account-menu">
+                                        <li class="active" data-tab="orders">
+                                            <a href="#"><i class="fas fa-shopping-bag"></i> Mis Pedidos</a>
+                                        </li>
+                                        <li data-tab="addresses">
+                                            <a href="#"><i class="fas fa-map-marker-alt"></i> Mis Direcciones</a>
+                                        </li>
+                                        <li data-tab="phones">
+                                            <a href="#"><i class="fas fa-phone"></i> Mis Teléfonos</a>
+                                        </li>
+                                        <li data-tab="settings">
+                                            <a href="#"><i class="fas fa-cog"></i> Configuración</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Main Content -->
+                            <div class="col-lg-9">
+                                <!-- Orders Tab -->
+                                <div class="account-tab-content active" id="orders-tab">
+                                    <div class="account-tab-header">
+                                        <h2>Mis Pedidos</h2>
+                                        <div class="order-filters">
+                                            <select class="form-select" id="orderFilter">
+                                                <option value="all">Todos los pedidos</option>
+                                                <option value="pending">Pendientes</option>
+                                                <option value="completed">Completados</option>
+                                                <option value="cancelled">Cancelados</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="col-6 form-group">
-                                        <input id="reviewcheck" name="reviewcheck" type="checkbox">
-                                        <label for="reviewcheck">Remember For 30 days<span
-                                                class="checkmark"></span></label>
+                                    <div class="orders-table">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID Pedido</th>
+                                                    <th>Fecha</th>
+                                                    <th>Total</th>
+                                                    <th>Estado</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ordersList">
+                                                <!-- Orders will be populated here -->
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="col-6 d-flex justify-content-end">
-                                        <a href="#" class="text-theme-color">Forgot Password?</a>
-                                    </div>
-                                    <div class="col-12">
-                                        <button type="submit" class="theme-btn rounded-5 w-100 mb-3">Log In</button>
-                                    </div>
-                                    <div class="col-12">
-                                        <a href="https://www.google.com"
-                                            class="theme-btn rounded-5 w-100 bg-white text-center text-title fw-bold"><img
-                                                class="me-2" src="assets/img/logo/googleLogo.png" alt="logo"> Log In
-                                            With Google</a>
-                                    </div>
-                                </form>
+                                </div>
 
-                                <h6>Don’t have an account? <a href="#" class="text-theme-color">Sign Up</a></h6>
+                                <!-- Addresses Tab -->
+                                <div class="account-tab-content" id="addresses-tab">
+                                    <div class="account-tab-header">
+                                        <h2>Mis Direcciones</h2>
+                                        <button class="theme-btn" id="addAddressBtn">
+                                            <i class="fas fa-plus"></i> Añadir Dirección
+                                        </button>
+                                    </div>
+                                    <div class="addresses-grid" id="addressesList">
+                                        <!-- Addresses will be populated here -->
+                                    </div>
+                                </div>
+
+                                <!-- Phones Tab -->
+                                <div class="account-tab-content" id="phones-tab">
+                                    <div class="account-tab-header">
+                                        <h2>Mis Teléfonos</h2>
+                                        <button class="theme-btn" id="addPhoneBtn">
+                                            <i class="fas fa-plus"></i> Añadir Teléfono
+                                        </button>
+                                    </div>
+                                    <div class="phones-list" id="phonesList">
+                                        <!-- Phones will be populated here -->
+                                    </div>
+                                </div>
+
+                                <!-- Settings Tab -->
+                                <div class="account-tab-content" id="settings-tab">
+                                    <div class="account-tab-header">
+                                        <h2>Configuración</h2>
+                                    </div>
+                                    <div class="settings-form">
+                                        <div class="form-group">
+                                            <label>Notificaciones</label>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="emailNotifications">
+                                                <label class="form-check-label" for="emailNotifications">Notificaciones por correo</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="smsNotifications">
+                                                <label class="form-check-label" for="smsNotifications">Notificaciones por SMS</label>
+                                            </div>
+                                        </div>
+                                        <button class="theme-btn" id="saveSettings">Guardar Cambios</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                        <div class="account-thumb">
-                            <img src="assets/img/profile/profile.png" alt="img">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-
-    <!-- Footer Section    S T A R T -->
+    <!-- Footer Section -->
     <footer class="footer-section bg-title fix">
-        <div class="footer-widgets-wrapper">
-            <div class="shape1 float-bob-y d-none d-xxl-block"><img src="assets/img/shape/footerShape1_1.png"
-                    alt="shape"></div>
-            <div class="shape2 d-none d-xxl-block"><img src="assets/img/shape/footerShape1_2.png" alt="shape"></div>
-            <div class="shape3 d-none d-xxl-block"><img src="assets/img/shape/footerShape1_3.png" alt="shape"></div>
-            <div class="shape4  d-none d-xxl-block"><img src="assets/img/shape/footerShape1_4.png" alt="shape"></div>
-            <div class="container">
-                <div class="footer-top">
-                    <div class="row gy-4">
-                        <div class="col-lg-4">
-                            <div class="fancy-box">
-                                <div class="item1"><i class="fa-solid fa-location-dot"></i></div>
-                                <div class="item2">
-                                    <h6>address</h6>
-                                    <p>4648 Rocky Road Philadelphia </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 d-flex justify-content-start justify-content-lg-end">
-                            <div class="fancy-box">
-                                <div class="item1"><i class="fa-solid fa-envelope"></i></div>
-                                <div class="item2">
-                                    <h6>send email</h6>
-                                    <p>info@exmple.com</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 d-flex justify-content-start justify-content-lg-end">
-                            <div class="fancy-box">
-                                <div class="item1"><i class="fa-regular fa-phone-volume"></i></div>
-                                <div class="item2">
-                                    <h6>call emergency</h6>
-                                    <p>+88 0123 654 99</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".2s">
-                        <div class="single-footer-widget">
-                            <div class="widget-head">
-                                <a href="index.html">
-                                    <img src="assets/img/logo/logoWhite.svg" alt="logo-img">
-                                </a>
-                            </div>
-                            <div class="footer-content">
-                                <p>
-                                    Phasellus ultricies aliquam volutpat ullamcorper laoreet neque, a lacinia
-                                    curabitur
-                                    lacinia mollis
-                                </p>
-                                <div class="social-icon d-flex align-items-center">
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 ps-xl-5 wow fadeInUp" data-wow-delay=".4s">
-                        <div class="single-footer-widget">
-                            <div class="widget-head">
-                                <h3>Quick Links</h3>
-                            </div>
-                            <ul class="list-area">
-                                <li>
-                                    <a href="about.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        About Us
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="gallery.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Our Gallery
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Our Blogs
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="faq.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        FAQ’S
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="contact.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Contact Us
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 ps-xl-5 wow fadeInUp" data-wow-delay=".4s">
-                        <div class="single-footer-widget">
-                            <div class="widget-head">
-                                <h3>Our Menu</h3>
-                            </div>
-                            <ul class="list-area">
-                                <li>
-                                    <a href="menu.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Burger King
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="menu.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Pizza king
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="menu.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Fresh Food
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="menu.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Vegetable
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="menu.html">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Desserts
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 ps-xl-5 wow fadeInUp" data-wow-delay=".4s">
-                        <div class="single-footer-widget">
-                            <div class="widget-head">
-                                <h3>Contact Us</h3>
-                            </div>
-                            <ul class="list-area">
-                                <li class="mb-2">
-                                    Monday – Friday: <span class="text-theme-color2"> 8am – 4pm </span>
-                                </li>
-                                <li>
-                                    Saturday: <span class="text-theme-color2"> 8am – 12am </span>
-                                </li>
-                            </ul>
-                            <form action="#" class="mt-4">
-                                <div class="form-control">
-                                    <input class="email" type="email" placeholder="Your email address">
-                                    <button type="submit" class="submit-btn"><i
-                                            class="fa-solid fa-arrow-right-long"></i></button>
-                                </div>
-                                <div class="form-control style2 mt-3">
-                                    <input id="checkbox" name="checkbox" type="checkbox">
-                                    <label for="checkbox">I agree to the <a href="contact.html">Privacy Policy.
-                                        </a></label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="footer-bottom">
             <div class="container">
                 <div class="footer-wrapper d-flex align-items-center justify-content-between">
                     <p class="wow fadeInLeft" data-wow-delay=".3s">
-                        © All Copyright 2024 by <a href="index.html">FreshEat</a>
+                        © Gracias por Comprar en <a href="index.html">Freddy's Pizza</a>
                     </p>
-                    <ul class="brand-logo wow fadeInRight" data-wow-delay=".5s">
-                        <li>
-                            <a class="text-white" href="contact.html">
-                                Terms & Condition
-                            </a>
-                        </li>
-                        <li>
-                            <a class="text-white" href="contact.html">
-                                Privacy Policy
-                            </a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
     </footer>
 
-
-
-
-    <!--<< All JS Plugins >>-->
+    <!-- All JS Plugins -->
     <script src="assets/js/jquery-3.7.1.min.js"></script>
-    <!--<< Bootstrap Js >>-->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <!--<< Waypoints Js >>-->
     <script src="assets/js/jquery.waypoints.js"></script>
-    <!--<< Counterup Js >>-->
     <script src="assets/js/jquery.counterup.min.js"></script>
-    <!--<< Viewport Js >>-->
     <script src="assets/js/viewport.jquery.js"></script>
-    <!--<< Magnific popup Js >>-->
     <script src="assets/js/magnific-popup.min.js"></script>
-    <!--<< Tilt Js >>-->
     <script src="assets/js/tilt.min.js"></script>
-    <!--<< Swiper Slider Js >>-->
     <script src="assets/js/swiper-bundle.min.js"></script>
-    <!--<< MeanMenu Js >>-->
     <script src="assets/js/jquery.meanmenu.min.js"></script>
-    <!--<< Wow Animation Js >>-->
     <script src="assets/js/wow.min.js"></script>
-    <!--<< Nice Select Js >>-->
     <script src="assets/js/nice-select.min.js"></script>
-    <!--<< Main.js >>-->
     <script src="assets/js/main.js"></script>
-</body>
+    <!-- Custom Account JS -->
+    <script src="assets/js/account.js"></script>
+    <script>
+        // Inicializar el carrito
+        let cart = [];
+        try {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+        } catch (error) {
+            console.error('Error al cargar el carrito:', error);
+            cart = [];
+        }
 
+        // Inicializar eventos del carrito
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartIcon = document.getElementById('cartIcon');
+            const cartPanel = document.getElementById('cartPanel');
+            const cartCloseBtn = document.getElementById('cartCloseBtn');
+
+            if (cartIcon && cartPanel && cartCloseBtn) {
+                cartIcon.addEventListener('click', function() {
+                    cartPanel.style.display = 'block';
+                    updateCartDisplay();
+                });
+
+                cartCloseBtn.addEventListener('click', function() {
+                    cartPanel.style.display = 'none';
+                });
+            }
+        });
+    </script>
+</body>
 </html>

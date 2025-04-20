@@ -9,6 +9,11 @@
     top: 0;
     width: 100%;
     z-index: 9999999;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 
     .animation-preloader {
         z-index: 1000;
@@ -21,6 +26,11 @@
             height: 9em;
             margin: 0 auto 3.5em auto;
             width: 9em;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
 
             @media (max-width: 767px) {
                 width: 7.5em;
@@ -33,6 +43,9 @@
             font: bold 5em $title-font, $body-font;
             text-align: center;
             user-select: none;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            will-change: transform;
 
             @media (max-width: 767px) {
                 font-size: 2.5em;
@@ -41,6 +54,9 @@
             .letters-loading {
                 color: $theme-color;
                 position: relative;
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+                will-change: transform;
 
                 &:nth-child(2):before {
                     animation-delay: 0.2s;
@@ -79,7 +95,11 @@
                     font-family: $title-font;
                     position: absolute;
                     top: -3px;
-                    transform: rotateY(-90deg);
+                    transform: rotateY(-90deg) translateZ(0);
+                    -webkit-transform: rotateY(-90deg) translateZ(0);
+                    will-change: transform, opacity;
+                    backface-visibility: hidden;
+                    -webkit-backface-visibility: hidden;
                 }
             }
         }
@@ -123,23 +143,19 @@
     &.loaded {
         .animation-preloader {
             opacity: 0;
-            transition: 0.3s ease-out;
+            transition: opacity 0.3s ease-out;
+            -webkit-transition: opacity 0.3s ease-out;
         }
 
         .loader-section {
             .bg {
                 width: 0;
-                transition: 0.7s;
-                -webkit-transition: 0.7s;
-                -moz-transition: 0.7s;
-                -ms-transition: 0.7s;
-                -o-transition: 0.7s;
+                transition: width 0.5s ease-out;
+                -webkit-transition: width 0.5s ease-out;
             }
         }
     }
 }
-
-
 
 .back-to-top {
     border-radius: 12px;
@@ -154,18 +170,26 @@
     z-index: 99;
     right: 30px;
     bottom: 30px;
-    @include transition;
+    transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(20px);
+    transform: translateY(20px) translateZ(0);
+    -webkit-transform: translateY(20px) translateZ(0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 
     &:hover {
         background-color: $title-color;
+        transform: translateY(-2px) translateZ(0);
+        -webkit-transform: translateY(-2px) translateZ(0);
     }
 
     &.show {
         opacity: 1;
         visibility: visible;
-        transform: translate(0);
+        transform: translateY(0) translateZ(0);
+        -webkit-transform: translateY(0) translateZ(0);
     }
 }
