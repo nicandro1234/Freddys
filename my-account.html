@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="assets/css/account.css">
 </head>
 
-<body class="dark-mood" style="background-color: #2b2b2b; color: #FFFFFF;">
+<body class="dark-mood" style="background-color: #2b2b2b; color: #fff;">
     <!-- Preloader Start -->
     <div id="preloader" class="preloader">
         <div class="animation-preloader">
@@ -174,7 +174,7 @@
                                 <div class="header-right d-flex justify-content-end align-items-center">
                                     <!-- Google Sign-In -->
                                     <div id="google-signin-container" class="google-signin-container">
-                                        <button class="custom-google-btn" onclick="window.location.href='/auth/google'">
+                                        <button class="custom-google-btn" onclick="window.location.href='https://freddys.com.mx/auth/google_auth.php'">
                                             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
                                             <span>Acceder con Google</span>
                                         </button>
@@ -234,17 +234,17 @@
     </div>
 
     <!-- Account Section Start -->
-    <section class="account-section section-padding" style="background-color: #5C6574; color: #FFFFFF;">
-        <div class="container" style="background-color: #5C6574; padding: 20px; border-radius: 10px; border: 2px solid #373737;">
+    <section class="account-section section-padding" style="background-color: #181818; color: #FFFFFF;">
+        <div class="container" style="background-color: #181818; padding: 20px;;">
             <div class="row">
                 <div class="col-12">
                     <!-- Not Logged In State -->
-                    <div id="notLoggedIn" class="account-not-logged text-center" style="background-color: #5C6574; padding: 20px; border-radius: 10px; border: 2px solid #373737;">
+                    <div id="notLoggedIn" class="account-not-logged text-center" style="background-color: #2b2b2b; padding: 20px; border-radius: 10px; border: 2px solid #02142A;">
                         <div class="account-not-logged-content">
-                            <i class="fas fa-user-lock mb-4" style="font-size: 4rem; color: #5C6574;"></i>
+                            <i class="fas fa-user-lock mb-4" style="font-size: 4rem; color: #02142A;"></i>
                             <h2 class="mb-3" style="color: #FFFFFF;">Acceso Requerido</h2>
                             <p class="mb-4" style="color: #CCCCCC;">Para acceder a tu cuenta y ver tu historial de pedidos, direcciones y telefonos, por favor inicia sesion con Google.</p>
-                            <button class="custom-google-btn" onclick="window.location.href='/auth/google'" style="background-color: #5C6574; color: #FFFFFF; padding: 10px 20px; border: 2px solid #373737; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: bold;">
+                            <button class="custom-google-btn" onclick="window.location.href='https://freddys.com.mx/auth/google_auth.php'" style="background-color: #02142A; color: #fff; padding: 10px 20px; border: 2px solid #02142A; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: bold; margin: 0 auto; width: fit-content;">
                                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="margin-right: 10px; width: 20px;">
                                 <span>Iniciar Sesión con Google</span>
                             </button>
@@ -426,6 +426,24 @@
                 });
             }
         });
+
+        function handleCredentialResponse(response) {
+            console.log("ID Token: " + response.credential);
+            // Enviar el token al backend para verificación, e.g., window.location.href = '/auth/google?credential=' + response.credential;
+            alert('Inicio de sesión exitoso! Redirigiendo...');
+            // Aquí puedes redirigir o manejar la lógica del lado del cliente
+        }
+        window.onload = function() {
+            google.accounts.id.initialize({
+                client_id: "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",
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById('google-signin-container'),
+                { theme: 'outline', size: 'large', text: 'signin_with' }
+            );
+            // Renderizar para el botón en notLoggedIn si es necesario, o usa el mismo contenedor
+        };
     </script>
 </body>
 </html>

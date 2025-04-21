@@ -1,0 +1,13 @@
+# Ignorar archivos de configuración y sensibles
+.env
+.env.php
+# Ignorar dependencias de Composer
+/vendor/
+
+# Ignorar archivos temporales y logs
+*.log
+*.tmp
+
+# Ignorar otros archivos comunes en PHP
+.DS_Store
+Thumbs.db 
