@@ -1,2 +1,58 @@
 RewriteEngine On
-RewriteRule ^auth/google$ auth/google_auth.php [L] 
+RewriteRule ^auth/google$ auth/google_auth.php [L]
+
+# Procesar archivos HTML con PHP - método alternativo más fiable
+<Files ~ "\.html$">
+    AddHandler application/x-httpd-php .html
+</Files>
+
+# Redirigir a HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redirección específica para index.php a la raíz del sitio
+RewriteRule ^index\.php$ / [R=301,L]
+
+# Forzar el uso de index.html como página principal
+DirectoryIndex index.html index.htm index.php
+
+# Ocultar extensiones de archivo
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+# Prevenir acceso directo a archivos .html
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.html [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# Manejar errores
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+
+# Comprimir archivos
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Caché del navegador
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    ExpiresByType text/html "access plus 1 week"
+    ExpiresByType application/xhtml+xml "access plus 1 week"
+</IfModule> 

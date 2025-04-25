@@ -13,10 +13,13 @@
     <title>Freddys Pizza</title>
     <!--<< Favicon >>-->
     <link rel="shortcut icon" href="assets/img/favicon.png">
+    
+    <!--<< Incluir configuración PHP >>-->
+    <?php include_once 'header-include.php'; ?>
+    
     <!-- Google Sign in -->
-    <script src="https://accounts.google.com/gsi/client" async></script>
-     <!-- Google Maps para autocompletado (reemplaza YOUR_GOOGLE_MAPS_API_KEY) -->
-     <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&loading=async"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
     <!--<< Bootstrap min.css >>-->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!--<< All Min Css >>-->
@@ -33,12 +36,8 @@
     <link rel="stylesheet" href="assets/css/nice-select.css">
     <!--<< Main.css >>-->
     <link rel="stylesheet" href="assets/css/main.css">
-     <!-- Mercado Pago SDK -->
-     <script src="https://sdk.mercadopago.com/js/v2"></script>
-     <!-- PayPal SDK (reemplaza YOUR_PAYPAL_CLIENT_ID) -->
-     <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=MXN"></script>
 
-         <!--<< All JS Plugins >>-->
+    <!--<< jQuery >>-->
     <script src="assets/js/jquery-3.7.1.min.js"></script>
     <!--<< Bootstrap Js >>-->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
@@ -60,9 +59,80 @@
     <script src="assets/js/wow.min.js"></script>
     <!--<< Nice Select Js >>-->
     <script src="assets/js/nice-select.min.js"></script>
+
+    <!-- Placeholder para SDKs que serán reemplazados por JS -->
+    <div id="payment-sdks-container"></div>
+    
+    <!--<< Auth.js >>-->
+    <script src="assets/js/auth.js"></script>
     <!--<< Main.js >>-->
     <script src="assets/js/main.js"></script>
- </head>
+
+    <script>
+        // Para reemplazar callbacks y evitar errores si Google Maps no carga
+        window.initMap = window.initMap || function() {
+            console.log('Inicializador Map fallback ejecutado');
+        };
+        
+        // Función para actualizar APIs y SDKs con credenciales
+        document.addEventListener('DOMContentLoaded', function() {
+            // Iniciar la aplicación cuando la configuración esté cargada
+            document.addEventListener('configLoaded', function() {
+                console.log('Configuración cargada, inicializando aplicación');
+                
+                // Actualizar PayPal
+                if (window.config && window.config.PAYPAL_CLIENT_ID) {
+                    const paypalScript = document.createElement('script');
+                    paypalScript.id = 'paypal-script';
+                    paypalScript.defer = true;
+                    paypalScript.src = `https://www.paypal.com/sdk/js?client-id=${window.config.PAYPAL_CLIENT_ID}&currency=MXN`;
+                    document.head.appendChild(paypalScript);
+                }
+                
+                // Actualizar Google Maps
+                if (window.config && window.config.GOOGLE_MAPS_API_KEY) {
+                    const mapsScript = document.createElement('script');
+                    mapsScript.id = 'maps-script';
+                    mapsScript.async = true;
+                    mapsScript.defer = true;
+                    mapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${window.config.GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
+                    document.head.appendChild(mapsScript);
+                }
+                
+                // Verificar estado de autenticación
+                if (typeof checkAuthStatus === 'function') {
+                    checkAuthStatus();
+                    // Verificar cada 5 minutos
+                    setInterval(checkAuthStatus, 300000);
+                }
+                
+                // Inicializar SDKs de pago si está disponible la función
+                if (typeof initPaymentSDKs === 'function') {
+                    initPaymentSDKs();
+                }
+            });
+            
+            // Si no se dispara el evento configLoaded en 2 segundos, intentar iniciar de todas formas
+            setTimeout(function() {
+                if (typeof window.config !== 'undefined') {
+                    console.log('Inicialización por timeout');
+                    document.dispatchEvent(new Event('configLoaded'));
+                } else {
+                    console.error('Config no está disponible después de esperar');
+                }
+            }, 2000);
+        });
+
+        // Función de inicialización de Google Maps
+        function initMap() {
+            if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
+                console.log('Google Maps API cargada correctamente');
+                // Inicializar el mapa aquí
+            } else {
+                console.error('Google Maps API no se cargó correctamente');
+            }
+        }
+    </script>
 </head>
 
 <body class="dark-mood">
@@ -245,6 +315,14 @@
                                     <button class="custom-google-btn" onclick="window.location.href='https://freddys.com.mx/auth/google_auth.php'">
                                         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
                                         <span>Acceder con Google</span>
+                                    </button>
+                                </div>
+                                <!-- User Welcome Container -->
+                                <div id="user-welcome-container" class="user-welcome-container" style="display: none;">
+                                    <span id="user-welcome-text">Bienvenido</span>
+                                    <button onclick="logout()" class="logout-btn">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        Cerrar Sesión
                                     </button>
                                 </div>
                                 <!-- Carrito -->
@@ -1128,17 +1206,35 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
-                            <div class="dishes-card style2 product-item" data-category="complementos" data-product-id="brownies" data-base-price="29.00">
+                            <div class="dishes-card style2 product-item" data-category="complementos" data-product-id="brownie" data-base-price="29.00">
                                 <div class="dishes-thumb">
-                                    <img src="assets/img/complementos/brownies.png" alt="Brownies">
+                                    <img src="assets/img/complementos/brownie.png" alt="Brownie">
                                     <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
                                 </div>
                                 <div class="dishes-content">
-                                    <a href="#"><h3>Brownies</h3></a>
+                                    <a href="#"><h3>Brownie</h3></a>
                                     <h6>$<span class="product-price">29.00</span></h6>
                                     <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
                                         <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
                                         <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-2" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="dishes-card style2 product-item" data-category="complementos" data-product-id="donitas" data-base-price="25.00">
+                                <div class="dishes-thumb">
+                                    <img src="assets/img/complementos/donitas.png" alt="Donitas">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                    <a href="#"><h3>Donitas</h3></a>
+                                    <h6>$<span class="product-price">25.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-1" readonly>
                                         <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
                                     </div>
                                     <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
@@ -1181,34 +1277,31 @@
     <form class="cart-form mt-4">
         <div class="mb-3">
             <label for="customerName" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="customerName" required>
+            <input type="text" class="form-control" id="customerName" required placeholder="Ingresa tu nombre completo">
         </div>
         <div class="mb-3">
             <label for="customerAddress" class="form-label">Dirección</label>
-            <input type="text" class="form-control" id="customerAddress" required>
-            <button type="button" class="add-address-btn" id="addAddressBtn" style="display: none;">Añadir otra dirección</button>
-            <input type="hidden" id="latitude">
-            <input type="hidden" id="longitude">
+            <select class="form-control" id="userAddressSelect" style="display: none;"></select>
+            <input type="text" class="form-control" id="customerAddress" required placeholder="Ingresa tu dirección de entrega" id="guestAddressInput">
         </div>
         <div class="mb-3">
             <label for="customerPhone" class="form-label">Teléfono</label>
-            <input type="tel" class="form-control" id="customerPhone" required>
+            <select class="form-control" id="userPhoneSelect" style="display: none;"></select>
+            <input type="tel" class="form-control" id="customerPhone" required placeholder="Ingresa tu número telefónico" id="guestPhoneInput">
         </div>
-        <div class="payment-options">
+        <div class="payment-options mb-3">
             <label for="paymentMethod" class="form-label">Método de Pago</label>
-            <select class="payment-method-select" id="paymentMethod">
+            <select class="form-control" id="paymentMethod" disabled>
                 <option value="">Seleccionar método de pago</option>
                 <option value="paypal">PayPal</option>
                 <option value="mercadopago">Mercado Pago</option>
             </select>
         </div>
-    </div> <div id="paypal-button-container" class="mt-3" style="display: none;">
-    </div>
-<div id="wallet_container" class="mt-3" style="display: none;">
-    </div>
- </form> </div> ```
+        <div id="payment-buttons" class="payment-buttons">
+            <div id="paypal-button-container" class="payment-button-container" style="display: none;"></div>
+            <div id="wallet_container" class="payment-button-container" style="display: none;"></div>
+        </div>
     </form>
-    <div id="wallet_container"></div>
 </div>
 
     <!-- Footer Section    S T A R T -->

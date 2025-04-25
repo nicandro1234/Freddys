@@ -1,0 +1,869 @@
+/*-----------------------------------------------------------------
+Theme Name: Freddy's Pizza
+Author: Freddy's Pizza
+Version: 1.0.0 
+Description: Freddy's Pizza - La Mejor Pizza Artesanal de León, Guanajuato
+
+-------------------------------------------------------------------
+JS TABLE OF CONTENTS
+-------------------------------------------------------------------
+
+        01. Mobile Menu 
+        02. Sidebar Toggle 
+        03. Body Overlay  
+        04. Sticky Header   
+        05. Counterup 
+        06. Wow Animation 
+        07. Set Background Image Color & Mask  
+        08. Banner Slider
+        09. Best food items Slider 
+        10. Testimonial Slider 
+        11. Blog Slider 
+        12. Gallery Slider 
+        13. Popular Dishes Slider 
+        14. Faq Slider     
+        15. Client Slider 
+        16. Popular Dishes Tab 
+        17. MagnificPopup  view 
+        18. Back to top   
+        19. Progress Bar Animation 
+        20. Mouse Cursor  
+        21. Time Countdown  
+        22. Range slider 
+        23. Select input
+        24. Quantity Plus Minus
+        25. Search Popup
+        26. Preloader   
+        27. Mitad y Mitad Price Update
+        28. Cart Functionality
+
+------------------------------------------------------------------*/
+// Inicialización del carrito
+if (typeof cart === 'undefined') {
+    var cart = [];
+}
+
+// Variable global para controlar si la configuración está cargada
+var configLoaded = false;
+
+// Listener para el evento configLoaded
+document.addEventListener('configLoaded', function() {
+    configLoaded = true;
+    console.log("[Main] Evento configLoaded recibido, inicializando servicios de pago");
+    
+    // Inicializar funciones que dependen de la configuración
+    if (typeof initPaymentSDKs === 'function') {
+        initPaymentSDKs();
+    }
+});
+
+try {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+        cart = JSON.parse(storedCart);
+        if (!Array.isArray(cart)) {
+            console.error("Error: El carrito recuperado NO es un array. Reseteando.");
+            cart = [];
+        }
+    }
+} catch (e) {
+    console.error("Error al parsear carrito desde localStorage. Reseteando.", e);
+    cart = [];
+}
+
+function updateCartDisplay(newItemIndex = null) {
+    const $cartItemsDiv = $("#cartItems");
+    const $cartCountLink = $("#cart-icon-link");
+    const $cartTotal = $("#cartTotal");
+    $cartItemsDiv.empty();
+    let total = 0;
+    let itemCount = 0;
+
+    if (!Array.isArray(cart)) {
+        cart = [];
+        console.error("Carrito reseteado porque no era un array.");
+    }
+
+    cart.forEach((item, index) => {
+        if (typeof item !== 'object' || item === null || typeof item.price !== 'number' || typeof item.quantity !== 'number' || typeof item.name !== 'string') {
+            console.error("Item inválido en el carrito detectado:", item);
+            return;
+        }
+
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        itemCount += item.quantity;
+
+        let description = `${item.name} (${item.quantity} x $${item.price.toFixed(2)}) = $${itemTotal.toFixed(2)}`;
+
+        const $cartItem = $('<div class="cart-item"></div>')
+            .append($('<span>').text(description))
+            .append('<button class="remove-item-btn" data-index="' + index + '" title="Eliminar Item"><i class="fas fa-times"></i></button>');
+        
+        if (index === newItemIndex) {
+            $cartItem.addClass('new-item');
+            setTimeout(() => {
+                $cartItem.removeClass('new-item');
+            }, 500);
+        }
+        
+        $cartItemsDiv.append($cartItem);
+    });
+
+    $cartCountLink.attr('data-count', itemCount);
+    $cartTotal.text('Total: $' + total.toFixed(2));
+
+    try {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    } catch (e) {
+        console.error("Error al guardar carrito en localStorage:", e);
+    }
+
+    $(".remove-item-btn").off("click").on("click", function () {
+        const index = $(this).data("index");
+        if (typeof index === 'number' && index >= 0 && index < cart.length) {
+            const $cartItem = $(this).closest('.cart-item');
+            $cartItem.addClass('removing-item');
+            
+            setTimeout(() => {
+                cart.splice(index, 1);
+                updateCartDisplay();
+                // Ocultar contenedores de pago si el carrito está vacío
+                if (cart.length === 0) {
+                    $("#paypal-button-container, #wallet_container").hide();
+                    $("#paymentMethod").val('');
+                }
+            }, 500);
+        } else {
+            console.error("Índice inválido para eliminar:", index);
+        }
+    });
+
+    // Verificar campos para habilitar/deshabilitar selector de pago
+    validatePaymentFields();
+}
+
+/**
+ * Validación de campos del formulario de pedido
+ */
+function validatePaymentFields() {
+    const customerName = document.getElementById('customerName');
+    const customerAddress = document.getElementById('customerAddress');
+    const customerPhone = document.getElementById('customerPhone');
+    const paymentMethod = document.getElementById('paymentMethod');
+    const paymentContainer = document.getElementById('paymentMethodContainer');
+    const paymentMessage = document.getElementById('paymentFieldsMessage');
+    
+    // Verificar si todos los campos requeridos tienen valor
+    const isValid = customerName && customerName.value.trim() !== '' &&
+                   customerAddress && customerAddress.value.trim() !== '' &&
+                   customerPhone && customerPhone.value.trim() !== '';
+    
+    if (paymentMethod && paymentContainer && paymentMessage) {
+        if (isValid) {
+            // Habilitar el selector de pago
+            paymentMethod.disabled = false;
+            paymentContainer.classList.remove('disabled');
+            paymentMessage.style.display = 'none';
+        } else {
+            // Deshabilitar el selector de pago
+            paymentMethod.disabled = true;
+            paymentContainer.classList.add('disabled');
+            paymentMessage.style.display = 'block';
+        }
+    }
+    
+    return isValid;
+}
+
+/**
+ * Maneja el cambio en el método de pago
+ */
+function handlePaymentMethodChange(event) {
+    const selectedMethod = event.target.value;
+    const paypalContainer = document.getElementById('paypalContainer');
+    const mercadoPagoContainer = document.getElementById('mercadoPagoContainer');
+    const cashContainer = document.getElementById('cashContainer');
+    
+    // Ocultar todos los contenedores
+    if (paypalContainer) paypalContainer.style.display = 'none';
+    if (mercadoPagoContainer) mercadoPagoContainer.style.display = 'none';
+    if (cashContainer) cashContainer.style.display = 'none';
+    
+    // Mostrar el contenedor correspondiente
+    if (selectedMethod === 'paypal' && paypalContainer) {
+        paypalContainer.style.display = 'block';
+        initPayPalButton(); // Inicializar PayPal si no está inicializado
+    } else if (selectedMethod === 'mercadopago' && mercadoPagoContainer) {
+        mercadoPagoContainer.style.display = 'block';
+        createMercadoPagoPreference(); // Crear preferencia de MercadoPago
+    } else if (selectedMethod === 'cash' && cashContainer) {
+        cashContainer.style.display = 'block';
+    }
+}
+
+// Event listeners relacionados con el carrito y formulario
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar validación de campos
+    const customerName = document.getElementById('customerName');
+    const customerAddress = document.getElementById('customerAddress');
+    const customerPhone = document.getElementById('customerPhone');
+    const paymentMethod = document.getElementById('paymentMethod');
+    const guestAddressInput = document.getElementById('guestAddressInput');
+    const guestPhoneInput = document.getElementById('guestPhoneInput');
+    
+    // Validar campos al cambiar
+    if (customerName) {
+        customerName.addEventListener('input', validatePaymentFields);
+    }
+    
+    if (customerAddress) {
+        customerAddress.addEventListener('input', validatePaymentFields);
+    }
+    
+    if (customerPhone) {
+        customerPhone.addEventListener('input', validatePaymentFields);
+    }
+    
+    // Evento para actualizar el campo de dirección cuando el usuario ingresa una dirección nueva
+    if (guestAddressInput) {
+        const guestAddressField = guestAddressInput.querySelector('input');
+        if (guestAddressField) {
+            guestAddressField.addEventListener('input', function() {
+                if (customerAddress) {
+                    customerAddress.value = this.value;
+                    validatePaymentFields();
+                }
+            });
+        }
+    }
+    
+    // Evento para actualizar el campo de teléfono cuando el usuario ingresa un teléfono nuevo
+    if (guestPhoneInput) {
+        const guestPhoneField = guestPhoneInput.querySelector('input');
+        if (guestPhoneField) {
+            guestPhoneField.addEventListener('input', function() {
+                if (customerPhone) {
+                    customerPhone.value = this.value;
+                    validatePaymentFields();
+                }
+            });
+        }
+    }
+    
+    // Manejar cambio en el método de pago
+    if (paymentMethod) {
+        paymentMethod.addEventListener('change', handlePaymentMethodChange);
+    }
+    
+    // Ejecutar validación inicial
+    validatePaymentFields();
+    
+    // Cargar direcciones y teléfonos del usuario si está autenticado
+    if (typeof isAuthenticated === 'function' && isAuthenticated()) {
+        if (typeof loadUserAddresses === 'function') {
+            loadUserAddresses();
+        }
+        if (typeof loadUserPhones === 'function') {
+            loadUserPhones();
+        }
+    }
+});
+
+(function ($) {
+    "use strict";
+
+
+// Inicialización MP (la variable mp debe ser accesible donde se usa)
+// Es mejor inicializarla dentro de ready() después de que el SDK cargue
+// const mp = new MercadoPago('TU_PUBLIC_KEY_AQUI', { locale: 'es-MX' });
+
+function createMercadoPagoPreference() {
+    console.log("Intentando crear preferencia MP...");
+    // Validar campos y carrito
+    const phone = $("#customerPhone").val().trim();
+    const address = $("#customerAddress").val().trim();
+    const name = $("#customerName").val().trim();
+
+    if (!name || !phone || !address || !Array.isArray(cart) || cart.length === 0 || $("#paymentMethod").val() !== 'mercadopago' ) {
+        alert('Por favor completa todos los campos y asegúrate de tener productos en el carrito.');
+        return;
+    }
+
+    // Usar la nueva API de configuración para verificar MP_PUBLIC_KEY
+    const mpConfig = window.checkRequiredConfig('MP_PUBLIC_KEY');
+    if (!mpConfig.isValid) {
+        $("#wallet_container").html('<p class="payment-error">Error: Configuración de Mercado Pago no disponible</p>').show();
+        console.error("[MercadoPago] Faltan claves de configuración:", mpConfig.missing.join(', '));
+        
+        // Intentar nuevamente después de un tiempo en caso de que se cargue la configuración
+        setTimeout(function() {
+            if (window.getConfigValue('MP_PUBLIC_KEY', false)) {
+                createMercadoPagoPreference();
+            }
+        }, 1500);
+        return;
+    }
+
+    // Feedback al usuario
+    $("#wallet_container").html('<p class="processing-payment">Procesando...</p>').show();
+
+    // Simulación para desarrollo - Reemplazar con la implementación real
+    setTimeout(() => {
+        $("#wallet_container").html('<button id="mp-checkout-btn" class="payment-button mercadopago-button">Pagar con Mercado Pago</button>').show();
+        
+        // Agregar evento al botón simulado
+        $("#mp-checkout-btn").on('click', function() {
+            alert("Esta es una simulación. En producción, este botón abriría el checkout de Mercado Pago.");
+            
+            // Ejemplo de lo que podría suceder después de un pago exitoso
+            // cart = [];
+            // updateCartDisplay();
+            // $("#cartPanel").removeClass("open");
+            // $('#customerName, #customerAddress, #customerPhone, #paymentMethod').val('');
+            // $("#wallet_container").hide();
+        });
+    }, 1000);
+}
+
+// Función para renderizar botón PayPal
+function renderPayPalButton() {
+    const containerId = '#paypal-button-container';
+    $(containerId).empty().show();
+
+    // Usar la nueva API de configuración para verificar PAYPAL_CLIENT_ID
+    const paypalConfig = window.checkRequiredConfig('PAYPAL_CLIENT_ID');
+    if (!paypalConfig.isValid) {
+        $(containerId).html('<p class="payment-error">Error: Configuración de PayPal no disponible.</p>');
+        console.error("[PayPal] Faltan claves de configuración:", paypalConfig.missing.join(', '));
+        
+        // Intentar nuevamente después de un tiempo en caso de que se cargue la configuración
+        setTimeout(function() {
+            if (window.getConfigValue('PAYPAL_CLIENT_ID', false)) {
+                renderPayPalButton();
+            }
+        }, 1500);
+        return;
+    }
+
+    // Verificar que el SDK de PayPal esté cargado
+    if (typeof paypal === 'undefined' || typeof paypal.Buttons === 'undefined') {
+        $(containerId).html('<p class="payment-error">Error al cargar PayPal.</p>');
+        return;
+    }
+
+    try {
+        paypal.Buttons({
+            style: {
+                layout: 'horizontal',
+                color: 'blue',
+                shape: 'rect',
+                label: 'pay',
+                height: 40
+            },
+            createOrder: function (data, actions) {
+                console.log("Creando orden PayPal...");
+                // Validaciones para crear la orden
+                const phone = $("#customerPhone").val().trim();
+                const address = $("#customerAddress").val().trim();
+                const name = $("#customerName").val().trim();
+
+                if (!name || !phone || !address || !Array.isArray(cart) || cart.length === 0 || $("#paymentMethod").val() !== 'paypal') {
+                    alert('Por favor completa todos los campos y asegúrate de tener productos en el carrito.');
+                    return actions.reject();
+                }
+
+                let total = cart.reduce((sum, item) => {
+                     // Validación extra del item dentro del reduce
+                     if (item && typeof item.price === 'number' && typeof item.quantity === 'number') {
+                         return sum + item.price * item.quantity;
+                     }
+                     return sum;
+                }, 0);
+
+                if (total <= 0) {
+                    alert('El total del carrito debe ser mayor a cero.');
+                    return actions.reject();
+                }
+                
+                console.log("Total para PayPal:", total.toFixed(2));
+
+                // Crear la orden con los detalles
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: total.toFixed(2),
+                            currency_code: 'MXN',
+                            breakdown: {
+                                item_total: {
+                                    value: total.toFixed(2),
+                                    currency_code: 'MXN'
+                                }
+                            }
+                        },
+                        description: 'Tu pedido de Freddy\'s Pizza',
+                        items: cart.map(item => ({
+                             name: (item.name || 'Producto').substring(0, 127),
+                             unit_amount: {
+                                  value: (item.price || 0).toFixed(2),
+                                  currency_code: 'MXN'
+                             },
+                             quantity: (item.quantity || 1).toString()
+                        })),
+                        shipping: {
+                            name: { full_name: name || 'Cliente Freddy\'s' },
+                            address: {
+                                address_line_1: address || 'Dirección no proporcionada',
+                                country_code: 'MX'
+                            }
+                        }
+                    }]
+                }).catch(err => {
+                     console.error("Error en actions.order.create:", err);
+                     alert("Hubo un problema al iniciar la orden con PayPal. Intenta de nuevo.");
+                     return actions.reject();
+                });
+            },
+            onApprove: function (data, actions) {
+                console.log("PayPal onApprove data:", data);
+                return actions.order.capture().then(function (details) {
+                    console.log("PayPal Capture Details:", details);
+                    let transactionId = details.id;
+                    let payerName = details.payer && details.payer.name ? details.payer.name.given_name : 'Cliente';
+
+                    alert(`¡Pago con PayPal exitoso, ${payerName}!\nID Transacción: ${transactionId}`);
+
+                    // Aquí deberías enviar la información al backend para registrar el pedido
+                    // sendOrderToServer('paypal', details);
+
+                    // Limpiar estado del frontend
+                    cart = [];
+                    updateCartDisplay();
+                    $("#cartPanel").removeClass("open");
+                    $('#customerName, #customerAddress, #customerPhone, #paymentMethod').val('');
+                    $(containerId).hide().empty();
+
+                }).catch(function (err) {
+                     console.error('Error en PayPal Capture:', err);
+                     alert('Hubo un problema al finalizar tu pago con PayPal. Contacta soporte si el cobro fue realizado.');
+                });
+            },
+            onError: function (err) {
+                console.error('Error General Botón PayPal:', err);
+                alert('Error al procesar con PayPal. Por favor, verifica tus datos o intenta otro método.');
+                $(containerId).html('<p class="payment-error">Error PayPal. <a href="#" onclick="renderPayPalButton(); return false;">Reintentar</a></p>');
+            },
+            onCancel: function (data) {
+                console.log('Pago PayPal cancelado:', data);
+                alert('Has cancelado el pago con PayPal.');
+            }
+        }).render(containerId).catch(function (err) {
+             console.error('Error fatal al renderizar botones de PayPal:', err);
+             $(containerId).html('<p class="payment-error">No se pudieron cargar los botones de PayPal.</p>');
+        });
+    } catch (e) {
+        console.error("Excepción al inicializar PayPal Buttons:", e);
+        $(containerId).html('<p class="payment-error">Error crítico al cargar PayPal.</p>');
+    }
+}
+
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('option') && e.target.closest('.nice-select')) {
+        const niceSelect = e.target.closest('.nice-select');
+        const select = niceSelect.previousElementSibling;
+        if (select && select.classList.contains('mitad-selector')) {
+            const value = e.target.dataset.value;
+            select.value = value;
+            select.dispatchEvent(new Event('change'));
+            const card = select.closest('.product-item');
+            if (card) updateProductPrice(card);
+        }
+    }
+});
+
+document.querySelectorAll('.filter-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const filter = button.dataset.filter;
+        const filterMap = {
+            'pizzas': 'menu-category-pizzas',
+            'orilla': 'menu-category-orilla',
+            'complementos': 'menu-category-complementos'
+        };
+        const categoryClass = filterMap[filter] || `menu-category-${filter}`;
+
+        document.querySelectorAll('.category-block').forEach(block => {
+            if (block.classList.contains(categoryClass)) {
+                block.style.display = 'block';
+                block.classList.remove('hidden');
+                setTimeout(() => {
+                    block.classList.add('visible');
+                    adjustContainerHeight();
+                }, 10);
+            } else {
+                block.classList.remove('visible');
+                setTimeout(() => {
+                    block.classList.add('hidden');
+                    block.style.display = 'none';
+                }, 500);
+            }
+        });
+    });
+});
+
+function adjustContainerHeight() {
+    const container = document.querySelector('.menu-items-container');
+    const visibleBlock = document.querySelector('.category-block.visible');
+    if (container && visibleBlock) {
+        const height = visibleBlock.offsetHeight;
+        container.style.height = `${height}px`;
+    }
+}
+
+function initializeFilters() {
+    document.querySelectorAll('.category-block').forEach(block => {
+        block.classList.add('hidden');
+        block.style.display = 'none';
+    });
+
+    const defaultFilterBtn = document.querySelector('.filter-btn[data-filter="pizzas"]');
+    if (defaultFilterBtn) {
+        defaultFilterBtn.classList.add('active');
+        const pizzaBlock = document.querySelector('.menu-category-pizzas');
+        if (pizzaBlock) {
+            pizzaBlock.style.display = 'block';
+            pizzaBlock.classList.remove('hidden');
+            setTimeout(() => {
+                pizzaBlock.classList.add('visible');
+                adjustContainerHeight();
+            }, 10);
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.product-item').forEach(card => updateProductPrice(card));
+    $('.single-select').niceSelect();
+    setupProductEvents();
+    initializeFilters();
+});
+
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initializeFilters();
+}
+
+// Listeners para formularios y pago (añadir o reemplazar si ya tenías algo similar)
+
+// Mostrar/ocultar botones de pago según selección
+$("#paymentMethod").on('change', function() {
+   const selectedMethod = $(this).val();
+   // Oculta y limpia todos los contenedores de pago primero
+   $("#paypal-button-container").hide().empty();
+   $("#wallet_container").hide().empty();
+   // $("#cashPaymentBtn").hide(); // Si tienes botón de efectivo
+
+   if (selectedMethod === 'paypal') {
+       $("#paypal-button-container").show();
+       if (typeof renderPayPalButton === "function") {
+            renderPayPalButton(); // Llama a la función que renderiza el botón PP
+       } else { console.error("Función renderPayPalButton no definida");}
+   } else if (selectedMethod === 'mercadopago') {
+        $("#wallet_container").show();
+         // IMPORTANTE: El renderizado del botón de MP se hará DESPUÉS de crear
+         // la preferencia en el backend, usualmente al hacer clic en un botón
+         // intermedio como "Pagar con Mercado Pago".
+         // Por ahora, solo mostramos el contenedor. Podrías añadir un botón aquí.
+         if (typeof createMercadoPagoPreference !== "function") {
+            console.error("Función createMercadoPagoPreference no definida");
+            $("#wallet_container").html('<p style="color:red;">Error: falta función MP</p>');
+         } else {
+            // Podrías añadir un botón que llame a createMercadoPagoPreference()
+            // Ejemplo: $('<button class="theme-btn">Pagar con Mercado Pago</button>').appendTo('#wallet_container').on('click', createMercadoPagoPreference);
+            // O simplemente mostrar un texto indicativo
+            $("#wallet_container").html('<p>Haz clic en "Pagar con MP" (botón no implementado) para continuar.</p>'); // Placeholder
+         }
+
+   } else if (selectedMethod === 'cash') {
+        // $("#cashPaymentBtn").show(); // Muestra botón de efectivo si existe
+   }
+   if (typeof updateCartDisplay === "function") updateCartDisplay(); // Re-evaluar estado del pago
+});
+
+// Validar campos del cliente al cambiar
+$('#customerName, #customerAddress, #customerPhone').on('input', function() {
+    if (typeof updateCartDisplay === "function") updateCartDisplay(); // Re-evaluar estado del pago
+});
+// Inicialización de Mercado Pago
+const mp = new MercadoPago('TEST-6283082187716828-031815-84bd184b6202d8827274cdaf7c90688b-440393429', {
+        locale: 'es-MX'
+    });
+    
+// Pago con Mercado Pago
+$("#proceedToMercadoPago").on("click", function () {
+    const phone = $("#customerPhone").val().trim();
+    const address = $("#customerAddress").val().trim();
+    const name = $("#customerName").val().trim();
+
+    if (!name || !phone || !address || cart.length === 0) {
+        alert('Por favor, completa todos los campos y añade productos al carrito.');
+        return;
+    }
+
+    $.ajax({
+        url: '/order/createPreference',
+        method: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        data: $.param({
+            cart: JSON.stringify(cart),
+            phone: phone,
+            address: address,
+            name: name
+        }),
+        success: function (data) {
+            if (data.preferenceId) {
+                $("#wallet_container").empty();
+                mp.bricks().create('wallet', 'wallet_container', {
+                    initialization: { preferenceId: data.preferenceId }
+                });
+            } else {
+                alert('Error al procesar el pago con Mercado Pago.');
+            }
+        },
+        error: function (error) {
+            console.error('Error:', error);
+            alert('Error al procesar el pago con Mercado Pago.');
+        }
+    });
+});
+    });
+        
+
+function loader() {
+        $(window).on('load', function () {
+            $(".preloader").addClass('loaded');
+            $(".preloader").delay(600).fadeOut();
+        });
+    }
+    loader();
+
+})(jQuery); // End jQuery
+
+/**
+ * Actualiza el precio mostrado en la tarjeta de producto
+ * @param {HTMLElement} card - El elemento de tarjeta del producto
+ */
+function updateProductPrice(card) {
+    if (!card) return;
+    
+    const priceElement = card.querySelector('.product-price');
+    const sizeSelect = card.querySelector('.product-size');
+    const quantityInput = card.querySelector('.quantity-input');
+    
+    if (!priceElement || !sizeSelect) return;
+    
+    const basePrice = parseFloat(sizeSelect.options[sizeSelect.selectedIndex].dataset.price || 0);
+    const quantity = parseInt(quantityInput?.value || 1);
+    
+    let totalPrice = basePrice * quantity;
+    
+    // Manejar adicionales si existen
+    const extras = card.querySelectorAll('.product-extra:checked');
+    extras.forEach(extra => {
+        const extraPrice = parseFloat(extra.dataset.price || 0);
+        totalPrice += extraPrice * quantity;
+    });
+    
+    // Actualizar el precio mostrado
+    priceElement.textContent = `$${totalPrice.toFixed(2)}`;
+    
+    // Guardar el precio actual en un data attribute para uso posterior
+    card.dataset.currentPrice = totalPrice.toFixed(2);
+}
+
+/**
+ * Configura los eventos para las tarjetas de productos
+ */
+function setupProductEvents() {
+    // Selector de tamaño
+    document.querySelectorAll('.product-size').forEach(select => {
+        select.addEventListener('change', function() {
+            const card = this.closest('.product-item');
+            updateProductPrice(card);
+        });
+    });
+    
+    // Extras / Adicionales
+    document.querySelectorAll('.product-extra').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const card = this.closest('.product-item');
+            updateProductPrice(card);
+        });
+    });
+    
+    // Control de cantidad
+    document.querySelectorAll('.quantity-decrease, .quantity-increase').forEach(button => {
+        button.addEventListener('click', function() {
+            const card = this.closest('.product-item');
+            const input = card.querySelector('.quantity-input');
+            let value = parseInt(input.value);
+            
+            if (this.classList.contains('quantity-decrease')) {
+                if (value > 1) input.value = value - 1;
+            } else {
+                input.value = value + 1;
+            }
+            
+            updateProductPrice(card);
+        });
+    });
+    
+    // Botón de agregar al carrito
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const card = this.closest('.product-item');
+            const productId = card.dataset.productId;
+            const productName = card.querySelector('.product-title').textContent;
+            const price = parseFloat(card.dataset.currentPrice);
+            const quantity = parseInt(card.querySelector('.quantity-input').value);
+            const sizeSelect = card.querySelector('.product-size');
+            const size = sizeSelect.options[sizeSelect.selectedIndex].text;
+            
+            // Extras seleccionados
+            const extras = [];
+            card.querySelectorAll('.product-extra:checked').forEach(extra => {
+                extras.push(extra.dataset.name);
+            });
+            
+            // Crear objeto del producto
+            const product = {
+                id: productId,
+                name: `${productName} (${size})${extras.length ? ' + ' + extras.join(', ') : ''}`,
+                price: price,
+                quantity: quantity,
+                size: size,
+                extras: extras
+            };
+            
+            // Añadir al carrito (aquí podrías añadir lógica para agrupar productos iguales)
+            cart.push(product);
+            updateCartDisplay(cart.length - 1);
+            
+            // Animación o feedback
+            alert(`${product.name} añadido al carrito`);
+        });
+    });
+}
+
+/**
+ * Inicializa los filtros de productos
+ */
+function initializeFilters() {
+    const categoryButtons = document.querySelectorAll('.category-filter');
+    const productCards = document.querySelectorAll('.product-item');
+    
+    if (categoryButtons.length === 0 || productCards.length === 0) return;
+    
+    // Agregar event listeners a los botones de categoría
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const category = this.dataset.category;
+            
+            // Remover clase activa de todos los botones
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Agregar clase activa al botón clickeado
+            this.classList.add('active');
+            
+            // Filtrar productos
+            productCards.forEach(card => {
+                const cardCategory = card.dataset.category;
+                
+                if (category === 'all' || cardCategory === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+    
+    // Activar el filtro "Todos" por defecto
+    const allButton = document.querySelector('.category-filter[data-category="all"]');
+    if (allButton) {
+        allButton.classList.add('active');
+    }
+}
+
+// Inicializar filtros cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.product-item').forEach(card => updateProductPrice(card));
+    $('.single-select').niceSelect();
+    setupProductEvents();
+    initializeFilters();
+});
+
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initializeFilters();
+}
+
+// Agregar manejadores para filtros adicionales
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('option') && e.target.closest('.nice-select')) {
+        const niceSelect = e.target.closest('.nice-select');
+        const select = niceSelect.previousElementSibling;
+        if (select && select.classList.contains('mitad-selector')) {
+            const value = e.target.dataset.value;
+            select.value = value;
+            select.dispatchEvent(new Event('change'));
+            const card = select.closest('.product-item');
+            if (card) updateProductPrice(card);
+        }
+    }
+});
+
+// Filtros mejorados para categorías
+document.querySelectorAll('.filter-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const filter = button.dataset.filter;
+        const filterMap = {
+            'pizzas': 'menu-category-pizzas',
+            'orilla': 'menu-category-orilla',
+            'complementos': 'menu-category-complementos'
+        };
+        const categoryClass = filterMap[filter] || `menu-category-${filter}`;
+
+        document.querySelectorAll('.category-block').forEach(block => {
+            if (block.classList.contains(categoryClass)) {
+                block.style.display = 'block';
+                block.classList.remove('hidden');
+                setTimeout(() => {
+                    block.classList.add('visible');
+                    adjustContainerHeight();
+                }, 10);
+            } else {
+                block.classList.remove('visible');
+                setTimeout(() => {
+                    block.classList.add('hidden');
+                    block.style.display = 'none';
+                }, 500);
+            }
+        });
+    });
+});
+
+// Ajustar altura del contenedor para las animaciones de filtro
+function adjustContainerHeight() {
+    const container = $('.menu-items-container');
+    const visibleBlock = $('.category-block.visible');
+    if (container.length && visibleBlock.length) {
+        const height = visibleBlock.outerHeight();
+        container.height(height);
+    }
+}
+
+})(jQuery); // End jQuery

@@ -11,8 +11,12 @@
     <title>Mi Cuenta - Freddys Pizza</title>
     <!--<< Favicon >>-->
     <link rel="shortcut icon" href="assets/img/favicon.png">
+    
+    <!--<< Incluir configuración PHP >>-->
+    <?php include_once 'header-include.php'; ?>
+    
     <!-- Google Sign in -->
-    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <!--<< Bootstrap min.css >>-->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!--<< All Min Css >>-->
@@ -29,8 +33,43 @@
     <link rel="stylesheet" href="assets/css/nice-select.css">
     <!--<< Main.css >>-->
     <link rel="stylesheet" href="assets/css/main.css">
-    <!--<< Custom Account CSS >>-->
-    <link rel="stylesheet" href="assets/css/account.css">
+    <!--<< jQuery >>-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--<< MeanMenu >>-->
+    <script src="assets/js/jquery.meanmenu.min.js"></script>
+    <!--<< Auth.js >>-->
+    <script src="assets/js/auth.js"></script>
+    <!--<< Main.js >>-->
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Iniciar la aplicación cuando la configuración esté cargada
+            document.addEventListener('configLoaded', function() {
+                console.log('Configuración cargada, inicializando aplicación My Account');
+                
+                // Verificar estado de autenticación
+                if (typeof checkAuthStatus === 'function') {
+                    checkAuthStatus();
+                    
+                    // Cargar datos del usuario si la función está disponible
+                    if (typeof loadUserData === 'function') {
+                        loadUserData();
+                    }
+                }
+            });
+            
+            // Si no se dispara el evento configLoaded en 2 segundos, intentar iniciar de todas formas
+            setTimeout(function() {
+                if (typeof window.config !== 'undefined') {
+                    console.log('Inicialización por timeout en My Account');
+                    document.dispatchEvent(new Event('configLoaded'));
+                } else {
+                    console.error('Config no está disponible después de esperar en My Account');
+                }
+            }, 2000);
+        });
+    </script>
 </head>
 
 <body class="dark-mood" style="background-color: #2b2b2b; color: #fff;">
@@ -177,6 +216,14 @@
                                         <button class="custom-google-btn" onclick="window.location.href='https://freddys.com.mx/auth/google_auth.php'">
                                             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
                                             <span>Acceder con Google</span>
+                                        </button>
+                                    </div>
+                                    <!-- User Welcome Container -->
+                                    <div id="user-welcome-container" class="user-welcome-container" style="display: none;">
+                                        <span id="user-welcome-text">Bienvenido</span>
+                                        <button onclick="logout()" class="logout-btn">
+                                            <i class="fas fa-sign-out-alt"></i>
+                                            Cerrar Sesión
                                         </button>
                                     </div>
                                     <!-- Carrito -->
@@ -398,15 +445,17 @@
     <script src="assets/js/account.js"></script>
     <script>
         // Inicializar el carrito
-        let cart = [];
-        try {
-            const savedCart = localStorage.getItem('cart');
-            if (savedCart) {
-                cart = JSON.parse(savedCart);
+        if (typeof cart === 'undefined') {
+            let cart = [];
+            try {
+                const savedCart = localStorage.getItem('cart');
+                if (savedCart) {
+                    cart = JSON.parse(savedCart);
+                }
+            } catch (error) {
+                console.error('Error al cargar el carrito:', error);
+                cart = [];
             }
-        } catch (error) {
-            console.error('Error al cargar el carrito:', error);
-            cart = [];
         }
 
         // Inicializar eventos del carrito
@@ -425,25 +474,105 @@
                     cartPanel.style.display = 'none';
                 });
             }
+
+            // Inicializar Google Sign-In
+            if (typeof window.config !== 'undefined' && window.config.GOOGLE_CLIENT_ID) {
+                google.accounts.id.initialize({
+                    client_id: window.config.GOOGLE_CLIENT_ID,
+                    callback: handleCredentialResponse
+                });
+
+                // Renderizar botón de Google Sign-In
+                google.accounts.id.renderButton(
+                    document.getElementById('google-signin-container'),
+                    { theme: 'outline', size: 'large', text: 'signin_with' }
+                );
+            } else {
+                console.error('GOOGLE_CLIENT_ID no está configurado');
+            }
+
+            // Inicializar autocompletado de direcciones
+            initAutocomplete();
         });
 
         function handleCredentialResponse(response) {
             console.log("ID Token: " + response.credential);
-            // Enviar el token al backend para verificación, e.g., window.location.href = '/auth/google?credential=' + response.credential;
-            alert('Inicio de sesión exitoso! Redirigiendo...');
-            // Aquí puedes redirigir o manejar la lógica del lado del cliente
-        }
-        window.onload = function() {
-            google.accounts.id.initialize({
-                client_id: "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",
-                callback: handleCredentialResponse
+            fetch('/auth/google_auth.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ credential: response.credential })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Inicio de sesión exitoso');
+                    checkAuthStatus();
+                } else {
+                    console.error('Error en el inicio de sesión:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error al procesar la autenticación:', error);
             });
-            google.accounts.id.renderButton(
-                document.getElementById('google-signin-container'),
-                { theme: 'outline', size: 'large', text: 'signin_with' }
-            );
-            // Renderizar para el botón en notLoggedIn si es necesario, o usa el mismo contenedor
-        };
+        }
+
+        // Función para inicializar el autocompletado de direcciones
+        function initAutocomplete() {
+            const addressInput = document.getElementById('customerAddress');
+            if (addressInput) {
+                const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+                    types: ['address'],
+                    componentRestrictions: { country: 'mx' }
+                });
+
+                autocomplete.addListener('place_changed', function() {
+                    const place = autocomplete.getPlace();
+                    if (!place.geometry) {
+                        console.log("No se encontraron detalles para la dirección: '" + place.name + "'");
+                        return;
+                    }
+
+                    // Obtener latitud y longitud
+                    const lat = place.geometry.location.lat();
+                    const lng = place.geometry.location.lng();
+                    document.getElementById('latitude').value = lat;
+                    document.getElementById('longitude').value = lng;
+
+                    // Obtener componentes de la dirección
+                    let street = '';
+                    let city = '';
+                    let state = '';
+                    let zip = '';
+
+                    for (const component of place.address_components) {
+                        const componentType = component.types[0];
+                        switch (componentType) {
+                            case 'street_number':
+                            case 'route':
+                                street += component.long_name + ' ';
+                                break;
+                            case 'locality':
+                                city = component.long_name;
+                                break;
+                            case 'administrative_area_level_1':
+                                state = component.long_name;
+                                break;
+                            case 'postal_code':
+                                zip = component.long_name;
+                                break;
+                        }
+                    }
+
+                    // Actualizar campos ocultos con la información
+                    document.getElementById('street').value = street.trim();
+                    document.getElementById('city').value = city;
+                    document.getElementById('state').value = state;
+                    document.getElementById('zip').value = zip;
+                });
+            }
+        }
     </script>
 </body>
 </html>
