@@ -113,17 +113,18 @@
 
 .header-section {
 	position: relative;
+	z-index: 98;
 	background-color: $white;
-	z-index: 99;
+	transition: all 0.3s ease;
 
 	.black-bg{
 		position: absolute;
-		bottom: 0;
-		right: 0;
-		width: 200px;
-		height: 146px;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 		background-color: $title-color;
-		z-index: 9;
+		z-index: 8;
 
 		@media (max-width:1760px) {
 			width: 85px;
@@ -140,11 +141,11 @@
 	.red-bg{
 		position: absolute;
 		top: 0;
-		right: 0;
-		width: 200px;
-		height: 48px;
-		background-color: $theme-color;
-		z-index: 99;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: $theme-color-2;
+		z-index: 98;
 
 		@media (max-width:1760px) {
 			width: 85px;
@@ -233,7 +234,7 @@
 	right: 0;
 	width: 100%;
 	background-color: transparent;
-	z-index: 99;
+	z-index: -1;
 	padding-top: 20px;
 
 	.main-header-wrapper {
@@ -268,29 +269,31 @@
 		@include breakpoint (max-xl) {
             display: flex;
             flex-wrap: nowrap;
-            justify-content: flex-start; /* Cambiamos a flex-start solo en móviles */
+            justify-content: flex-start;
             align-items: center;
             width: 100%;
-            padding: 0 15px; /* Añade padding para evitar que toque los bordes */
+            padding: 0 15px;
         }
 
 		.sidebar__toggle {
 			position: absolute;
-			left: 0;
+			left: 15px;
+			top: 50%;
+			transform: translateY(-50%);
 			cursor: pointer;
-			font-size: 40px;
+			font-size: 30px;
 			color: $white;
 			display: flex;
 			align-items: center;
-			height: 100%;
-			top: 0;
+			z-index: 10;
 
 			@include breakpoint (max-xl) {
-				position: relative;
+				position: static;
 				left: auto;
-                align-self: flex-start; /* Asegura que esté alineado a la izquierda */
-                margin-right: 10px; /* Espacio entre hamburguesa y logo */
-                order: -1; /* Mantiene la hamburguesa como primer elemento */
+                top: auto;
+                transform: none;
+                margin-right: 10px;
+                font-size: 24px;
 			}
 		}
 
@@ -372,43 +375,97 @@
 				}
 			}
 		}
+
+		.user-welcome-container {
+			display: none; // Oculto por defecto, se muestra con JS
+			align-items: center;
+			gap: 10px;
+
+			#user-welcome-text {
+				color: #fff; // Color blanco base
+				font-weight: 500;
+				transition: color 0.3s ease;
+			}
+
+			.logout-btn {
+				background: transparent;
+				border: 1px solid rgba(255, 255, 255, 0.4);
+				color: #fff; // Color blanco base
+				padding: 5px 10px;
+				border-radius: 4px;
+				font-size: 0.8rem;
+				cursor: pointer;
+				transition: all 0.3s ease;
+
+				i {
+					margin-right: 5px;
+				}
+
+				&:hover {
+					background: rgba(255, 255, 255, 0.1);
+					color: $theme-color; // Color rojo al pasar el mouse
+					border-color: rgba(255, 255, 255, 0.6);
+				}
+
+				// Ocultar este botón en móvil (cuando la hamburguesa es visible)
+				@media (max-width: 1199.98px) { // Breakpoint XL de Bootstrap approx
+					display: none;
+				}
+			}
+		}
 	}
 }
 
-// Estilos específicos para el modo sticky
-.sticky.header-section-3 {
-	padding-top: 0;
-	background-color: $white;
+// Estilos cuando el header es sticky - VERSIÓN ULTRA ESPECÍFICA CON ID
+#header-sticky.sticky.header-3 {
+    background-color: $white !important; 
+    box-shadow: $shadow !important; 
+    z-index: -1 !important;
+    
+    // Selector ultra específico con ID para el texto de bienvenida
+    .header-right .user-welcome-container #user-welcome-text {
+        color: $title-color !important;
+    }
+    
+    // Selector ultra específico con ID para el botón de cerrar sesión
+    .header-right .user-welcome-container .logout-btn {
+        color: $title-color !important;
+        border-color: rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    // Asegurar colores oscuros para otros elementos también
+    .header-main .main-menu ul li a {
+        color: $title-color !important; 
+    }
 
-	.header-main {
-		.sidebar__toggle {
-			color: #000;
-		}
+    .header-main .sidebar__toggle {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        i {
+           color: $title-color !important; 
+        }
+        @include breakpoint (max-xl) {
+            position: static;
+            left: auto;
+            top: auto;
+            transform: none;
+            margin-right: 10px;
+        }
+    }
+    
+    .logo-image img {
+        max-height: 90px; 
+        width: auto !important;
+    }
+}
 
-		.main-menu {
-			ul {
-				li {
-					a {
-						color: #000;
-					}
-				}
-			}
-		}
-	}
-
-	.header-right {
-		.google-signin-container {
-			.custom-google-btn {
-				color: #000;
-				border-color: rgba(0, 0, 0, 0.2);
-				
-				&:hover {
-					background: rgba(0, 0, 0, 0.05);
-					border-color: rgba(0, 0, 0, 0.3);
-				}
-			}
-		}
-	}
+/* SOLUCIÓN DE ÚLTIMO RECURSO - SELECTOR EXTREMO */
+body:not(.dark-mode) #header-sticky.sticky.header-3 .header-right .user-welcome-container #user-welcome-text,
+body:not(.dark-mode) #header-sticky.sticky.header-3 .header-right .user-welcome-container .logout-btn {
+    color: #010F1C !important;
+    border-color: rgba(0, 0, 0, 0.3) !important;
 }
 
 .main-header-wrapper {
@@ -958,7 +1015,7 @@
 				inset-inline-start: 0;
 				min-width: 240px;
 				background: $white;
-				z-index: 99999;
+				z-index: 5;
 				visibility: hidden;
 				opacity: 0;
 				transform-origin: top center;
@@ -1369,13 +1426,13 @@
 	top: 0 !important;
 	left: 0;
 	width: 100%;
-	z-index: 100;
+	z-index: -1;
 	transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 	-webkit-transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 	background-color: $white;
 	box-shadow: $shadow;
-	transform: translateZ(0);
-	-webkit-transform: translateZ(0);
+	// transform: translateZ(0);
+	// -webkit-transform: translateZ(0);
 	will-change: transform, background-color, box-shadow;
 	backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
@@ -1384,9 +1441,9 @@
 	.logo-image {
 		img {
 			width: 70%;
-			transform: translateZ(0);
-			-webkit-transform: translateZ(0);
-			will-change: transform;
+			// transform: translateZ(0);
+			// -webkit-transform: translateZ(0);
+			// will-change: transform;
 			transition: width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 			-webkit-transition: width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 		}
@@ -1494,14 +1551,10 @@
 				border-color: rgba(0, 0, 0, 0.2) !important;
 				transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 				-webkit-transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-				transform: translateZ(0);
-				-webkit-transform: translateZ(0);
 				
 				&:hover {
 					background: rgba(0, 0, 0, 0.05);
 					border-color: rgba(0, 0, 0, 0.3) !important;
-					transform: translateY(-2px) translateZ(0);
-					-webkit-transform: translateY(-2px) translateZ(0);
 				}
 			}
 		}
@@ -1768,6 +1821,35 @@
 
                 &:hover {
                     background: darken($theme-color, 10%);
+                }
+            }
+
+            .offcanvas-logout-btn {
+                display: none; // Oculto por defecto
+                background-color: $theme-color; 
+                border: none;
+                color: $white;
+                padding: 12px 20px; 
+                font-size: 16px; 
+                font-weight: 600; 
+                text-transform: uppercase; 
+                text-align: center; 
+                width: 100%; 
+                margin-top: 10px; 
+                cursor: pointer;
+                border-radius: 4px; // Añadir borde redondeado como los otros botones
+
+                i {
+                    margin-right: 8px;
+                }
+
+                &:hover {
+                    background-color: darken($theme-color, 10%);
+                }
+
+                // Mostrar solo en móvil
+                @media (max-width: 1199.98px) { 
+                    display: block !important; // Forzar display block en móvil
                 }
             }
         }
@@ -2110,4 +2192,236 @@
             }
         }
     }
+}
+
+@include breakpoint(max-lg) {
+    .header__menu {
+        display: none;
+    }
+
+    .header__right {
+        .header__menu-btn {
+            margin-left: 0;
+            padding-left: 0;
+        }
+    }
+
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: $white;
+        z-index: 999;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        
+        &.active {
+            transform: translateX(0);
+        }
+    }
+
+    .user-welcome {
+        display: block;
+        text-align: center;
+    }
+
+    .user-dropdown {
+        &.active {
+            transform: translateY(0);
+        }
+    }
+}
+
+.header-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 98;
+    background-color: $white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    padding: 15px 0;
+    isolation: isolate;
+
+    @include breakpoint(max-lg) {
+        padding: 10px 0;
+        height: auto;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .header__right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-right: 15px;
+        }
+
+        .header__cart {
+            margin-right: 0;
+        }
+    }
+
+    &.sticky {
+        transform: translateY(0);
+    }
+}
+
+.user-menu {
+    position: relative;
+    display: inline-block;
+
+    .user-welcome {
+        color: $theme-color;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: rgba($theme-color, 0.1);
+        }
+
+        @include breakpoint(max-lg) {
+            padding: 8px 12px;
+        }
+    }
+
+    .user-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: $white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        min-width: 200px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+
+        @include breakpoint(max-lg) {
+            position: fixed;
+            top: auto;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            border-radius: 12px 12px 0 0;
+            transform: translateY(100%);
+            padding: 20px;
+        }
+
+        &.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+
+            @include breakpoint(max-lg) {
+                transform: translateY(0);
+            }
+        }
+
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: left;
+            color: $text-color;
+            background: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: rgba($theme-color, 0.1);
+                color: $theme-color;
+            }
+
+            i {
+                margin-right: 8px;
+            }
+        }
+    }
+
+    @include breakpoint(max-lg) {
+        .user-welcome {
+            display: block;
+            text-align: center;
+        }
+
+        .user-dropdown {
+            &.active {
+                transform: translateY(0);
+            }
+        }
+    }
+}
+
+/* Ajustes para el header en móvil */
+@include breakpoint (max-lg) {
+  .header-section-3 {
+    padding-top: 10px;
+
+    .main-header-wrapper {
+      padding: 0 15px;
+    }
+
+    .header-main {
+      padding: 10px 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-main .sidebar__toggle {
+      font-size: 24px;
+      margin-right: 15px;
+      color: $white;
+    }
+
+    .header-right {
+      position: static;
+      padding-right: 0;
+      gap: 15px;
+    }
+
+    .google-signin-container {
+      height: 36px;
+
+      .custom-google-btn {
+        height: 34px;
+        padding: 0 15px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  /* Ajustes cuando el header está sticky */
+  #header-sticky.sticky.header-3 {
+    background-color: $white !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+    padding: 5px 0;
+
+    .header-main {
+      height: 50px;
+    }
+
+    .header-main .sidebar__toggle {
+      color: $title-color !important;
+    }
+
+    .header-right .google-signin-container .custom-google-btn {
+      color: $title-color !important;
+      border-color: rgba(0, 0, 0, 0.2) !important;
+    }
+  }
 }

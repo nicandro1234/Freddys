@@ -5,6 +5,31 @@ $theme-color: #ff0000;
 $title-color: #333333;
 $text-color: #666666;
 
+// Variables (Asegúrate de que estas variables coincidan con tu tema oscuro si es necesario)
+$body-color-dark: #181818; // Color de fondo principal de la sección de cuenta
+$card-bg-dark: #2b2b2b;    // Fondo para tarjetas, formularios, etc.
+$text-color-dark: #ddd;     // Color de texto principal para tema oscuro
+$text-color-light-dark: #bbb; // Texto un poco más claro o para placeholders
+$title-color-dark: #fff;    // Color para títulos principales
+$border-color-dark: #444;   // Color de borde sutil
+$theme-color-freddys: #02142A; // Azul oscuro de Freddy's (usado en .favorite)
+$theme-color-freddys-alt: #002D5A; // Un azul un poco más claro para hover si es necesario
+$icon-color-base: #ccc;        // Color base para iconos de acción
+$icon-color-hover-edit: #4CAF50; // Verde para hover de editar
+$icon-color-hover-delete: #F44336; // Rojo para hover de borrar y favorito activo
+$favorite-color-active: #F44336; // Rojo para estrella favorita activa
+
+// Forzando el header a ser fijo y con z-index alto (si no se maneja globalmente)
+// Descomentado porque parece ser necesario para evitar sobreposición.
+header.header-section-3 {
+    position: fixed !important; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1030 !important; 
+    // background-color: #010F1C; // Asegúrate de que el fondo del header sea consistente. Este valor es de tu _header.scss
+}
+
 // Account Section Styles
 .account-section, body.dark-mood {
     min-height: 100vh;  /* Asegura que el contenedor llene al menos la altura de la ventana */
@@ -14,9 +39,11 @@ $text-color: #666666;
 }
 
 .account-section {
-    padding-top: 150px;  /* Aumento a 150px para desktop para más espacio */
+    padding-top: 120px; // VALOR INICIAL - AJUSTA ESTO a la altura REAL de tu header fijo más un pequeño margen.
+                       // Revisa si este padding entra en conflicto o complementa los paddings definidos en tus media queries más abajo.
     padding: 100px 0;
-    background-color: $body-color;
+    background-color: $body-color-dark;
+    color: $text-color-dark;
 
     // Not Logged In State
     .account-not-logged {
@@ -132,8 +159,12 @@ $text-color: #666666;
 
         // Main Content
         .account-tab-content {
-            padding: 30px;
+            padding: 30px; // Padding base para móvil/tablet
             display: none;
+
+            @media (min-width: 1025px) { // Ajustar padding para escritorio
+                padding: 30px 15px; // Menos padding horizontal en escritorio
+            }
 
             &.active {
                 display: block;
@@ -159,25 +190,144 @@ $text-color: #666666;
 
             // Orders Table
             .orders-table {
-                .table {
+                margin-top: 20px;
+                
+                // Estilos para la vista móvil (formato tarjeta)
+                @media (max-width: 767px) {
+                    border: none !important;
+                    outline: none !important;
+
                     thead {
-                        th {
-                            background: $title-color;
-                            color: $white;
-                            padding: 15px;
-                            font-weight: 600;
+                        display: none; 
+                    }
+
+                    tbody, tr {
+                        display: block; 
+                        width: 100%;
+                        border: none !important; // Asegurar sin borde
+                        outline: none !important;
+                    }
+
+                    tr { 
+                        background-color: $white !important; 
+                        border: 1px solid #EAEAEA !important; // Borde gris muy claro para la tarjeta
+                        border-radius: 8px; 
+                        padding: 15px; 
+                        margin-bottom: 18px; 
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.08); // Sombra más suave
+                        outline: none !important;
+
+                        &:last-child {
+                            margin-bottom: 0;
                         }
                     }
 
-                    tbody {
-                        tr {
-                            &:nth-child(even) {
-                                background: rgba($title-color, 0.05);
+                    td { 
+                        display: flex;
+                        justify-content: space-between; 
+                        align-items: center; 
+                        padding: 10px 0; 
+                        position: relative; 
+                        border: none !important; 
+                        border-bottom: 1px solid #F0F0F0 !important; // Borde inferior sólido, aún más claro
+                        outline: none !important;
+                        min-height: 30px; 
+                        width: 100%;
+                        color: $text-color !important; 
+
+                        &:last-child {
+                            border-bottom: none !important; 
+                        }
+
+                        &::before {
+                            content: attr(data-label);
+                            font-weight: 600;
+                            color: $title-color !important; // Mantener etiqueta oscura
+                            text-align: left;
+                            padding-right: 15px; 
+                            white-space: nowrap;
+                            flex-shrink: 0;
+                            max-width: 40%; 
+                        }
+
+                        .value-container {
+                            text-align: right;
+                            color: $text-color !important; // Mantener valor oscuro standard
+                            word-break: break-word; 
+                            flex-grow: 1; 
+                            padding-left: 5px; 
+                            white-space: normal; 
+                        }
+
+                        .badge {
+                            font-size: 0.8em;
+                            padding: 0.4em 0.7em;
+                            white-space: nowrap; 
+                            // Colores para fondo blanco
+                            &.bg-warning { color: $title-color !important; } // Texto oscuro para fondo amarillo
+                            &.bg-info, &.bg-success, &.bg-secondary, &.bg-danger {
+                                color: $white !important; // Texto blanco para fondos oscuros/coloreados
+                            } 
+                        }
+                    }
+                }
+
+                // Estilos para escritorio (tabla tradicional con fondo blanco)
+                @media (min-width: 768px) {
+                    overflow-x: auto; 
+                    table {
+                        width: 100%;
+                        border-collapse: collapse; 
+                        background-color: $white; // Fondo blanco para la tabla
+                        border: 1px solid #dee2e6; // Borde standard de Bootstrap para tablas claras
+                        border-radius: 8px; 
+                        overflow: hidden; 
+
+                        th, td {
+                            padding: 14px 18px; 
+                            text-align: left;
+                            border-bottom: 1px solid #dee2e6 !important; // Borde standard
+                            color: $text-color !important; // Color de texto oscuro general
+                            border-left: none !important;
+                            border-right: none !important;
+                            border-top: none !important;
+                            outline: none !important;
+                        }
+
+                        th {
+                            background-color: #f8f9fa !important; 
+                            color: $title-color !important; // Color de texto oscuro para encabezados
+                            font-weight: 600;
+                            font-size: 0.9rem;
+                            text-transform: uppercase; 
+                            letter-spacing: 0.5px; 
+                            border-bottom-width: 2px !important; // Borde inferior más grueso para TH
+                            border-color: #dee2e6 !important; // Asegurar borde inferior de TH
+                        }
+
+                        tbody tr {
+                            background-color: $white !important; 
+                            color: $text-color !important; 
+                            &:hover {
+                                background-color: #f1f1f1 !important; 
+                            }
+                            td {
+                                 color: $text-color !important; 
+                                 border-bottom-color: #dee2e6 !important; // Asegurar borde
+                            }
+                            &:last-child td {
+                                border-bottom: none !important; 
                             }
 
-                            td {
-                                padding: 15px;
-                                vertical-align: middle;
+                            .badge {
+                                font-size: 0.85em;
+                                padding: 0.5em 0.8em;
+                                border-radius: 10px; 
+                                // Colores para fondo blanco
+                                &.bg-warning { color: $title-color !important; } 
+                                &.bg-info, &.bg-success, &.bg-secondary, &.bg-danger {
+                                     color: $white !important;
+                                }
                             }
                         }
                     }
@@ -187,99 +337,260 @@ $text-color: #666666;
             // Addresses Grid
             .addresses-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                margin-top: 20px;
 
-                .address-card {
-                    background: $white;
-                    border: 1px solid rgba($title-color, 0.1);
-                    border-radius: 10px;
-                    padding: 20px;
-                    position: relative;
+                @media (min-width: 768px) {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                @media (min-width: 1200px) {
+                    // grid-template-columns: repeat(3, 1fr); // Opcional: Descomentar si se prefieren 3 en pantallas muy anchas
+                }
+            }
+            
+            .address-card {
+                background-color: $card-bg-dark;
+                border: 1px solid $border-color-dark;
+                border-radius: 10px; // Radio base
+                padding: 20px;       // Padding base
+                position: relative;
+                transition: all 0.3s ease;
+                overflow-wrap: break-word;
+                word-break: break-word;
+                color: $text-color-dark;
 
-                    &.favorite {
-                        border-color: $theme-color;
-                    }
+                h3 {
+                    margin-top: 0;
+                    margin-bottom: 10px;
+                    color: $title-color-dark;
+                    font-size: 1.1rem;
+                }
+                
+                p {
+                    margin-bottom: 8px;
+                    color: $text-color-dark;
+                    line-height: 1.5; 
+                }
 
-                    .address-actions {
-                        position: absolute;
-                        top: 15px;
-                        right: 15px;
-                        display: flex;
-                        gap: 10px;
-
-                        button {
-                            background: none;
-                            border: none;
-                            color: $text-color;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
-
-                            &:hover {
-                                color: $theme-color;
-                            }
-
-                            &.favorite-btn {
-                                color: $theme-color;
-                            }
-                        }
-                    }
-
-                    h3 {
-                        margin-bottom: 10px;
-                        color: $title-color;
-                    }
-
-                    p {
-                        margin: 0;
-                        color: $text-color;
+                &.favorite {
+                    border-color: $theme-color-freddys; // Azul oscuro para favorito
+                    box-shadow: 0 0 10px rgba($theme-color-freddys, 0.5);
+                    .address-actions .favorite-btn {
+                         color: $favorite-color-active; // Estrella roja si la tarjeta es favorita
                     }
                 }
             }
 
-            // Phones List
-            .phones-list {
-                .phone-item {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 15px;
-                    background: $white;
-                    border: 1px solid rgba($title-color, 0.1);
-                    border-radius: 10px;
-                    margin-bottom: 15px;
+            /* Estilos específicos para escritorio para mejorar las tarjetas de dirección */
+            @media (min-width: 1025px) {
+                .address-card {
+                    border-radius: 12px;
+                    padding: 20px;
+                    height: auto;
+                    display: flex; 
+                    flex-direction: column; 
+                    justify-content: flex-start;
 
-                    .phone-info {
-                        h3 {
-                            margin: 0;
-                            color: $title-color;
+                    h3 {
+                        margin-bottom: 10px;
+                        font-size: 1.15rem;
+                        line-height: 1.3;
+                    }
+                    
+                    .address-details { 
+                        padding-bottom: 0;
+                        margin-bottom: 0;
+
+                        .favorite-indicator {
+                            display: inline-block; 
+                            background-color: $favorite-color-active; 
+                            color: #ffffff; 
+                            font-size: 0.75rem; 
+                            font-weight: 700; 
+                            padding: 5px 10px; 
+                            border-radius: 4px; 
+                            text-transform: uppercase; 
+                            line-height: 1.4; 
+                            position: relative; 
+                            z-index: 1;
+                            text-align: center;
+
+                            i {
+                                margin-right: 5px; 
+                            }
+
+                            &:not(:empty) {
+                                margin-bottom: 12px;
+                            }
+                            &:empty {
+                                display: none;
+                                padding: 0;
+                                margin: 0;
+                                height: 0;
+                                overflow: hidden;
+                            }
+
+                            @media (max-width: 767px) {
+                                // padding: 3px 7px; // Ajustado en la anterior iteración
+                                // font-size: 0.7rem; // Ajustado en la anterior iteración
+                            }
                         }
 
                         p {
-                            margin: 5px 0 0;
-                            color: $text-color;
+                            margin-bottom: 5px;
+                            line-height: 1.5;
+                            font-size: 0.9rem;
+                            &:last-child {
+                                margin-bottom: 0; 
+                            }
                         }
                     }
 
-                    .phone-actions {
-                        display: flex;
-                        gap: 10px;
+                    .address-actions {
+                        margin-top: 15px; 
+                        padding-top: 10px; 
+                    }
 
-                        button {
-                            background: none;
-                            border: none;
-                            color: $text-color;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
+                    // Aplicar margen inferior al bloque de detalles SOLO si la tarjeta es favorita
+                    &.favorite .address-details {
+                         // El margen se aplicará por el :not(:empty) del indicador.
+                         // Ya no es necesario aplicar margen aquí.
+                    }
+                }
+            }
+            
+            .address-actions {
+                // Estilos base (pensando en móvil primero para evitar solapamiento)
+                position: static; 
+                display: flex;
+                gap: 12px; 
+                margin-top: 15px; // Espacio después del texto
+                padding-top: 10px;
+                border-top: 1px solid $border-color-dark; // Línea separadora en móvil
+                align-self: flex-end; // Alinear a la derecha
 
-                            &:hover {
-                                color: $theme-color;
-                            }
+                // Ajustes para escritorio
+                @media (min-width: 1025px) {
+                    // position: static; // Ya es estático
+                    margin-top: auto; // Empuja al fondo
+                    padding-top: 15px; 
+                    border-top: none; // Sin línea divisora en escritorio
+                    // align-self: flex-end; // Ya está en la base
+                    gap: 15px; // Más espacio en escritorio
+                }
 
-                            &.favorite-btn {
-                                color: $theme-color;
-                            }
+                button {
+                    background: none;
+                    border: none;
+                    color: $icon-color-base;
+                    font-size: 16px;
+                    cursor: pointer;
+                    transition: color 0.3s ease;
+
+                    &.favorite-btn {
+                        &.active {
+                             color: $favorite-color-active;
                         }
+                    }
+                    &.edit-btn:hover {
+                        color: $icon-color-hover-edit;
+                    }
+                    &.delete-btn:hover {
+                        color: $icon-color-hover-delete;
+                    }
+                }
+            }
+            
+            .phones-list {
+                margin-top: 20px;
+                // Estilos para escritorio: Grid de 3 columnas
+                @media (min-width: 1025px) {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr); // 3 columnas
+                    gap: 15px; // Espacio entre items
+                }
+            }
+            
+            .phone-item {
+                background-color: $card-bg-dark;
+                border: 1px solid $border-color-dark;
+                border-radius: 10px;
+                padding: 15px 20px;
+                margin-bottom: 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                color: $text-color-dark;
+
+                &.favorite { // Estilos solo visuales, sin cambio de tamaño
+                     border-color: $theme-color-freddys; 
+                     box-shadow: 0 0 8px rgba($theme-color-freddys, 0.4); // Sombra un poco más sutil
+                    .phone-actions .favorite-btn {
+                         color: $favorite-color-active; 
+                    }
+                }
+
+                .phone-info {
+                    h3 {
+                        margin: 0 0 5px 0;
+                        color: $title-color-dark;
+                        font-size: 1rem;
+                    }
+                    // Estilo para el indicador de teléfono favorito
+                    .favorite-indicator {
+                        display: inline-block;
+                        background-color: $favorite-color-active; // Fondo rojo o el que uses
+                        color: #ffffff; // Color de texto que contraste (ej. blanco)
+                        font-size: 0.75rem;
+                        font-weight: 700;
+                        margin-top: 8px;
+                        margin-bottom: 5px;
+                        padding: 5px 10px; // Ajusta el padding para que el texto se vea bien
+                        border-radius: 4px;
+                        text-transform: uppercase;
+                        line-height: 1.4; // Ajusta la altura de línea
+                        text-align: center;
+
+                        i {
+                            margin-right: 5px;
+                        }
+                    }
+                    // Quitar estilo anterior si existía para p.text-success
+                    p.text-success { 
+                        // display: none; // O eliminar la regla si ya no se usa
+                    }
+                }
+
+                // Quitar la limitación de ancho anterior en escritorio
+                @media (min-width: 1025px) {
+                    // max-width: 500px; // Quitado
+                    // margin-left: auto; // Quitado
+                    // margin-right: auto; // Quitado
+                }
+            }
+            
+            .phone-actions {
+                display: flex;
+                gap: 15px;
+                button {
+                    background: none;
+                    border: none;
+                    color: $icon-color-base;
+                    font-size: 16px;
+                    cursor: pointer;
+                    transition: color 0.3s ease;
+
+                    &.favorite-btn {
+                        &.active {
+                            color: $favorite-color-active;
+                        }
+                    }
+                    &.edit-btn:hover {
+                        color: $icon-color-hover-edit;
+                    }
+                    &.delete-btn:hover {
+                        color: $icon-color-hover-delete;
                     }
                 }
             }
@@ -308,6 +619,257 @@ $text-color: #666666;
                     }
                 }
             }
+
+            // Order Details
+            .order-details-container {
+                display: none;
+                padding: 20px;
+                background: $white;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+                .order-details-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 20px;
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid rgba($title-color, 0.1);
+
+                    h2 {
+                        margin: 0;
+                        font-size: 1.5rem;
+                        color: $title-color;
+                    }
+                }
+
+                .order-details-info {
+                    margin-bottom: 30px;
+
+                    .detail-row {
+                        display: flex;
+                        margin-bottom: 10px;
+
+                        .detail-label {
+                            font-weight: bold;
+                            width: 100px;
+                            color: $text-color;
+                        }
+
+                        .detail-value {
+                            flex: 1;
+                        }
+                    }
+                }
+
+                .order-items {
+                    margin-top: 20px;
+
+                    .items-header {
+                        display: flex;
+                        padding: 10px;
+                        background: rgba($title-color, 0.05);
+                        border-radius: 4px;
+                        margin-bottom: 10px;
+                        font-weight: bold;
+
+                        .header-name {
+                            flex: 2;
+                        }
+
+                        .header-quantity,
+                        .header-price,
+                        .header-total {
+                            flex: 1;
+                            text-align: right;
+                        }
+                    }
+
+                    .order-item {
+                        display: flex;
+                        padding: 10px;
+                        border-bottom: 1px solid rgba($title-color, 0.1);
+                        align-items: center;
+
+                        .item-name {
+                            flex: 2;
+                        }
+
+                        .item-quantity,
+                        .item-price,
+                        .item-total {
+                            flex: 1;
+                            text-align: right;
+                        }
+                    }
+                }
+            }
+
+            // Form Containers
+            .address-form-container,
+            .phone-form-container {
+                display: none;
+                padding: 20px;
+                background: $white;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                max-width: 600px;
+                margin: 0 auto;
+
+                .form-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 20px;
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid rgba($title-color, 0.1);
+
+                    h2 {
+                        margin: 0;
+                        font-size: 1.5rem;
+                        color: $title-color;
+                    }
+                }
+
+                form {
+                    margin-top: 20px;
+
+                    .form-label {
+                        font-weight: 500;
+                        color: $text-color;
+                    }
+
+                    .form-control {
+                        border-radius: 4px;
+                        border: 1px solid rgba($title-color, 0.2);
+                        padding: 8px 12px;
+
+                        &:focus {
+                            border-color: $theme-color;
+                            box-shadow: 0 0 0 0.2rem rgba($theme-color, 0.25);
+                        }
+                    }
+
+                    .form-check {
+                        margin-top: 15px;
+                    }
+
+                    .btn-primary {
+                        margin-top: 20px;
+                        padding: 8px 20px;
+                        font-weight: 500;
+                    }
+                }
+            }
+
+            // Action Buttons
+            .btn-outline-primary,
+            .btn-outline-danger,
+            .btn-outline-secondary,
+            .btn-success {
+                margin: 0 2px;
+                padding: 4px 8px;
+                font-size: 0.875rem;
+
+                &:hover {
+                    color: $white;
+                }
+            }
+
+            .btn-outline-primary:hover {
+                background-color: $theme-color;
+            }
+
+            .btn-outline-danger:hover {
+                background-color: #dc3545;
+            }
+
+            .btn-outline-secondary:hover {
+                background-color: $text-color;
+            }
+
+            .btn-success {
+                background-color: #28a745;
+                color: $white;
+
+                &:hover {
+                    background-color: #218838;
+                }
+            }
+
+            // Badges
+            .badge {
+                padding: 5px 10px;
+                border-radius: 4px;
+                font-size: 0.85rem;
+            }
+
+            .bg-warning {
+                background-color: #ffc107;
+                color: $title-color;
+            }
+
+            .bg-info {
+                background-color: #17a2b8;
+                color: $white;
+            }
+
+            .bg-success {
+                background-color: #28a745;
+                color: $white;
+            }
+
+            .bg-secondary {
+                background-color: $text-color;
+                color: $white;
+            }
+        }
+    }
+
+    // Estilos para formularios (base y cuando están activos)
+    .account-form { // Esta es la clase que tienen los contenedores por defecto
+        // Quitar padding, margin-top, border-radius de aquí. Se aplicarán solo en .active.
+        // border-radius: 10px;
+        // padding: 20px; 
+        // margin-top: 20px;
+        position: relative; // Mantener para el z-index si los hijos lo necesitan.
+        z-index: 990; 
+        // Por defecto, NO debe tener background o border que lo hagan visible
+        // display: none; se maneja por ID y .active en la siguiente regla
+    }
+    
+    #address-form-container,
+    #phone-form-container {
+        overflow-y: auto;
+        // Quitar padding, margin-top, border-radius de aquí, se definen en .active o .account-form
+
+        &.active {
+            display: block !important; 
+            background-color: $card-bg-dark; 
+            border: 1px solid $border-color-dark;
+            padding: 25px;            
+            margin-top: 20px;          
+            border-radius: 10px;
+            // max-height y overflow-y ya están definidos en la regla base del ID.
+        }
+    }
+
+    .favorite-indicator {
+        display: inline-block;
+        background-color: $favorite-color-active; // Fondo rojo o el que uses
+        color: #ffffff; // Color de texto que contraste (ej. blanco)
+        font-size: 0.75rem;
+        font-weight: 700;
+        margin-top: 8px;
+        margin-bottom: 5px;
+        padding: 5px 10px; // Ajusta el padding para que el texto se vea bien
+        border-radius: 4px;
+        text-transform: uppercase;
+        line-height: 1.4; // Ajusta la altura de línea
+        text-align: center;
+
+        i {
+            margin-right: 5px;
         }
     }
 }
@@ -350,5 +912,345 @@ $text-color: #666666;
     .account-section, body.dark-mood {
         min-height: 100vh;  /* Mantiene la altura mínima en móviles */
         padding-top: 100px;  /* Aumento a 100px para móvil como solicitado */
+    }
+}
+
+// Estilos para formularios (base y cuando están activos)
+#address-form-container.active form, 
+#phone-form-container.active form {
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: $text-color-dark;
+        font-weight: 500;
+    }
+    
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"], // Si tuvieras otros tipos
+    input[type="password"] {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid $border-color-dark;
+        border-radius: 5px;
+        background-color: #333; // Fondo oscuro para inputs
+        color: $title-color-dark; // Texto blanco/claro para inputs
+        font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+        &::placeholder {
+            color: $text-color-light-dark;
+            opacity: 0.7;
+        }
+
+        &:focus {
+            border-color: $theme-color-freddys; // Borde azul al enfocar
+            box-shadow: 0 0 0 0.2rem rgba($theme-color-freddys, 0.25);
+            background-color: #383838; // Ligeramente más claro al enfocar
+        }
+    }
+    
+    .form-text {
+        color: $text-color-light-dark;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+    
+    .form-check {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    .form-check-input {
+        width: auto;
+        margin-right: 0.75rem;
+        height: 1.25em; // Hacer el checkbox un poco más grande
+        width: 1.25em;
+        margin-top: 0; // Alinear mejor con la etiqueta
+        &:checked {
+            background-color: $theme-color-freddys; // Color de check azul
+            border-color: $theme-color-freddys;
+        }
+    }
+    
+    .form-check-label {
+        color: $text-color-dark;
+        font-weight: normal;
+    }
+    
+    .btn-primary { // Botón de Guardar/Enviar
+        background-color: $theme-color-freddys; // Azul principal
+        border-color: $theme-color-freddys-alt;
+        color: $title-color-dark;
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+        &:hover {
+            background-color: $theme-color-freddys-alt; 
+            border-color: $theme-color-freddys;
+            color: $title-color-dark;
+        }
+    }
+}
+
+// Estilos para la tabla de pedidos (ya estaban en my-account.html, los adaptamos)
+.orders-table {
+    margin-top: 20px;
+    overflow-x: auto;
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid $border-color-dark;
+        }
+        th {
+            background-color: #1a1a1a; 
+            color: $title-color-dark;
+            font-weight: 600;
+        }
+        tbody tr {
+            &:hover {
+                background-color: #333; 
+            }
+            .badge {
+                font-size: 0.9em;
+                padding: 0.4em 0.7em;
+            }
+        }
+    }
+}
+
+// Estilos para los detalles del pedido (ya estaban en my-account.html, los adaptamos)
+.order-details {
+    background-color: $card-bg-dark; 
+    border: 1px solid $border-color-dark; 
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    color: $title-color-dark; 
+
+    .order-details-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid $border-color-dark; 
+        h3 {
+            color: $title-color-dark;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .order-details-close {
+            background: none;
+            border: none;
+            color: $icon-color-base;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            &:hover {
+                color: $icon-color-hover-delete; 
+            }
+        }
+    }
+    .order-info {
+        background-color: #333; 
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        p {
+            margin: 8px 0;
+            color: $text-color-dark; 
+            strong {
+                color: $title-color-dark;
+                margin-right: 10px;
+            }
+        }
+    }
+    .order-items {
+        background-color: #333;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid $border-color-dark;
+            color: $text-color-dark;
+            &:last-child {
+                border-bottom: none;
+            }
+            strong {
+                color: $title-color-dark;
+            }
+        }
+    }
+    .order-total {
+        text-align: right;
+        font-weight: bold;
+        margin-top: 15px;
+        font-size: 1.2rem;
+        color: $title-color-dark;
+        background-color: #333;
+        padding: 15px;
+        border-radius: 8px;
+        strong {
+            color: $icon-color-hover-edit; // Verde para el total 
+        }
+    }
+}
+
+// Override de estilos de Bootstrap si es necesario para el tema oscuro
+// Por ejemplo, los badges que ya tienes podrían necesitar ajustes para el tema oscuro
+// .badge.bg-warning { color: $title-color-dark !important; } // Ejemplo
+
+// Asegúrate de que los breakpoints como max-lg, max-sm, etc., estén definidos
+// si los usas de tu _variables.scss o _mixins.scss original.
+// Si no, puedes usar @media (max-width: 991.98px) etc.
+
+// Los estilos existentes de _account.scss para tema claro estaban aquí.
+// Los he integrado/reemplazado arriba con el enfoque de tema oscuro.
+// Revisa si hay algo específico del tema claro que deba ser condicional
+// o si este archivo ahora es exclusivamente para tema oscuro de la cuenta.
+
+// Responsive Styles (Los que ya tenías, verifica si necesitan ajustes para el tema oscuro)
+@media (max-width: 991.98px) { // Asumiendo que max-lg es approx 992px
+    .account-section {
+        .account-content {
+            .account-sidebar {
+                margin-bottom: 30px;
+            }
+        }
+    }
+}
+
+@media (max-width: 575.98px) { // Asumiendo que max-sm es approx 576px
+    .account-section {
+        padding: 60px 0;
+        // El padding-top de 100px para móvil ya estaba en tu SCSS anterior
+        // @media (max-width: 768px) { padding-top: 100px; }
+        // Lo combinamos aquí para simplificar si es posible
+
+        .account-tab-content {
+            .account-tab-header {
+                flex-direction: column;
+                gap: 15px;
+
+                .order-filters {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+// El padding-top general de .account-section ya está arriba.
+// Estas media queries específicas para padding-top pueden necesitar revisión
+// para asegurar que no haya conflicto con el padding del header fijo.
+/*
+@media (min-width: 769px) {
+    .account-section {
+        padding-top: 150px;  // Este podría ser el padding para desktop si el header es más alto
+    }
+}
+
+@media (max-width: 768px) {
+    .account-section, body.dark-mood {
+        padding-top: 100px;  
+    }
+}
+*/
+
+// Las siguientes reglas estaban al final de tu _account.scss original.
+// Las he integrado arriba en la sección de formularios y contenedores.
+/*
+.account-form {
+    background-color: #2b2b2b;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    display: block !important;  // Forzar display block
+    position: relative;
+    z-index: 1000;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #fff;
+    }
+}
+
+#address-form-container { // Esto ya está manejado arriba con más detalle
+    display: none;
+    &.active {
+        display: block !important;
+    }
+} 
+*/
+
+// Tabla de Pedidos - Estilos para layout apilado en móviles
+.orders-table {
+    @include breakpoint(max-md) {
+        thead {
+            display: none; // Ocultar encabezados de tabla originales
+        }
+
+        tr {
+            display: block;
+            margin-bottom: 15px; // Más espacio entre "filas" apiladas
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px; // Padding interno para cada "tarjeta" de pedido
+        }
+
+        td {
+            display: block;
+            text-align: right; // Alinea el contenido de la celda a la derecha
+            padding: 8px 0;     // Espaciado vertical para cada item
+            position: relative;
+            border-bottom: 1px dotted #eee; // Separador sutil entre campos
+
+            &:last-child {
+                border-bottom: none; // Sin borde para el último elemento
+            }
+
+            &::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0; // Alinea la etiqueta a la izquierda
+                font-weight: bold;
+                text-align: left; // Asegura que la etiqueta esté alineada a la izquierda
+                padding-right: 10px; // Espacio entre etiqueta y valor
+                white-space: nowrap; // Evita que la etiqueta se rompa en varias líneas
+            }
+
+            // Ajustes específicos para el contenido de ciertas celdas si es necesario
+            // Por ejemplo, para los detalles del pedido que pueden ser más largos
+            &[data-label="Detalles"] {
+                // Podrías querer un text-align left para este si el contenido es mucho texto
+                // text-align: left;
+                // &::before { text-align: left; } // si también quieres la etiqueta a la izquierda
+            }
+        }
     }
 } 

@@ -1290,3 +1290,32 @@ input.main-search-input::placeholder {
 
 
 }
+
+// Flexbox Sticky Footer Solution
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    // Si tu tema usa una clase específica en el body para el modo oscuro, como .dark-mood,
+    // asegúrate de que estos estilos no entren en conflicto o ajústalos.
+}
+
+.page-content-wrapper {
+    flex: 1 0 auto; // Permite que este contenedor crezca y ocupe el espacio disponible
+    // Si el header es sticky y tiene altura, añade padding-top aquí para compensar.
+    // Ejemplo: padding-top: 80px; // Ajusta este valor a la altura de tu header fijo
+}
+
+footer.footer-section {
+    flex-shrink: 0; // Evita que el footer se encoja
+    width: 100%;
+    // z-index: 100; // Descomenta si el footer necesita estar sobre otros elementos
+}

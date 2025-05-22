@@ -16,10 +16,15 @@ if (file_exists($env_file)) {
     }
 } else {
     error_log('Archivo .env.php no encontrado en: ' . $env_file);
+    die('Error: No se pudo cargar la configuración');
 }
 
 // Verificar que las claves importantes estén definidas
 $required_keys = [
+    'DB_HOST',
+    'DB_USERNAME',
+    'DB_PASSWORD',
+    'DB_DBNAME',
     'MP_PUBLIC_KEY',
     'PAYPAL_CLIENT_ID',
     'GOOGLE_MAPS_API_KEY',
@@ -36,6 +41,7 @@ foreach ($required_keys as $key) {
 
 if (!empty($missing_keys)) {
     error_log('Las siguientes claves no están definidas o están vacías: ' . implode(', ', $missing_keys));
+    die('Error: Faltan claves de configuración requeridas');
 }
 
 // No agregar script aquí - se maneja en config.js.php

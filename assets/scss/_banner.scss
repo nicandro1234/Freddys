@@ -240,12 +240,40 @@
             bottom: 20px;
             left: 15px;
             transform: scale(0.7);
+            max-width: 200px;
+            width: 100%;
+            height: auto;
+            
+            @include breakpoint(max-lg) {
+                display: none;
+            }
         }
 
         .shape2 {
-            top: 60px;
-            right: 20px;
-            transform: scale(0.7);
+            position: absolute;
+            bottom: 0;
+            right: 5%;
+            width: 45%;
+            max-width: 400px;
+            z-index: 1;
+
+            @include breakpoint(max-lg) {
+                width: 40%;
+                right: 2%;
+                max-width: 300px;
+            }
+            @include breakpoint(max-md) {
+                display: block !important;
+                width: 55%;
+                max-width: 220px;
+                right: -5%;
+                bottom: 5%;
+            }
+             @include breakpoint(max-sm) {
+                width: 60%; 
+                max-width: 180px;
+                right: -8%;
+             }
         }
 
         .shape3 {
@@ -261,7 +289,7 @@
         }
 
         .banner-style3 {
-            padding-top: 80px !important; // Mantengo la posición que te gustaba
+            padding-top: 80px !important;
             padding-bottom: 40px !important;
             width: 100%;
             z-index: 3;
@@ -301,7 +329,7 @@
                 transform: scale(0.5);
             }
             .shape3 {
-                transform: translate(-50%, -50%) scale(0.2); // Más pequeña en móvil
+                transform: translate(-50%, -50%) scale(0.2);
             }
             .shape4 {
                 top: 50px;
@@ -625,50 +653,38 @@
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    .arrow-prev3 {
+    .arrow-prev3,
+    .arrow-next3 {
         position: absolute;
-        top: 93%;
-        left: 45%;
-        z-index: 99;
-        transform: rotate(90deg) translateZ(0);
-        -webkit-transform: rotate(90deg) translateZ(0);
-        will-change: transform;
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
 
         &:hover {
-            transform: rotate(90deg) scale(1.05) translateZ(0);
-            -webkit-transform: rotate(90deg) scale(1.05) translateZ(0);
+            background: var(--primary-color);
         }
 
-        @include breakpoint(max-xxxl) {
-            display: none;
+        i {
+            color: white;
+            font-size: 20px;
         }
     }
 
+    .arrow-prev3 {
+        left: 20px;
+    }
+
     .arrow-next3 {
-        position: absolute;
-        top: 93%;
-        left: 55%;
-        z-index: 99;
-        transform: rotate(90deg) translateZ(0);
-        -webkit-transform: rotate(90deg) translateZ(0);
-        will-change: transform;
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-        &:hover {
-            transform: rotate(90deg) scale(1.05) translateZ(0);
-            -webkit-transform: rotate(90deg) scale(1.05) translateZ(0);
-        }
-
-        @include breakpoint(max-xxxl) {
-            display: none;
-        }
+        right: 20px;
     }
 
     .swiper-pagination {

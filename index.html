@@ -1,141 +1,198 @@
 <!DOCTYPE html>
-<html lang="es">
-<!--<< Header Area >>-->
-
-<head>
-    <!-- ========== Meta Tags ========== -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="NicVG">
-    <meta name="description" content="Freddys Pizza, La Mejor Pizza Artesanal de Leon, Guanajuato.">
-    <!-- ======== Page title ============ -->
-    <title>Freddys Pizza</title>
-    <!--<< Favicon >>-->
-    <link rel="shortcut icon" href="assets/img/favicon.png">
-    
-    <!--<< Incluir configuración PHP >>-->
-    <?php include_once 'header-include.php'; ?>
-    
-    <!-- Google Sign in -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    
-    <!--<< Bootstrap min.css >>-->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <!--<< All Min Css >>-->
-    <link rel="stylesheet" href="assets/css/all.min.css">
-    <!--<< Animate.css >>-->
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <!--<< Magnific Popup.css >>-->
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-    <!--<< MeanMenu.css >>-->
-    <link rel="stylesheet" href="assets/css/meanmenu.css">
-    <!--<< Swiper Bundle.css >>-->
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
-    <!--<< Nice Select.css >>-->
-    <link rel="stylesheet" href="assets/css/nice-select.css">
-    <!--<< Main.css >>-->
-    <link rel="stylesheet" href="assets/css/main.css">
-
-    <!--<< jQuery >>-->
-    <script src="assets/js/jquery-3.7.1.min.js"></script>
-    <!--<< Bootstrap Js >>-->
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <!--<< Waypoints Js >>-->
-    <script src="assets/js/jquery.waypoints.js"></script>
-    <!--<< Counterup Js >>-->
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <!--<< Viewport Js >>-->
-    <script src="assets/js/viewport.jquery.js"></script>
-    <!--<< Magnific popup Js >>-->
-    <script src="assets/js/magnific-popup.min.js"></script>
-    <!--<< Tilt Js >>-->
-    <script src="assets/js/tilt.min.js"></script>
-    <!--<< Swiper Slider Js >>-->
-    <script src="assets/js/swiper-bundle.min.js"></script>
-    <!--<< MeanMenu Js >>-->
-    <script src="assets/js/jquery.meanmenu.min.js"></script>
-    <!--<< Wow Animation Js >>-->
-    <script src="assets/js/wow.min.js"></script>
-    <!--<< Nice Select Js >>-->
-    <script src="assets/js/nice-select.min.js"></script>
-
-    <!-- Placeholder para SDKs que serán reemplazados por JS -->
-    <div id="payment-sdks-container"></div>
-    
-    <!--<< Auth.js >>-->
-    <script src="assets/js/auth.js"></script>
-    <!--<< Main.js >>-->
-    <script src="assets/js/main.js"></script>
-
-    <script>
+<?xml encoding="UTF-8"><!--<< Header Area >>--><!-- ========== Meta Tags ========== --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="NicVG"><meta name="description" content="Freddys Pizza, La Mejor Pizza Artesanal de Leon, Guanajuato."><!-- ======== Page title ============ --><title>Freddys Pizza</title><!--<< Favicon >>--><link rel="shortcut icon" href="assets/img/favicon.png"><!--<< Incluir configuraci&oacute;n PHP >>--><?php include_once 'header-include.php'; ?><!-- Google Sign in --><script src="https://accounts.google.com/gsi/client" async defer></script><!--<< Bootstrap min.css >>--><link rel="stylesheet" href="assets/css/bootstrap.min.css"><!--<< All Min Css >>--><link rel="stylesheet" href="assets/css/all.min.css"><!--<< Animate.css >>--><link rel="stylesheet" href="assets/css/animate.css"><!--<< Magnific Popup.css >>--><link rel="stylesheet" href="assets/css/magnific-popup.css"><!--<< MeanMenu.css >>--><link rel="stylesheet" href="assets/css/meanmenu.css"><!--<< Swiper Bundle.css >>--><link rel="stylesheet" href="assets/css/swiper-bundle.min.css"><!--<< Nice Select.css >>--><link rel="stylesheet" href="assets/css/nice-select.css"><!--<< Main.css >>--><link rel="stylesheet" href="assets/css/main.css"><!--<< jQuery >>--><script src="assets/js/jquery-3.7.1.min.js"></script><!--<< Bootstrap Js >>--><script src="assets/js/bootstrap.bundle.min.js"></script><!--<< Waypoints Js >>--><script src="assets/js/jquery.waypoints.js"></script><!--<< Counterup Js >>--><script src="assets/js/jquery.counterup.min.js"></script><!--<< Viewport Js >>--><script src="assets/js/viewport.jquery.js"></script><!--<< Magnific popup Js >>--><script src="assets/js/magnific-popup.min.js"></script><!--<< Tilt Js >>--><script src="assets/js/tilt.min.js"></script><!--<< Swiper Slider Js >>--><script src="assets/js/swiper-bundle.min.js"></script><!--<< MeanMenu Js >>--><script src="assets/js/jquery.meanmenu.min.js"></script><!--<< Wow Animation Js >>--><script src="assets/js/wow.min.js"></script><!--<< Nice Select Js >>--><script src="assets/js/nice-select.min.js"></script><!-- Placeholder para SDKs que ser&aacute;n reemplazados por JS --><div id="payment-sdks-container"></div><!--<< Auth.js >>--><script src="assets/js/auth.js"></script><!--<< Main.js >>--><script src="assets/js/main.js"></script><script>
         // Para reemplazar callbacks y evitar errores si Google Maps no carga
         window.initMap = window.initMap || function() {
             console.log('Inicializador Map fallback ejecutado');
         };
         
-        // Función para actualizar APIs y SDKs con credenciales
+        // Funci&oacute;n para actualizar APIs y SDKs con credenciales
         document.addEventListener('DOMContentLoaded', function() {
-            // Iniciar la aplicación cuando la configuración esté cargada
+            // Iniciar la aplicaci&oacute;n cuando la configuraci&oacute;n est&eacute; cargada
             document.addEventListener('configLoaded', function() {
-                console.log('Configuración cargada, inicializando aplicación');
+                console.log('[Config Listener] Configuraci&oacute;n cargada, inicializando aplicaci&oacute;n y SDKs...');
                 
                 // Actualizar PayPal
-                if (window.config && window.config.PAYPAL_CLIENT_ID) {
+                if (window.config && window.config.PAYPAL_CLIENT_ID && !document.getElementById('paypal-script')) {
+                    console.log('[Config Listener] Cargando SDK de PayPal...');
                     const paypalScript = document.createElement('script');
                     paypalScript.id = 'paypal-script';
                     paypalScript.defer = true;
                     paypalScript.src = `https://www.paypal.com/sdk/js?client-id=${window.config.PAYPAL_CLIENT_ID}&currency=MXN`;
                     document.head.appendChild(paypalScript);
+                } else if (document.getElementById('paypal-script')) {
+                     console.log('[Config Listener] SDK de PayPal ya parece estar cargado.');
                 }
                 
                 // Actualizar Google Maps
-                if (window.config && window.config.GOOGLE_MAPS_API_KEY) {
+                if (window.config && window.config.GOOGLE_MAPS_API_KEY && !document.getElementById('maps-script')) {
+                     console.log('[Config Listener] Cargando API de Google Maps...');
                     const mapsScript = document.createElement('script');
                     mapsScript.id = 'maps-script';
                     mapsScript.async = true;
                     mapsScript.defer = true;
                     mapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${window.config.GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
+                    // Asegurarse que initMap est&eacute; disponible globalmente ANTES de a&ntilde;adir el script
+                    window.initMap = initMap;
                     document.head.appendChild(mapsScript);
+                } else if (document.getElementById('maps-script')) {
+                     console.log('[Config Listener] API de Google Maps ya parece estar cargada.');
                 }
+
+                // *** A&Ntilde;ADIDO: Cargar Mercado Pago SDK ***
+                if (window.config && window.config.MP_PUBLIC_KEY && !document.getElementById('mercadopago-sdk-script')) {
+                    console.log('[Config Listener] Cargando SDK de Mercado Pago...');
+                    const mpScript = document.createElement('script');
+                    mpScript.id = 'mercadopago-sdk-script'; 
+                    mpScript.src = 'https://sdk.mercadopago.com/js/v2';
+                    mpScript.async = true; // Puede ser async
+                    // Una vez cargado, podr&iacute;amos intentar inicializar la instancia si a&uacute;n no est&aacute; lista
+                    mpScript.onload = () => {
+                        console.log('[Config Listener] SDK de Mercado Pago cargado din&aacute;micamente.');
+                        // Intentar inicializar ahora que est&aacute; cargado (si mpInstance a&uacute;n es null)
+                        if (typeof initializeMercadoPagoSDK === 'function' && mpInstance === null) {
+                            console.log('[Config Listener] Intentando inicializar instancia MP tras carga din&aacute;mica...');
+                            initializeMercadoPagoSDK();
+                        }
+                    };
+                    mpScript.onerror = () => {
+                         console.error('[Config Listener] Error al cargar din&aacute;micamente el SDK de Mercado Pago.');
+                    };
+                    document.head.appendChild(mpScript);
+                } else if (document.getElementById('mercadopago-sdk-script')) {
+                     console.log('[Config Listener] SDK de Mercado Pago ya parece estar cargado.');
+                     // Si ya estaba cargado pero la instancia fall&oacute;, intentar inicializar de nuevo
+                     if (typeof initializeMercadoPagoSDK === 'function' && mpInstance === null) {
+                         console.log('[Config Listener] Intentando inicializar instancia MP (ya cargado)...');
+                         initializeMercadoPagoSDK();
+                     }
+                 }
                 
-                // Verificar estado de autenticación
+                // Verificar estado de autenticaci&oacute;n
                 if (typeof checkAuthStatus === 'function') {
                     checkAuthStatus();
-                    // Verificar cada 5 minutos
                     setInterval(checkAuthStatus, 300000);
                 }
                 
-                // Inicializar SDKs de pago si está disponible la función
-                if (typeof initPaymentSDKs === 'function') {
-                    initPaymentSDKs();
-                }
+                // NO llamar a initPaymentSDKs aqu&iacute;, dejar que cada SDK se inicialice al cargarse
+                // if (typeof initPaymentSDKs === 'function') {
+                //     initPaymentSDKs();
+                // }
             });
             
             // Si no se dispara el evento configLoaded en 2 segundos, intentar iniciar de todas formas
             setTimeout(function() {
                 if (typeof window.config !== 'undefined') {
-                    console.log('Inicialización por timeout');
+                    console.log('Inicializaci&oacute;n por timeout');
                     document.dispatchEvent(new Event('configLoaded'));
                 } else {
-                    console.error('Config no está disponible después de esperar');
+                    console.error('Config no est&aacute; disponible despu&eacute;s de esperar');
                 }
             }, 2000);
         });
 
-        // Función de inicialización de Google Maps
+        // Funci&oacute;n de inicializaci&oacute;n de Google Maps
         function initMap() {
-            if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
-                console.log('Google Maps API cargada correctamente');
-                // Inicializar el mapa aquí
-            } else {
-                console.error('Google Maps API no se cargó correctamente');
-            }
-        }
-    </script>
-</head>
+            if (typeof google !== 'undefined' && google.maps !== 'undefined') {
+                console.log('[initMap] Google Maps API cargada correctamente');
 
+                // *** ESTA PARTE ES ESENCIAL ***
+                if (typeof initGoogleMapsAutocomplete === 'function') {
+                    console.log('[initMap] Llamando a initGoogleMapsAutocomplete...');
+                    initGoogleMapsAutocomplete(); // <--- LLAMAR A LA FUNCI&Oacute;N DE main.js
+                } else {
+                    console.warn('[initMap] initGoogleMapsAutocomplete no est&aacute; definida a&uacute;n.');
+                }
+                // ... resto de initMap ...
+            } // ...
+        }
+        window.initMap = initMap; // Asegurar que sea global
+    </script><style>
+    .store-status-bar {
+        background-color: #f8f9fa; /* Color de fondo claro */
+        padding: 10px 0;
+        text-align: center;
+        font-size: 0.9em;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .store-status-bar .status-open {
+        color: #28a745; /* Verde para abierto */
+        font-weight: bold;
+    }
+    .store-status-bar .status-closed {
+        color: #dc3545; /* Rojo para cerrado */
+        font-weight: bold;
+    }
+    .store-status-bar p {
+        margin-bottom: 5px;
+    }
+    .store-status-bar .delivery-info {
+        font-size: 0.9em;
+        color: #555;
+    }
+    /* Estilos para el programador de pedidos */
+    .schedule-options {
+        margin-bottom: 15px; /* Espacio antes de método de pago */
+    }
+    .schedule-options label {
+        margin-right: 15px;
+    }
+    #scheduleDateTimeContainer {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #f1f1f1; /* Un fondo ligeramente diferente */
+        border-radius: 4px;
+    }
+    #scheduledTime {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    #scheduleValidationMessage {
+        font-size: 0.85em;
+        margin-top: 5px;
+    }
+    .schedule-validation-error {
+        color: #dc3545; /* Rojo */
+    }
+    .schedule-validation-success {
+        color: #28a745; /* Verde */
+    }
+</style>
+</head>
 <body class="dark-mood">
+
+    <!-- Store Status Bar Start -->
+    <div class="store-status-bar">
+        <?php if ($statusDetails): ?>
+            <p class="<?php echo $statusDetails['is_open'] ? 'status-open' : 'status-closed'; ?>">
+                <i class="fas <?php echo $statusDetails['is_open'] ? 'fa-store' : 'fa-store-slash'; ?>"></i>
+                <?php echo htmlspecialchars($statusDetails['message']); ?>
+            </p>
+            <?php if (!$statusDetails['is_closed_today'] && !empty($statusDetails['open_time_today']) && !empty($statusDetails['close_time_today'])): ?>
+                <p>
+                    Hoy <?php echo htmlspecialchars($statusDetails['day_of_week_name']); ?>:
+                    <?php echo date('g:i A', strtotime($statusDetails['open_time_today'])); ?> - 
+                    <?php echo date('g:i A', strtotime($statusDetails['close_time_today'])); ?>
+                </p>
+            <?php elseif ($statusDetails['is_closed_today']): ?>
+                <!-- Mensaje específico de 'Hoy X la tienda permanecerá cerrada' ya está en $statusDetails['message'] si es el caso -->
+            <?php endif; ?>
+
+            <?php if (!$statusDetails['is_open'] && $statusDetails['next_open_details']): ?>
+                <p>
+                    Puedes programar tu pedido. Próxima apertura: 
+                    <?php echo htmlspecialchars($statusDetails['next_open_details']['day_name']); ?>
+                    a las <?php echo date('g:i A', strtotime($statusDetails['next_open_details']['time'])); ?>.
+                </p>
+            <?php endif; ?>
+        <?php else: ?>
+            <p class="status-closed">Estado de la tienda no disponible temporalmente.</p>
+        <?php endif; ?>
+        <p class="delivery-info">Envío gratis a 5km en pedidos desde $200 MXN.</p>
+    </div>
+    <!-- Store Status Bar End -->
 
     <!-- Preloader Start -->
     <div id="preloader" class="preloader">
@@ -196,8 +253,9 @@
             <div class="offcanvas__wrapper">
                 <div class="offcanvas__content">
                     <div class="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
+                        <!-- Logo en el offcanvas -->
                         <div class="offcanvas__logo">
-                            <a href="index.html">
+                            <a href="https://freddys.com.mx">
                                 <img src="assets/img/logo/logo.svg" alt="logo-img">
                             </a>
                         </div>
@@ -208,14 +266,18 @@
                         </div>
                     </div>
                     <div class="offcanvas__custom-menu d-xl-none">
-                        <a href="index.html" class="offcanvas__menu-btn">Inicio</a>
-                        <a href="my-account.html" class="offcanvas__menu-btn">Mi Cuenta</a>
+                        <a href="https://freddys.com.mx" class="offcanvas__menu-btn">Inicio</a>
+                        <a href="https://freddys.com.mx/my-account" class="offcanvas__menu-btn">Mi Cuenta</a>
+                        <!-- Bot&oacute;n Logout para M&oacute;vil (inicialmente oculto por CSS) -->
+                        <button onclick="logout()" class="theme-btn offcanvas__menu-btn offcanvas-logout-btn" style="display: none; width: 100%; margin-top: 10px;">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesi&oacute;n
+                        </button>
                     </div>
                     <div class="offcanvas__navigation">
                         <div class="mobile-menu fix mb-3"></div>
                     </div>
                     <p class="text d-none d-lg-block">
-                        Somos Freddy's Pizza, una pizzería familiar con la mejor calidad artesanal, donde nuestra prioridad es ofrecer el mejor sabor al mejor precio. Carnes Importadas, Queso Mozzarella 100% Leche de Vaca y nuestra inigualable pizza de orilla rellena con dedos de queso mozzarella con un barniz a la mantequilla y especias son nuestra especialidad.
+                        Somos Freddy's Pizza, una pizzer&iacute;a familiar con la mejor calidad artesanal, donde nuestra prioridad es ofrecer el mejor sabor al mejor precio. Carnes Importadas, Queso Mozzarella 100% Leche de Vaca y nuestra inigualable pizza de orilla rellena con dedos de queso mozzarella con un barniz a la mantequilla y especias son nuestra especialidad.
                     </p>
                     <div class="offcanvas-gallery-area d-none d-xl-block">
                         <div class="offcanvas-gallery-items">
@@ -245,7 +307,7 @@
                                     <i class="fal fa-clock"></i>
                                 </div>
                                 <div class="offcanvas__contact-text">
-                                    <a target="_blank" href="#">Martes a Viernes 2PM - 9PM <br> Sabado y Domingo 1PM a 11:50PM</a>
+                                    <a target="_blank" href="#"><?php echo $offcanvasHoursString; ?></a>
                                 </div>
                             </li>
                             <li class="d-flex align-items-center">
@@ -294,15 +356,15 @@
                                         <nav id="mobile-menu">
                                             <ul>
                                                 <li class="main-nav-item d-xl-block d-none">
-                                                    <a href="index.html">Inicio</a>
+                                                    <a href="https://freddys.com.mx">Inicio</a>
                                                 </li>
                                                 <li class="logo-item d-none d-xl-block">
                                                     <div class="logo-image">
-                                                        <a href="index.html"><img src="assets/img/logo/logo-light.png" alt="Freddy's Logo"></a>
+                                                        <a href="https://freddys.com.mx"><img src="assets/img/logo/logo-light.png" alt="Freddy's Logo"></a>
                                                     </div>
                                                 </li>
                                                 <li class="main-nav-item d-xl-block d-none">
-                                                    <a href="my-account.html">Mi Cuenta</a>
+                                                    <a href="https://freddys.com.mx/my-account">Mi Cuenta</a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -322,7 +384,7 @@
                                     <span id="user-welcome-text">Bienvenido</span>
                                     <button onclick="logout()" class="logout-btn">
                                         <i class="fas fa-sign-out-alt"></i>
-                                        Cerrar Sesión
+                                        Cerrar Sesi&oacute;n
                                     </button>
                                 </div>
                                 <!-- Carrito -->
@@ -340,9 +402,10 @@
     </div>
 </header>
 
+<div class="page-content-wrapper"> <!-- APERTURA DEL NUEVO WRAPPER -->
 
     <!-- Banner Section   S T A R T -->
-    <section class="banner-section fix">
+    <section class="banner-section">
         <div class="slider-area">
             <div class="swiper banner3-slider">
                 <div class="swiper-wrapper">
@@ -432,15 +495,15 @@
                     </div>
                 </div>
     
-                <div class="arrow-prev3"><img src="assets/img/icon/arrowPrev.svg" alt="Icon"></div>
-                <div class="arrow-next3"><img src="assets/img/icon/arrowNext.svg" alt="Icon"></div>
+                <div class="arrow-prev3"><i class="fas fa-chevron-left"></i></div>
+                <div class="arrow-next3"><i class="fas fa-chevron-right"></i></div>
                 <div class="pagination-class3 swiper-pagination"></div>
             </div>
         </div>
     </section>
 
     <!-- Menu Section   S T A R T -->
-    <section class="menu-display-section section-padding fix">
+    <section class="menu-display-section section-padding">
         <div class="container">
     
             <div class="container">
@@ -455,823 +518,731 @@
                     <button class="filter-btn" data-filter="orilla">Orilla Rellena</button>
                     <button class="filter-btn" data-filter="complementos">Complementos</button>
                 </div>
-                <div class="menu-items-container" style="position: relative; overflow: hidden; min-height: 500px";>
+                <div class="menu-items-container" style="position: relative; overflow: hidden; min-height: 500px">
                     <div class="category-block menu-category-pizzas mb-5">
                         <div class="dishes-card-wrap style2">
-                            <!-- La Mamalona -->
-                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="mamalona" data-base-price="149.00">
-                                <div class="dishes-thumb">
-                                    <img src="assets/img/pizzas/mamalona.png" alt="La Mamalona">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
-                                    <a href="#"><h3>La Mamalona</h3></a>
-                                    <div class="product-modifiers mt-2 mb-3 text-start">
-                                        <div class="modifier-group mb-2">
-                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-1" name="extra-queso-pizza-1" value="1" data-price-change="25.00">
-                                            <label class="modifier-label" for="extra-queso-pizza-1">Extra Queso (+$25.00)</label>
-                                        </div>
-                                        <div class="modifier-group modifier-radio-group">
-                                            <label class="group-label">Cocción:</label>
-                                        <div class="radio-container">
-                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-1" name="coccion-pizza-1" value="suave">
-                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-1">Suave</label>
-                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-1" name="coccion-pizza-1" value="crujiente">
-                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-1">Crujiente</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                    <h6>$<span class="product-price">149.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-1" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                                </div>
+                            <!-- INICIO: Contenido de Pizzas Movido -->
+<!-- INICIO: Pizza La Mamalona -->
+
+<!-- FIN: Pizza La Mamalona -->
+                            
+                        <!-- FIN: Contenido de Pizzas Movido -->
+                    <div class="dishes-card style2 product-item " data-category="pizzas" data-product-id="mamalona" data-base-price="149" data-current-price="149"><div class="dishes-thumb"><img src="/assets/img/pizzas/mamalona.png" alt="La Mamalona"><div class="circle-shape"><img class="cir36" src="/assets/img/food-items/circleShape.png" alt="shape"></div></div><div class="dishes-content"><a href="#"><h3>La Mamalona</h3></a><div class="product-modifiers mt-2 mb-3 text-start"><div class="modifier-group mb-2"><input class="modifier-checkbox" type="checkbox" id="extra-queso-mamalona" name="extra-queso-mamalona" value="1" data-price-change="25"><label class="modifier-label" for="extra-queso-mamalona">Extra Queso (+$25.00)</label></div><div class="modifier-group modifier-radio-group"><label class="group-label">Cocci&oacute;n:</label><div class="radio-container"><input class="modifier-radio" type="radio" id="coccion-suave-mamalona" name="coccion-mamalona" value="suave"><label class="modifier-label modifier-radio-label" for="coccion-suave-mamalona">Suave</label><input class="modifier-radio" type="radio" id="coccion-crujiente-mamalona" name="coccion-mamalona" value="crujiente"><label class="modifier-label modifier-radio-label" for="coccion-crujiente-mamalona">Crujiente</label></div></div></div><h6>$<span class="product-price">149.00</span></h6><div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3"><button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button><input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-mamalona" readonly><button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button></div><button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button></div></div><div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="champisconatun" data-base-price="139" data-current-price="139">
+                            <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/champisconatun.png" alt="Champi&ntilde;ones con Atun">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
                             </div>
-                            <!-- Champiñones con Atun -->
-                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="champisconatun" data-base-price="139.00">
-                                <div class="dishes-thumb">
-                                    <img src="assets/img/pizzas/champisconatun.png" alt="Champiñones con Atun">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
-                                    <a href="#"><h3>Champiñones con Atun</h3></a>
-                                    <div class="product-modifiers mt-2 mb-3 text-start">
-                                        <div class="modifier-group mb-2">
-                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-2" name="extra-queso-pizza-2" value="1" data-price-change="25.00">
+                            <div class="dishes-content">
+                                    <a href="#"><h3>Champi&ntilde;ones con Atun</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-2" name="extra-queso-pizza-2" value="1" data-price-change="25">
                                             <label class="modifier-label" for="extra-queso-pizza-2">Extra Queso (+$25.00)</label>
-                                        </div>
-                                        <div class="modifier-group modifier-radio-group">
-                                            <label class="group-label">Cocción:</label>
-                                        <div class="radio-container">    
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocci&oacute;n:</label>
+                                        <div class="radio-container">
                                             <input class="modifier-radio" type="radio" id="coccion-suave-pizza-2" name="coccion-pizza-2" value="suave">
                                             <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-2">Suave</label>
                                             <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-2" name="coccion-pizza-2" value="crujiente">
                                             <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-2">Crujiente</label>
-                                        </div>
                                     </div>
-                                    </div>
+                                </div>
+                                </div>
                                     <h6>$<span class="product-price">139.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
                                         <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-2" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
                                 </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
                             </div>
-                            <!-- Pepperoni -->
-                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="pepperoni" data-base-price="129.00">
-                                <div class="dishes-thumb">
+                            </div><div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="pepperoni" data-base-price="129" data-current-price="129">
+                            <div class="dishes-thumb">
                                     <img src="assets/img/pizzas/pepperoni.png" alt="Pizza Pepperoni">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
                                     <a href="#"><h3>Pepperoni</h3></a>
-                                    <div class="product-modifiers mt-2 mb-3 text-start">
-                                        <div class="modifier-group mb-2">
-                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-3" name="extra-queso-pizza-3" value="1" data-price-change="25.00">
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-3" name="extra-queso-pizza-3" value="1" data-price-change="25">
                                             <label class="modifier-label" for="extra-queso-pizza-3">Extra Queso (+$25.00)</label>
-                                        </div>
-                                        <div class="modifier-group modifier-radio-group">
-                                            <label class="group-label">Cocción:</label>
-                                            <div class="radio-container">
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocci&oacute;n:</label>
+                                        <div class="radio-container">
                                             <input class="modifier-radio" type="radio" id="coccion-suave-pizza-3" name="coccion-pizza-3" value="suave">
                                             <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-3">Suave</label>
                                             <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-3" name="coccion-pizza-3" value="crujiente">
                                             <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-3">Crujiente</label>
-                                        </div>
                                     </div>
-                                    </div>
+                                </div>
+                                </div>
                                     <h6>$<span class="product-price">129.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
                                         <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-3" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
                                 </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
                             </div>
-                            <!-- Hawaiana -->
-                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="hawaiana" data-base-price="129.00">
-                                <div class="dishes-thumb">
+                            </div><div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="hawaiana" data-base-price="129" data-current-price="129">
+                            <div class="dishes-thumb">
                                     <img src="assets/img/pizzas/hawaiana.png" alt="Pizza Hawaiana">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
                                     <a href="#"><h3>Hawaiana</h3></a>
-                                    <div class="product-modifiers mt-2 mb-3 text-start">
-                                        <div class="modifier-group mb-2">
-                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-4" name="extra-queso-pizza-4" value="1" data-price-change="25.00">
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-4" name="extra-queso-pizza-4" value="1" data-price-change="25">
                                             <label class="modifier-label" for="extra-queso-pizza-4">Extra Queso (+$25.00)</label>
-                                        </div>
-                                        <div class="modifier-group modifier-radio-group">
-                                            <label class="group-label">Cocción:</label>
-                                            <div class="radio-container">
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocci&oacute;n:</label>
+                                        <div class="radio-container">
                                             <input class="modifier-radio" type="radio" id="coccion-suave-pizza-4" name="coccion-pizza-4" value="suave">
                                             <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-4">Suave</label>
                                             <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-4" name="coccion-pizza-4" value="crujiente">
                                             <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-4">Crujiente</label>
-                                        </div>
                                     </div>
-                                    </div>
+                                </div>
+                                </div>
                                     <h6>$<span class="product-price">129.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
                                         <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-4" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
                                 </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
                             </div>
-                            <!-- Mitad y Mitad -->
-                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="mitadymitad" data-base-price="129.00">
-                                <div class="dishes-thumb">
+                            </div><div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="mitadymitad" data-base-price="129" data-current-price="129">
+                            <div class="dishes-thumb">
                                     <img src="assets/img/pizzas/mitadymitad.png" alt="Pizza Mitad y Mitad">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
                                     <a href="#"><h3>Mitad y Mitad</h3></a>
-                                    <div class="product-modifiers mt-2 mb-3 text-start">
-                                        <div class="modifier-group mb-2">
-                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-5" name="extra-queso-pizza-5" value="1" data-price-change="25.00">
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-5" name="extra-queso-pizza-5" value="1" data-price-change="25">
                                             <label class="modifier-label" for="extra-queso-pizza-5">Extra Queso (+$25.00)</label>
-                                        </div>
-                                        <div class="modifier-group modifier-radio-group mb-2">
-                                            <label class="group-label">Cocción:</label>
-                                            <div class="radio-container">
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group mb-2">
+                                        <label class="group-label">Cocci&oacute;n:</label>
+                                        <div class="radio-container">
                                             <input class="modifier-radio" type="radio" id="coccion-suave-pizza-5" name="coccion-pizza-5" value="suave">
                                             <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-5">Suave</label>
                                             <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-5" name="coccion-pizza-5" value="crujiente">
                                             <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-5">Crujiente</label>
-                                        </div>
-                                        </div>
-                                        <div class="modifier-group mt-2">
+                                    </div>
+                                    </div>
+                                    <div class="modifier-group mt-2">
                                             <label for="mitad1-pizza-5" class="group-label">Primera Mitad:</label>
-                                            <select name="mitad1-pizza-5" id="mitad1-pizza-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="pizza-5">
-                                                <option value="">Selecciona...</option>
-                                                <option value="pepperoni" data-base-price="129">Pepperoni</option>
-                                                <option value="hawaiana" data-base-price="129">Hawaiana</option>
-                                                <option value="mamalona" data-base-price="149">La Mamalona (+20)</option>
-                                                <option value="carnesfrias" data-base-price="129">Carnes Frias</option>
-                                                <option value="cuatroquesos" data-base-price="129">4 Quesos</option>
-                                                <option value="champisconatun" data-base-price="139">Champiñones c/ Atun (+10)</option>
-                                                <option value="champisconpepp" data-base-price="129">Champiñones c/ Pepp.</option>
-                                                <option value="chorizo" data-base-price="129">Chorizo</option>
-                                                <option value="salamiconcarne" data-base-price="139">Salami c/ Carne M. (+10)</option>
-                                            </select>
-                                        </div>
-                                        <div class="modifier-group mt-2">
+                                            <select name="mitad1-pizza-5" id="mitad1-pizza-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="pizza-5"><option value="">Selecciona...</option><option value="mamalona" data-base-price="149">La Mamalona (+20)</option><option value="champisconatun" data-base-price="139">Champi&ntilde;ones con Atun (+10)</option><option value="pepperoni" data-base-price="129">Pepperoni</option><option value="hawaiana" data-base-price="129">Hawaiana</option><option value="mitadymitad" data-base-price="129">Mitad y Mitad</option><option value="carnesfrias" data-base-price="129">Carnes Frias</option><option value="cuatroquesos" data-base-price="129">4 Quesos</option><option value="champisconpepperoni" data-base-price="129">Champi&ntilde;ones con Pepperoni</option><option value="chorizo" data-base-price="129">Chorizo</option><option value="salamiconcarne" data-base-price="139">Salami con Carne Molida (+10)</option></select>
+                                    </div>
+                                    <div class="modifier-group mt-2">
                                             <label for="mitad2-pizza-5" class="group-label">Segunda Mitad:</label>
-                                            <select name="mitad2-pizza-5" id="mitad2-pizza-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="pizza-5">
-                                                <option value="">Selecciona...</option>
-                                                <option value="pepperoni" data-base-price="129">Pepperoni</option>
-                                                <option value="hawaiana" data-base-price="129">Hawaiana</option>
-                                                <option value="mamalona" data-base-price="149">La Mamalona (+20)</option>
-                                                <option value="carnesfrias" data-base-price="129">Carnes Frias</option>
-                                                <option value="cuatroquesos" data-base-price="129">4 Quesos</option>
-                                                <option value="champisconatun" data-base-price="139">Champiñones c/ Atun (+10)</option>
-                                                <option value="champisconpepp" data-base-price="129">Champiñones c/ Pepp.</option>
-                                                <option value="chorizo" data-base-price="129">Chorizo</option>
-                                                <option value="salamiconcarne" data-base-price="139">Salami c/ Carne M. (+10)</option>
-                                            </select>
-                                            <small style="display: block; margin-top: 5px; font-size: 0.8em; opacity: 0.7;">*Precio base $129. Mitades especiales +$15 (aprox).</small>
-                                        </div>
+                                            <select name="mitad2-pizza-5" id="mitad2-pizza-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="pizza-5"><option value="">Selecciona...</option><option value="mamalona" data-base-price="149">La Mamalona (+20)</option><option value="champisconatun" data-base-price="139">Champi&ntilde;ones con Atun (+10)</option><option value="pepperoni" data-base-price="129">Pepperoni</option><option value="hawaiana" data-base-price="129">Hawaiana</option><option value="mitadymitad" data-base-price="129">Mitad y Mitad</option><option value="carnesfrias" data-base-price="129">Carnes Frias</option><option value="cuatroquesos" data-base-price="129">4 Quesos</option><option value="champisconpepperoni" data-base-price="129">Champi&ntilde;ones con Pepperoni</option><option value="chorizo" data-base-price="129">Chorizo</option><option value="salamiconcarne" data-base-price="139">Salami con Carne Molida (+10)</option></select>                                        </div>
                                     </div>
                                     <h6>$<span class="product-price">129.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
                                         <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-5" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
                                 </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
                             </div>
-                            <!-- Carnes Frías -->
-                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="carnesfrias" data-base-price="129.00">
-                                <div class="dishes-thumb">
+                            </div><div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="carnesfrias" data-base-price="129" data-current-price="129">
+                            <div class="dishes-thumb">
                                     <img src="assets/img/pizzas/carnesfrias.png" alt="Pizza Carnes Frias">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
                                     <a href="#"><h3>Carnes Frias</h3></a>
-                                    <div class="product-modifiers mt-2 mb-3 text-start">
-                                        <div class="modifier-group mb-2">
-                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-6" name="extra-queso-pizza-6" value="1" data-price-change="25.00">
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-6" name="extra-queso-pizza-6" value="1" data-price-change="25">
                                             <label class="modifier-label" for="extra-queso-pizza-6">Extra Queso (+$25.00)</label>
-                                        </div>
-                                        <div class="modifier-group modifier-radio-group">
-                                            <label class="group-label">Cocción:</label>
-                                            <div class="radio-container">
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocci&oacute;n:</label>
+                                        <div class="radio-container">
                                             <input class="modifier-radio" type="radio" id="coccion-suave-pizza-6" name="coccion-pizza-6" value="suave">
                                             <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-6">Suave</label>
                                             <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-6" name="coccion-pizza-6" value="crujiente">
                                             <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-6">Crujiente</label>
-                                        </div>
                                     </div>
-                                    </div>
+                                </div>
+                                </div>
                                     <h6>$<span class="product-price">129.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
                                         <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-6" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
                                 </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
                             </div>
-                            <!-- 4 Quesos -->
-                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="cuatroquesos" data-base-price="129.00">
-                                <div class="dishes-thumb">
+                            </div><div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="cuatroquesos" data-base-price="129" data-current-price="129">
+                            <div class="dishes-thumb">
                                     <img src="assets/img/pizzas/cuatroquesos.png" alt="Pizza 4 Quesos">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
                                     <a href="#"><h3>4 Quesos</h3></a>
-                                    <div class="product-modifiers mt-2 mb-3 text-start">
-                                        <div class="modifier-group mb-2">
-                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-7" name="extra-queso-pizza-7" value="1" data-price-change="25.00">
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-7" name="extra-queso-pizza-7" value="1" data-price-change="25">
                                             <label class="modifier-label" for="extra-queso-pizza-7">Extra Queso (+$25.00)</label>
-                                        </div>
-                                        <div class="modifier-group modifier-radio-group">
-                                            <label class="group-label">Cocción:</label>
-                                            <div class="radio-container">
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocci&oacute;n:</label>
+                                        <div class="radio-container">
                                             <input class="modifier-radio" type="radio" id="coccion-suave-pizza-7" name="coccion-pizza-7" value="suave">
                                             <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-7">Suave</label>
                                             <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-7" name="coccion-pizza-7" value="crujiente">
                                             <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-7">Crujiente</label>
-                                        </div>
                                     </div>
-                                    </div>
+                                </div>
+                                </div>
                                     <h6>$<span class="product-price">129.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
                                         <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-7" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
                                 </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
                             </div>
-                            <!-- Champiñones con Pepperoni -->
-                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="champisconpepperoni" data-base-price="129.00">
-                                <div class="dishes-thumb">
-                                    <img src="assets/img/pizzas/champisconpepperoni.png" alt="Pizza Champiñones con Pepperoni">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
-                                    <a href="#"><h3>Champiñones con Pepperoni</h3></a>
-                                    <div class="product-modifiers mt-2 mb-3 text-start">
-                                        <div class="modifier-group mb-2">
-                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-8" name="extra-queso-pizza-8" value="1" data-price-change="25.00">
+                            </div><div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="champisconpepperoni" data-base-price="129" data-current-price="129">
+                            <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/champisconpepperoni.png" alt="Pizza Champi&ntilde;ones con Pepperoni">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
+                                    <a href="#"><h3>Champi&ntilde;ones con Pepperoni</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-8" name="extra-queso-pizza-8" value="1" data-price-change="25">
                                             <label class="modifier-label" for="extra-queso-pizza-8">Extra Queso (+$25.00)</label>
-                                        </div>
-                                        <div class="modifier-group modifier-radio-group">
-                                            <label class="group-label">Cocción:</label>
-                                            <div class="radio-container">
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocci&oacute;n:</label>
+                                        <div class="radio-container">
                                             <input class="modifier-radio" type="radio" id="coccion-suave-pizza-8" name="coccion-pizza-8" value="suave">
                                             <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-8">Suave</label>
                                             <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-8" name="coccion-pizza-8" value="crujiente">
                                             <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-8">Crujiente</label>
-                                        </div>
                                     </div>
-                                    </div>
+                                </div>
+                                </div>
                                     <h6>$<span class="product-price">129.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
                                         <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-8" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
                                 </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
                             </div>
-                            <!-- Chorizo -->
-                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="chorizo" data-base-price="129.00">
-                                <div class="dishes-thumb">
+                            </div><div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="chorizo" data-base-price="129" data-current-price="129">
+                            <div class="dishes-thumb">
                                     <img src="assets/img/pizzas/chorizo.png" alt="Pizza Chorizo">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
                                     <a href="#"><h3>Chorizo</h3></a>
-                                    <div class="product-modifiers mt-2 mb-3 text-start">
-                                        <div class="modifier-group mb-2">
-                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-9" name="extra-queso-pizza-9" value="1" data-price-change="25.00">
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-9" name="extra-queso-pizza-9" value="1" data-price-change="25">
                                             <label class="modifier-label" for="extra-queso-pizza-9">Extra Queso (+$25.00)</label>
-                                        </div>
-                                        <div class="modifier-group modifier-radio-group mb-2">
-                                            <label class="group-label">Cocción:</label>
-                                            <div class="radio-container">
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group mb-2">
+                                        <label class="group-label">Cocci&oacute;n:</label>
+                                        <div class="radio-container">
                                             <input class="modifier-radio" type="radio" id="coccion-suave-pizza-9" name="coccion-pizza-9" value="suave">
                                             <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-9">Suave</label>
                                             <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-9" name="coccion-pizza-9" value="crujiente">
                                             <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-9">Crujiente</label>
-                                        </div>
-                                        </div>
-                                        <div class="modifier-group modifier-radio-group mb-2">
-                                            <div class="radio-container">
-                                            <label class="group-label">Cebolla: <span style="color:red">*</span></label>
-                                            <input class="modifier-radio" type="radio" id="cebolla-con-pizza-9" name="cebolla-pizza-9" value="con" required>
-                                            <label class="modifier-label modifier-radio-label" for="cebolla-con-pizza-9">Con Cebolla</label>
-                                            <input class="modifier-radio" type="radio" id="cebolla-sin-pizza-9" name="cebolla-pizza-9" value="sin" required>
-                                            <label class="modifier-label modifier-radio-label" for="cebolla-sin-pizza-9">Sin Cebolla</label>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <h6>$<span class="product-price">129.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-9" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                                </div>
-                            </div>
-                            <!-- Salami con Carne Molida -->
-                            <div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="salamiconcarne" data-base-price="139.00">
-                                <div class="dishes-thumb">
-                                    <img src="assets/img/pizzas/salamiconcarne.png" alt="Pizza Salami con Carne Molida">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
-                                    <a href="#"><h3>Salami con Carne Molida</h3></a>
-                                    <div class="product-modifiers mt-2 mb-3 text-start">
-                                        <div class="modifier-group mb-2">
-                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-10" name="extra-queso-pizza-10" value="1" data-price-change="25.00">
-                                            <label class="modifier-label" for="extra-queso-pizza-10">Extra Queso (+$25.00)</label>
-                                        </div>
-                                        <div class="modifier-group modifier-radio-group">
-                                            <label class="group-label">Cocción:</label>
-                                            <div class="radio-container">
-                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-10" name="coccion-pizza-10" value="suave">
-                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-10">Suave</label>
-                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-10" name="coccion-pizza-10" value="crujiente">
-                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-10">Crujiente</label>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <h6>$<span class="product-price">139.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-10" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Orilla Rellena -->
-                <div class="category-block menu-category-orilla mb-5" style="display: none;">
-                    <div class="dishes-card-wrap style2">
-                        <!-- La Mamalona Orilla Rellena -->
-                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="mamalona-orilla" data-base-price="179.00">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/mamalona-orilla.png" alt="La Mamalona Orilla Rellena">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>La Mamalona Orilla Rellena</h3></a>
-                                <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-1" name="extra-queso-orilla-1" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-orilla-1">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <div class="radio-container">
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-1" name="coccion-orilla-1" value="suave">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-1">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-1" name="coccion-orilla-1" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-1">Crujiente</label>
-                                    </div>
-                                </div>
-                                </div>
-                                <h6>$<span class="product-price">179.00</span></h6>
-                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-1" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        <!-- Champiñones con Atun Orilla Rellena -->
-                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="champisconatun-orilla" data-base-price="169.00">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/champisconatun-orilla.png" alt="Champiñones con Atun Orilla Rellena">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Champiñones con Atun Orilla Rellena</h3></a>
-                                <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-2" name="extra-queso-orilla-2" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-orilla-2">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <div class="radio-container">
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-2" name="coccion-orilla-2" value="suave">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-2">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-2" name="coccion-orilla-2" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-2">Crujiente</label>
-                                    </div>
-                                </div>
-                                </div>
-                                <h6>$<span class="product-price">169.00</span></h6>
-                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-2" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        <!-- Pepperoni Orilla Rellena -->
-                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="pepperoni-orilla" data-base-price="159.00">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/pepperoni-orilla.png" alt="Pepperoni Orilla Rellena">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Pepperoni Orilla Rellena</h3></a>
-                                <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-3" name="extra-queso-orilla-3" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-orilla-3">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <div class="radio-container">
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-3" name="coccion-orilla-3" value="suave">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-3">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-3" name="coccion-orilla-3" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-3">Crujiente</label>
-                                    </div>
-                                </div>
-                                </div>
-                                <h6>$<span class="product-price">159.00</span></h6>
-                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-3" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        <!-- Hawaiana Orilla Rellena -->
-                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="hawaiana-orilla" data-base-price="159.00">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/hawaiana-orilla.png" alt="Hawaiana Orilla Rellena">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Hawaiana Orilla Rellena</h3></a>
-                                <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-4" name="extra-queso-orilla-4" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-orilla-4">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <div class="radio-container">
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-4" name="coccion-orilla-4" value="suave">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-4">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-4" name="coccion-orilla-4" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-4">Crujiente</label>
-                                    </div>
-                                </div>
-                                </div>
-                                <h6>$<span class="product-price">159.00</span></h6>
-                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-4" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        <!-- Mitad y Mitad Orilla Rellena -->
-                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="mitadymitad-orilla" data-base-price="159.00">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/mitadymitad-orilla.png" alt="Mitad y Mitad Orilla Rellena">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Mitad y Mitad Orilla Rellena</h3></a>
-                                <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-5" name="extra-queso-orilla-5" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-orilla-5">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group mb-2">
-                                        <label class="group-label">Cocción:</label>
-                                        <div class="radio-container">
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-5" name="coccion-orilla-5" value="suave">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-5">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-5" name="coccion-orilla-5" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-5">Crujiente</label>
-                                    </div>
-                                    </div>
-                                    <div class="modifier-group mt-2">
-                                        <label for="mitad1-orilla-5" class="group-label">Primera Mitad:</label>
-                                        <select name="mitad1-orilla-5" id="mitad1-orilla-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="orilla-5">
-                                            <option value="">Selecciona...</option>
-                                            <option value="pepperoni" data-base-price="159">Pepperoni</option>
-                                            <option value="hawaiana" data-base-price="159">Hawaiana</option>
-                                            <option value="mamalona" data-base-price="179">La Mamalona (+20)</option>
-                                            <option value="carnesfrias" data-base-price="159">Carnes Frias</option>
-                                            <option value="cuatroquesos" data-base-price="159">4 Quesos</option>
-                                            <option value="champisconatun" data-base-price="169">Champiñones c/ Atun (+10)</option>
-                                            <option value="champisconpepp" data-base-price="159">Champiñones c/ Pepp.</option>
-                                            <option value="chorizo" data-base-price="159">Chorizo</option>
-                                            <option value="salamiconcarne" data-base-price="169">Salami c/ Carne M. (+10)</option>
-                                        </select>
-                                    </div>
-                                    <div class="modifier-group mt-2">
-                                        <label for="mitad2-orilla-5" class="group-label">Segunda Mitad:</label>
-                                        <select name="mitad2-orilla-5" id="mitad2-orilla-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="orilla-5">
-                                            <option value="">Selecciona...</option>
-                                            <option value="pepperoni" data-base-price="159">Pepperoni</option>
-                                            <option value="hawaiana" data-base-price="159">Hawaiana</option>
-                                            <option value="mamalona" data-base-price="179">La Mamalona (+20)</option>
-                                            <option value="carnesfrias" data-base-price="159">Carnes Frias</option>
-                                            <option value="cuatroquesos" data-base-price="159">4 Quesos</option>
-                                            <option value="champisconatun" data-base-price="169">Champiñones c/ Atun (+10)</option>
-                                            <option value="champisconpepp" data-base-price="159">Champiñones c/ Pepp.</option>
-                                            <option value="chorizo" data-base-price="159">Chorizo</option>
-                                            <option value="salamiconcarne" data-base-price="169">Salami c/ Carne M. (+10)</option>
-                                        </select>
-                                        <small style="display: block; margin-top: 5px; font-size: 0.8em; opacity: 0.7;">*Precio base $159. Mitades especiales +$15 (aprox).</small>
-                                    </div>
-                                </div>
-                                <h6>$<span class="product-price">159.00</span></h6>
-                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-5" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        <!-- Carnes Frías Orilla Rellena -->
-                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="carnesfrias-orilla" data-base-price="159.00">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/carnesfrias-orilla.png" alt="Carnes Frias Orilla Rellena">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Carnes Frias Orilla Rellena</h3></a>
-                                <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-6" name="extra-queso-orilla-6" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-orilla-6">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <div class="radio-container">
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-6" name="coccion-orilla-6" value="suave">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-6">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-6" name="coccion-orilla-6" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-6">Crujiente</label>
-                                    </div>
-                                </div>
-                                </div>
-                                <h6>$<span class="product-price">159.00</span></h6>
-                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-6" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        <!-- 4 Quesos Orilla Rellena -->
-                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="cuatroquesos-orilla" data-base-price="159.00">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/cuatroquesos-orilla.png" alt="4 Quesos Orilla Rellena">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>4 Quesos Orilla Rellena</h3></a>
-                                <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-7" name="extra-queso-orilla-7" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-orilla-7">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <div class="radio-container">
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-7" name="coccion-orilla-7" value="suave">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-7">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-7" name="coccion-orilla-7" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-7">Crujiente</label>
-                                    </div>
-                                </div>
-                                </div>
-                                <h6>$<span class="product-price">159.00</span></h6>
-                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-7" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        <!-- Champiñones con Pepperoni Orilla Rellena -->
-                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="champisconpepperoni-orilla" data-base-price="159.00">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/champisconpepperoni-orilla.png" alt="Champiñones con Pepperoni Orilla Rellena">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Champiñones con Pepperoni Orilla Rellena</h3></a>
-                                <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-8" name="extra-queso-orilla-8" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-orilla-8">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <div class="radio-container">
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-8" name="coccion-orilla-8" value="suave">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-8">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-8" name="coccion-orilla-8" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-8">Crujiente</label>
-                                    </div>
-                                </div>
-                                </div>
-                                <h6>$<span class="product-price">159.00</span></h6>
-                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-8" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        <!-- Chorizo Orilla Rellena -->
-                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="chorizo-orilla" data-base-price="159.00">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/chorizo-orilla.png" alt="Chorizo Orilla Rellena">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Chorizo Orilla Rellena</h3></a>
-                                <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-9" name="extra-queso-orilla-9" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-orilla-9">Extra Queso (+$25.00)</label>
-                                    </div>
-                                    <div class="modifier-group modifier-radio-group mb-2">
-                                        <label class="group-label">Cocción:</label>
-                                        <div class="radio-container">
-                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-9" name="coccion-orilla-9" value="suave">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-9">Suave</label>
-                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-9" name="coccion-orilla-9" value="crujiente">
-                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-9">Crujiente</label>
                                     </div>
                                     </div>
                                     <div class="modifier-group modifier-radio-group mb-2">
                                         <div class="radio-container">
                                         <label class="group-label">Cebolla: <span style="color:red">*</span></label>
+                                            <input class="modifier-radio" type="radio" id="cebolla-con-pizza-9" name="cebolla-pizza-9" value="con" required>
+                                            <label class="modifier-label modifier-radio-label" for="cebolla-con-pizza-9">Con Cebolla</label>
+                                            <input class="modifier-radio" type="radio" id="cebolla-sin-pizza-9" name="cebolla-pizza-9" value="sin" required>
+                                            <label class="modifier-label modifier-radio-label" for="cebolla-sin-pizza-9">Sin Cebolla</label>
+                                    </div>
+                                </div>
+                                </div>
+                                    <h6>$<span class="product-price">129.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-9" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                            </div><div class="dishes-card style2 product-item" data-category="pizzas" data-product-id="salamiconcarne" data-base-price="139" data-current-price="139">
+                            <div class="dishes-thumb">
+                                    <img src="assets/img/pizzas/salamiconcarne.png" alt="Pizza Salami con Carne Molida">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                            </div>
+                            <div class="dishes-content">
+                                    <a href="#"><h3>Salami con Carne Molida</h3></a>
+                                <div class="product-modifiers mt-2 mb-3 text-start">
+                                    <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-pizza-10" name="extra-queso-pizza-10" value="1" data-price-change="25">
+                                            <label class="modifier-label" for="extra-queso-pizza-10">Extra Queso (+$25.00)</label>
+                                    </div>
+                                    <div class="modifier-group modifier-radio-group">
+                                        <label class="group-label">Cocci&oacute;n:</label>
+                                        <div class="radio-container">
+                                            <input class="modifier-radio" type="radio" id="coccion-suave-pizza-10" name="coccion-pizza-10" value="suave">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-suave-pizza-10">Suave</label>
+                                            <input class="modifier-radio" type="radio" id="coccion-crujiente-pizza-10" name="coccion-pizza-10" value="crujiente">
+                                            <label class="modifier-label modifier-radio-label" for="coccion-crujiente-pizza-10">Crujiente</label>
+                                    </div>
+                                </div>
+                                </div>
+                                    <h6>$<span class="product-price">139.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-pizza-10" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                        </div></div> <!-- Cierre del div.dishes-card-wrap.style2 para pizzas -->
+                </div> <!-- Cierre del div.category-block.menu-category-pizzas -->
+                    <!-- Orilla Rellena -->
+                <div class="category-block menu-category-orilla mb-5" style="display: none;">
+                    <div class="dishes-card-wrap style2">
+                        <!-- La Mamalona Orilla Rellena -->
+                        
+                        <!-- Champi&ntilde;ones con Atun Orilla Rellena -->
+                        
+                        <!-- Pepperoni Orilla Rellena -->
+                        
+                        <!-- Hawaiana Orilla Rellena -->
+                        
+                        <!-- Mitad y Mitad Orilla Rellena -->
+                        
+                        <!-- Carnes Fr&iacute;as Orilla Rellena -->
+                        
+                        <!-- 4 Quesos Orilla Rellena -->
+                        
+                        <!-- Champi&ntilde;ones con Pepperoni Orilla Rellena -->
+                        
+                        <!-- Chorizo Orilla Rellena -->
+                        
+                        <!-- Salami con Carne Molida Orilla Rellena -->
+                        
+                    <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="mamalona-orilla" data-base-price="179" data-current-price="179">
+                                <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/mamalona-orilla.png" alt="La Mamalona Orilla Rellena">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                <a href="#"><h3>La Mamalona Orilla Rellena</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-1" name="extra-queso-orilla-1" value="1" data-price-change="25">
+                                        <label class="modifier-label" for="extra-queso-orilla-1">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocci&oacute;n:</label>
+                                        <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-1" name="coccion-orilla-1" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-1">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-1" name="coccion-orilla-1" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-1">Crujiente</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h6>$<span class="product-price">179.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-1" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                        </div><div class="dishes-card style2 product-item" data-category="orilla" data-product-id="champisconatun-orilla" data-base-price="169" data-current-price="169">
+                                <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/champisconatun-orilla.png" alt="Champi&ntilde;ones con Atun Orilla Rellena">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                <a href="#"><h3>Champi&ntilde;ones con Atun Orilla Rellena</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                            <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-2" name="extra-queso-orilla-2" value="1" data-price-change="25">
+                                            <label class="modifier-label" for="extra-queso-orilla-2">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocci&oacute;n:</label>
+                                            <div class="radio-container">    
+                                                <input class="modifier-radio" type="radio" id="coccion-suave-orilla-2" name="coccion-orilla-2" value="suave">
+                                                <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-2">Suave</label>
+                                                <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-2" name="coccion-orilla-2" value="crujiente">
+                                                <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-2">Crujiente</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <h6>$<span class="product-price">169.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-2" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                        </div><div class="dishes-card style2 product-item" data-category="orilla" data-product-id="pepperoni-orilla" data-base-price="159" data-current-price="159">
+                                <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/pepperoni-orilla.png" alt="Pepperoni Orilla Rellena">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                <a href="#"><h3>Pepperoni Orilla Rellena</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-3" name="extra-queso-orilla-3" value="1" data-price-change="25">
+                                        <label class="modifier-label" for="extra-queso-orilla-3">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocci&oacute;n:</label>
+                                            <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-3" name="coccion-orilla-3" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-3">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-3" name="coccion-orilla-3" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-3">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-3" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                        </div><div class="dishes-card style2 product-item" data-category="orilla" data-product-id="hawaiana-orilla" data-base-price="159" data-current-price="159">
+                                <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/hawaiana-orilla.png" alt="Hawaiana Orilla Rellena">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                <a href="#"><h3>Hawaiana Orilla Rellena</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-4" name="extra-queso-orilla-4" value="1" data-price-change="25">
+                                        <label class="modifier-label" for="extra-queso-orilla-4">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocci&oacute;n:</label>
+                                            <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-4" name="coccion-orilla-4" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-4">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-4" name="coccion-orilla-4" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-4">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-4" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                        </div><div class="dishes-card style2 product-item" data-category="orilla" data-product-id="mitadymitad-orilla" data-base-price="159" data-current-price="159">
+                                <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/mitadymitad-orilla.png" alt="Mitad y Mitad Orilla Rellena">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                <a href="#"><h3>Mitad y Mitad Orilla Rellena</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-5" name="extra-queso-orilla-5" value="1" data-price-change="25">
+                                        <label class="modifier-label" for="extra-queso-orilla-5">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group mb-2">
+                                            <label class="group-label">Cocci&oacute;n:</label>
+                                            <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-5" name="coccion-orilla-5" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-5">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-5" name="coccion-orilla-5" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-5">Crujiente</label>
+                                        </div>
+                                        </div>
+                                        <div class="modifier-group mt-2">
+                                        <label for="mitad1-orilla-5" class="group-label">Primera Mitad:</label>
+                                        <select name="mitad1-orilla-5" id="mitad1-orilla-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="orilla-5"><option value="">Selecciona...</option><option value="mamalona" data-base-price="179">La Mamalona (+20)</option><option value="champisconatun" data-base-price="169">Champi&ntilde;ones con Atun (+10)</option><option value="pepperoni" data-base-price="159">Pepperoni</option><option value="hawaiana" data-base-price="159">Hawaiana</option><option value="mitadymitad" data-base-price="159">Mitad y Mitad</option><option value="carnesfrias" data-base-price="159">Carnes Frias</option><option value="cuatroquesos" data-base-price="159">4 Quesos</option><option value="champisconpepperoni" data-base-price="159">Champi&ntilde;ones con Pepperoni</option><option value="chorizo" data-base-price="159">Chorizo</option><option value="salamiconcarne" data-base-price="169">Salami con Carne Molida (+10)</option></select>
+                                        </div>
+                                        <div class="modifier-group mt-2">
+                                        <label for="mitad2-orilla-5" class="group-label">Segunda Mitad:</label>
+                                        <select name="mitad2-orilla-5" id="mitad2-orilla-5" class="form-select form-select-sm single-select mitad-selector" data-product-id="orilla-5"><option value="">Selecciona...</option><option value="mamalona" data-base-price="179">La Mamalona (+20)</option><option value="champisconatun" data-base-price="169">Champi&ntilde;ones con Atun (+10)</option><option value="pepperoni" data-base-price="159">Pepperoni</option><option value="hawaiana" data-base-price="159">Hawaiana</option><option value="mitadymitad" data-base-price="159">Mitad y Mitad</option><option value="carnesfrias" data-base-price="159">Carnes Frias</option><option value="cuatroquesos" data-base-price="159">4 Quesos</option><option value="champisconpepperoni" data-base-price="159">Champi&ntilde;ones con Pepperoni</option><option value="chorizo" data-base-price="159">Chorizo</option><option value="salamiconcarne" data-base-price="169">Salami con Carne Molida (+10)</option></select>
+                                        </div>
+                                    </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-5" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                        </div><div class="dishes-card style2 product-item" data-category="orilla" data-product-id="carnesfrias-orilla" data-base-price="159" data-current-price="159">
+                                <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/carnesfrias-orilla.png" alt="Carnes Frias Orilla Rellena">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                <a href="#"><h3>Carnes Frias Orilla Rellena</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-6" name="extra-queso-orilla-6" value="1" data-price-change="25">
+                                        <label class="modifier-label" for="extra-queso-orilla-6">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocci&oacute;n:</label>
+                                            <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-6" name="coccion-orilla-6" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-6">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-6" name="coccion-orilla-6" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-6">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-6" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                        </div><div class="dishes-card style2 product-item" data-category="orilla" data-product-id="cuatroquesos-orilla" data-base-price="159" data-current-price="159">
+                                <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/cuatroquesos-orilla.png" alt="4 Quesos Orilla Rellena">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                <a href="#"><h3>4 Quesos Orilla Rellena</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-7" name="extra-queso-orilla-7" value="1" data-price-change="25">
+                                        <label class="modifier-label" for="extra-queso-orilla-7">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocci&oacute;n:</label>
+                                            <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-7" name="coccion-orilla-7" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-7">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-7" name="coccion-orilla-7" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-7">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-7" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                        </div><div class="dishes-card style2 product-item" data-category="orilla" data-product-id="champisconpepperoni-orilla" data-base-price="159" data-current-price="159">
+                                <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/champisconpepperoni-orilla.png" alt="Champi&ntilde;ones con Pepperoni Orilla Rellena">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                <a href="#"><h3>Champi&ntilde;ones con Pepperoni Orilla Rellena</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-8" name="extra-queso-orilla-8" value="1" data-price-change="25">
+                                        <label class="modifier-label" for="extra-queso-orilla-8">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocci&oacute;n:</label>
+                                            <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-8" name="coccion-orilla-8" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-8">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-8" name="coccion-orilla-8" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-8">Crujiente</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                <h6>$<span class="product-price">159.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-8" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                        </div><div class="dishes-card style2 product-item" data-category="orilla" data-product-id="chorizo-orilla" data-base-price="159" data-current-price="159">
+                                <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/chorizo-orilla.png" alt="Chorizo Orilla Rellena">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                <a href="#"><h3>Chorizo Orilla Rellena</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-9" name="extra-queso-orilla-9" value="1" data-price-change="25">
+                                        <label class="modifier-label" for="extra-queso-orilla-9">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group mb-2">
+                                            <label class="group-label">Cocci&oacute;n:</label>
+                                            <div class="radio-container">
+                                        <input class="modifier-radio" type="radio" id="coccion-suave-orilla-9" name="coccion-orilla-9" value="suave">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-9">Suave</label>
+                                        <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-9" name="coccion-orilla-9" value="crujiente">
+                                        <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-9">Crujiente</label>
+                                        </div>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group mb-2">
+                                            <div class="radio-container">
+                                            <label class="group-label">Cebolla: <span style="color:red">*</span></label>
                                         <input class="modifier-radio" type="radio" id="cebolla-con-orilla-9" name="cebolla-orilla-9" value="con" required>
                                         <label class="modifier-label modifier-radio-label" for="cebolla-con-orilla-9">Con Cebolla</label>
                                         <input class="modifier-radio" type="radio" id="cebolla-sin-orilla-9" name="cebolla-orilla-9" value="sin" required>
                                         <label class="modifier-label modifier-radio-label" for="cebolla-sin-orilla-9">Sin Cebolla</label>
+                                        </div>
                                     </div>
-                                </div>
-                                </div>
+                                    </div>
                                 <h6>$<span class="product-price">159.00</span></h6>
-                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
                                     <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-9" readonly>
-                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                        <!-- Salami con Carne Molida Orilla Rellena -->
-                        <div class="dishes-card style2 product-item" data-category="orilla" data-product-id="salamiconcarne-orilla" data-base-price="169.00">
-                            <div class="dishes-thumb">
-                                <img src="assets/img/pizzas/salamiconcarne-orilla.png" alt="Salami con Carne Molida Orilla Rellena">
-                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                            </div>
-                            <div class="dishes-content">
-                                <a href="#"><h3>Salami con Carne Molida Orilla Rellena</h3></a>
-                                <div class="product-modifiers mt-2 mb-3 text-start">
-                                    <div class="modifier-group mb-2">
-                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-10" name="extra-queso-orilla-10" value="1" data-price-change="25.00">
-                                        <label class="modifier-label" for="extra-queso-orilla-10">Extra Queso (+$25.00)</label>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
                                     </div>
-                                    <div class="modifier-group modifier-radio-group">
-                                        <label class="group-label">Cocción:</label>
-                                        <div class="radio-container">
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                        </div><div class="dishes-card style2 product-item" data-category="orilla" data-product-id="salamiconcarne-orilla" data-base-price="169" data-current-price="169">
+                                <div class="dishes-thumb">
+                                <img src="assets/img/pizzas/salamiconcarne-orilla.png" alt="Salami con Carne Molida Orilla Rellena">
+                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                                </div>
+                                <div class="dishes-content">
+                                <a href="#"><h3>Salami con Carne Molida Orilla Rellena</h3></a>
+                                    <div class="product-modifiers mt-2 mb-3 text-start">
+                                        <div class="modifier-group mb-2">
+                                        <input class="modifier-checkbox" type="checkbox" id="extra-queso-orilla-10" name="extra-queso-orilla-10" value="1" data-price-change="25">
+                                        <label class="modifier-label" for="extra-queso-orilla-10">Extra Queso (+$25.00)</label>
+                                        </div>
+                                        <div class="modifier-group modifier-radio-group">
+                                            <label class="group-label">Cocci&oacute;n:</label>
+                                            <div class="radio-container">
                                         <input class="modifier-radio" type="radio" id="coccion-suave-orilla-10" name="coccion-orilla-10" value="suave">
                                         <label class="modifier-label modifier-radio-label" for="coccion-suave-orilla-10">Suave</label>
                                         <input class="modifier-radio" type="radio" id="coccion-crujiente-orilla-10" name="coccion-orilla-10" value="crujiente">
                                         <label class="modifier-label modifier-radio-label" for="coccion-crujiente-orilla-10">Crujiente</label>
+                                        </div>
                                     </div>
-                                </div>
-                                </div>
+                                    </div>
                                 <h6>$<span class="product-price">169.00</span></h6>
+                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-10" readonly>
+                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                                </div>
+                        </div></div>
+                            </div>
+                <!-- Inicio de la secci&oacute;n Complementos (Estructura Simplificada) -->
+                <div class="category-block menu-category-complementos mb-5" style="display: none;">
+                    <div class="dishes-card-wrap style2">
+                        <!-- Producto Dedos de Queso -->
+                        
+                        <!-- Producto Brownie -->
+                        
+                        <!-- Producto Donitas -->
+                        
+                        <!-- Producto Extra Chimichurri -->
+                        
+                        <!-- Nuevos complementos se a&ntilde;adir&aacute;n aqu&iacute; directamente -->
+                    <div class="dishes-card style2 product-item" data-category="complementos" data-product-id="dedos-queso" data-base-price="59" data-current-price="59">
+            <div class="dishes-thumb">
+                                <img src="assets/img/complementos/dedos-queso.png" alt="Dedos de Queso">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+            </div>
+            <div class="dishes-content">
+                                <a href="#"><h3>Dedos de Queso</h3></a>
+                                <h6>$<span class="product-price">59.00</span></h6>
                                 <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
                                     <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-orilla-10" readonly>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-dedos" readonly>
                                     <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
                                 </div>
-                                <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="category-block menu-category-complementos">
-                    <div class="row g-4">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="dishes-card style2 product-item" data-category="complementos" data-product-id="dedos-queso" data-base-price="59.00">
-                                <div class="dishes-thumb">
-                                    <img src="assets/img/complementos/dedos-queso.png" alt="Dedos de Queso">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
-                                    <a href="#"><h3>Dedos de Queso</h3></a>
-                                    <h6>$<span class="product-price">59.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-1" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="dishes-card style2 product-item" data-category="complementos" data-product-id="brownie" data-base-price="29.00">
-                                <div class="dishes-thumb">
-                                    <img src="assets/img/complementos/brownie.png" alt="Brownie">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
-                                    <a href="#"><h3>Brownie</h3></a>
-                                    <h6>$<span class="product-price">29.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-2" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="dishes-card style2 product-item" data-category="complementos" data-product-id="donitas" data-base-price="25.00">
-                                <div class="dishes-thumb">
-                                    <img src="assets/img/complementos/donitas.png" alt="Donitas">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
-                                    <a href="#"><h3>Donitas</h3></a>
-                                    <h6>$<span class="product-price">25.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-1" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="dishes-card style2 product-item" data-category="complementos" data-product-id="chimichurri" data-base-price="15.00">
-                                <div class="dishes-thumb">
-                                    <img src="assets/img/complementos/chimichurri.png" alt="Extra Chimichurri">
-                                    <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
-                                </div>
-                                <div class="dishes-content">
-                                    <a href="#"><h3>Extra Chimichurri</h3></a>
-                                    <h6>$<span class="product-price">15.00</span></h6>
-                                    <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
-                                        <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
-                                        <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-3" readonly>
-                                        <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                    <button type="button" class="theme-btn style6 add-to-cart-btn"> Añadir <i class="fa-regular fa-basket-shopping"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
             </div>
-        </div>
-    </div>
-</section>
+                        </div><div class="dishes-card style2 product-item" data-category="complementos" data-product-id="brownie" data-base-price="29" data-current-price="29">
+            <div class="dishes-thumb">
+                                <img src="assets/img/complementos/brownie.png" alt="Brownie">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+            </div>
+            <div class="dishes-content">
+                                <a href="#"><h3>Brownie</h3></a>
+                                <h6>$<span class="product-price">29.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-brownie" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                    </div>
+                        </div><div class="dishes-card style2 product-item" data-category="complementos" data-product-id="donitas" data-base-price="25" data-current-price="25">
+                            <div class="dishes-thumb">
+                                <img src="assets/img/complementos/donitas.png" alt="Donitas">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                </div>
+                            <div class="dishes-content">
+                                <a href="#"><h3>Donitas</h3></a>
+                                <h6>$<span class="product-price">25.00</span></h6>
+                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-donitas" readonly>
+                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+            </div>
+                        </div><div class="dishes-card style2 product-item" data-category="complementos" data-product-id="chimichurri" data-base-price="15" data-current-price="15">
+                            <div class="dishes-thumb">
+                                <img src="assets/img/complementos/chimichurri.png" alt="Extra Chimichurri">
+                                <div class="circle-shape"><img class="cir36" src="assets/img/food-items/circleShape.png" alt="shape"></div>
+                    </div>
+                            <div class="dishes-content">
+                                <a href="#"><h3>Extra Chimichurri</h3></a>
+                                <h6>$<span class="product-price">15.00</span></h6>
+                                <div class="quantity-selector d-flex align-items-center justify-content-center mt-2 mb-3">
+                                    <button type="button" class="qty-btn quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" class="qty-input" value="1" min="1" max="20" name="quantity-comp-chimichurri" readonly>
+                                    <button type="button" class="qty-btn quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button type="button" class="theme-btn style6 add-to-cart-btn"> A&ntilde;adir <i class="fa-regular fa-basket-shopping"></i></button>
+                            </div>
+                        </div></div> <!-- Cierre del div.dishes-card-wrap.style2 -->
+                </div> <!-- Cierre del div.category-block.menu-category-complementos -->
+                <!-- Fin de la secci&oacute;n Complementos (Estructura Simplificada) -->
+
+
+            </div>
+
 <div class="cart-panel" id="cartPanel">
     <div class="cart-header">
         <h3>Tu Carrito</h3>
         <button class="cart-close-btn" id="cartCloseBtn">X</button>
     </div>
     <div class="cart-items" id="cartItems">
-        <!-- Los ítems se añadirán dinámicamente con JavaScript -->
+        <!-- Los &iacute;tems se a&ntilde;adir&aacute;n din&aacute;micamente con JavaScript -->
     </div>
     <div class="cart-total" id="cartTotal">Total: $0.00</div>
     <form class="cart-form mt-4">
@@ -1280,19 +1251,40 @@
             <input type="text" class="form-control" id="customerName" required placeholder="Ingresa tu nombre completo">
         </div>
         <div class="mb-3">
-            <label for="customerAddress" class="form-label">Dirección</label>
+            <label for="customerAddress" class="form-label">Direcci&oacute;n</label>
             <select class="form-control" id="userAddressSelect" style="display: none;"></select>
-            <input type="text" class="form-control" id="customerAddress" required placeholder="Ingresa tu dirección de entrega" id="guestAddressInput">
+            <input type="text" class="form-control" id="customerAddress" required placeholder="Ingresa tu direcci&oacute;n de entrega">
         </div>
         <div class="mb-3">
-            <label for="customerPhone" class="form-label">Teléfono</label>
+            <label for="customerPhone" class="form-label">Tel&eacute;fono</label>
             <select class="form-control" id="userPhoneSelect" style="display: none;"></select>
-            <input type="tel" class="form-control" id="customerPhone" required placeholder="Ingresa tu número telefónico" id="guestPhoneInput">
+            <input type="tel" class="form-control" id="customerPhone" required placeholder="Ingresa tu n&uacute;mero telef&oacute;nico">
         </div>
+        <!-- Delivery Type Options -->
+        <div class="schedule-options mb-3">
+            <label class="form-label">Tipo de Entrega:</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="deliveryType" id="deliveryASAP" value="asap" checked>
+                <label class="form-check-label" for="deliveryASAP">Lo antes posible</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="deliveryType" id="deliveryScheduled" value="scheduled">
+                <label class="form-check-label" for="deliveryScheduled">Programar pedido</label>
+            </div>
+        </div>
+
+        <div id="scheduleDateTimeContainer" style="display: none;" class="mb-3">
+            <label for="scheduledTime" class="form-label">Selecciona fecha y hora:</label>
+            <input type="datetime-local" class="form-control" id="scheduledTime">
+            <div id="scheduleValidationMessage" class="mt-1"></div>
+            <small class="form-text text-muted">Los pedidos se pueden programar con al menos 30 minutos de anticipaci&oacute;n y durante nuestro horario de servicio.</small>
+        </div>
+        <!-- End Delivery Type Options -->
+
         <div class="payment-options mb-3">
-            <label for="paymentMethod" class="form-label">Método de Pago</label>
+            <label for="paymentMethod" class="form-label">M&eacute;todo de Pago</label>
             <select class="form-control" id="paymentMethod" disabled>
-                <option value="">Seleccionar método de pago</option>
+                <option value="">Seleccionar m&eacute;todo de pago</option>
                 <option value="paypal">PayPal</option>
                 <option value="mercadopago">Mercado Pago</option>
             </select>
@@ -1304,18 +1296,6 @@
     </form>
 </div>
 
-    <!-- Footer Section    S T A R T -->
-    <footer class="footer-section bg-title fix">
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="footer-wrapper d-flex align-items-center justify-content-between">
-                    <p class="wow fadeInLeft" data-wow-delay=".3s">
-                        © Gracias por Comprar en <a href="index.html">Freddy's Pizza</a>
-                    </p>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+</div> <!-- CIERRE DEL NUEVO WRAPPER -->
+
 </body>
-</html>

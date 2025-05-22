@@ -1,0 +1,226 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+1. Para mi BD recuerdame actualizartela al menos 1 vez al dia para que tengas los ultimos cambios, y aqui te la adjunto:
+-- Adminer 4.8.1 MySQL 5.5.68-MariaDB dump
+
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+DROP TABLE IF EXISTS `addresses`;
+CREATE TABLE `addresses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) DEFAULT NULL,
+  `address_line` varchar(255) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `zip_code` varchar(20) DEFAULT NULL,
+  `country` varchar(100) NOT NULL,
+  `is_favorite` tinyint(1) DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `addresses` (`id`, `user_id`, `address_line`, `city`, `state`, `zip_code`, `country`, `is_favorite`, `created_at`, `updated_at`) VALUES
+(5,	'117660032698822366733',	'Fernando Lizardi 119, 27 de Septiembre, León de los Aldama, Gto., México',	'León de los Aldama',	'Guanajuato',	'37277',	'México',	0,	'2025-05-07 22:09:16',	'2025-05-09 14:28:56'),
+(6,	'117660032698822366733',	'Alfredo del Mazo, Valle Verde y Terminal, Toluca de Lerdo, Méx., México',	'Toluca de Lerdo',	'Estado de México',	'50150',	'México',	1,	'2025-05-07 22:09:35',	'2025-05-09 16:24:15');
+
+DROP TABLE IF EXISTS `admins`;
+CREATE TABLE `admins` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `admins` (`id`, `username`, `password`, `email`, `created_at`, `updated_at`) VALUES
+(1,	'Freddys',	'$2y$10$ua7flJpjsWUKAhThxDp.QOWpDTocs95pt4zMnE7Dw9Jis.E.zhyRi',	'freddyspizzaoficial@gmail.com',	'2025-05-08 12:12:12',	'2025-05-08 12:12:12');
+
+DROP TABLE IF EXISTS `admin_logs`;
+CREATE TABLE `admin_logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action` varchar(255) NOT NULL,
+  `details` text,
+  `created_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `admin_logs` (`id`, `action`, `details`, `created_at`) VALUES
+(1,	'login',	'Inicio de sesión exitoso para el usuario: Freddys',	'2025-05-08 12:12:19'),
+(2,	'login',	'Inicio de sesión exitoso para el usuario: Freddys',	'2025-05-08 12:18:10'),
+(3,	'update_store_status',	'Estado actualizado a: Cerrado',	'2025-05-08 12:30:01'),
+(4,	'update_store_status',	'Estado actualizado a: Cerrado',	'2025-05-08 12:30:01'),
+(5,	'update_store_status',	'Estado actualizado a: Abierto',	'2025-05-08 12:30:03'),
+(6,	'update_store_status',	'Estado actualizado a: Abierto',	'2025-05-08 12:30:03'),
+(7,	'login',	'Inicio de sesión exitoso para el usuario: Freddys',	'2025-05-08 12:32:52'),
+(8,	'update_store_status',	'Estado actualizado a: Abierto',	'2025-05-08 12:40:53'),
+(9,	'update_store_status',	'Estado actualizado a: Abierto',	'2025-05-08 12:40:53'),
+(10,	'update_store_status',	'Estado actualizado a: Abierto',	'2025-05-08 12:40:55'),
+(11,	'update_store_status',	'Estado actualizado a: Abierto',	'2025-05-08 12:40:55'),
+(12,	'update_store_status',	'Estado actualizado a: Abierto',	'2025-05-08 12:44:42'),
+(13,	'update_store_status',	'Estado actualizado a: Abierto',	'2025-05-08 12:44:42'),
+(14,	'update_store_status',	'Estado actualizado a: Abierto',	'2025-05-08 12:50:15'),
+(15,	'update_store_status',	'Estado actualizado a: Abierto',	'2025-05-08 12:50:15'),
+(16,	'store_status',	'Estado de la tienda actualizado a: Abierto',	'2025-05-08 12:55:24'),
+(17,	'store_status',	'Estado de la tienda actualizado a: Cerrado',	'2025-05-08 12:55:31'),
+(18,	'store_status',	'Estado de la tienda actualizado a: Abierto',	'2025-05-08 12:56:42'),
+(19,	'store_status',	'Estado de la tienda actualizado a: Cerrado',	'2025-05-08 12:56:47'),
+(20,	'store_status',	'Estado de la tienda actualizado a: Abierto',	'2025-05-08 12:56:54'),
+(21,	'store_status',	'Estado de la tienda actualizado a: Cerrado para el día thursday',	'2025-05-08 12:59:37'),
+(22,	'store_status',	'Estado de la tienda actualizado a: Abierto para el día thursday',	'2025-05-08 12:59:41'),
+(23,	'login',	'Inicio de sesión exitoso para el usuario: Freddys',	'2025-05-08 13:24:04'),
+(24,	'login',	'Inicio de sesión exitoso para el usuario: Freddys',	'2025-05-08 13:30:00'),
+(25,	'login',	'Inicio de sesión exitoso para el usuario: Freddys',	'2025-05-08 19:47:41'),
+(26,	'login',	'Inicio de sesión exitoso para el usuario: Freddys',	'2025-05-09 09:26:20'),
+(27,	'login',	'Inicio de sesión exitoso para el usuario: Freddys',	'2025-05-09 12:02:05'),
+(28,	'update_store_status',	'Estado actualizado a: Cerrado para el día friday',	'2025-05-09 13:17:36'),
+(29,	'update_store_status',	'Estado actualizado a: Abierto para el día friday',	'2025-05-09 13:17:41'),
+(30,	'update_store_status',	'Estado actualizado a: Cerrado para el día friday',	'2025-05-09 13:18:55'),
+(31,	'update_store_status',	'Estado actualizado a: Abierto para el día friday',	'2025-05-09 13:18:57'),
+(32,	'update_store_status',	'Estado actualizado a: Cerrado para el día friday',	'2025-05-09 13:19:03'),
+(33,	'update_store_status',	'Estado actualizado a: Abierto para el día friday',	'2025-05-09 13:19:05'),
+(34,	'login',	'Inicio de sesión exitoso para el usuario: Freddys',	'2025-05-09 13:32:08'),
+(35,	'login',	'Inicio de sesión exitoso para el usuario: Freddys',	'2025-05-09 14:42:02'),
+(36,	'update_store_status',	'Estado actualizado a: Cerrado para el día friday',	'2025-05-09 14:55:24'),
+(37,	'update_store_status',	'Estado actualizado a: Abierto para el día friday',	'2025-05-09 14:55:26');
+
+SET NAMES utf8mb4;
+
+DROP TABLE IF EXISTS `delivery_zones`;
+CREATE TABLE `delivery_zones` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `base_price` decimal(10,2) NOT NULL DEFAULT '20.00',
+  `free_delivery_threshold` decimal(10,2) NOT NULL DEFAULT '200.00',
+  `radius_km` int(11) NOT NULL DEFAULT '5',
+  `extra_km_price` decimal(10,2) NOT NULL DEFAULT '10.00',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `delivery_zones` (`id`, `name`, `base_price`, `free_delivery_threshold`, `radius_km`, `extra_km_price`, `created_at`, `updated_at`) VALUES
+(1,	'Zona Principal',	20.00,	200.00,	5,	10.00,	'2025-05-08 17:42:29',	NULL);
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) DEFAULT NULL,
+  `order_details` text NOT NULL,
+  `total_amount` decimal(10,2) NOT NULL,
+  `status` enum('pending','processing','shipped','delivered','completed','cancelled') DEFAULT 'pending',
+  `payment_method` varchar(50) DEFAULT NULL,
+  `shipping_address` text,
+  `delivery_zone_id` int(11) DEFAULT NULL,
+  `delivery_fee` decimal(10,2) DEFAULT '0.00',
+  `distance_km` decimal(10,2) DEFAULT NULL,
+  `estimated_delivery_time` datetime DEFAULT NULL,
+  `is_scheduled` tinyint(1) DEFAULT '0',
+  `shipping_phone` varchar(20) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `fk_orders_delivery_zone` (`delivery_zone_id`),
+  CONSTRAINT `fk_orders_delivery_zone` FOREIGN KEY (`delivery_zone_id`) REFERENCES `delivery_zones` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `orders` (`id`, `user_id`, `order_details`, `total_amount`, `status`, `payment_method`, `shipping_address`, `delivery_zone_id`, `delivery_fee`, `distance_km`, `estimated_delivery_time`, `is_scheduled`, `shipping_phone`, `created_at`, `updated_at`) VALUES
+(1,	'1',	'{\"items\":[{\"id\":1,\"name\":\"Pizza Hawaiana\",\"quantity\":2,\"price\":199},{\"id\":2,\"name\":\"Pizza Pepperoni\",\"quantity\":1,\"price\":179}],\"address_id\":1,\"phone_id\":1}',	577.00,	'delivered',	NULL,	NULL,	NULL,	0.00,	NULL,	NULL,	0,	NULL,	'2025-05-02 02:58:38',	NULL),
+(2,	'1',	'{\"items\":[{\"id\":3,\"name\":\"Pizza Mexicana\",\"quantity\":1,\"price\":189},{\"id\":4,\"name\":\"Pizza Vegetariana\",\"quantity\":1,\"price\":179}],\"address_id\":2,\"phone_id\":2}',	368.00,	'shipped',	NULL,	NULL,	NULL,	0.00,	NULL,	NULL,	0,	NULL,	'2025-05-02 02:58:38',	NULL),
+(3,	'1',	'{\"items\":[{\"id\":1,\"name\":\"Pizza Hawaiana\",\"quantity\":1,\"price\":199},{\"id\":5,\"name\":\"Pizza BBQ\",\"quantity\":1,\"price\":189}],\"address_id\":1,\"phone_id\":1}',	388.00,	'pending',	NULL,	NULL,	NULL,	0.00,	NULL,	NULL,	0,	NULL,	'2025-05-02 02:58:38',	NULL),
+(4,	'117660032698822366733',	'{\"items\": [{\"id\": 1, \"name\": \"Producto de prueba 1\", \"quantity\": 2, \"price\": 299.99}, {\"id\": 2, \"name\": \"Producto de prueba 2\", \"quantity\": 1, \"price\": 499.99}]}',	1099.97,	'delivered',	NULL,	NULL,	NULL,	0.00,	NULL,	NULL,	0,	NULL,	'2025-05-02 03:25:32',	NULL),
+(5,	'117660032698822366733',	'{\"items\": [{\"id\": 3, \"name\": \"Producto de prueba 3\", \"quantity\": 1, \"price\": 799.99}]}',	799.99,	'processing',	NULL,	NULL,	NULL,	0.00,	NULL,	NULL,	0,	NULL,	'2025-05-02 03:25:44',	'2025-05-09 15:47:31');
+
+DROP TABLE IF EXISTS `order_schedules`;
+CREATE TABLE `order_schedules` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `scheduled_time` datetime NOT NULL,
+  `status` enum('pending','confirmed','cancelled') NOT NULL DEFAULT 'pending',
+  `reminder_sent` tinyint(1) DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `fk_order_schedules_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS `store_hours`;
+CREATE TABLE `store_hours` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `day_of_week` enum('monday','tuesday','wednesday','thursday','friday','saturday','sunday') NOT NULL,
+  `open_time` time NOT NULL,
+  `close_time` time NOT NULL,
+  `is_closed` tinyint(1) DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `day_of_week` (`day_of_week`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `store_hours` (`id`, `day_of_week`, `open_time`, `close_time`, `is_closed`, `created_at`, `updated_at`) VALUES
+(1,	'monday',	'14:50:00',	'12:00:00',	0,	'2025-05-08 17:42:29',	'2025-05-09 15:28:01'),
+(2,	'tuesday',	'14:00:00',	'12:00:00',	0,	'2025-05-08 17:42:29',	'2025-05-08 12:40:03'),
+(3,	'wednesday',	'14:00:00',	'12:00:00',	0,	'2025-05-08 17:42:29',	'2025-05-08 12:40:03'),
+(4,	'thursday',	'14:00:00',	'12:00:00',	0,	'2025-05-08 17:42:29',	'2025-05-08 12:59:41'),
+(5,	'friday',	'14:00:00',	'12:00:00',	0,	'2025-05-08 17:42:29',	'2025-05-09 15:37:29'),
+(6,	'saturday',	'14:00:00',	'12:00:00',	0,	'2025-05-08 17:42:29',	'2025-05-08 12:40:03'),
+(7,	'sunday',	'14:00:00',	'12:00:00',	0,	'2025-05-08 17:42:29',	'2025-05-08 12:40:03');
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `google_id` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `google_id` (`google_id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `users` (`id`, `google_id`, `email`, `name`, `created_at`, `updated_at`) VALUES
+(1,	'117660032698822366733',	'nicandro1234@gmail.com',	'Nic Villegas',	'2025-04-21 02:50:05',	NULL);
+
+DROP TABLE IF EXISTS `user_phones`;
+CREATE TABLE `user_phones` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) DEFAULT NULL,
+  `phone_number` varchar(20) NOT NULL,
+  `is_favorite` tinyint(1) DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `user_phones` (`id`, `user_id`, `phone_number`, `is_favorite`, `created_at`, `updated_at`) VALUES
+(1,	'1',	'4771234567',	1,	'2025-05-02 02:58:38',	NULL),
+(2,	'1',	'4777654321',	0,	'2025-05-02 02:58:38',	NULL),
+(3,	'1',	'4779876543',	0,	'2025-05-02 02:58:38',	NULL),
+(5,	'117660032698822366733',	'4775105750',	1,	'2025-05-07 19:59:40',	'2025-05-09 16:24:24'),
+(7,	'117660032698822366733',	'4778941031',	0,	'2025-05-09 20:06:50',	'2025-05-09 14:29:08');
+
+-- 2025-05-09 22:29:48
+
+2. Uso estilos SCSS, se encuentran en assets/scss/.
+
+3. Composer esta instalado de forma local en mi carpeta del servidor, no tengo permisos de instalar en root directamente.
+
+4. Siempre tienes acceso pleno a todos los archivos de mi proyecto, no me pidas que te los envie de forma individual.
+
+- You can @ files here
+- You can use markdown but dont have to

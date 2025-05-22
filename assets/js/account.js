@@ -2,12 +2,12 @@
 $(document).ready(function() {
     // Check if user is logged in
     function checkLoginStatus() {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem('userData'));
         if (user) {
             $('#notLoggedIn').hide();
             $('#loggedIn').show();
             updateUserInfo(user);
-            loadUserData(user.id);
+            loadUserData();
         } else {
             $('#notLoggedIn').show();
             $('#loggedIn').hide();
@@ -16,18 +16,23 @@ $(document).ready(function() {
 
     // Update user info in sidebar
     function updateUserInfo(user) {
-        $('#userAvatar').attr('src', user.photoURL || 'assets/img/default-avatar.png');
-        $('#userName').text(user.displayName);
-        $('#userEmail').text(user.email);
+        $('#userAvatar').attr('src', user.photo_url || 'assets/img/default-avatar.png');
+        $('#userName').text(user.name || user.displayName || '');
+        $('#userEmail').text(user.email || '');
     }
 
     // Load user data from backend
-    function loadUserData(userId) {
-        // Simulated API calls - Replace with actual API endpoints
-        loadOrders(userId);
-        loadAddresses(userId);
-        loadPhones(userId);
-        loadSettings(userId);
+    function loadUserData() {
+        console.log('Cargando datos del usuario...');
+        if (typeof loadAddresses === 'function') {
+            loadAddresses();
+        }
+        if (typeof loadPhones === 'function') {
+            loadPhones();
+        }
+        if (typeof loadOrders === 'function') {
+            loadOrders();
+        }
     }
 
     // Tab Navigation
@@ -39,155 +44,119 @@ $(document).ready(function() {
         $(`#${tab}-tab`).addClass('active');
     });
 
-    // Orders Management
-    function loadOrders(userId) {
-        // Simulated orders data
-        const orders = [
-            {
-                id: 'ORD-001',
-                date: '2024-03-15',
-                total: 299.00,
-                status: 'Completado',
-                items: [
-                    { name: 'La Mamalona', quantity: 1, price: 149.00 },
-                    { name: 'Dedos de Queso', quantity: 1, price: 59.00 }
-                ]
-            },
-            // Add more orders as needed
-        ];
+    // Event listeners para botones de ver detalles
+    $(document).on('click', '.view-order', function() {
+        const orderId = $(this).data('order-id');
+        if (typeof showOrderDetails === 'function') {
+            showOrderDetails(orderId);
+        }
+        return false;
+    });
 
-        const ordersList = $('#ordersList');
-        ordersList.empty();
+    // Event listeners para botones de direcciones
+    $(document).on('click', '.favorite-btn[data-address-id]', function() {
+        const addressId = $(this).data('address-id');
+        if (typeof toggleAddressFavorite === 'function') {
+            toggleAddressFavorite(addressId);
+        }
+        return false;
+    });
 
-        orders.forEach(order => {
-            ordersList.append(`
-                <tr>
-                    <td>${order.id}</td>
-                    <td>${order.date}</td>
-                    <td>$${order.total.toFixed(2)}</td>
-                    <td><span class="badge bg-success">${order.status}</span></td>
-                    <td>
-                        <button class="btn btn-sm btn-primary view-order" data-order-id="${order.id}">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </td>
-                </tr>
-            `);
-        });
-    }
+    $(document).on('click', '.edit-btn[data-address-id]', function() {
+        const addressId = $(this).data('address-id');
+        if (typeof editAddress === 'function') {
+            editAddress(addressId);
+        }
+        return false;
+    });
 
-    // Address Management
-    function loadAddresses(userId) {
-        // Simulated addresses data
-        const addresses = [
-            {
-                id: 1,
-                title: 'Casa',
-                address: 'Fray Daniel Mireles 2514',
-                city: 'León',
-                state: 'Guanajuato',
-                zip: '37150',
-                isFavorite: true
-            },
-            // Add more addresses as needed
-        ];
+    $(document).on('click', '.delete-btn[data-address-id]', function() {
+        const addressId = $(this).data('address-id');
+        if (typeof deleteAddress === 'function') {
+            deleteAddress(addressId);
+        }
+        return false;
+    });
 
-        const addressesList = $('#addressesList');
-        addressesList.empty();
+    // Event listeners para botones de teléfonos
+    $(document).on('click', '.favorite-btn[data-phone-id]', function() {
+        const phoneId = $(this).data('phone-id');
+        if (typeof togglePhoneFavorite === 'function') {
+            togglePhoneFavorite(phoneId);
+        }
+        return false;
+    });
 
-        addresses.forEach(address => {
-            addressesList.append(`
-                <div class="address-card ${address.isFavorite ? 'favorite' : ''}">
-                    <div class="address-actions">
-                        <button class="favorite-btn" data-address-id="${address.id}">
-                            <i class="fas fa-star"></i>
-                        </button>
-                        <button class="edit-btn" data-address-id="${address.id}">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="delete-btn" data-address-id="${address.id}">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                    <h3>${address.title}</h3>
-                    <p>${address.address}</p>
-                    <p>${address.city}, ${address.state} ${address.zip}</p>
-                </div>
-            `);
-        });
-    }
+    $(document).on('click', '.edit-btn[data-phone-id]', function() {
+        const phoneId = $(this).data('phone-id');
+        if (typeof editPhone === 'function') {
+            editPhone(phoneId);
+        }
+        return false;
+    });
 
-    // Phone Management
-    function loadPhones(userId) {
-        // Simulated phones data
-        const phones = [
-            {
-                id: 1,
-                title: 'Celular',
-                number: '4775780426',
-                isFavorite: true
-            },
-            // Add more phones as needed
-        ];
-
-        const phonesList = $('#phonesList');
-        phonesList.empty();
-
-        phones.forEach(phone => {
-            phonesList.append(`
-                <div class="phone-item">
-                    <div class="phone-info">
-                        <h3>${phone.title}</h3>
-                        <p>${phone.number}</p>
-                    </div>
-                    <div class="phone-actions">
-                        <button class="favorite-btn ${phone.isFavorite ? 'active' : ''}" data-phone-id="${phone.id}">
-                            <i class="fas fa-star"></i>
-                        </button>
-                        <button class="edit-btn" data-phone-id="${phone.id}">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="delete-btn" data-phone-id="${phone.id}">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            `);
-        });
-    }
-
-    // Settings Management
-    function loadSettings(userId) {
-        // Simulated settings data
-        const settings = {
-            emailNotifications: true,
-            smsNotifications: false
-        };
-
-        $('#emailNotifications').prop('checked', settings.emailNotifications);
-        $('#smsNotifications').prop('checked', settings.smsNotifications);
-    }
+    $(document).on('click', '.delete-btn[data-phone-id]', function() {
+        const phoneId = $(this).data('phone-id');
+        if (typeof deletePhone === 'function') {
+            deletePhone(phoneId);
+        }
+        return false;
+    });
 
     // Add New Address
-    $('#addAddressBtn').click(function() {
-        // Show address form modal
-        // Implement address form logic
+    $(document).on('click', '#addAddressBtn', function(e) {
+        e.preventDefault();
+        console.log('Botón "Añadir Dirección" (#addAddressBtn) clickeado (detectado por delegación).');
+        if (typeof addNewAddress === 'function') {
+            console.log('Llamando a addNewAddress desde account.js...');
+            addNewAddress();
+        } else {
+            console.error('La función addNewAddress no está definida o no es accesible.');
+        }
     });
 
     // Add New Phone
-    $('#addPhoneBtn').click(function() {
-        // Show phone form modal
-        // Implement phone form logic
+    $(document).on('click', '#addPhoneBtn', function(e) {
+        e.preventDefault();
+        console.log('Botón "Añadir Teléfono" (#addPhoneBtn) clickeado (detectado por delegación).');
+        if (typeof addNewPhone === 'function') {
+            console.log('Llamando a addNewPhone desde account.js...');
+            addNewPhone();
+        } else {
+            console.error('La función addNewPhone no está definida o no es accesible.');
+        }
     });
 
-    // Save Settings
-    $('#saveSettings').click(function() {
-        const settings = {
-            emailNotifications: $('#emailNotifications').is(':checked'),
-            smsNotifications: $('#smsNotifications').is(':checked')
-        };
-        // Save settings to backend
-        // Show success message
+    // Order Filter Listener (Reescrito con jQuery)
+    const orderFilterSelect = $('#orderFilter'); // Seleccionar con jQuery
+    if (orderFilterSelect.length) { // Verificar si el elemento existe
+        console.log('Order Filter Select found, adding listener (jQuery).');
+        orderFilterSelect.on('change', function() { // Usar .on('change', ...) de jQuery
+            const selectedStatus = $(this).val(); // Obtener valor con jQuery
+            console.log(`Order filter changed to: ${selectedStatus}`);
+            if (typeof loadOrders === 'function') {
+                // Mostrar indicador de carga si es necesario
+                const ordersList = $('#ordersList'); // Seleccionar con jQuery
+                if(ordersList.length) ordersList.html('<tr><td colspan="5" class="text-center"><i class="fas fa-spinner fa-spin"></i> Cargando...</td></tr>');
+                
+                loadOrders(selectedStatus); // Llamar a la función global loadOrders
+            } else {
+                console.error('loadOrders function is not defined.');
+            }
+        });
+    } else {
+        console.warn('Order Filter Select (#orderFilter) not found.');
+    }
+
+    // View Order Details Listener (delegado - ya debería estar bien)
+    $('#ordersList').on('click', '.view-order', function() {
+        const orderId = $(this).data('order-id');
+        console.log(`View details clicked for order ID: ${orderId} (jQuery)`);
+        if (typeof showOrderDetails === 'function') {
+            showOrderDetails(orderId);
+        } else {
+            console.error('showOrderDetails function is not defined.');
+        }
     });
 
     // Initialize

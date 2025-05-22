@@ -1,0 +1,959 @@
+// assets/scss/_admin.scss
+
+// ----- Variables Principales del Admin (puedes ajustarlas o usar las globales si aplican) -----
+$admin-bg: #1a1d24; // Un fondo oscuro principal
+$admin-bg-panel: #232730; // Fondo para paneles, sidebar, header
+$admin-border-color: #39404d; // Bordes sutiles
+$admin-text-color: #c5c8d0; // Color de texto principal
+$admin-text-secondary-color: #8a91a0; // Color de texto secundario, placeholders
+$admin-title-color: #ffffff; // Color para títulos importantes
+$admin-accent-color: $theme-color; // Usar el color de acento principal de la web (rojo Freddy's)
+$admin-accent-hover-color: lighten($admin-accent-color, 10%);
+$admin-link-color: $theme-color; // Color para enlaces
+$admin-link-hover-color: lighten($admin-link-color, 15%);
+$admin-font-family: 'Roboto', sans-serif; // Una fuente limpia y moderna (asegúrate de importarla si no está global)
+$admin-font-logo: 'TuFuenteDeLogo', sans-serif; // Placeholder - Cambia esto por la fuente del logo si es necesario
+
+// Colores para estados (similares a Bootstrap para consistencia si se desea)
+$admin-color-success: #28a745; // Verde para éxito/disponible
+$admin-color-warning: #ffc107; // Amarillo para advertencia/acción de agotar
+$admin-color-info: #17a2b8;    // Azul info (por si se necesita)
+$admin-color-danger: $theme-color-2; // Rojo para peligro/eliminar (usando el existente)
+
+// ----- Reseteo Básico y Estilos Globales para el Admin -----
+.admin-body {
+  background-color: $admin-bg;
+  color: $admin-text-color;
+  font-family: $admin-font-family;
+  margin: 0;
+  padding: 0;
+  display: flex; // Para layout de sidebar + content
+  min-height: 100vh;
+  overflow-x: hidden; // Evitar scroll horizontal innecesario
+}
+
+.admin-main-content {
+  flex-grow: 1;
+  padding: 25px;
+  background-color: $admin-bg;
+  margin-left: 260px;
+  padding-top: 95px;
+  transition: margin-left 0.3s ease;
+  position: relative; // Añadido para prueba
+}
+
+// ----- Estilos para el Header del Admin -----
+.admin-header {
+  background-color: $admin-bg-panel;
+  padding: 15px 25px;
+  border-bottom: 1px solid $admin-border-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed; // Header fijo
+  top: 0;
+  left: 260px; // Alineado con el contenido, no sobre el sidebar
+  right: 0;
+  z-index: 1001; // Encima del contenido pero debajo de modales muy altos
+  height: 70px; // Altura fija para el header
+
+  .admin-header-logo {
+    img {
+      max-height: 40px; // Ajusta según el tamaño de tu logo
+      width: auto;
+    }
+    // Si el logo incluye "Freddy's Pizza" y quieres estilizarlo:
+    // span {
+    //   font-family: $admin-font-logo; // Aplicar la fuente del logo
+    //   font-size: 24px;
+    //   color: $admin-title-color;
+    //   margin-left: 10px;
+    //   vertical-align: middle;
+    // }
+  }
+
+  .admin-header-page-title {
+    font-size: 20px;
+    color: $admin-title-color;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .admin-store-status {
+    // Estilos para el botón de estado de la tienda
+    .status-toggle-btn {
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.2s ease;
+      border: 1px solid transparent;
+      color: $white;
+
+      &:hover {
+        filter: brightness(115%);
+      }
+
+      &.status-open {
+        background-color: $admin-color-success;
+        border-color: darken($admin-color-success, 10%);
+      }
+
+      &.status-closed {
+        background-color: $admin-color-danger;
+        border-color: darken($admin-color-danger, 10%);
+      }
+      i { margin-right: 8px; }
+    }
+  }
+}
+
+// ----- Estilos para el Panel Lateral (Sidebar) del Admin -----
+.admin-sidebar {
+  width: 260px; // Ancho del sidebar
+  background-color: $admin-bg-panel;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; // Para empujar el logout hacia abajo
+  position: fixed; // Sidebar fijo
+  top: 0;
+  left: 0;
+  height: 100vh;
+  border-right: 1px solid $admin-border-color;
+  z-index: 1002; // Encima del header si se superponen
+  transition: width 0.3s ease; // Para animación si se colapsa
+
+  .sidebar-header {
+    margin-bottom: 20px;
+    text-align: center;
+    .sidebar-logo-image {
+      max-width: 100%;
+      width: 200px;
+      height: auto;
+      margin: 10px auto;
+      display: block;
+    }
+  }
+
+  .admin-nav {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      li {
+        a {
+          display: block;
+          padding: 12px 15px;
+          color: $admin-text-color;
+          text-decoration: none;
+          border-radius: 5px;
+          margin-bottom: 8px;
+          transition: background-color 0.3s ease, color 0.3s ease;
+          font-size: 15px;
+          i {
+            margin-right: 12px;
+            width: 20px; // Alineación de iconos
+            text-align: center;
+          }
+          &:hover {
+            background-color: rgba($admin-accent-color, 0.15);
+            color: $admin-accent-color;
+          }
+          &.active { // Clase para el enlace activo
+            background-color: $admin-accent-color;
+            color: $white;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba($admin-accent-color, 0.3);
+          }
+        }
+      }
+    }
+  }
+
+  .sidebar-footer {
+    margin-top: auto; // Empuja al fondo
+    .logout-btn-sidebar-professional {
+      display: block;
+      width: 100%;
+      background-color: transparent;
+      border: 1px solid $admin-border-color;
+      color: $admin-text-secondary-color;
+      padding: 12px 15px;
+      border-radius: 5px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      i { margin-right: 8px; }
+      &:hover {
+        background-color: $theme-color-2;
+        border-color: darken($theme-color-2, 10%);
+        color: $white;
+      }
+    }
+  }
+}
+
+// Ajuste para el contenido principal cuando el header es fijo
+.admin-body > .admin-main-content {
+    padding-top: 95px; 
+}
+
+// ----- Estilos Comunes para Contenido del Admin (ej. tarjetas, formularios - se desarrollarán más) -----
+.admin-card {
+  background-color: $admin-bg-panel;
+  border: 1px solid $admin-border-color;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+
+  .admin-card-header {
+    border-bottom: 1px solid $admin-border-color;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    h2, h3, h4 {
+      color: $admin-title-color;
+      margin: 0;
+      font-weight: 600;
+    }
+  }
+  .admin-card-body {
+    // Estilos para el cuerpo de la tarjeta
+  }
+}
+
+// Formularios
+.admin-form-group {
+  margin-bottom: 20px;
+  label {
+    display: block;
+    color: $admin-text-secondary-color;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  input[type="text"],
+  input[type="number"],
+  input[type="password"],
+  input[type="email"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: darken($admin-bg, 3%);
+    border: 1px solid $admin-border-color;
+    border-radius: 5px;
+    color: $admin-text-color;
+    font-size: 15px;
+    &:focus {
+      outline: none;
+      border-color: $admin-accent-color;
+      background-color: $admin-bg;
+      box-shadow: 0 0 0 2px rgba($admin-accent-color, 0.2);
+    }
+  }
+  textarea {
+    min-height: 100px;
+  }
+}
+
+// Botones
+.admin-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  border: 1px solid transparent;
+
+  &.btn-primary {
+    background-color: $admin-accent-color;
+    color: $white;
+    border-color: $admin-accent-color;
+    &:hover {
+      background-color: $admin-accent-hover-color;
+      border-color: $admin-accent-hover-color;
+    }
+  }
+  &.btn-secondary {
+    background-color: $admin-text-secondary-color;
+    color: $white;
+    border-color: $admin-text-secondary-color;
+    &:hover {
+      background-color: lighten($admin-text-secondary-color, 10%);
+      border-color: lighten($admin-text-secondary-color, 10%);
+    }
+  }
+   &.btn-danger {
+    background-color: $theme-color-2; // Rojo
+    color: $white;
+    border-color: $theme-color-2;
+    &:hover {
+      background-color: darken($theme-color-2, 10%);
+      border-color: darken($theme-color-2, 10%);
+    }
+  }
+}
+
+// Media queries para responsividad (ejemplo básico)
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 100%; // Ocultar o hacer más pequeño en móvil
+    // Aquí irían estilos para un menú hamburguesa o sidebar colapsable
+    // Por ahora, lo dejamos fijo para simplificar
+    // left: -260px; // Ejemplo de cómo se ocultaría
+    // &.open { left: 0; }
+  }
+  .admin-main-content {
+    margin-left: 0; // Sin margen si el sidebar se oculta o superpone
+    padding-top: 85px; // Ajusta si el header cambia de tamaño en móvil
+  }
+   .admin-header {
+    left: 0; // Header ocupa todo el ancho si el sidebar no es fijo a la izquierda
+   }
+   .admin-body > .admin-main-content {
+    padding-top: 85px; 
+   }
+}
+
+// ----- Estilos para las Tarjetas de Producto en el Gestor de Menú -----
+.product-list-row {
+  // Contenedor de las filas de productos si necesitas espaciado específico para él
+}
+
+.category-title-admin {
+  color: $admin-title-color;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid $admin-accent-color; 
+  display: inline-block; // Para que el borde solo ocupe el ancho del texto
+}
+
+.category-divider-admin {
+  border-top: 1px solid $admin-border-color;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.product-card {
+  background-color: $admin-bg-panel; // Fondo de la tarjeta
+  border: 1px solid $admin-border-color; // Borde sutil
+  border-radius: 8px; // Bordes redondeados
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; // Para asegurar que el contenido respete el border-radius
+
+  &:hover {
+    transform: translateY(-5px); // Ligero levantamiento al pasar el mouse
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); // Sombra más pronunciada al hover
+  }
+
+  &.unavailable {
+    // Estilo más distintivo para productos no disponibles
+    .product-image-container-admin img {
+      filter: grayscale(100%) opacity(0.6);
+    }
+    .card-body {
+      background-color: repeating-linear-gradient(
+        -45deg,
+        rgba($admin-text-secondary-color, 0.05),
+        rgba($admin-text-secondary-color, 0.05) 10px,
+        rgba($admin-text-secondary-color, 0.1) 10px,
+        rgba($admin-text-secondary-color, 0.1) 20px
+      );
+    }
+    .product-name-admin {
+        text-decoration: line-through;
+        color: $admin-text-secondary-color;
+    }
+     // Los botones dentro de .unavailable podrían tener un estilo diferente si se desea
+     // Por ejemplo, hacerlos menos prominentes
+     .product-actions-admin .btn {
+        opacity: 0.7;
+     }
+  }
+
+  .product-image-container-admin {
+    width: 100%;
+    padding-top: 60%; // Esto hará la imagen un poco más ancha o menos alta
+    position: relative;
+    overflow: hidden;
+    background-color: transparent; // Cambiado a transparente
+
+    .product-image-admin {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain; // Mantenemos 'contain' para ver toda la imagen
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+  }
+
+  .card-body {
+    padding: 0.8rem; // Un poco menos de padding si antes era 1rem o más
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    color: $admin-text-color; // Color de texto por defecto para el cuerpo
+
+    .product-name-admin {
+      font-size: 0.9rem; // Reducir tamaño de fuente del nombre
+      font-weight: 600; // Un poco menos pesado si era 700
+      color: $admin-text-color;
+      margin-bottom: 0.3rem; // Menos espacio debajo del nombre
+      display: -webkit-box;
+      -webkit-line-clamp: 2; // Limitar a 2 líneas si es muy largo
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-height: 2.7rem; // Aproximadamente 2 líneas (0.9rem * 1.5 line-height * 2)
+    }
+
+    .product-price-admin {
+      font-size: 0.85rem; // Reducir tamaño de fuente del precio
+      color: $admin-accent-color;
+      margin-bottom: 0.5rem; // Un poco más de espacio antes de los botones
+      font-weight: 500;
+      small {
+        font-size: 0.7rem; // Precio base más pequeño
+      }
+    }
+
+    .product-actions-admin {
+      display: flex;
+      justify-content: space-around; 
+      align-items: center;
+      margin-top: auto; 
+      padding-top: 0.75rem; 
+      border-top: 1px solid var(--admin-border-color, #39404d); // Asegurar fallback para var()
+      gap: 0.5rem; // Un poco más de espacio entre botones
+
+      .btn {
+        font-size: 0.7rem; 
+        padding: 0.3rem 0.5rem; 
+        border-radius: var(--admin-border-radius, 4px); 
+        border: 1px solid; // Borde base, el color se definirá por tipo
+        color: $white; 
+        transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+        line-height: 1.4; 
+        flex-grow: 1; 
+        text-align: center;
+        font-weight: 500; // Aumentar un poco el peso de la fuente
+
+        i.bi {
+          margin-right: 0.25rem; 
+          font-size: 0.85em; // Ajustar tamaño del icono en relación al texto del botón
+          vertical-align: middle; // Mejorar alineación del icono
+        }
+
+        &:hover {
+            transform: scale(1.03); // Efecto hover más sutil
+            filter: brightness(110%); // Aclarar ligeramente al pasar el mouse, genérico para todos
+        }
+      }
+
+      .edit-product {
+        background-color: var(--admin-info-color, #17a2b8); 
+        border-color: var(--admin-info-color, #17a2b8);
+        &:hover {
+          // background-color: var(--admin-info-color, #17a2b8); // El filter:brightness ya maneja el hover
+          // border-color: var(--admin-info-color, #17a2b8); // El color del borde no cambia en hover con este setup
+        }
+      }
+      .toggle-availability {
+        &.btn-warning { 
+          background-color: var(--admin-warning-color, #ffc107);
+          border-color: var(--admin-warning-color, #ffc107);
+          color: var(--admin-text-color-dark, #212529); 
+          &:hover {
+            // background-color: var(--admin-warning-color, #ffc107);
+            // border-color: var(--admin-warning-color, #ffc107);
+          }
+        }
+        &.btn-success { 
+           background-color: var(--admin-success-color, #28a745);
+           border-color: var(--admin-success-color, #28a745);
+          &:hover {
+            // background-color: var(--admin-success-color, #28a745);
+            // border-color: var(--admin-success-color, #28a745);
+          }
+        }
+      }
+      .delete-product {
+        background-color: var(--admin-danger-color, #dc3545); 
+        border-color: var(--admin-danger-color, #dc3545);
+        &:hover {
+          // background-color: var(--admin-danger-color, #dc3545);
+          // border-color: var(--admin-danger-color, #dc3545);
+        }
+      }
+    }
+  }
+}
+
+// ----- Estilos para los Filtros de Categoría en Admin -----
+.menu-filter-nav-admin {
+  margin-bottom: 2rem; // Espacio debajo de los filtros
+  .filter-btn-admin {
+    background-color: transparent;
+    border: 2px solid $admin-border-color;
+    color: $admin-text-secondary-color;
+    padding: 8px 20px;
+    margin: 0 8px 10px; // Espacio entre botones y abajo para wrap
+    border-radius: 30px; // Botones redondeados
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+
+    &:hover {
+      background-color: rgba($admin-accent-color, 0.1);
+      border-color: $admin-accent-color;
+      color: $admin-accent-color;
+    }
+
+    &.active {
+      background-color: $admin-accent-color;
+      border-color: $admin-accent-color;
+      color: $white;
+      box-shadow: 0 4px 15px rgba($admin-accent-color, 0.3);
+    }
+  }
+}
+
+// Estilos para el formulario de producto en el modal
+#productModal {
+  .modal-content.admin-card { // Asegurar especificidad
+    .admin-form-group {
+      label.form-label {
+        color: var(--admin-text-color-light);
+        margin-bottom: 0.3rem;
+      }
+
+      .form-control, .form-select {
+        background-color: var(--admin-input-bg);
+        color: var(--admin-input-text-color);
+        border-color: var(--admin-border-color);
+        &:focus {
+          background-color: var(--admin-input-bg-focus);
+          border-color: var(--admin-link-color);
+          box-shadow: 0 0 0 0.2rem var(--admin-link-color-transparent);
+        }
+      }
+
+      // Estilos específicos para la vista previa de la imagen y el input de archivo
+      .image-preview {
+        border: 1px dashed var(--admin-border-color-darker, #555c68); // Un borde un poco más oscuro para el dashed
+        background-color: var(--admin-input-bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 120px; // Mantener como estaba en el HTML
+        height: 120px; // Mantener como estaba en el HTML
+        border-radius: 0.375rem; // Usar valor fijo en lugar de $border-radius
+        margin-bottom: 0.75rem; // Espacio antes del input
+
+        i.bi-image {
+          font-size: 3rem; // Hacer el ícono un poco más grande
+          color: var(--admin-text-color-muted); // Usar color muted del admin
+        }
+
+        img {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+          border-radius: 0.375rem; // Usar valor fijo
+        }
+      }
+
+      .form-control[type="file"] {
+        // Bootstrap 5 ya debería aplicar estilos decentes, pero podemos afinarlos
+        // Si el color de fondo por defecto es muy claro:
+        background-color: var(--admin-input-bg);
+        color: var(--admin-input-text-color); // Para el texto "Ningún archivo seleccionado"
+        border: 1px solid var(--admin-border-color);
+
+        // Estilizar el botón del input de archivo (varía mucho entre navegadores)
+        // Para navegadores basados en WebKit (Chrome, Edge, Safari)
+        &::-webkit-file-upload-button {
+          background-color: var(--admin-primary-color, #0d6efd); // Usar un color primario del admin si existe
+          color: $white;
+          border: none;
+          padding: 0.375rem 0.75rem;
+          border-radius: 0.375rem; // Usar valor fijo
+          cursor: pointer;
+          transition: background-color 0.15s ease-in-out;
+          margin-right: 0.75rem; // Espacio entre el botón y el texto
+
+          &:hover {
+            filter: brightness(90%); // Usar filter: brightness para oscurecer dinámicamente
+          }
+        }
+
+        // Para Firefox (un poco más limitado)
+        // Firefox no permite estilizar directamente el botón así.
+        // El color del texto "Ningún archivo seleccionado" debería tomarse de 'color'
+      }
+      
+      small.form-text.text-muted { // Para image_feedback
+        color: var(--admin-text-color-muted) !important; // Forzar el color si es necesario
+      }
+
+      // Estilizar selectores específicamente si es necesario
+      select.form-select {
+          // Hereda colores de .form-control, pero podemos forzar si es necesario
+          // background-color: var(--admin-input-bg); 
+          // color: var(--admin-input-text-color); 
+          // Asegurar que las opciones también tengan buen contraste (esto es difícil de estilizar directamente)
+          // Pero el color del texto del select seleccionado debería ser legible
+          option {
+              background-color: $admin-bg; // Fondo oscuro para las opciones desplegadas
+              color: $admin-text-color; // Texto claro para las opciones
+          }
+      }
+    }
+  }
+}
+
+// Estilos para el modo de reordenamiento del administrador
+.admin-container.reorder-mode-active {
+  .product-card-reorder-item-admin {
+    cursor: move; // Indica que el elemento es arrastrable
+    // Podríamos añadir un ligero borde o sombra para destacar más los items arrastrables
+    // border: 1px dashed $admin-link-color;
+  }
+
+  .product-list-row {
+    // Cuando está en modo reordenamiento, quizás un fondo sutil para la lista
+    // background-color: rgba($admin-link-color, 0.05);
+  }
+
+  .sortable-ghost-admin {
+    opacity: 0.4;
+    background-color: $admin-accent-color; // Un color de acento para el placeholder
+    border: 2px dashed $admin-link-color;
+    border-radius: 8px; // Coincidir con el radio de las tarjetas
+  }
+
+  .sortable-chosen-admin,
+  .sortable-drag-admin {
+    opacity: 0.8;
+    // background-color: lighten($admin-bg-panel, 5%); // Ligeramente diferente al arrastrar
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); // Sombra más pronunciada al arrastrar
+    transform: scale(1.03); // Ligeramente más grande
+    // Asegurar que esté por encima de otros elementos
+    position: relative; 
+    z-index: 9999; 
+  }
+}
+
+// --- FIN DE ESTILOS DE REORDENAMIENTO ---
+
+// ... (asegúrate que esto no interfiere con otros estilos .admin-card-body o .product-list-title si existen más abajo)
+
+// ----- Estilos para el Dashboard de Pedidos (admin/index.php) -----
+.admin-dashboard-content {
+  .status-card {
+    // Estilo base para las tarjetas de columna de estado (En Preparación, Listo, etc.)
+    // Hereda de admin-card, aquí podemos poner overrides o adiciones
+    // Por ejemplo, podrías querer un min-height para estas columnas:
+    // min-height: 500px;
+    display: flex;
+    flex-direction: column;
+
+    .admin-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: center; 
+      // Los siguientes bloques de color específicos se comentarán o eliminarán
+      // &.status-preparing-header {
+      //   background-color: darken($admin-color-warning, 10%); 
+      //   color: $white; 
+      // }
+      // &.status-ready-header {
+      //   background-color: darken($admin-color-success, 10%); 
+      //   color: $white;
+      // }
+      // &.status-scheduled-header {
+      //   background-color: darken($admin-color-info, 10%); 
+      //   color: $white;
+      // }
+      .admin-card-title {
+        font-weight: 600;
+        // El color se hereda de .admin-card-header h2,h3,h4 o se puede forzar aquí si es necesario
+        // color: $admin-title-color;
+      }
+    }
+
+    .order-list-body {
+      flex-grow: 1; // Para que el cuerpo ocupe el espacio disponible si hay min-height
+      padding: 10px; // Un padding más ajustado para la lista de pedidos
+      overflow-y: auto; // Scroll si hay muchos pedidos
+      max-height: 600px; // Altura máxima antes de scroll, ajustar según necesidad
+    }
+  }
+
+  .admin-order-card {
+    background-color: lighten($admin-bg-panel, 5%); // Un poco más claro que el fondo del panel
+    border: 1px solid $admin-border-color;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    .admin-order-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1px solid $admin-border-color;
+      h6 {
+        color: $admin-title-color;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+      .order-time-ago, .scheduled-time-badge {
+        font-size: 0.75rem;
+        color: $admin-text-secondary-color;
+      }
+      .scheduled-time-badge {
+        background-color: $admin-text-secondary-color !important; // Forzar color para el badge
+        color: $admin-bg-panel !important;
+        padding: 0.2em 0.5em;
+      }
+    }
+
+    .admin-order-card-body {
+      padding: 0.8rem;
+      p {
+        margin-bottom: 0.3rem;
+        font-size: 0.85rem;
+        strong {
+          color: $admin-text-color; // Color para el texto en negrita (etiquetas)
+        }
+      }
+      .small.text-muted {
+         color: $admin-text-secondary-color !important; // Asegurar color para detalles secundarios
+         font-size: 0.75rem; // Hacerlos un poco más pequeños
+      }
+    }
+
+    .admin-order-card-footer {
+      padding: 0.6rem 0.8rem;
+      background-color: rgba($admin-border-color, 0.2);
+      border-top: 1px solid $admin-border-color;
+      text-align: right; // Alinea el botón a la derecha
+
+      .admin-btn-action {
+        padding: 0.25rem 0.6rem; // Botones un poco más pequeños
+        font-size: 0.75rem;
+        // Colores específicos para los botones de acción de pedidos
+        &.btn-view-details { // Estilo para el botón de detalles
+          background-color: $admin-color-info; // Un color azul/info
+          border-color: darken($admin-color-info, 10%);
+          color: $white;
+          &:hover { filter: brightness(115%); }
+        }
+        &.btn-ready {
+          background-color: $admin-color-success;
+          border-color: darken($admin-color-success, 10%);
+          color: $white;
+          &:hover { filter: brightness(115%); }
+        }
+        &.btn-delivered {
+          background-color: $admin-link-color; // Azul/Color de enlace para entregado
+          border-color: darken($admin-link-color, 10%);
+          color: $white;
+          &:hover { filter: brightness(115%); }
+        }
+        &.btn-start-prep {
+          background-color: $admin-color-warning;
+          border-color: darken($admin-color-warning, 10%);
+          color: #333; // Texto oscuro para mejor contraste en amarillo
+           &:hover { filter: brightness(115%); }
+        }
+      }
+      .status-badge-info {
+          font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+// Estilo adicional para resaltar pedidos programados
+.admin-order-card.scheduled-order-highlight {
+  border-left: 5px solid $admin-color-info; // Borde izquierdo distintivo
+  
+  .admin-order-card-header .order-time-ago {
+    color: $admin-title-color !important; // Forzar un color más claro
+  }
+
+  .scheduled-time-prominent {
+    background-color: rgba($admin-color-info, 0.15);
+    border: 1px dashed $admin-color-info;
+    color: lighten($admin-color-info, 25%);
+    
+    h5 {
+      color: lighten($admin-color-info, 35%);
+      font-size: 1rem;
+    }
+    p.lead {
+      color: $white; // Hora en blanco para máximo contraste
+      font-size: 1.3rem;
+    }
+  }
+}
+
+// ----- FIN Estilos Dashboard de Pedidos -----
+
+// ... (Resto de _admin.scss)
+// ----- Estilos para el Historial de Pedidos (admin/history.php) -----
+// ... existing code ...
+
+// En _admin.scss o un archivo _modal_admin.scss
+
+// Asegurar que el fondo del modal y el texto sean consistentes con el tema admin
+/* Eliminar o comentar el bloque de @media para max-width */
+/*
+.modal-dialog.modal-xl { // Apunta directamente al modal-xl para el tamaño
+  max-width: 1140px; // Ancho estándar de Bootstrap para XL, podemos aumentarlo
+  @media (min-width: 1200px) { // Para pantallas más grandes
+    max-width: 85%; // Ocupa el 85% del ancho de la pantalla
+  }
+}
+*/
+
+.modal-content.admin-card { // Asumiendo que el modal tiene la clase admin-card
+  background-color: $admin-bg-panel;
+  color: $admin-text-color;
+  border-color: $admin-border-color;
+
+  .modal-header.admin-card-header {
+    border-bottom-color: $admin-border-color;
+    .modal-title {
+      color: $admin-title-color; // Título del modal
+    }
+    .btn-close { // Estilo del botón de cerrar de Bootstrap
+      // filter: invert(1) grayscale(100%) brightness(200%); // Comentado para prueba, podría estar causando problemas si el fondo del header es claro o el icono es blanco.
+      opacity: 1 !important; // Forzar opacidad
+      z-index: 10; // Z-index local para asegurar visibilidad sobre otros elementos del header del modal
+      position: relative; // Necesario para que z-index tenga efecto en algunos casos
+      // Para Bootstrap 5, el color del SVG se controla con `background-image` que usa `currentColor`.
+      // Si el color del texto del header es oscuro, el botón X será oscuro. Si es claro, será claro.
+      // Forzar un color si es necesario (ej. si el header tiene fondo oscuro y texto claro, pero X no se ve):
+      // color: $admin-title-color !important; // Esto afectaría el currentColor del SVG
+      // Como alternativa, se puede usar un btn-close-white directamente en el HTML si el fondo es oscuro:
+      // <button type="button" class="btn-close btn-close-white" ...></button>
+    }
+  }
+
+  .modal-body.admin-card-body {
+    h6 { // Para "Información del Cliente", "Detalles del Pago y Entrega", "Artículos del Pedido"
+      color: $admin-title-color; // Usar color de título o un color de texto prominente
+      margin-top: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    p {
+      color: $admin-text-color;
+      strong {
+        color: $admin-text-secondary-color; // O un poco más claro que el texto normal
+      }
+    }
+    max-height: 85vh; // Permitir que ocupe hasta el 85% de la altura visible
+    overflow-y: auto; 
+
+    // Estilo para el input datetime-local y el nuevo input numérico con botones
+    input[type="datetime-local"].form-control,
+    .input-group input[type="number"].form-control#modalOrderEstimatedTimeNumeric {
+      background-color: darken($admin-bg, 5%); // Fondo un poco más oscuro que el panel
+      color: $admin-text-color;
+      border: 1px solid $admin-border-color;
+      text-align: center; // Centrar el número
+      font-weight: bold;
+      font-size: 1.1rem;
+
+      // Ocultar flechas nativas en Chrome, Safari, Edge, Opera
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      // Ocultar flechas nativas en Firefox
+      &[type=number] {
+        -moz-appearance: textfield;
+      }
+
+      &::-webkit-calendar-picker-indicator { // Para datetime-local si se usa en otro lado
+        filter: invert(1); // Intentar invertir el color del icono
+      }
+    }
+    
+    .input-group {
+        #decreaseTimeBtn,
+        #increaseTimeBtn {
+            background-color: $admin-accent-color;
+            color: $white;
+            border: 1px solid darken($admin-accent-color, 5%);
+            padding: 0.5rem 1rem; // Hacer botones más grandes
+            font-size: 1.2rem; // Íconos más grandes
+            line-height: 1; 
+            transition: background-color 0.2s ease;
+
+            &:hover {
+                background-color: $admin-accent-hover-color;
+                filter: none; // Quitar cualquier filter genérico si interfiere
+            }
+            &:active {
+                transform: scale(0.95);
+            }
+            i.bi {
+                vertical-align: middle;
+            }
+        }
+    }
+
+    // Estilos para la tabla de artículos
+    .table.admin-table { // Asumiendo que admin-table ya tiene algunos estilos base
+      color: $admin-text-color; // Texto general de la tabla
+      th, td {
+        border-color: $admin-border-color; // Bordes de celda
+      }
+      thead.table-dark { // Bootstrap lo hace oscuro, puede estar bien
+        th {
+          color: $admin-title-color; // O un color de texto de cabecera específico
+          background-color: darken($admin-bg-panel, 5%);
+          border-color: $admin-border-color;
+        }
+      }
+      tbody {
+        tr {
+          &:hover {
+            background-color: lighten($admin-bg-panel, 5%); // Hover sutil
+            color: $admin-title-color;
+          }
+        }
+        // Para table-striped si se usa y se ve mal
+        &.table-striped > tbody > tr:nth-of-type(odd) > * {
+        //   --bs-table-accent-bg: rgba($white, 0.03); // Color de franja muy sutil
+        //   color: $admin-text-color;
+        }
+      }
+    }
+  }
+
+  .modal-footer.admin-card-footer {
+    border-top-color: $admin-border-color;
+  }
+}

@@ -42,6 +42,7 @@ JS TABLE OF CONTENTS
 if (typeof cart === 'undefined') {
     var cart = [];
 }
+let mp; // <--- Declarar mp globalmente
 
 // Variable global para controlar si la configuración está cargada
 var configLoaded = false;
@@ -50,9 +51,24 @@ var configLoaded = false;
 document.addEventListener('configLoaded', function() {
     console.log("[Main] Evento configLoaded recibido en main.js");
     configLoaded = true;
-    
+
+    // Inicializar mp aquí si el SDK y la config están listos
+    if (typeof MercadoPago !== 'undefined' && window.config && window.config.MP_PUBLIC_KEY) {
+        try {
+            mp = new MercadoPago(window.config.MP_PUBLIC_KEY, { locale: 'es-MX' });
+            console.log("[Main] Instancia global de MercadoPago (mp) inicializada.");
+        } catch (e) {
+            console.error("[Main] Error al inicializar instancia global de MercadoPago:", e);
+        }
+    } else {
+        console.warn("[Main] No se pudo inicializar mp globalmente. SDK o MP_PUBLIC_KEY faltante en configLoaded.");
+        // Intentar inicializar más tarde si es necesario, o confiar en la carga dinámica
+    }
+
     // Inicializar funciones que dependen de la configuración
     if (typeof initPaymentSDKs === 'function') {
+        // initPaymentSDKs podría intentar inicializar mp de nuevo,
+        // pero si ya está inicializado aquí, no debería haber problema.
         initPaymentSDKs();
     }
 });
@@ -80,57 +96,144 @@ function updateCartDisplay(newItemIndex = null) {
     let itemCount = 0;
 
     if (!Array.isArray(cart)) {
-        cart = [];
+        cart = []; // Asegurar que el carrito sea un array
     }
 
     cart.forEach((item, index) => {
+        // Validación básica del ítem
         if (typeof item !== 'object' || item === null || typeof item.price !== 'number' || typeof item.quantity !== 'number' || typeof item.name !== 'string') {
-            return;
+            console.warn(`[updateCartDisplay] Ítem inválido en el índice ${index}, saltando:`, item);
+            return; // Saltar este ítem si no tiene la estructura esperada
         }
 
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
         itemCount += item.quantity;
 
-        let description = `${item.name} (${item.quantity} x $${item.price.toFixed(2)}) = $${itemTotal.toFixed(2)}`;
+        // Nueva estructura para el ítem del carrito
+        const $cartItem = $('<div class="cart-item"></div>');
 
-        const $cartItem = $('<div class="cart-item"></div>')
-            .append($('<span>').text(description))
-            .append('<button class="remove-item-btn" data-index="' + index + '" title="Eliminar Item"><i class="fas fa-times"></i></button>');
+        const $itemInfo = $('<div class="item-info"></div>');
         
+        // Separar nombre base de modificadores
+        let baseName = item.name;
+        let modifiersText = "";
+        const modifierMatch = item.name.match(/^(.*?)\s*\((.*)\)$/); // Intenta extraer "Producto Base (Modificadores)"
+
+        if (modifierMatch && modifierMatch[1] && modifierMatch[2]) {
+            baseName = modifierMatch[1].trim();
+            modifiersText = modifierMatch[2].trim();
+        } else {
+            // Si no hay paréntesis, todo es el nombre base (ej. complementos)
+            baseName = item.name.trim();
+        }
+        
+        $itemInfo.append($('<span class="item-name"></span>').text(baseName));
+
+        if (modifiersText) {
+            const $modifiersDiv = $('<div class="item-modifiers"></div>');
+            const individualModifiers = modifiersText.split(',').map(mod => mod.trim());
+            individualModifiers.forEach(modText => {
+                // Para "Mitad X: Pizza (+$Y)" o solo "Extra Queso"
+                if (modText.includes("Mitad 1:") || modText.includes("Mitad 2:")) {
+                    const mitadDetailMatch = modText.match(/(Mitad\s\d:)\s*(.*?)(?:\s*\(\+\$?(\d+)\))?$/);
+                    if (mitadDetailMatch) {
+                        let mitadLabel = mitadDetailMatch[1]; // "Mitad 1:" o "Mitad 2:"
+                        let pizzaName = mitadDetailMatch[2].trim(); // "La Mamalona"
+                        let mitadExtraCost = mitadDetailMatch[3] ? ` (+$${mitadDetailMatch[3]})` : ""; // " (+20)" o ""
+                        $modifiersDiv.append($('<span class="modifier-line"></span>').text(`${mitadLabel} ${pizzaName}${mitadExtraCost}`));
+                    } else {
+                         $modifiersDiv.append($('<span class="modifier-line"></span>').text(modText)); // Fallback
+                    }
+                } else if (modText.toLowerCase().includes("extra queso")) {
+                    const extraQuesoPriceMatch = item.originalId && document.querySelector(`.product-item[data-product-id="${item.originalId}"] .modifier-checkbox[id^="extra-queso"]`);
+                    let extraQuesoText = "Extra Queso";
+                    if(extraQuesoPriceMatch && extraQuesoPriceMatch.dataset.priceChange){
+                        extraQuesoText += ` (+$${extraQuesoPriceMatch.dataset.priceChange})`;
+                    }
+                    $modifiersDiv.append($('<span class="modifier-line"></span>').text(extraQuesoText));
+                } else {
+                    $modifiersDiv.append($('<span class="modifier-line"></span>').text(modText));
+                }
+            });
+            $itemInfo.append($modifiersDiv);
+        }
+        
+        $cartItem.append($itemInfo);
+
+        const $itemControls = $('<div class="item-controls"></div>');
+        const $quantityControls = $('<div class="item-quantity-controls"></div>')
+            .append(`<button class="qty-btn-cart quantity-minus-cart" data-index="${index}" title="Reducir cantidad"><i class="fas fa-minus"></i></button>`)
+            .append(`<span class="item-quantity">${item.quantity}</span>`)
+            .append(`<button class="qty-btn-cart quantity-plus-cart" data-index="${index}" title="Aumentar cantidad"><i class="fas fa-plus"></i></button>`);
+        
+        $itemControls.append($quantityControls);
+        $itemControls.append($('<span class="item-total-price"></span>').text(`$${itemTotal}`));
+        $itemControls.append(`<button class="remove-item-btn text-btn" data-index="${index}" title="Eliminar Item">Eliminar</button>`);
+        
+        $cartItem.append($itemControls);
+
         if (index === newItemIndex) {
-            $cartItem.addClass('new-item');
+            $cartItem.addClass('new-item'); // Para la animación de nuevo ítem
             setTimeout(() => {
                 $cartItem.removeClass('new-item');
-            }, 500);
+            }, 500); // Duración de la animación (ej. 0.5s)
         }
         
         $cartItemsDiv.append($cartItem);
     });
 
-    $cartCountLink.attr('data-count', itemCount);
-    $cartTotal.text('Total: $' + total.toFixed(2));
+    $cartCountLink.attr('data-count', itemCount); // Actualizar contador en el ícono del carrito
+    $cartTotal.text('Total: $' + total);
 
+    // Guardar carrito en localStorage
     try {
         localStorage.setItem('cart', JSON.stringify(cart));
     } catch (e) {
-        // Error al guardar carrito
+        console.error("Error al guardar carrito en localStorage:", e);
     }
 
+    // --- Listeners para botones dentro del carrito ---
     $(".remove-item-btn").off("click").on("click", function () {
         const index = $(this).data("index");
         if (typeof index === 'number' && index >= 0 && index < cart.length) {
-            const $cartItem = $(this).closest('.cart-item');
-            $cartItem.addClass('removing-item');
+            const $cartItemToRemove = $(this).closest('.cart-item');
+            $cartItemToRemove.addClass('removing-item'); // Clase para animación de salida
             
-            setTimeout(() => {
+            setTimeout(() => { // Esperar que termine la animación
                 cart.splice(index, 1);
-                updateCartDisplay();
-            }, 500);
+                updateCartDisplay(); // Re-renderizar el carrito
+            }, 300); // Duración de la animación (ej. 0.3s)
         }
     });
 
-    // Verificar si los campos obligatorios están completos
+    $(".quantity-plus-cart").off("click").on("click", function () {
+        const index = $(this).data("index");
+        if (typeof index === 'number' && index >= 0 && index < cart.length) {
+            cart[index].quantity++;
+            updateCartDisplay();
+        }
+    });
+
+    $(".quantity-minus-cart").off("click").on("click", function () {
+        const index = $(this).data("index");
+        if (typeof index === 'number' && index >= 0 && index < cart.length) {
+            if (cart[index].quantity > 1) {
+                cart[index].quantity--;
+            } else {
+                // Si la cantidad es 1 y se presiona "-", eliminar el ítem
+                const $cartItemToRemove = $(this).closest('.cart-item');
+                $cartItemToRemove.addClass('removing-item');
+                setTimeout(() => {
+                    cart.splice(index, 1);
+                    updateCartDisplay();
+                }, 300);
+                return; // Salir para no re-renderizar dos veces si se elimina
+            }
+            updateCartDisplay();
+        }
+    });
+    // Validar campos de checkout y habilitar/deshabilitar opciones de pago
     validateCheckoutFields();
 }
 
@@ -180,29 +283,60 @@ $(document).ready(function() {
     const $cartPanel = $("#cartPanel");
     const $cartCloseBtn = $("#cartCloseBtn");
     
-    if ($cartIcon.length && $cartPanel.length && $cartCloseBtn.length) {
-        // Abrir carrito
-        $cartIcon.on("click", function(e) {
-            e.preventDefault();
+    // Remover eventos anteriores para evitar duplicados
+    $cartIcon.off("click");
+    $cartCloseBtn.off("click");
+    $(document).off("click.cart");
+    
+    // Abrir carrito
+    $cartIcon.on("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("Click en ícono del carrito");
+        
+        // Asegurarse de que el panel existe
+        if ($cartPanel.length) {
+            console.log("Panel del carrito encontrado");
             $cartPanel.addClass("open");
-        });
+            
+            // Forzar el estilo right: 0 directamente
+            $cartPanel.css('right', '0');
+        } else {
+            console.error("Panel del carrito no encontrado");
+        }
+    });
+    
+    // Cerrar carrito
+    $cartCloseBtn.on("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("Click en botón cerrar carrito");
         
-        // Cerrar carrito
-        $cartCloseBtn.on("click", function() {
+        if ($cartPanel.length) {
             $cartPanel.removeClass("open");
-        });
-        
-        // Cerrar al hacer clic fuera
-        $(document).on("click", function(e) {
-            if (
-                !$(e.target).closest($cartPanel).length && 
-                !$(e.target).closest($cartIcon).length && 
-                $cartPanel.hasClass("open")
-            ) {
-                $cartPanel.removeClass("open");
-            }
-        });
-    }
+            $cartPanel.css('right', '-100%');
+        }
+    });
+    
+    // Cerrar al hacer clic fuera
+    $(document).on("click.cart", function(e) {
+        const $target = $(e.target);
+        if (
+            !$target.closest($cartPanel).length &&         // No dentro del panel
+            !$target.closest($cartIcon).length &&         // No dentro del icono del carrito
+            !$target.closest('.add-to-cart-btn').length && // <<< AÑADIDO: No dentro de un botón 'Añadir'
+            $cartPanel.hasClass("open")                    // Y el panel está abierto
+        ) {
+            console.log("Click fuera del carrito (y no en botón Añadir)"); // Mensaje actualizado
+            $cartPanel.removeClass("open");
+            $cartPanel.css('right', '-100%');
+        }
+    });
+    
+    // Prevenir que los clicks dentro del panel cierren el carrito
+    $cartPanel.on("click", function(e) {
+        e.stopPropagation();
+    });
     
     // Listener para cambios en los campos del formulario
     $("#customerName, #customerAddress, #customerPhone").on('input', function() {
@@ -225,6 +359,22 @@ $(document).ready(function() {
     
     // Validar campos inicialmente
     validateCheckoutFields();
+
+    // NO cargar el script aquí, asumimos que index.html lo hace.
+    // Simplemente verificar si google está listo para llamar a la inicialización.
+    // Si no está listo, initMap (el callback) debería llamarlo después.
+    if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+        console.log("[main.js] Google Maps API ya cargada en ready(), inicializando autocompletado.");
+        initGoogleMapsAutocomplete();
+    } else {
+        console.log("[main.js] Google Maps API aún no cargada en ready(). Esperando a initMap.");
+    }
+
+    // Manejar el menú de usuario
+    initUserMenu();
+
+    // Configurar listeners para el tipo de entrega
+    setupDeliveryTypeListeners();
 });
 
 // Inicialización MP (la variable mp debe ser accesible donde se usa)
@@ -232,23 +382,102 @@ $(document).ready(function() {
 // const mp = new MercadoPago('TU_PUBLIC_KEY_AQUI', { locale: 'es-MX' });
 
 function createMercadoPagoPreference() {
-   // Validar campos y carrito aquí primero
-   const phone = $("#customerPhone").val().trim();
-   const address = $("#customerAddress").val().trim();
-   const name = $("#customerName").val().trim();
+    console.log("[createMercadoPagoPreference] Función iniciada.");
 
-   if (!name || !phone || !address || !Array.isArray(cart) || cart.length === 0 || $("#paymentMethod").val() !== 'mercadopago' ) {
-       alert('Completa tu información, asegúrate de tener productos en el carrito y selecciona Mercado Pago.');
-       return;
-   }
+    // 1. Verificar si mp está inicializado
+    if (typeof mp === 'undefined') {
+        console.error("[createMercadoPagoPreference] Error: La instancia 'mp' de MercadoPago no está inicializada.");
+        // Intentar inicializarla ahora (como último recurso)
+        if (typeof MercadoPago !== 'undefined' && window.config && window.config.MP_PUBLIC_KEY) {
+             try {
+                mp = new MercadoPago(window.config.MP_PUBLIC_KEY, { locale: 'es-MX' });
+                console.warn("[createMercadoPagoPreference] Instancia 'mp' inicializada tardíamente.");
+             } catch (e) {
+                 console.error("[createMercadoPagoPreference] Error al inicializar 'mp' tardíamente:", e);
+                 alert("Error al inicializar Mercado Pago. Refresca la página e intenta de nuevo.");
+                 return;
+             }
+        } else {
+            alert("Error: Mercado Pago no está listo. Espera un momento y reintenta.");
+            console.error("[createMercadoPagoPreference] No se puede inicializar 'mp', SDK o clave pública faltantes.");
+            return;
+        }
+    }
 
-   // Muestra algún feedback al usuario
-   $("#wallet_container").html('<div class="mp-button-container"><button id="mp-checkout-btn" class="mp-checkout-btn">Pagar con Mercado Pago</button></div>').show();
-   
-   // Agregar evento al botón de MP
-   $("#mp-checkout-btn").on('click', function() {
-       alert("Integración con backend de Mercado Pago pendiente");
-   });
+    // 2. Validar campos y carrito
+    const phone = $("#customerPhone").val().trim();
+    const address = $("#customerAddress").val().trim();
+    const name = $("#customerName").val().trim();
+
+    if (!name || !phone || !address || !Array.isArray(cart) || cart.length === 0) {
+        alert('Completa tu información y asegúrate de tener productos en el carrito.');
+        console.warn("[createMercadoPagoPreference] Validación fallida: campos o carrito incompletos.");
+        // Asegurarse que el contenedor MP esté oculto si falla la validación
+        $("#wallet_container").hide().empty();
+        return;
+    }
+    console.log("[createMercadoPagoPreference] Campos y carrito validados.");
+
+    // 3. Mostrar feedback y realizar llamada AJAX
+    $("#wallet_container").html('<p>Procesando tu pago con Mercado Pago...</p>').show(); // Mostrar feedback
+
+    $.ajax({
+        url: '/order/createPreference', // Asegúrate que esta ruta es correcta
+        method: 'POST',
+        // Enviar datos como JSON
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json', // Esperar una respuesta JSON
+        data: JSON.stringify({ // Convertir objeto JS a string JSON
+            cart: cart,
+            phone: phone,
+            address: address,
+            name: name
+        }),
+        success: function (data) {
+            console.log("[createMercadoPagoPreference] Respuesta AJAX recibida:", data);
+            if (data && data.preferenceId) {
+                console.log("[createMercadoPagoPreference] PreferenceId obtenido:", data.preferenceId);
+                $("#wallet_container").empty(); // Limpiar contenedor antes de renderizar
+                try {
+                    // Renderizar el Brick de Wallet usando la instancia global mp
+                    mp.bricks().create('wallet', 'wallet_container', {
+                        initialization: { preferenceId: data.preferenceId },
+                        customization: {
+                             texts: {
+                                 action: 'Pagar',
+                                 valueProp: 'security_details',
+                             },
+                        }
+                    });
+                    console.log("[createMercadoPagoPreference] Wallet Brick renderizado.");
+                } catch (brickError) {
+                    console.error("[createMercadoPagoPreference] Error al renderizar Wallet Brick:", brickError);
+                    $("#wallet_container").html('<p style="color:red;">Error al mostrar el botón de pago de Mercado Pago.</p>');
+                    alert("Ocurrió un error al mostrar el botón de pago de Mercado Pago.");
+                }
+            } else {
+                console.error('[createMercadoPagoPreference] Error: No se recibió preferenceId en la respuesta.', data);
+                 // Mostrar mensaje de error específico si viene del backend
+                 const errorMessage = data && data.error ? data.error : 'Error al iniciar el pago con Mercado Pago.';
+                 $("#wallet_container").html(`<p style="color:red;">${errorMessage}</p>`);
+                 alert(errorMessage);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error('[createMercadoPagoPreference] Error AJAX:', textStatus, errorThrown, jqXHR.responseText);
+             // Intentar parsear la respuesta de error si es JSON
+             let serverError = 'Error de comunicación al intentar pagar con Mercado Pago. Revisa la consola.';
+             try {
+                 const errorResponse = JSON.parse(jqXHR.responseText);
+                 if (errorResponse && errorResponse.error) {
+                     serverError = errorResponse.error;
+                 }
+             } catch(e) { /* No era JSON o estaba mal formado */ }
+
+            $("#wallet_container").html(`<p style="color:red;">${serverError}</p>`);
+            alert(serverError);
+        }
+    });
 }
 
 // Función para renderizar botón PayPal
@@ -374,18 +603,30 @@ $(document).ready(function () {
         $(window).scroll(function () {
             if ($(this).scrollTop() > 150) {
                 $("#header-sticky").addClass("sticky open");
+                
+                // Aplicar estilos directamente a los elementos de bienvenida y cerrar sesión
+                $("#user-welcome-text").css('color', '#010F1C');
+                $(".header-right .user-welcome-container .logout-btn").css('color', '#010F1C');
+                $(".header-right .user-welcome-container .logout-btn").css('border-color', 'rgba(0, 0, 0, 0.3)');
             } else {
                 $("#header-sticky").removeClass("sticky open");
+                
+                // Restaurar estilos originales
+                $("#user-welcome-text").css('color', '#fff');
+                $(".header-right .user-welcome-container .logout-btn").css('color', '#fff');
+                $(".header-right .user-welcome-container .logout-btn").css('border-color', 'rgba(255, 255, 255, 0.4)');
             }
         });
 
         /*-----------------------------------
           05. Counterup 
         -----------------------------------*/
-        $(".counter-number").counterUp({
-            delay: 10,
-            time: 1000,
-        });
+        if ($(".counter-number").length > 0) {
+            $(".counter-number").counterUp({
+                delay: 10,
+                time: 1000,
+            });
+        }
 
         /*-----------------------------------
           06. Wow Animation 
@@ -914,18 +1155,22 @@ $("#cartCloseBtn").on("click", function () {
 
 // Añadir al carrito desde el menú
 $(".add-to-cart-btn").on("click", function () {
+    console.log("[Add to Cart] Botón clickeado.");
     const $productItem = $(this).closest('.product-item');
     const productId = $productItem.data('product-id');
     const name = $productItem.find('h3').text();
-    const basePrice = parseFloat($productItem.data('base-price'));
+    // finalPrice inicia con el precio base de la tarjeta del producto (ej. la tarjeta de "Mitad y Mitad")
+    let finalPrice = parseInt($productItem.data('base-price')); 
     const quantity = parseInt($productItem.find('.qty-input').val());
 
-    if (isNaN(basePrice) || isNaN(quantity) || quantity <= 0) {
+    console.log(`[Add to Cart] Producto: ${name}, ID: ${productId}, Precio Base Tarjeta: ${finalPrice}, Cantidad: ${quantity}`);
+
+    if (isNaN(finalPrice) || isNaN(quantity) || quantity <= 0) {
+        console.error("[Add to Cart] Error al obtener datos del producto (basePrice de tarjeta o quantity).");
         alert("Error al obtener datos del producto.");
         return;
     }
 
-    let finalPrice = basePrice;
     let modifierDescriptions = [];
 
     // --- Modificadores ---
@@ -934,76 +1179,80 @@ $(".add-to-cart-btn").on("click", function () {
     const $onion = $productItem.find('input[name^="cebolla"]:checked');
     const $mitad1Select = $productItem.find('select[name^="mitad1"]');
     const $mitad2Select = $productItem.find('select[name^="mitad2"]');
+    const isMitadYMitad = $mitad1Select.length && $mitad2Select.length;
 
-    // 1. Extra Queso
-    if ($extraCheese.is(':checked')) {
-        const cheesePriceChange = parseFloat($extraCheese.data('price-change')) || 0;
-        if (!isNaN(cheesePriceChange)) {
-             finalPrice += cheesePriceChange;
-             modifierDescriptions.push("Extra Queso");
-        }
-    }
-
-    // 2. Mitad y Mitad
-    if ($mitad1Select.length && $mitad2Select.length) { // Solo si es pizza M/M
-        let extraPriceMitades = 0;
+    // 1. Sumar costos adicionales de las mitades seleccionadas (si es M/M)
+    if (isMitadYMitad) {
         const mitad1Value = $mitad1Select.val();
         const mitad2Value = $mitad2Select.val();
 
-        // Validar que ambas mitades estén seleccionadas
         if (!mitad1Value || !mitad2Value) {
              alert("Por favor, selecciona ambas mitades para la pizza Mitad y Mitad.");
-             return; // Detener si no están seleccionadas ambas mitades
+             return; 
         }
-
-        const mitad1OptionPrice = parseFloat($mitad1Select.find('option[value="' + mitad1Value + '"]').data('base-price'));
-        const mitad2OptionPrice = parseFloat($mitad2Select.find('option[value="' + mitad2Value + '"]').data('base-price'));
-
+        
         let desc1 = "Mitad 1: Desconocida";
         let desc2 = "Mitad 2: Desconocida";
 
-        if (!isNaN(mitad1OptionPrice)) {
-             extraPriceMitades += Math.max(0, mitad1OptionPrice - basePrice);
-             desc1 = `Mitad 1: ${$mitad1Select.find('option:selected').text().replace(/\(\s?\+\d+\s?\)/, '').trim()}`; // Limpia el (+XX)
-        }
-         if (!isNaN(mitad2OptionPrice)) {
-             extraPriceMitades += Math.max(0, mitad2OptionPrice - basePrice);
-             desc2 = `Mitad 2: ${$mitad2Select.find('option:selected').text().replace(/\(\s?\+\d+\s?\)/, '').trim()}`; // Limpia el (+XX)
-        }
-        finalPrice += extraPriceMitades;
-        modifierDescriptions.push(desc1); // Añadir descripciones
+        [$mitad1Select, $mitad2Select].forEach(($select, index) => {
+            const selectedOptionText = $select.find('option:selected').text();
+            const optionValue = $select.val();
+            let extraCost = 0;
+            const match = selectedOptionText.match(/\(\+\s*(\d+)\s*\)/); 
+            if (match && match[1]) {
+                extraCost = parseInt(match[1]);
+            }
+            if (!isNaN(extraCost)) {
+                finalPrice += extraCost;
+                console.log(`[Add to Cart] Mitad ${index + 1} ('${selectedOptionText}') añadió +${extraCost}. Nuevo finalPrice: ${finalPrice}`);
+            }
+            if (index === 0) {
+                desc1 = `Mitad 1: ${selectedOptionText.replace(/\\(\\s?\\+[\\d\\.]+\\s?\\)/, '').trim()}`;
+            } else {
+                desc2 = `Mitad 2: ${selectedOptionText.replace(/\\(\\s?\\+[\\d\\.]+\\s?\\)/, '').trim()}`;
+            }
+        });
+        modifierDescriptions.push(desc1); 
         modifierDescriptions.push(desc2);
     }
 
-     // 3. Pizza de Chorizo - Validar selección de Cebolla
-     const currentProductId = $productItem.data('product-id') || '';
-     if (currentProductId === 'chorizo' || currentProductId === 'chorizo-orilla') { // Asegúrate que los product-id sean correctos
-         if (!$onion.length || !$onion.val()) { // Si no existe el input o no tiene valor
-             alert("Por favor, indica si quieres la pizza de chorizo CON o SIN cebolla.");
-             return; // Detener si no se ha seleccionado
-         }
-     }
+    // 2. Añadir costo de Extra Queso (al finalPrice ya sea el original o el modificado por M/M)
+    if ($extraCheese.is(':checked')) {
+        const cheesePriceChange = parseInt($extraCheese.data('price-change')) || 0; 
+        if (!isNaN(cheesePriceChange)) {
+             finalPrice += cheesePriceChange;
+             modifierDescriptions.push("Extra Queso");
+             console.log(`[Add to Cart] Extra Queso añadió +${cheesePriceChange}. Nuevo finalPrice: ${finalPrice}`);
+        }
+    }
 
-    // --- Nombre Detallado ---
+    // El resto de la lógica para nombre detallado, añadir al carrito, etc., se mantiene igual,
+    // ya que finalPrice ahora será un entero si todas las adiciones son enteras.
+    // No se necesita Math.round() si todos los componentes son enteros.
+
+    console.log(`[Add to Cart] Procesado: ${name}, Precio Final para Carrito: ${finalPrice}`);
+
     let detailedName = name;
     if (modifierDescriptions.length > 0) {
         detailedName += ` (${modifierDescriptions.join(', ')})`;
     }
-    // Añadir otras opciones seleccionadas que no afectan precio pero sí el nombre
     if ($cooking.length && $cooking.val()) {
         detailedName += `, Cocción: ${$cooking.val()}`;
     }
-     if ($onion.length && $onion.val()) { // Solo añadir si tiene valor (relevante para chorizo)
+    if ($onion.length && $onion.val()) {
         detailedName += `, Cebolla: ${$onion.val()}`;
+    }
+
+    const currentProductId = $productItem.data('product-id') || '';
+     if (currentProductId === 'chorizo' || currentProductId === 'chorizo-orilla') {
+         if (!$onion.length || !$onion.val()) {
+             alert("Por favor, indica si quieres la pizza de chorizo CON o SIN cebolla.");
+             return; 
+         }
      }
 
-
-    // --- Añadir al Carrito (Agrupando items idénticos) ---
-    // Busca si ya existe un item con el MISMO nombre detallado exacto
     const existingCartItemIndex = cart.findIndex(item => item.name === detailedName);
-
     let newItemIndex;
-
     if (existingCartItemIndex > -1) {
         cart[existingCartItemIndex].quantity += quantity;
         newItemIndex = existingCartItemIndex;
@@ -1011,55 +1260,95 @@ $(".add-to-cart-btn").on("click", function () {
         cart.push({
             originalId: productId,
             name: detailedName,
-            price: finalPrice,
+            price: finalPrice, // Guardar el precio final (ya debería ser entero)
             quantity: quantity
         });
         newItemIndex = cart.length - 1;
     }
 
+    // Animar el ícono del carrito
     const $cartIcon = $("#cart-icon-link");
     if ($cartIcon.length) {
-        const animationClass = 'animated tada';
+        const animationClass = 'animated tada'; // Puedes cambiar 'tada' por otra animación si prefieres
+        $cartIcon.removeClass(animationClass); // Quitarla por si acaso ya estaba
+        // Forzar reflujo para reiniciar animación si se hace clic rápido
+        void $cartIcon[0].offsetWidth;
         $cartIcon.addClass(animationClass);
+        // Opcional: quitar la clase después de que termine la animación
         $cartIcon.one('animationend', function() {
             $(this).removeClass(animationClass);
         });
+        console.log("[Add to Cart] Animación añadida al ícono del carrito.");
     }
 
-    updateCartDisplay(newItemIndex); // Pasar el índice del nuevo artículo
-    const mobileBreakpoint = 992;
-    if ($(window).width() >= mobileBreakpoint) {    
+    // --- Actualizar y Abrir Carrito ---
+    updateCartDisplay(newItemIndex);
+    console.log("[Add to Cart] updateCartDisplay llamado.");
+
+    // Abrir automáticamente SOLO en escritorio
+    const mobileBreakpoint = 992; // Asegúrate que este valor sea correcto para tu diseño
+    if ($(window).width() >= mobileBreakpoint) {
         $("#cartPanel").addClass("open");
+        console.log("[Add to Cart] Clase 'open' añadida a #cartPanel (Desktop).");
+        
+        // Forzar un reflow mínimo
+        void document.getElementById('cartPanel').offsetWidth;
+
+        // Aplicar el estilo final después del reflow
+        $('#cartPanel').css('right', '0'); 
+        console.log("[Add to Cart] Estilo 'right: 0' aplicado a #cartPanel (Desktop).");
+    } else {
+        console.log("[Add to Cart] No se abre automáticamente en móvil.");
     }
 });
 
 function updateProductPrice(card) {
-    const basePrice = parseFloat(card.dataset.basePrice) || 0;
-    let totalPrice = basePrice;
+    let totalPrice = parseInt(card.dataset.basePrice) || 0;
+    console.log(`[updateProductPrice] Iniciando. Precio base de tarjeta: ${totalPrice}`);
+    const isMitadYMitad = card.querySelectorAll('.mitad-selector').length > 0;
 
-    const mitadSelectors = card.querySelectorAll('.mitad-selector');
-    if (mitadSelectors.length > 0) {
-        mitadSelectors.forEach(select => {
-            if (select.options && select.selectedIndex >= 0) {
-                const selectedOption = select.options[select.selectedIndex];
-                const optionPrice = parseFloat(selectedOption.dataset.basePrice) || basePrice;
-                const priceDiff = optionPrice - basePrice;
-                totalPrice += priceDiff;
+    if (isMitadYMitad) {
+        console.log("[updateProductPrice] Es Mitad y Mitad. Calculando precio de mitades...");
+        const mitadSelectors = card.querySelectorAll('.mitad-selector');
+        mitadSelectors.forEach((select, index) => {
+            if (select.options && select.selectedIndex > 0 && select.value !== "") { 
+                const selectedOptionText = select.options[select.selectedIndex].text;
+                console.log(`[updateProductPrice] Mitad ${index + 1} seleccionada: ${selectedOptionText} (valor: ${select.value})`);
+                let extraCost = 0;
+                const match = selectedOptionText.match(/\(\+\s*(\d+)\s*\)/); 
+                if (match && match[1]) {
+                    extraCost = parseInt(match[1]);
+                    console.log(`[updateProductPrice] Costo extra extraído de texto: ${extraCost} para ${selectedOptionText}`);
+                } else {
+                    console.log(`[updateProductPrice] No se encontró costo extra en texto: ${selectedOptionText}`);
+                }
+                if (!isNaN(extraCost)) {
+                    totalPrice += extraCost;
+                }
+            } else {
+                 console.log(`[updateProductPrice] Selector de mitad ${index + 1} no tiene una opción válida seleccionada o es placeholder.`);
             }
         });
+        console.log(`[updateProductPrice] Precio después de calcular mitades: ${totalPrice}`);
     }
 
     const checkboxes = card.querySelectorAll('.modifier-checkbox');
     checkboxes.forEach(checkbox => {
-        const priceChange = parseFloat(checkbox.dataset.priceChange) || 0;
         if (checkbox.checked) {
-            totalPrice += priceChange;
+            const priceChange = parseInt(checkbox.dataset.priceChange) || 0;
+            if (!isNaN(priceChange)) {
+                totalPrice += priceChange;
+                console.log(`[updateProductPrice] Checkbox ${checkbox.id} añadió: ${priceChange}. Nuevo total: ${totalPrice}`);
+            }
         }
     });
 
     const priceElement = card.querySelector('.product-price');
     if (priceElement) {
-        priceElement.textContent = totalPrice.toFixed(2);
+        priceElement.textContent = totalPrice; 
+        console.log(`[updateProductPrice] Precio visual en tarjeta actualizado a: ${totalPrice}`);
+    } else {
+        console.log("[updateProductPrice] No se encontró .product-price para actualizar en la tarjeta.");
     }
 }
 
@@ -1073,24 +1362,11 @@ function setupProductEvents() {
         });
 
         const mitadSelectors = card.querySelectorAll('.mitad-selector');
-        mitadSelectors.forEach(select => {
-            select.addEventListener('change', () => {
+        mitadSelectors.forEach(originalSelect => {
+            originalSelect.addEventListener('change', () => {
+                console.log(`[Mitad Change Original Event] <select> id: ${originalSelect.id}, valor: ${originalSelect.value} cambió. Llamando a updateProductPrice.`);
                 updateProductPrice(card);
             });
-
-            const niceSelect = card.querySelector(`.nice-select[name="${select.name}"]`);
-            if (niceSelect) {
-                niceSelect.querySelectorAll('.option').forEach(option => {
-                    option.addEventListener('click', () => {
-                        const value = option.dataset.value;
-                        select.value = value;
-                        select.dispatchEvent(new Event('change'));
-                        updateProductPrice(card);
-                        niceSelect.classList.remove('open');
-                        niceSelect.querySelector('.list').style.display = 'none';
-                    });
-                });
-            }
         });
     });
 }
@@ -1104,16 +1380,33 @@ document.addEventListener('change', (e) => {
     }
 });
 
+// Listener global para clics en opciones de NiceSelect
 document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('option') && e.target.closest('.nice-select')) {
-        const niceSelect = e.target.closest('.nice-select');
-        const select = niceSelect.previousElementSibling;
-        if (select && select.classList.contains('mitad-selector')) {
-            const value = e.target.dataset.value;
-            select.value = value;
-            select.dispatchEvent(new Event('change'));
-            const card = select.closest('.product-item');
-            if (card) updateProductPrice(card);
+    const targetOption = e.target.closest('.option'); 
+    if (targetOption && targetOption.closest('.nice-select')) {
+        const niceSelect = targetOption.closest('.nice-select');
+        let originalSelect = niceSelect.previousElementSibling;
+        if (originalSelect && originalSelect.tagName !== 'SELECT') {
+             originalSelect = $(niceSelect).prevAll('select').first()[0]; 
+        }
+
+        if (originalSelect && originalSelect.classList.contains('mitad-selector')) {
+            const value = targetOption.dataset.value;
+            const oldValue = originalSelect.value; // Guardar valor anterior para log
+            
+            originalSelect.value = value; // Actualizar el valor del select original
+
+            console.log(`[NiceSelect Global Click] Opción '${value}' clickeada para <select> id: ${originalSelect.id}. (Valor anterior: '${oldValue}').`);
+
+            // Encontrar la tarjeta (product-item) contenedora y llamar a updateProductPrice directamente
+            const card = originalSelect.closest('.product-item');
+            if (card) {
+                console.log(`[NiceSelect Global Click] Tarjeta encontrada. Llamando a updateProductPrice directamente para card con ID: ${card.dataset.productId}`);
+                updateProductPrice(card);
+            } else {
+                console.error(`[NiceSelect Global Click] No se pudo encontrar .product-item para el select ${originalSelect.id}`);
+            }
+            // Ya no se dispara el evento 'change' desde aquí para este propósito, se llama a la función directamente.
         }
     }
 });
@@ -1156,6 +1449,13 @@ function adjustContainerHeight() {
     if (container && visibleBlock) {
         const height = visibleBlock.offsetHeight;
         container.style.height = `${height}px`;
+        
+        // Asegurarse de que todos los elementos sean visibles
+        const items = visibleBlock.querySelectorAll('.product-item');
+        items.forEach(item => {
+            item.style.display = 'block';
+            item.style.opacity = '1';
+        });
     }
 }
 
@@ -1178,6 +1478,16 @@ function initializeFilters() {
             }, 10);
         }
     }
+
+    // Ajustar altura del contenedor después de que todo esté cargado
+    window.addEventListener('load', function() {
+        adjustContainerHeight();
+    });
+
+    // Ajustar altura cuando cambie el tamaño de la ventana
+    window.addEventListener('resize', function() {
+        adjustContainerHeight();
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1232,57 +1542,120 @@ $("#paymentMethod").on('change', function() {
 $('#customerName, #customerAddress, #customerPhone').on('input', function() {
     if (typeof updateCartDisplay === "function") updateCartDisplay(); // Re-evaluar estado del pago
 });
-// Inicialización de Mercado Pago
-const mp = new MercadoPago('TEST-6283082187716828-031815-84bd184b6202d8827274cdaf7c90688b-440393429', {
-        locale: 'es-MX'
-    });
-    
-// Pago con Mercado Pago
-$("#proceedToMercadoPago").on("click", function () {
-    const phone = $("#customerPhone").val().trim();
-    const address = $("#customerAddress").val().trim();
-    const name = $("#customerName").val().trim();
 
-    if (!name || !phone || !address || cart.length === 0) {
-        alert('Por favor, completa todos los campos y añade productos al carrito.');
-        return;
-    }
-
-    $.ajax({
-        url: '/order/createPreference',
-        method: 'POST',
-        contentType: 'application/x-www-form-urlencoded',
-        data: $.param({
-            cart: JSON.stringify(cart),
-            phone: phone,
-            address: address,
-            name: name
-        }),
-        success: function (data) {
-            if (data.preferenceId) {
-                $("#wallet_container").empty();
-                mp.bricks().create('wallet', 'wallet_container', {
-                    initialization: { preferenceId: data.preferenceId }
-                });
-            } else {
-                alert('Error al procesar el pago con Mercado Pago.');
-            }
-        },
-        error: function (error) {
-            console.error('Error:', error);
-            alert('Error al procesar el pago con Mercado Pago.');
+// Asegurarse de que los listeners y la UI se actualicen cuando se muestra el panel del carrito
+const cartPanelObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.attributeName === "style" && $("#cartPanel").is(":visible")) {
+            console.log("Cart panel visible, re-validando y configurando listeners de entrega.");
+            validateCheckoutFields();
+            setupDeliveryTypeListeners();
         }
     });
 });
-    });
-        
+if ($("#cartPanel").length) {
+    cartPanelObserver.observe(document.getElementById('cartPanel'), { attributes: true });
+}
 
-function loader() {
-        $(window).on('load', function () {
-            $(".preloader").addClass('loaded');
-            $(".preloader").delay(600).fadeOut();
-        });
+}); // Cierre del $(document).ready() que faltaba o estaba mal colocado
+
+// ... (resto del archivo main.js si existe después del $(document).ready() original) ...
+
+
+    function loader() {
+            $(window).on('load', function () {
+                $(".preloader").addClass('loaded');
+                $(".preloader").delay(600).fadeOut();
+            });
+        }
+        loader();
+
+    })(jQuery); // End jQuery
+
+    // Inicializar autocompletado de Google Maps
+    function initGoogleMapsAutocomplete() {
+        if (typeof google === 'undefined') {
+            console.error('[Autocomplete] Google Maps API no está cargada');
+            return;
+        }
+        const addressInput = document.getElementById('customerAddress');
+        if (!addressInput) {
+            console.error('[Autocomplete] No se encontró el campo #customerAddress');
+            return;
+        }
+        // Verificar la clave API desde window.config
+        if (typeof window.config === 'undefined' || typeof window.config.GOOGLE_MAPS_API_KEY === 'undefined' || window.config.GOOGLE_MAPS_API_KEY === '') {
+            console.error('[Autocomplete] window.config.GOOGLE_MAPS_API_KEY no está definida o vacía.');
+            // No continuar si no hay clave
+            // return; // Opcional: podrías permitir que falle si la clave se carga tarde
+        }
+
+        console.log("[Autocomplete] Intentando inicializar para:", addressInput);
+        try {
+            const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+                types: ['address'],
+                componentRestrictions: { country: 'MX' }
+            });
+            autocomplete.addListener('place_changed', function() {
+                const place = autocomplete.getPlace();
+                console.log("[Autocomplete] Lugar seleccionado:", place);
+                if (place.geometry) {
+                    addressInput.value = place.formatted_address;
+                    if (typeof validateCheckoutFields === 'function') {
+                        validateCheckoutFields();
+                    }
+                    const latInput = document.getElementById('latitude');
+                    const lngInput = document.getElementById('longitude');
+                    if (latInput && lngInput) {
+                        latInput.value = place.geometry.location.lat();
+                        lngInput.value = place.geometry.location.lng();
+                    }
+                } else {
+                    console.log("[Autocomplete] No se seleccionó una dirección válida.");
+                }
+            });
+            console.log("[Autocomplete] Listener place_changed añadido.");
+        } catch (error) {
+            console.error('[Autocomplete] Error al inicializar:', error);
+        }
     }
-    loader();
 
-})(jQuery); // End jQuery
+    // Manejar el menú de usuario
+    function initUserMenu() {
+        const userWelcome = document.querySelector('.user-welcome');
+        const userDropdown = document.querySelector('.user-dropdown');
+
+        // Verificar si los elementos existen antes de continuar
+        if (!userWelcome || !userDropdown) {
+            console.warn('[initUserMenu] Elemento .user-welcome o .user-dropdown no encontrado. Omitiendo inicialización del menú de usuario.');
+            return; // Salir si no se encuentran los elementos
+        }
+
+        // El resto de la lógica solo se ejecuta si los elementos existen
+        const userName = userWelcome.textContent.trim();
+        const firstName = userName.split(' ')[0];
+        userWelcome.textContent = `Bienvenido ${firstName}`;
+
+        if (window.innerWidth >= 992) {
+            // ... (lógica escritorio)
+             userWelcome.addEventListener('mouseenter', () => {
+                userDropdown.classList.add('active');
+            });
+            
+            userWelcome.addEventListener('mouseleave', () => {
+                userDropdown.classList.remove('active');
+            });
+        } else {
+            // ... (lógica móvil)
+            userWelcome.addEventListener('click', (e) => {
+                e.stopPropagation();
+                userDropdown.classList.toggle('active');
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!userWelcome.contains(e.target) && !userDropdown.contains(e.target)) {
+                    userDropdown.classList.remove('active');
+                }
+            });
+        }
+    }

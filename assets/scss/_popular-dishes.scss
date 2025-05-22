@@ -447,101 +447,11 @@
                 }
             }
         }
-    }
-}
 
-// Ajustes de columnas
-.category-block {
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0 -15px;
-        justify-content: center;
-    }
-
-    .col-lg-4.col-md-6 {
-        padding: 0 15px;
-        max-width: 33.333333%;
-        flex: 0 0 33.333333%;
-        @include breakpoint(max-lg) {
-            max-width: 50%;
-            flex: 0 0 50%;
-        }
-        @include breakpoint(max-md) {
-            max-width: 100%;
-            flex: 0 0 100%;
-        }
-    }
-}
-
-// Ajustes de columnas
-.category-block {
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0 -15px;
-        justify-content: center;
-    }
-
-    .col-lg-4.col-md-6 {
-        padding: 0 15px;
-        max-width: 33.333333%;
-        flex: 0 0 33.333333%;
-        @include breakpoint(max-lg) {
-            max-width: 50%;
-            flex: 0 0 50%;
-        }
-        @include breakpoint(max-md) {
-            max-width: 100%;
-            flex: 0 0 100%;
-        }
-    }
-}
-
-// Ajustes de columnas
-.category-block {
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0 -15px;
-        justify-content: center;
-    }
-
-    .col-lg-4.col-md-6 {
-        padding: 0 15px;
-        max-width: 33.333333%;
-        flex: 0 0 33.333333%;
-        @include breakpoint(max-lg) {
-            max-width: 50%;
-            flex: 0 0 50%;
-        }
-        @include breakpoint(max-md) {
-            max-width: 100%;
-            flex: 0 0 100%;
-        }
-    }
-}
-
-// Ajustes de columnas
-.category-block {
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0 -15px;
-        justify-content: center;
-    }
-
-    .col-lg-4.col-md-6 {
-        padding: 0 15px;
-        max-width: 33.333333%;
-        flex: 0 0 33.333333%;
-        @include breakpoint(max-lg) {
-            max-width: 50%;
-            flex: 0 0 50%;
-        }
-        @include breakpoint(max-md) {
-            max-width: 100%;
-            flex: 0 0 100%;
+        // Estilos para productos agotados
+        &.unavailable {
+            opacity: 0.65; // Atenuar ligeramente toda la tarjeta
+            position: relative;
         }
     }
 }
@@ -1028,3 +938,55 @@
     .menu-display-section.section-padding {
         padding-top: 40px !important; // <-- Reduce este valor (prueba 40px, 50px, 60px con DevTools)
     }
+
+// Estilos para productos agotados en index.html (vista cliente)
+.dishes-card.unavailable,
+.product-item.unavailable { // Cubrir ambos posibles selectores base si se usan intercambiablemente
+  
+  .dishes-thumb { // Contenedor de la imagen
+    position: relative; // Necesario para posicionar el overlay de "Agotado"
+
+    img {
+      filter: grayscale(70%) opacity(0.6);
+      transition: filter 0.3s ease;
+    }
+
+    // Overlay para el texto "Agotado"
+    &::after {
+      content: 'TEMPORALMENTE AGOTADO';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 90%; // Para que el texto se centre bien si es largo y necesita múltiples líneas
+      transform: translate(-50%, -50%);
+      background-color: transparent; // Fondo transparente
+      color: $white; // Color de texto blanco (usando variable SCSS)
+      padding: 0; // Sin padding
+      font-family: $title-font; // Fuente de títulos del tema
+      font-size: 1.1rem; // Tamaño de fuente
+      font-weight: 700; // Peso de la fuente (negrita)
+      text-align: center; // Texto centrado
+      text-transform: uppercase; // Texto en mayúsculas
+      letter-spacing: 0.05em; // Espaciado entre letras
+      z-index: 2; // Asegurar que esté sobre la imagen
+      text-shadow: 
+        1px 1px 1px rgba(0,0,0,0.7), 
+        -1px -1px 1px rgba(0,0,0,0.7), 
+        1px -1px 1px rgba(0,0,0,0.7), 
+        -1px 1px 1px rgba(0,0,0,0.7),
+        0 0 3px rgba(0,0,0,0.6); // Sombra para mejorar legibilidad
+      // Las siguientes propiedades pueden no ser necesarias si el ::after no debe tener dimensiones propias más allá de su contenido
+      // pero se incluyen por si acaso alguna estaba implícitamente heredada o afectando el layout.
+      // Normalmente, con position absolute y transform, esto ya debería estar bien centrado.
+      // display: flex; // Estas probablemente no son necesarias aquí si el centrado es solo del texto interno
+      // align-items: center;
+      // justify-content: center;
+      // border-radius: inherit; // No necesaria sin fondo
+    }
+  }
+
+  // Atenuar y deshabilitar el botón de añadir al carrito
+  .add-to-cart-btn, .theme-btn.style6 { 
+    // ... (estilos para deshabilitar el botón)
+  }
+}

@@ -26,22 +26,29 @@ try {
 }
 
 // Genera dinámicamente etiquetas script para APIs externas
+// **DESACTIVADO**: La carga ahora se maneja dinámicamente desde el JS del frontend (index.html, my-account.html)
+/*
 function generate_api_tags() {
     // API de Google Maps
     if (defined('GOOGLE_MAPS_API_KEY')) {
-        echo '<script src="https://maps.googleapis.com/maps/api/js?key=' . GOOGLE_MAPS_API_KEY . '&libraries=places&callback=initMap" async defer></script>';
+        // echo '<script src="https://maps.googleapis.com/maps/api/js?key=' . GOOGLE_MAPS_API_KEY . '&libraries=places&callback=initMap" async defer></script>';
     }
     
     // API de PayPal
     if (defined('PAYPAL_CLIENT_ID')) {
-        echo '<script src="https://www.paypal.com/sdk/js?client-id=' . PAYPAL_CLIENT_ID . '&currency=MXN" defer></script>';
+        // echo '<script src="https://www.paypal.com/sdk/js?client-id=' . PAYPAL_CLIENT_ID . '&currency=MXN" defer></script>';
     }
     
     // Mercado Pago API
     if (defined('MP_PUBLIC_KEY')) {
-        echo '<script src="https://sdk.mercadopago.com/js/v2"></script>';
+        // echo '<script src="https://sdk.mercadopago.com/js/v2"></script>';
     }
 }
+*/
+
+// NO llamar a generate_api_tags() aquí si existía la llamada
+// generate_api_tags(); 
+
 ?>
 <!-- Configuración JavaScript -->
 <script src="config.js.php"></script> 

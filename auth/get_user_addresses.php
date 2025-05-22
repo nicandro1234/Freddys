@@ -1,55 +1,64 @@
 <?php
+// Mostrar errores durante el desarrollo
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 header('Content-Type: application/json');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+header('Expires: 0');
 
-require_once '../config.php';
+require_once __DIR__ . '/../db.php'; // Corregido: db.php está en la raíz (un nivel arriba de auth)
+require_once __DIR__ . '/functions.php'; // functions.php está en el mismo directorio auth/
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'Usuario no autenticado']);
-    exit;
-}
+// ini_set('log_errors', 1);
+// ini_set('error_log', __DIR__ . '/php-error.log');
+// error_log("--- Petición a get_user_addresses.php (PDO) ---");
 
 try {
-    $stmt = $conn->prepare("
-        SELECT 
-            id,
-            address_line,
-            city,
-            state,
-            zip_code,
-            country,
-            is_favorite
-        FROM addresses 
-        WHERE user_id = ? 
-        ORDER BY is_favorite DESC, created_at DESC
-    ");
-    
-    $stmt->bind_param("i", $_SESSION['user_id']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    $addresses = [];
-    while ($row = $result->fetch_assoc()) {
-        $addresses[] = [
-            'id' => $row['id'],
-            'street' => $row['address_line'],
-            'city' => $row['city'],
-            'state' => $row['state'],
-            'zip_code' => $row['zip_code'],
-            'country' => $row['country'],
-            'is_default' => (bool)$row['is_favorite']
-        ];
+    if (!isset($_SESSION['user']['id'])) {
+        // error_log("Usuario no autenticado en get_user_addresses.php");
+        echo json_encode(['success' => false, 'message' => 'Usuario no autenticado', 'addresses' => []]);
+        exit;
     }
+    $user_google_id = $_SESSION['user']['id'];
+
+    // En la tabla 'addresses', la columna 'user_id' debe almacenar el google_id del usuario.
+    $sql = "SELECT id, user_id, address_line, city, state, zip_code, country, is_favorite, created_at, updated_at 
+            FROM addresses 
+            WHERE user_id = :user_google_id 
+            ORDER BY is_favorite DESC, updated_at DESC, created_at DESC"; // Ordenar por favoritas y luego más recientes
     
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([':user_google_id' => $user_google_id]);
+    $addresses = $stmt->fetchAll(); // PDO::FETCH_ASSOC es el modo por defecto
+
+    // Convertir is_favorite a booleano si es necesario para el frontend
+    foreach ($addresses as &$address) { // Pasar por referencia para modificar el array original
+        $address['is_favorite'] = (bool)$address['is_favorite'];
+    }
+    unset($address); // Romper la referencia del último elemento
+
     echo json_encode([
         'success' => true,
         'addresses' => $addresses
     ]);
-    
-} catch (Exception $e) {
-    error_log("Error al obtener direcciones: " . $e->getMessage());
+
+} catch (PDOException $e) {
+    // error_log("PDOException en get_user_addresses.php: " . $e->getMessage());
     echo json_encode([
         'success' => false,
-        'message' => 'Error al obtener las direcciones'
+        'message' => 'Error de base de datos al obtener direcciones.', // No mostrar $e->getMessage() en producción
+        'addresses' => []
     ]);
-} 
+} catch (Exception $e) {
+    // error_log("Exception en get_user_addresses.php: " . $e->getMessage());
+    echo json_encode([
+        'success' => false,
+        'message' => 'Error al obtener direcciones: ' . esc_html($e->getMessage()),
+        'addresses' => []
+    ]);
+}
+?> 

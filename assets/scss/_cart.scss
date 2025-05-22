@@ -1,3 +1,37 @@
+/* Estilos Adicionales para asegurar visibilidad */
+.pac-container {
+    z-index: 999999 !important; /* Un valor muy alto para asegurar que esté por encima de todo */
+    background-color: #333; /* Fondo oscuro para que contraste en el carrito */
+    border: 1px solid #555;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo para los items individuales */
+.pac-item {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #eee;
+    cursor: pointer;
+    border-bottom: 1px solid #444;
+}
+
+.pac-item:last-child {
+    border-bottom: none;
+}
+
+/* Estilo para el item seleccionado o con hover */
+.pac-item:hover, .pac-item-selected {
+    background-color: #555;
+    color: #fff;
+}
+
+/* Estilo para el logo de Google */
+.pac-logo:after {
+    background-image: none !important; /* Ocultar el logo de Google si interfiere */
+    height: 0 !important;
+}
+
 // Importar las variables
 @import 'variables';
 
@@ -301,108 +335,296 @@
 .cart-panel {
   position: fixed;
   top: 0;
-  right: -400px;
+  right: -100%;
   width: 400px;
   height: 100vh;
-  background-color: #1A1A1A;
-  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  transition: right 0.3s ease;
+  background-color: darken($title-color, 5%);
+  box-shadow: -6px 0 20px rgba(0, 0, 0, 0.7);
+  z-index: 9999999 !important;
+  transition: right 0.4s ease;
   padding: 20px;
   overflow-y: auto;
-  color: #fff;
-  
+  color: $white;
+  visibility: visible;
+  opacity: 1;
+  display: block !important;
+  font-family: $body-font;
+  pointer-events: auto !important;
+  transform: translateZ(0);
+  will-change: transform, right;
+  backface-visibility: hidden;
+  isolation: isolate !important;
+
   &.open {
-    right: 0;
+    right: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
   }
-  
+
+  // Scrollbar personalizada para tema oscuro (AJUSTADA)
+  &::-webkit-scrollbar {
+    width: 6px; // Más delgada
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba($title-color, 0.05); // Fondo de pista muy sutil
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba($theme-color, 0.6); // Color del tema semitransparente
+    border-radius: 3px;
+    border: 1px solid rgba($title-color, 0.05); 
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgba($theme-color, 0.8);
+  }
+
   .cart-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    
+    margin: 0 -20px 20px -20px; // Extender al ancho completo del padding
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba($white, 0.1);
+    background-color: darken($title-color, 8%); // Cabecera ligeramente más oscura
+
     h3 {
       margin: 0;
-      font-size: 20px;
-      color: #fff;
+      font-size: 22px; // Ligeramente más grande
+      color: $white;
+      font-weight: 700; // Más peso
+      font-family: $title-font; // Fuente de títulos
+      text-transform: uppercase; // Mayúsculas como en títulos de sección
+      letter-spacing: 0.5px;
     }
-    
+
     .cart-close-btn {
       background: none;
       border: none;
-      color: #fff;
-      font-size: 20px;
+      color: rgba($white, 0.6);
+      font-size: 22px;
       cursor: pointer;
-      transition: color 0.3s ease;
-      
+      transition: color 0.3s ease, transform 0.3s ease;
+      padding: 5px;
+      line-height: 1; // Ajustar línea
+
       &:hover {
-        color: #ff6347;
-      }
-    }
-  }
-  
-  .cart-items {
-    margin-bottom: 20px;
-    max-height: 250px;
-    overflow-y: auto;
-  }
-  
-  .cart-total {
-    padding: 10px 0;
-    font-size: 18px;
-    font-weight: bold;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .cart-form {
-    .form-label {
-      color: #fff;
-      margin-bottom: 5px;
-    }
-    
-    .form-control {
-      background-color: #2A2A2A;
-      border: 1px solid #444;
-      color: #fff;
-      margin-bottom: 15px;
-      
-      &:focus {
-        background-color: #333;
-        border-color: #666;
-        box-shadow: none;
-      }
-      
-      &::placeholder {
-        color: #999;
-      }
-    }
-    
-    select.form-control {
-      background-color: #2A2A2A;
-      color: #fff;
-      
-      option {
-        background-color: #2A2A2A;
-        color: #fff;
-      }
-      
-      &:disabled {
-        background-color: #222;
-        opacity: 0.7;
+        color: $theme-color; // Usar color principal del tema
+        transform: rotate(90deg) scale(1.1);
       }
     }
   }
 
+  .cart-items {
+    margin-bottom: 25px;
+    max-height: calc(100vh - 380px); // Ajustar altura basada en otros elementos
+    overflow-y: auto; // Scroll solo si es necesario
+    padding-right: 10px; // Espacio para scrollbar
+
+    // Scrollbar interna (AJUSTADA, si .cart-items tiene su propio scroll)
+    &::-webkit-scrollbar { width: 5px; } // Aún más delgada para scroll interno
+    &::-webkit-scrollbar-track { background: rgba($title-color, 0.03); }
+    &::-webkit-scrollbar-thumb { background-color: rgba($theme-color, 0.5); border-radius: 3px; border: none; }
+    &::-webkit-scrollbar-thumb:hover { background-color: rgba($theme-color, 0.7); }
+  }
+
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; // Alinear al inicio para nombres largos y modificadores
+    padding: 12px 0; // Ligeramente menos padding vertical
+    border-bottom: 1px solid rgba($white, 0.1);
+    gap: 12px; // Un poco menos de espacio
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .item-info {
+      flex-grow: 1; // Ocupa el espacio disponible
+      display: flex;
+      flex-direction: column; // Apilar nombre y modificadores
+      gap: 4px; // Menor espacio entre nombre y modificadores
+
+      .item-name {
+        font-family: $title-font;
+        font-size: 15px; // Ligeramente más pequeño
+        font-weight: 600;
+        color: $white;
+        line-height: 1.25;
+      }
+
+      .item-modifiers {
+        display: flex;
+        flex-direction: column; // Cada modificador en una nueva línea
+        gap: 3px; // Espacio pequeño entre líneas de modificador
+
+        .modifier-line {
+          font-size: 12px; // Más pequeño para los detalles
+          color: rgba($white, 0.75);
+          line-height: 1.3;
+          padding-left: 8px; // Un poco menos de indentación
+          position: relative;
+
+          // Viñeta sutil para cada modificador
+          &::before {
+            content: "•";
+            position: absolute;
+            left: -2px; 
+            top: 0;
+            color: rgba($white, 0.5);
+          }
+        }
+      }
+    }
+
+    .item-controls {
+      display: flex;
+      flex-direction: column; // Apilar controles de cantidad, precio y botón de eliminar
+      align-items: flex-end; // Alinear a la derecha
+      gap: 6px; // Menor espacio
+      flex-shrink: 0; // No permitir que se encoja
+
+      .item-quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 6px; // Menor espacio
+
+        .qty-btn-cart {
+          background: rgba($white, 0.08);
+          border: 1px solid rgba($white, 0.2);
+          color: $white;
+          width: 26px;  // Ligeramente más pequeños
+          height: 26px;
+          line-height: 24px; 
+          text-align: center;
+          font-size: 13px; 
+          border-radius: 50%;
+          cursor: pointer;
+          transition: background-color 0.2s, border-color 0.2s;
+          display: flex; // Para centrar el ícono interno
+          justify-content: center;
+          align-items: center;
+
+          i {
+            // No se necesita ajuste vertical si el line-height y flex lo manejan
+          }
+
+          &:hover {
+            background: $theme-color;
+            border-color: $theme-color;
+          }
+        }
+
+        .item-quantity {
+          font-size: 15px; // Un poco más pequeño
+          font-weight: 600;
+          min-width: 25px; // Ancho para mostrar 1 o 2 dígitos
+          text-align: center;
+          color: $white;
+          padding: 0 5px;
+        }
+      }
+
+      .item-total-price {
+        font-size: 15px; // Un poco más pequeño
+        font-weight: 600;
+        color: $white;
+        font-family: $title-font;
+      }
+
+      // Estilo para el botón "Eliminar" con texto
+      .remove-item-btn.text-btn {
+        background: none;
+        border: none;
+        color: rgba($theme-color-2, 0.8); // Un rojo temático, pero no demasiado brillante
+        font-size: 12px; // Tamaño de fuente para el texto "Eliminar"
+        font-weight: 500;
+        padding: 4px 0px; // Padding ajustado para texto
+        cursor: pointer;
+        text-align: right; // Asegurar alineación si el contenedor es más grande
+        transition: color 0.2s ease;
+        letter-spacing: 0.3px;
+
+        &:hover {
+          color: $theme-color-2; // Rojo más intenso al pasar el mouse
+        }
+        // Quitar estilos de ícono si los hereda
+        i { display: none; }
+      }
+    }
+    
+    // Animaciones de entrada/salida
+    &.new-item {
+      animation: newItemFadeIn 0.5s ease-out;
+    }
+    
+    &.removing-item {
+      animation: removeItemFadeOut 0.3s ease-in forwards;
+    }
+  }
+
+  .cart-total {
+    padding: 18px 20px;
+    font-size: 20px; // Más grande
+    font-weight: bold;
+    border-top: 1px solid rgba($white, 0.15);
+    margin-top: 15px; // Espacio antes del total
+    margin-bottom: 25px;
+    background-color: darken($title-color, 10%); // Más oscuro aún para destacar
+    border-radius: 5px;
+    color: $white;
+    text-align: right; // Alinear a la derecha
+    font-family: $title-font;
+  }
+
+  .cart-form {
+    margin-top: 30px; // Más espacio antes del form
+    .form-label {
+      color: rgba($white, 0.6);
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 13px; // Más pequeño
+      text-transform: uppercase; // Mayúsculas
+      letter-spacing: 0.5px;
+    }
+
+    .form-control {
+      background-color: darken($title-color, 2%);
+      border: 1px solid rgba($white, 0.1);
+      color: $white;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      padding: 12px 15px; // Padding ajustado
+      font-size: 15px;
+      transition: border-color 0.3s, background-color 0.3s;
+      height: 48px; // Altura estándar
+
+      &:focus {
+        background-color: darken($title-color, 0%); // Fondo al enfocar
+        border-color: $theme-color;
+        box-shadow: none; // Sin sombra de bootstrap
+        outline: none;
+      }
+
+      &::placeholder {
+        color: rgba($white, 0.3);
+      }
+    }
+
+    // Estilos específicos para selects si son diferentes
+    select.form-control {
+        // Hereda estilos de .form-control
+        // Si usas nice-select, necesitarás estilizar .nice-select específicamente
+    }
+  }
+
+  // Estilos para botones de pago, etc. (pueden heredar o necesitar ajustes)
   .payment-options {
     margin-top: 20px;
 
     .form-label {
       font-family: $title-font;
-      color: $title-color;
+      color: #fff;
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 10px;
@@ -411,16 +633,16 @@
     .payment-method-select {
       width: 100%;
       padding: 10px;
-      border: 1px solid $border-color-2;
+      border: 1px solid #444;
       border-radius: 5px;
       font-family: $title-font;
       font-size: 0.9rem;
-      color: $title-color;
-      background-color: $white;
+      color: #fff;
+      background-color: #2A2A2A;
       transition: border-color 0.3s ease;
 
       &:focus {
-        border-color: $theme-color;
+        border-color: #666;
         outline: none;
       }
     }
@@ -467,54 +689,12 @@
   }
 
   .payment-validation-message {
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 5px;
-    margin-bottom: 10px;
-  }
-  
-  // Estilo para items de carrito nuevos y salientes
-  .cart-item {
-    position: relative;
-    padding: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s ease;
-    
-    &.new-item {
-      background-color: rgba(40, 167, 69, 0.2);
-      animation: highlightGreen 1s ease;
-    }
-    
-    &.removing-item {
-      background-color: rgba(220, 53, 69, 0.2);
-      animation: fadeOutItem 0.5s ease forwards;
-    }
-    
-    .remove-item-btn {
-      background: none;
-      border: none;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 16px;
-      cursor: pointer;
-      transition: color 0.3s ease;
-      
-      &:hover {
-        color: rgba(220, 53, 69, 0.9);
-      }
-    }
-  }
-  
-  @keyframes highlightGreen {
-    0% { background-color: rgba(40, 167, 69, 0.4); }
-    100% { background-color: transparent; }
-  }
-  
-  @keyframes fadeOutItem {
-    from { opacity: 1; transform: translateX(0); }
-    to { opacity: 0; transform: translateX(30px); }
+    color: $theme-color-2; // Rojo para mensajes de error
+    font-size: 13px;
+    margin-top: -10px; // Ajustar posición
+    margin-bottom: 15px;
+    display: block;
+    font-style: italic;
   }
 }
 
@@ -617,26 +797,90 @@
   }
 
   .cart-panel {
-    width: 100%;
-    right: -100%;
+    width: 100%; // Ancho completo en móvil
+    right: -100%; // Asegurar que esté oculto
+    padding: 20px; // Padding ajustado
 
     &.open {
       right: 0;
+    }
+
+    .cart-items {
+      max-height: calc(100vh - 350px); // Ajustar altura máxima para móvil
+    }
+
+    .cart-header h3 { font-size: 20px; }
+    .cart-total { font-size: 18px; }
+    .cart-form .form-control { font-size: 14px; padding: 10px 12px; }
+
+    .cart-item {
+      padding: 10px 0; // Aún menos padding en móvil
+      gap: 8px;       // Menos gap
+
+      .item-info {
+        .item-name {
+          font-size: 14px; // Más pequeño en móvil
+        }
+        .item-modifiers .modifier-line {
+          font-size: 11px; // Detalles aún más pequeños
+          padding-left: 6px; 
+            &::before {
+             left: -3px; 
+             font-size: 10px; // Ajustar tamaño de viñeta si es necesario
+            }
+        }
+      }
+
+      .item-controls {
+        .item-quantity-controls {
+          gap: 5px;
+          .qty-btn-cart {
+            width: 24px;
+            height: 24px;
+            line-height: 22px;
+            font-size: 12px;
+          }
+          .item-quantity {
+            font-size: 14px;
+          }
+        }
+        .item-total-price {
+          font-size: 14px;
+        }
+        .remove-item-btn.text-btn {
+          font-size: 11px; // Texto de eliminar más pequeño en móvil
+          padding: 3px 0;
+        }
+      }
+    }
+    
+    // Ajustar scrollbar para móvil si es diferente o si no se quiere
+    &::-webkit-scrollbar {
+      width: 4px; // Scrollbar muy fina en móvil
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba($theme-color, 0.4);
+    }
+     .cart-items::-webkit-scrollbar { 
+        width: 4px; // Scrollbar muy fina en móvil
+     }
+     .cart-items::-webkit-scrollbar-thumb {
+      background-color: rgba($theme-color, 0.4);
     }
   }
 }
 
 // Animaciones del carrito
 .cart-bounce {
-    animation: bounce 1s ease;
+    animation: bounce 0.5s ease;
 }
 
 .cart-item-remove {
-    animation: slideOut 0.5s ease forwards;
+    animation: slideOut 0.2s ease forwards;
 }
 
 .cart-item-add {
-    animation: slideIn 0.5s ease forwards;
+    animation: slideIn 0.2s ease forwards;
 }
 
 @keyframes bounce {
@@ -644,10 +888,10 @@
         transform: translateY(0);
     }
     40% {
-        transform: translateY(-20px);
+        transform: translateY(-10px);
     }
     60% {
-        transform: translateY(-10px);
+        transform: translateY(-5px);
     }
 }
 
@@ -676,7 +920,7 @@
 // Estilos del carrito
 .cart-container {
     position: relative;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 
     &:hover {
         transform: scale(1.05);
@@ -686,7 +930,7 @@
 .cart-icon {
     font-size: 1.5rem;
     color: #333;
-    transition: color 0.3s ease;
+    transition: color 0.2s ease;
 
     &:hover {
         color: #007bff;
@@ -702,7 +946,7 @@
     border-radius: 50%;
     padding: 2px 6px;
     font-size: 0.75rem;
-    animation: pulse 2s infinite;
+    animation: pulse 1s infinite;
 }
 
 @keyframes pulse {
@@ -723,12 +967,12 @@
     align-items: center;
     padding: 1rem;
     border-bottom: 1px solid #eee;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     position: relative;
     overflow: hidden;
 
     &:hover {
-        background-color: #f8f9fa;
+        background-color: rgba(70, 70, 70, 0.8);
     }
 
     &.new-item {
@@ -895,8 +1139,41 @@
 }
 
 .payment-validation-message {
-    color: #dc3545;
+    color: #ff6347;
     font-size: 0.875rem;
     margin-top: 5px;
     margin-bottom: 10px;
+}
+
+// Keyframes para las animaciones si no existen o para afinarlas
+@keyframes newItemFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes removeItemFadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px); // Deslizar un poco al salir
+    max-height: 0; // Encoger
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0; // Quitar margen para que el siguiente suba suave
+    border: none; // Quitar borde durante la animación de salida
+  }
+}
+
+// Ajustes para asegurar que el NiceSelect no interfiera con el click en el carrito
+.nice-select.single-select.mitad-selector.open {
+    z-index: 10; // Un z-index menor que el carrito (ej. 99999)
 }

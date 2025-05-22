@@ -34,14 +34,19 @@
     <!--<< Main.css >>-->
     <link rel="stylesheet" href="assets/css/main.css">
     <!--<< jQuery >>-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
     <!--<< MeanMenu >>-->
     <script src="assets/js/jquery.meanmenu.min.js"></script>
     <!--<< Auth.js >>-->
     <script src="assets/js/auth.js"></script>
     <!--<< Main.js >>-->
     <script src="assets/js/main.js"></script>
+    <!--<< Account.js >>-->
+    <script src="assets/js/account.js"></script>
     
+    <!-- Estilos adicionales para la página de cuenta -->
+    <!-- Los estilos se han movido a assets/scss/_account.scss -->
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Iniciar la aplicación cuando la configuración esté cargada
@@ -54,7 +59,10 @@
                     
                     // Cargar datos del usuario si la función está disponible
                     if (typeof loadUserData === 'function') {
+                        console.log('Intentando cargar datos del usuario...');
                         loadUserData();
+                    } else {
+                        console.error('loadUserData no está definida');
                     }
                 }
             });
@@ -102,7 +110,7 @@
                 <div class="offcanvas__content">
                     <div class="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
                         <div class="offcanvas__logo">
-                            <a href="index.html">
+                            <a href="https://freddys.com.mx">
                                 <img src="assets/img/logo/logo.svg" alt="logo-img">
                             </a>
                         </div>
@@ -113,8 +121,12 @@
                         </div>
                     </div>
                     <div class="offcanvas__custom-menu d-xl-none">
-                        <a href="index.html" class="offcanvas__menu-btn">Inicio</a>
+                        <a href="https://freddys.com.mx" class="offcanvas__menu-btn">Inicio</a>
                         <a href="my-account.html" class="offcanvas__menu-btn">Mi Cuenta</a>
+                        <!-- Botón Logout para Móvil (inicialmente oculto por CSS) -->
+                        <button onclick="logout()" class="theme-btn offcanvas__menu-btn offcanvas-logout-btn" style="display: none; width: 100%; margin-top: 10px;">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </button>
                     </div>
                     <div class="offcanvas__navigation">
                         <div class="mobile-menu fix mb-3"></div>
@@ -195,11 +207,11 @@
                                             <nav id="mobile-menu">
                                                 <ul>
                                                     <li class="main-nav-item d-xl-block d-none">
-                                                        <a href="index.html">Inicio</a>
+                                                        <a href="https://freddys.com.mx">Inicio</a>
                                                     </li>
                                                     <li class="logo-item d-none d-xl-block">
                                                         <div class="logo-image">
-                                                            <a href="index.html"><img src="assets/img/logo/logo-light.png" alt="Freddy's Logo"></a>
+                                                            <a href="https://freddys.com.mx"><img src="assets/img/logo/logo-light.png" alt="Freddy's Logo"></a>
                                                         </div>
                                                     </li>
                                                     <li class="main-nav-item d-xl-block d-none">
@@ -321,9 +333,6 @@
                                         <li data-tab="phones">
                                             <a href="#"><i class="fas fa-phone"></i> Mis Teléfonos</a>
                                         </li>
-                                        <li data-tab="settings">
-                                            <a href="#"><i class="fas fa-cog"></i> Configuración</a>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -359,6 +368,27 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    
+                                    <!-- Contenedor para detalles de pedido -->
+                                    <div id="orderDetails" class="order-details" style="display: none;">
+                                        <div class="order-details-header">
+                                            <h3>Detalles del Pedido #<span id="orderDetailId"></span></h3>
+                                            <button class="order-details-close" onclick="hideOrderDetails()">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="order-info">
+                                            <p><strong>Fecha:</strong> <span id="orderDetailDate"></span></p>
+                                            <p><strong>Estado:</strong> <span id="orderDetailStatus"></span></p>
+                                            <p><strong>Dirección de entrega:</strong> <span id="orderDetailAddress"></span></p>
+                                        </div>
+                                        <div class="order-items" id="orderDetailItems">
+                                            <!-- Items will be populated here -->
+                                        </div>
+                                        <div class="order-total">
+                                            <strong>Total:</strong> $<span id="orderDetailTotal"></span>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <!-- Addresses Tab -->
@@ -369,8 +399,13 @@
                                             <i class="fas fa-plus"></i> Añadir Dirección
                                         </button>
                                     </div>
-                                    <div class="addresses-grid" id="addressesList">
-                                        <!-- Addresses will be populated here -->
+                                    <div class="addresses-grid row" id="addressesList">
+                                        <!-- Las direcciones se cargarán dinámicamente -->
+                                    </div>
+                                    
+                                    <!-- Contenedor para el formulario de direcciones -->
+                                    <div id="address-form-container" class="account-form" style="display: none;">
+                                        <!-- El formulario se cargará dinámicamente -->
                                     </div>
                                 </div>
 
@@ -382,29 +417,13 @@
                                             <i class="fas fa-plus"></i> Añadir Teléfono
                                         </button>
                                     </div>
-                                    <div class="phones-list" id="phonesList">
-                                        <!-- Phones will be populated here -->
+                                    <div class="phones-list row" id="phonesList">
+                                        <!-- Los teléfonos se cargarán dinámicamente -->
                                     </div>
-                                </div>
-
-                                <!-- Settings Tab -->
-                                <div class="account-tab-content" id="settings-tab">
-                                    <div class="account-tab-header">
-                                        <h2>Configuración</h2>
-                                    </div>
-                                    <div class="settings-form">
-                                        <div class="form-group">
-                                            <label>Notificaciones</label>
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="emailNotifications">
-                                                <label class="form-check-label" for="emailNotifications">Notificaciones por correo</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="smsNotifications">
-                                                <label class="form-check-label" for="smsNotifications">Notificaciones por SMS</label>
-                                            </div>
-                                        </div>
-                                        <button class="theme-btn" id="saveSettings">Guardar Cambios</button>
+                                    
+                                    <!-- Contenedor para el formulario de teléfonos -->
+                                    <div id="phone-form-container" class="account-form" style="display: none;">
+                                        <!-- El formulario se cargará dinámicamente -->
                                     </div>
                                 </div>
                             </div>
@@ -421,7 +440,7 @@
             <div class="container">
                 <div class="footer-wrapper d-flex align-items-center justify-content-between">
                     <p class="wow fadeInLeft" data-wow-delay=".3s">
-                        © Gracias por Comprar en <a href="index.html">Freddy's Pizza</a>
+                        © Gracias por Comprar en <a href="https://freddys.com.mx">Freddy's Pizza</a>
                     </p>
                 </div>
             </div>
@@ -429,7 +448,6 @@
     </footer>
 
     <!-- All JS Plugins -->
-    <script src="assets/js/jquery-3.7.1.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery.waypoints.js"></script>
     <script src="assets/js/jquery.counterup.min.js"></script>
@@ -437,14 +455,19 @@
     <script src="assets/js/magnific-popup.min.js"></script>
     <script src="assets/js/tilt.min.js"></script>
     <script src="assets/js/swiper-bundle.min.js"></script>
-    <script src="assets/js/jquery.meanmenu.min.js"></script>
     <script src="assets/js/wow.min.js"></script>
     <script src="assets/js/nice-select.min.js"></script>
-    <script src="assets/js/main.js"></script>
     <!-- Custom Account JS -->
     <script src="assets/js/account.js"></script>
+    
+    <!-- Script Principal y de Carga Dinámica -->
     <script>
-        // Inicializar el carrito
+        // Fallback para initMap si Google Maps no carga
+        window.initMap = window.initMap || function() {
+            console.log('[Account Page] Inicializador Map fallback ejecutado');
+        };
+
+        // Inicializar carrito (igual que en index)
         if (typeof cart === 'undefined') {
             let cart = [];
             try {
@@ -453,51 +476,190 @@
                     cart = JSON.parse(savedCart);
                 }
             } catch (error) {
-                console.error('Error al cargar el carrito:', error);
+                console.error('[Account Page] Error al cargar el carrito:', error);
                 cart = [];
             }
         }
 
-        // Inicializar eventos del carrito
+        // Listener para cargar SDKs cuando la config esté lista
+        document.addEventListener('configLoaded', function() {
+            console.log('[Account Page] Configuración cargada, inicializando SDKs...');
+            
+            // Cargar PayPal SDK
+            if (window.config && window.config.PAYPAL_CLIENT_ID && !document.getElementById('paypal-script')) {
+                console.log('[Account Page] Cargando SDK de PayPal...');
+                const paypalScript = document.createElement('script');
+                paypalScript.id = 'paypal-script';
+                paypalScript.defer = true;
+                paypalScript.src = `https://www.paypal.com/sdk/js?client-id=${window.config.PAYPAL_CLIENT_ID}&currency=MXN`;
+                document.head.appendChild(paypalScript);
+            }
+            
+            // Cargar Google Maps API
+            if (window.config && window.config.GOOGLE_MAPS_API_KEY && !document.getElementById('maps-script')) {
+                 console.log('[Account Page] Cargando API de Google Maps...');
+                const mapsScript = document.createElement('script');
+                mapsScript.id = 'maps-script';
+                mapsScript.async = true;
+                mapsScript.defer = true;
+                mapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${window.config.GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
+                window.initMap = initMap; // Asegurar que esté definida globalmente
+                document.head.appendChild(mapsScript);
+            }
+
+            // Cargar Mercado Pago SDK
+            if (window.config && window.config.MP_PUBLIC_KEY && !document.getElementById('mercadopago-sdk-script')) {
+                console.log('[Account Page] Cargando SDK de Mercado Pago...');
+                const mpScript = document.createElement('script');
+                mpScript.id = 'mercadopago-sdk-script'; 
+                mpScript.src = 'https://sdk.mercadopago.com/js/v2';
+                mpScript.async = true;
+                mpScript.onload = () => {
+                    console.log('[Account Page] SDK de Mercado Pago cargado dinámicamente.');
+                    if (typeof initializeMercadoPagoSDK === 'function' && window.mpInstance === null) {
+                        initializeMercadoPagoSDK();
+                    }
+                };
+                mpScript.onerror = () => {
+                     console.error('[Account Page] Error al cargar SDK de Mercado Pago.');
+                };
+                document.head.appendChild(mpScript);
+            }
+            
+            // Verificar Auth Status (si es necesario en esta página también)
+            if (typeof checkAuthStatus === 'function') {
+                checkAuthStatus();
+                // setInterval(checkAuthStatus, 300000); // Considera si necesitas el intervalo aquí
+            }
+        });
+
+        // Timeout fallback (igual que en index)
+        setTimeout(function() {
+            if (typeof window.config === 'undefined') {
+                 console.error('[Account Page] Config no está disponible después de esperar');
+            } else if (!window.configLoaded) { // Verificar si ya se disparó
+                 console.log('[Account Page] Inicialización por timeout');
+                 document.dispatchEvent(new Event('configLoaded'));
+            }
+        }, 2000);
+
+        // Función de inicialización de Google Maps (Callback)
+        function initMap() {
+            console.log('[Account Page] initMap ejecutado.');
+            if (typeof google !== 'undefined' && google.maps !== 'undefined') {
+                console.log('[Account Page] Google Maps API cargada correctamente');
+                
+                // Intentar inicializar autocompletado si la función existe (de main.js)
+                if (typeof initGoogleMapsAutocomplete === 'function') {
+                    console.log('[Account Page] Llamando a initGoogleMapsAutocomplete desde initMap...');
+                    initGoogleMapsAutocomplete(); 
+                }
+
+                // Intentar inicializar el autocompletado específico de esta página
+                if (typeof initAutocomplete === 'function') {
+                    console.log('[Account Page] Llamando a initAutocomplete específico de la página...');
+                    initAutocomplete();
+                }                
+                
+                // Inicializar mapa si existe el elemento #map en esta página
+                const mapElement = document.getElementById('map'); 
+                if (mapElement) {
+                    try {
+                        const map = new google.maps.Map(mapElement, {
+                            center: { lat: 21.1213, lng: -101.6741 },
+                            zoom: 12
+                        });
+                        console.log('[Account Page] Mapa inicializado en #map.');
+                    } catch(mapError) {
+                        console.error('[Account Page] Error al inicializar el mapa en #map:', mapError);
+                    }
+                }
+
+            } else {
+                console.error('[Account Page] Google Maps API no se cargó correctamente');
+            }
+        }
+        window.initMap = initMap; // Asegurar que sea global
+
+
+        // Inicializar eventos específicos de la página de cuenta (dentro de DOMContentLoaded)
         document.addEventListener('DOMContentLoaded', function() {
-            const cartIcon = document.getElementById('cartIcon');
+            // Listener para el carrito (si existe el icono en esta página)
+            const cartIcon = document.getElementById('cartIcon'); // Asumiendo que tiene este ID
             const cartPanel = document.getElementById('cartPanel');
             const cartCloseBtn = document.getElementById('cartCloseBtn');
 
             if (cartIcon && cartPanel && cartCloseBtn) {
-                cartIcon.addEventListener('click', function() {
-                    cartPanel.style.display = 'block';
-                    updateCartDisplay();
+                cartIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    cartPanel.classList.add('open');
+                    cartPanel.style.right = '0'; 
+                    if(typeof updateCartDisplay === 'function') updateCartDisplay();
                 });
 
                 cartCloseBtn.addEventListener('click', function() {
-                    cartPanel.style.display = 'none';
+                    cartPanel.classList.remove('open');
+                    cartPanel.style.right = '-100%';
                 });
+                
+                // Listener de clic fuera (igual que en main.js, si el carrito está aquí)
+                 $(document).on("click.cartAccount", function(e) {
+                    const $target = $(e.target);
+                    if (
+                        !$target.closest(cartPanel).length &&
+                        !$target.closest(cartIcon).length &&
+                        cartPanel.classList.contains("open") 
+                    ) {
+                        cartPanel.classList.remove('open');
+                        cartPanel.style.right = '-100%';
+                    }
+                });
+                 $(cartPanel).on("click.cartPanelAccount", function(e) { e.stopPropagation(); });
             }
 
-            // Inicializar Google Sign-In
-            if (typeof window.config !== 'undefined' && window.config.GOOGLE_CLIENT_ID) {
-                google.accounts.id.initialize({
-                    client_id: window.config.GOOGLE_CLIENT_ID,
-                    callback: handleCredentialResponse
-                });
+            // Inicializar Google Sign-In (si el contenedor existe)
+            const googleSignInContainer = document.getElementById('google-signin-container');
+            /* --- COMENTAR ESTE BLOQUE PARA EVITAR CONFLICTOS ---
+            if (googleSignInContainer && typeof google !== 'undefined' && google.accounts)
+            {
+                console.log('[Account Page] Configurando Google Sign-In...')
+                 if (window.config && window.config.GOOGLE_CLIENT_ID) {
+                    try {
+                        google.accounts.id.initialize({
+                            client_id: window.config.GOOGLE_CLIENT_ID,
+                            callback: handleCredentialResponse // Usar la función definida abajo
+                        });
+                        google.accounts.id.renderButton(
+                            googleSignInContainer,
+                            { theme: 'outline', size: 'large', text: 'signin_with' } 
+                        );
+                         console.log('[Account Page] Botón Google Sign-In renderizado.')
+                    } catch (signInError) {
+                         console.error('[Account Page] Error inicializando Google Sign-In:', signInError);
+                    }
+                } else {
+                    console.error('[Account Page] GOOGLE_CLIENT_ID no está configurado para Sign-In.');
+                }
+            } else if (googleSignInContainer) {
+                 console.warn('[Account Page] Google Accounts SDK no listo para Sign-In.');
+            }
+            */ // --- FIN DEL BLOQUE COMENTADO ---
 
-                // Renderizar botón de Google Sign-In
-                google.accounts.id.renderButton(
-                    document.getElementById('google-signin-container'),
-                    { theme: 'outline', size: 'large', text: 'signin_with' }
-                );
+            // Llamar a la inicialización de Autocomplete específica de la página AHORA
+            // ya que depende de elementos que están listos en DOMContentLoaded
+            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+                 console.log('[Account Page] Google Maps lista en DOMContentLoaded, llamando initAutocomplete.');
+                 initAutocomplete(); // La función definida más abajo
             } else {
-                console.error('GOOGLE_CLIENT_ID no está configurado');
+                console.log('[Account Page] Google Maps no lista en DOMContentLoaded, esperando a initMap para initAutocomplete.');
+                // initMap se encargará de llamarla cuando esté lista
             }
-
-            // Inicializar autocompletado de direcciones
-            initAutocomplete();
         });
 
+        // Función callback para Google Sign-In (si se usa)
         function handleCredentialResponse(response) {
-            console.log("ID Token: " + response.credential);
-            fetch('/auth/google_auth.php', {
+            console.log("[Account Page] ID Token recibido: " + response.credential);
+            fetch('/auth/google_auth.php', { // Asegúrate que la ruta sea correcta
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -507,72 +669,97 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    console.log('Inicio de sesión exitoso');
-                    checkAuthStatus();
+                    console.log('[Account Page] Inicio de sesión exitoso vía callback.');
+                    if(typeof checkAuthStatus === 'function') checkAuthStatus(); // Actualizar UI
+                    // Podrías redirigir o actualizar partes de la página aquí
                 } else {
-                    console.error('Error en el inicio de sesión:', data.message);
+                    console.error('[Account Page] Error en el inicio de sesión backend:', data.message);
+                    alert('Error al iniciar sesión.'); // O mostrar un mensaje más amigable
                 }
             })
             .catch(error => {
-                console.error('Error al procesar la autenticación:', error);
+                console.error('[Account Page] Error al procesar la autenticación:', error);
+                alert('Error de comunicación al iniciar sesión.');
             });
         }
 
-        // Función para inicializar el autocompletado de direcciones
+        // Función para inicializar el autocompletado específico de esta página
+        // (Asumiendo que tienes campos como #customerAddress, #latitude, etc. aquí también)
         function initAutocomplete() {
-            const addressInput = document.getElementById('customerAddress');
-            if (addressInput) {
-                const autocomplete = new google.maps.places.Autocomplete(addressInput, {
-                    types: ['address'],
-                    componentRestrictions: { country: 'mx' }
-                });
+             console.log('[Account Page] Ejecutando initAutocomplete específico...');
+             const addressInput = document.getElementById('address_line'); // <<< ID DEL CAMPO DE DIRECCIÓN EN ESTA PÁGINA
+             const latInput = document.getElementById('latitude');
+             const lngInput = document.getElementById('longitude');
+             // Añade otros campos si los tienes: cityInput, stateInput, zipInput
 
-                autocomplete.addListener('place_changed', function() {
-                    const place = autocomplete.getPlace();
-                    if (!place.geometry) {
-                        console.log("No se encontraron detalles para la dirección: '" + place.name + "'");
-                        return;
-                    }
+            if (addressInput && typeof google !== 'undefined' && google.maps && google.maps.places) {
+                 console.log('[Account Page] Inicializando Places Autocomplete para #address_line');
+                 try {
+                    const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+                        types: ['address'],
+                        componentRestrictions: { country: 'mx' }
+                    });
 
-                    // Obtener latitud y longitud
-                    const lat = place.geometry.location.lat();
-                    const lng = place.geometry.location.lng();
-                    document.getElementById('latitude').value = lat;
-                    document.getElementById('longitude').value = lng;
-
-                    // Obtener componentes de la dirección
-                    let street = '';
-                    let city = '';
-                    let state = '';
-                    let zip = '';
-
-                    for (const component of place.address_components) {
-                        const componentType = component.types[0];
-                        switch (componentType) {
-                            case 'street_number':
-                            case 'route':
-                                street += component.long_name + ' ';
-                                break;
-                            case 'locality':
-                                city = component.long_name;
-                                break;
-                            case 'administrative_area_level_1':
-                                state = component.long_name;
-                                break;
-                            case 'postal_code':
-                                zip = component.long_name;
-                                break;
+                    autocomplete.addListener('place_changed', function() {
+                        const place = autocomplete.getPlace();
+                         console.log('[Account Page] Place selected:', place);
+                        if (!place.geometry) {
+                            console.warn("[Account Page] Autocomplete: No geometry found for place: ", place.name);
+                            return;
                         }
+
+                        // Actualizar campos (ajusta los IDs si son diferentes aquí)
+                        if(latInput) latInput.value = place.geometry.location.lat();
+                        if(lngInput) lngInput.value = place.geometry.location.lng();
+                        
+                        // Extraer componentes (ejemplo)
+                        let components = {};
+                        for (const component of place.address_components) {
+                            const type = component.types[0];
+                            components[type] = component.long_name;
+                        }
+                        console.log('[Account Page] Address components:', components);
+                        // document.getElementById('city').value = components.locality || '';
+                        // document.getElementById('state').value = components.administrative_area_level_1 || '';
+                        // document.getElementById('zip').value = components.postal_code || '';
+                        // ... etc.
+                    });
+                 } catch (autoCompError) {
+                     console.error('[Account Page] Error inicializando Places Autocomplete:', autoCompError);
+                 }
+            } else if (addressInput) {
+                 console.warn('[Account Page] Google Maps Places no listo para Autocomplete.');
+            } else {
+                console.log('[Account Page] Campo #address_line no encontrado para Autocomplete.');
+            }
+        }
+
+        // Inicializar el componente PlaceAutocompleteElement
+        function initPlaceAutocomplete() {
+            const placeAutocomplete = document.getElementById('address_line');
+            if (placeAutocomplete) {
+                placeAutocomplete.addEventListener('gmp-place-changed', function() {
+                    const place = placeAutocomplete.place;
+                    if (!place) return;
+
+                    // Extraer componentes de la dirección
+                    let components = {};
+                    for (const component of place.address_components) {
+                        const type = component.types[0];
+                        components[type] = component.long_name;
                     }
 
-                    // Actualizar campos ocultos con la información
-                    document.getElementById('street').value = street.trim();
-                    document.getElementById('city').value = city;
-                    document.getElementById('state').value = state;
-                    document.getElementById('zip').value = zip;
+                    // Actualizar campos del formulario
+                    document.getElementById('city').value = components.locality || '';
+                    document.getElementById('state').value = components.administrative_area_level_1 || '';
+                    document.getElementById('zip_code').value = components.postal_code || '';
+                    document.getElementById('country').value = components.country || '';
                 });
             }
         }
+
+        // Llamar a la inicialización cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', initPlaceAutocomplete);
     </script>
 </body>
 </html>

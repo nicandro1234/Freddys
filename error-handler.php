@@ -4,7 +4,7 @@
 // Habilitar registro de errores
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/php-errors.log');
+ini_set('error_log', __DIR__ . '/../logs/php-errors.log');
 
 // Verificar PHP info
 function test_php_processing() {
@@ -71,7 +71,7 @@ function check_scripts_status() {
     
     // Verificar errores recientes
     $recent_errors = array();
-    $error_log = __DIR__ . '/php-errors.log';
+    $error_log = __DIR__ . '/../logs/php-errors.log';
     if (file_exists($error_log) && is_readable($error_log)) {
         $log_content = file_get_contents($error_log);
         // Obtener las últimas 5 líneas del archivo de error

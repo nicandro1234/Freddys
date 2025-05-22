@@ -362,21 +362,24 @@
 }
 
 .category-block {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: left 0.5s ease-in-out, opacity 0.3s ease-in-out;
+    // position: absolute; // Comentar o eliminar esta línea
+    // top: 0; // Ya no es necesario si no es absoluto
+    // left: 100%; // Cambiar por transform
+    transform: translateX(100%); // Usar transform para la posición inicial fuera de pantalla
+    width: 100%; // Mantener
+    opacity: 0; // Mantener para el fade
+    transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out; // Cambiar 'left' por 'transform'
 
     &.visible {
-        left: 0;
-        opacity: 1;
+        // left: 0; // Cambiar por transform
+        transform: translateX(0%); // Mover a la posición visible
+        opacity: 1; // Mantener
     }
 
-    &.hidden {
-        left: -100%;
-        opacity: 0;
+    &.hidden { // Asumo que esta clase se usa para el que se oculta
+        // left: -100%; // Cambiar por transform
+        transform: translateX(-100%); // Mover a la posición oculta fuera de pantalla
+        opacity: 0; // Mantener
     }
 }
 

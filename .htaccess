@@ -1,6 +1,9 @@
 RewriteEngine On
 RewriteRule ^auth/google$ auth/google_auth.php [L]
 
+# <<< NUEVA REGLA PARA MERCADO PAGO PREFERENCE >>>
+RewriteRule ^order/createPreference$ order/createPreference.php [NC,L]
+
 # Procesar archivos HTML con PHP - método alternativo más fiable
 <Files ~ "\.html$">
     AddHandler application/x-httpd-php .html
